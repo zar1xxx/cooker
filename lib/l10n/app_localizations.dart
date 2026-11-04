@@ -1233,6 +1233,180 @@ abstract class AppLocalizations {
   /// In ru, this message translates to:
   /// **'Настройки успешно сохранены'**
   String get aiSettingsSaved;
+
+  /// Заголовок экрана вкусов и предпочтений
+  ///
+  /// In ru, this message translates to:
+  /// **'Что приложение знает о ваших вкусах'**
+  String get tasteScreenTitle;
+
+  /// Подзаголовок настроек вкусов
+  ///
+  /// In ru, this message translates to:
+  /// **'Аллергии, нелюбимые продукты и обученные вкусы'**
+  String get tasteScreenSubtitle;
+
+  /// Пояснение о работе вкусового профиля
+  ///
+  /// In ru, this message translates to:
+  /// **'Приложение запоминает ваши оценки. Блюда с оценкой 5 предлагаются чаще, а с оценкой 1 исключаются навсегда.'**
+  String get tasteAboutCard;
+
+  /// Заголовок секции любимых вкусов
+  ///
+  /// In ru, this message translates to:
+  /// **'Любимые вкусы'**
+  String get tasteLikedSectionTitle;
+
+  /// Текст при отсутствии любимых признаков
+  ///
+  /// In ru, this message translates to:
+  /// **'Пока нет данных о любимых вкусах. Оценивайте блюда после готовки!'**
+  String get tasteLikedEmpty;
+
+  /// Заголовок секции нелюбимых вкусов
+  ///
+  /// In ru, this message translates to:
+  /// **'Нелюбимые вкусы'**
+  String get tasteDislikedSectionTitle;
+
+  /// Текст при отсутствии нелюбимых признаков
+  ///
+  /// In ru, this message translates to:
+  /// **'Пока нет данных о нелюбимых вкусах'**
+  String get tasteDislikedEmpty;
+
+  /// Заголовок секции любимых блюд
+  ///
+  /// In ru, this message translates to:
+  /// **'Любимые блюда'**
+  String get tasteTopDishesTitle;
+
+  /// Текст при отсутствии оценённых блюд
+  ///
+  /// In ru, this message translates to:
+  /// **'Пока нет оценённых блюд в истории'**
+  String get tasteTopDishesEmpty;
+
+  /// Кнопка сброса профиля вкусов
+  ///
+  /// In ru, this message translates to:
+  /// **'Сбросить вкусы'**
+  String get tasteResetButton;
+
+  /// Заголовок диалога сброса вкусов
+  ///
+  /// In ru, this message translates to:
+  /// **'Сбросить вкусы?'**
+  String get tasteResetDialogTitle;
+
+  /// Текст предупреждения при сбросе вкусов
+  ///
+  /// In ru, this message translates to:
+  /// **'Все накопленные оценки и вкусовые предпочтения будут сброшены. Ваши аллергии и исключения сохранятся.'**
+  String get tasteResetDialogMessage;
+
+  /// Кнопка отмены сброса
+  ///
+  /// In ru, this message translates to:
+  /// **'Отмена'**
+  String get tasteResetDialogCancel;
+
+  /// Кнопка подтверждения сброса
+  ///
+  /// In ru, this message translates to:
+  /// **'Сбросить'**
+  String get tasteResetDialogConfirm;
+
+  /// Сообщение об успешном сбросе вкусов
+  ///
+  /// In ru, this message translates to:
+  /// **'Профиль вкусов сброшен'**
+  String get tasteResetSuccess;
+
+  /// Заголовок секции аллергий
+  ///
+  /// In ru, this message translates to:
+  /// **'Аллергии'**
+  String get tasteAllergiesTitle;
+
+  /// Пояснение к аллергиям
+  ///
+  /// In ru, this message translates to:
+  /// **'Рецепты с этими продуктами никогда не будут предложены'**
+  String get tasteAllergiesSubtitle;
+
+  /// Текст при пустом списке аллергий
+  ///
+  /// In ru, this message translates to:
+  /// **'Аллергии не добавлены'**
+  String get tasteAllergiesEmpty;
+
+  /// Кнопка добавления аллергии
+  ///
+  /// In ru, this message translates to:
+  /// **'Добавить аллергию'**
+  String get tasteAddAllergyButton;
+
+  /// Заголовок секции исключений
+  ///
+  /// In ru, this message translates to:
+  /// **'Исключения (не ем)'**
+  String get tasteExclusionsTitle;
+
+  /// Пояснение к исключениям
+  ///
+  /// In ru, this message translates to:
+  /// **'Продукты, которые вы просто не хотите готовить'**
+  String get tasteExclusionsSubtitle;
+
+  /// Текст при пустом списке исключений
+  ///
+  /// In ru, this message translates to:
+  /// **'Исключения не добавлены'**
+  String get tasteExclusionsEmpty;
+
+  /// Кнопка добавления исключения
+  ///
+  /// In ru, this message translates to:
+  /// **'Добавить исключение'**
+  String get tasteAddExclusionButton;
+
+  /// Заголовок секции порций по умолчанию
+  ///
+  /// In ru, this message translates to:
+  /// **'Порции по умолчанию'**
+  String get tasteServingsTitle;
+
+  /// Пояснение к порциям по умолчанию
+  ///
+  /// In ru, this message translates to:
+  /// **'Количество порций при открытии рецепта'**
+  String get tasteServingsSubtitle;
+
+  /// Заголовок выбора продукта
+  ///
+  /// In ru, this message translates to:
+  /// **'Выберите продукт'**
+  String get tasteSelectIngredientTitle;
+
+  /// Подсказка поиска продукта
+  ///
+  /// In ru, this message translates to:
+  /// **'Поиск продукта...'**
+  String get tasteSearchIngredientHint;
+
+  /// Секция популярных продуктов
+  ///
+  /// In ru, this message translates to:
+  /// **'Популярные'**
+  String get tastePopularSection;
+
+  /// Добавление произвольного продукта
+  ///
+  /// In ru, this message translates to:
+  /// **'Добавить «{name}»'**
+  String tasteAddCustomItem(String name);
 }
 
 class _AppLocalizationsDelegate

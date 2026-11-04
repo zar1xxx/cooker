@@ -328,6 +328,9 @@ class PreferenceService {
         updatedAt: Value(nowMs),
       ),
     );
+    await (_db.update(_db.feedbackEvents)).write(
+      FeedbackEventsCompanion(deletedAt: Value(nowMs), updatedAt: Value(nowMs)),
+    );
     return getProfile();
   }
 
@@ -348,6 +351,17 @@ class PreferenceService {
     await (_db.update(_db.preferenceProfile)).write(
       PreferenceProfileCompanion(
         excludedIngredients: Value(excluded),
+        updatedAt: Value(nowMs),
+      ),
+    );
+  }
+
+  Future<void> setServingsDefault(int servings) async {
+    await _ensureProfileRow();
+    final nowMs = clock.now().toUtc().millisecondsSinceEpoch;
+    await (_db.update(_db.preferenceProfile)).write(
+      PreferenceProfileCompanion(
+        servingsDefault: Value(servings),
         updatedAt: Value(nowMs),
       ),
     );

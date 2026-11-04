@@ -176,11 +176,57 @@ final suggestionsProvider = FutureProvider<SuggestionsState>((ref) async {
 
   // Exclude recipes with rating 1 per ТЗ 5.3 & 6.4 ("блюдо с оценкой 1 не предлагается")
   final dislikedIds = await historyDao.getDislikedRecipeIds();
+
+  // Exclude recipes with allergens or excluded ingredients per ТЗ 9.1 & Scenario 5
+  final rawForbidden = {
+    ...tasteProfile.allergies.map((s) => s.toLowerCase().trim()),
+    ...tasteProfile.excludedIngredients.map((s) => s.toLowerCase().trim()),
+  }.where((s) => s.isNotEmpty).toSet();
+
+  final forbiddenIds = <String>{};
+  for (final term in rawForbidden) {
+    forbiddenIds.add(term);
+    final resolvedId = normalizer.resolve(term);
+    if (resolvedId != null) {
+      forbiddenIds.add(resolvedId.toLowerCase());
+      for (final desc in normalizer.descendantsOf(resolvedId)) {
+        forbiddenIds.add(desc.toLowerCase());
+      }
+    }
+  }
+
+  bool containsForbidden(RecipeWithIngredients entry) {
+    if (forbiddenIds.isEmpty) return false;
+    for (final line in entry.ingredients) {
+      final idLower = line.recipeIngredient.ingredientId.toLowerCase().trim();
+      final nameLower = line.ingredient?.name.toLowerCase().trim() ?? '';
+      if (forbiddenIds.contains(idLower) ||
+          (nameLower.isNotEmpty && forbiddenIds.contains(nameLower))) {
+        return true;
+      }
+      final parents = hierarchy[line.recipeIngredient.ingredientId] ?? const [];
+      for (final p in parents) {
+        if (forbiddenIds.contains(p.toLowerCase().trim())) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
   final readyMatches = matchResult.ready
-      .where((m) => !dislikedIds.contains(m.entry.recipe.id))
+      .where(
+        (m) =>
+            !dislikedIds.contains(m.entry.recipe.id) &&
+            !containsForbidden(m.entry),
+      )
       .toList();
   final almostMatches = matchResult.almostReady
-      .where((m) => !dislikedIds.contains(m.entry.recipe.id))
+      .where(
+        (m) =>
+            !dislikedIds.contains(m.entry.recipe.id) &&
+            !containsForbidden(m.entry),
+      )
       .toList();
 
   final recipeRatings = await historyDao.getAverageRatingsByRecipe();
@@ -229,6 +275,13 @@ final preferenceServiceProvider = Provider<PreferenceService>((ref) {
 final preferenceProfileProvider = FutureProvider<TasteProfile>((ref) async {
   final service = ref.watch(preferenceServiceProvider);
   return service.getProfile();
+});
+
+final compressedProfileProvider = FutureProvider<CompressedProfile>((
+  ref,
+) async {
+  final service = ref.watch(preferenceServiceProvider);
+  return service.getCompressedProfile();
 });
 
 final historyDaoProvider = Provider<HistoryDao>((ref) {
@@ -350,6 +403,8 @@ class AiDishesNotifier extends AsyncNotifier<List<AiDishSuggestion>> {
     final compressed = await prefService.getCompressedProfile();
     final doNotSuggest = await AntiRepeat.getDoNotSuggestList(db);
     final forbidden = [...profile.allergies, ...profile.excludedIngredients];
+    final hierarchy = await ingredientDao.hierarchy();
+    final normalizer = await ingredientDao.createNormalizer();
 
     return aiService.suggestDishes(
       availableIngredients: availableNames,
@@ -359,6 +414,12 @@ class AiDishesNotifier extends AsyncNotifier<List<AiDishSuggestion>> {
       dislikes: compressed.topDislikedFeatures.map((e) => e.key).toList(),
       topRated: compressed.topRatedRecipeTitles,
       maxTotalMinutes: profile.maxTotalMinutes,
+      profile: {
+        'allergies': profile.allergies,
+        'excluded_ingredients': profile.excludedIngredients,
+      },
+      ingredientHierarchy: hierarchy,
+      resolveIngredientId: (name) => normalizer.resolve(name),
     );
   }
 
@@ -386,6 +447,8 @@ class AiDishesNotifier extends AsyncNotifier<List<AiDishSuggestion>> {
         ...alreadyShown,
       }.toList();
       final forbidden = [...profile.allergies, ...profile.excludedIngredients];
+      final hierarchy = await ingredientDao.hierarchy();
+      final normalizer = await ingredientDao.createNormalizer();
 
       return aiService.suggestDishes(
         availableIngredients: availableNames,
@@ -396,6 +459,12 @@ class AiDishesNotifier extends AsyncNotifier<List<AiDishSuggestion>> {
         topRated: compressed.topRatedRecipeTitles,
         maxTotalMinutes: profile.maxTotalMinutes,
         bypassCache: true,
+        profile: {
+          'allergies': profile.allergies,
+          'excluded_ingredients': profile.excludedIngredients,
+        },
+        ingredientHierarchy: hierarchy,
+        resolveIngredientId: (name) => normalizer.resolve(name),
       );
     });
   }

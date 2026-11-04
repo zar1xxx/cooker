@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../core/ai/ai_router.dart';
 import '../../core/ai/ai_settings_service.dart';
@@ -269,12 +270,47 @@ class _AiSettingsScreenState extends ConsumerState<AiSettingsScreen> {
             fontWeight: FontWeight.bold,
           ),
         ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.favorite_outline),
+            tooltip: l10n.tasteScreenTitle,
+            onPressed: () => context.push('/settings/preferences'),
+          ),
+        ],
       ),
       body: Form(
         key: _formKey,
         child: ListView(
           padding: const EdgeInsets.all(16),
           children: [
+            // Taste Preferences Link Card
+            Card(
+              elevation: 0,
+              color: theme.colorScheme.secondaryContainer.withValues(
+                alpha: 0.4,
+              ),
+              child: ListTile(
+                leading: const Icon(
+                  Icons.favorite,
+                  color: Colors.deepOrange,
+                  size: 28,
+                ),
+                title: Text(
+                  l10n.tasteScreenTitle,
+                  style: theme.textTheme.titleSmall?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                subtitle: Text(
+                  l10n.tasteScreenSubtitle,
+                  style: theme.textTheme.bodySmall,
+                ),
+                trailing: const Icon(Icons.chevron_right),
+                onTap: () => context.push('/settings/preferences'),
+              ),
+            ),
+            const SizedBox(height: 12),
+
             // Active Mode Status Card
             Card(
               elevation: 0,

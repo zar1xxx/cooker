@@ -629,4 +629,99 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get aiSettingsSaved => 'Настройки успешно сохранены';
+
+  @override
+  String get tasteScreenTitle => 'Что приложение знает о ваших вкусах';
+
+  @override
+  String get tasteScreenSubtitle =>
+      'Аллергии, нелюбимые продукты и обученные вкусы';
+
+  @override
+  String get tasteAboutCard =>
+      'Приложение запоминает ваши оценки. Блюда с оценкой 5 предлагаются чаще, а с оценкой 1 исключаются навсегда.';
+
+  @override
+  String get tasteLikedSectionTitle => 'Любимые вкусы';
+
+  @override
+  String get tasteLikedEmpty =>
+      'Пока нет данных о любимых вкусах. Оценивайте блюда после готовки!';
+
+  @override
+  String get tasteDislikedSectionTitle => 'Нелюбимые вкусы';
+
+  @override
+  String get tasteDislikedEmpty => 'Пока нет данных о нелюбимых вкусах';
+
+  @override
+  String get tasteTopDishesTitle => 'Любимые блюда';
+
+  @override
+  String get tasteTopDishesEmpty => 'Пока нет оценённых блюд в истории';
+
+  @override
+  String get tasteResetButton => 'Сбросить вкусы';
+
+  @override
+  String get tasteResetDialogTitle => 'Сбросить вкусы?';
+
+  @override
+  String get tasteResetDialogMessage =>
+      'Все накопленные оценки и вкусовые предпочтения будут сброшены. Ваши аллергии и исключения сохранятся.';
+
+  @override
+  String get tasteResetDialogCancel => 'Отмена';
+
+  @override
+  String get tasteResetDialogConfirm => 'Сбросить';
+
+  @override
+  String get tasteResetSuccess => 'Профиль вкусов сброшен';
+
+  @override
+  String get tasteAllergiesTitle => 'Аллергии';
+
+  @override
+  String get tasteAllergiesSubtitle =>
+      'Рецепты с этими продуктами никогда не будут предложены';
+
+  @override
+  String get tasteAllergiesEmpty => 'Аллергии не добавлены';
+
+  @override
+  String get tasteAddAllergyButton => 'Добавить аллергию';
+
+  @override
+  String get tasteExclusionsTitle => 'Исключения (не ем)';
+
+  @override
+  String get tasteExclusionsSubtitle =>
+      'Продукты, которые вы просто не хотите готовить';
+
+  @override
+  String get tasteExclusionsEmpty => 'Исключения не добавлены';
+
+  @override
+  String get tasteAddExclusionButton => 'Добавить исключение';
+
+  @override
+  String get tasteServingsTitle => 'Порции по умолчанию';
+
+  @override
+  String get tasteServingsSubtitle => 'Количество порций при открытии рецепта';
+
+  @override
+  String get tasteSelectIngredientTitle => 'Выберите продукт';
+
+  @override
+  String get tasteSearchIngredientHint => 'Поиск продукта...';
+
+  @override
+  String get tastePopularSection => 'Популярные';
+
+  @override
+  String tasteAddCustomItem(String name) {
+    return 'Добавить «$name»';
+  }
 }

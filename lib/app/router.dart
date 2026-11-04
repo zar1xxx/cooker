@@ -8,6 +8,7 @@ import '../features/pantry/pantry_screen.dart';
 import '../features/recipe/cooking_screen.dart';
 import '../features/recipe/recipe_screen.dart';
 import '../features/settings/ai_settings_screen.dart';
+import '../features/settings/taste_preferences_screen.dart';
 import '../features/suggestions/suggestions_screen.dart';
 import 'scaffold_with_nav_bar.dart';
 
@@ -28,6 +29,16 @@ final GoRouter appRouter = GoRouter(
       path: '/settings/ai',
       parentNavigatorKey: rootNavigatorKey,
       builder: (context, state) => const AiSettingsScreen(),
+    ),
+    GoRoute(
+      path: '/settings/preferences',
+      parentNavigatorKey: rootNavigatorKey,
+      builder: (context, state) => const TastePreferencesScreen(),
+    ),
+    GoRoute(
+      path: '/settings/taste',
+      parentNavigatorKey: rootNavigatorKey,
+      builder: (context, state) => const TastePreferencesScreen(),
     ),
     GoRoute(
       path: '/settings',

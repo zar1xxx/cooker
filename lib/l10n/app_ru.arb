@@ -869,5 +869,126 @@
   "aiSettingsSaved": "Настройки успешно сохранены",
   "@aiSettingsSaved": {
     "description": "Уведомление об успешном сохранении"
+  },
+  "tasteScreenTitle": "Что приложение знает о ваших вкусах",
+  "@tasteScreenTitle": {
+    "description": "Заголовок экрана вкусов и предпочтений"
+  },
+  "tasteScreenSubtitle": "Аллергии, нелюбимые продукты и обученные вкусы",
+  "@tasteScreenSubtitle": {
+    "description": "Подзаголовок настроек вкусов"
+  },
+  "tasteAboutCard": "Приложение запоминает ваши оценки. Блюда с оценкой 5 предлагаются чаще, а с оценкой 1 исключаются навсегда.",
+  "@tasteAboutCard": {
+    "description": "Пояснение о работе вкусового профиля"
+  },
+  "tasteLikedSectionTitle": "Любимые вкусы",
+  "@tasteLikedSectionTitle": {
+    "description": "Заголовок секции любимых вкусов"
+  },
+  "tasteLikedEmpty": "Пока нет данных о любимых вкусах. Оценивайте блюда после готовки!",
+  "@tasteLikedEmpty": {
+    "description": "Текст при отсутствии любимых признаков"
+  },
+  "tasteDislikedSectionTitle": "Нелюбимые вкусы",
+  "@tasteDislikedSectionTitle": {
+    "description": "Заголовок секции нелюбимых вкусов"
+  },
+  "tasteDislikedEmpty": "Пока нет данных о нелюбимых вкусах",
+  "@tasteDislikedEmpty": {
+    "description": "Текст при отсутствии нелюбимых признаков"
+  },
+  "tasteTopDishesTitle": "Любимые блюда",
+  "@tasteTopDishesTitle": {
+    "description": "Заголовок секции любимых блюд"
+  },
+  "tasteTopDishesEmpty": "Пока нет оценённых блюд в истории",
+  "@tasteTopDishesEmpty": {
+    "description": "Текст при отсутствии оценённых блюд"
+  },
+  "tasteResetButton": "Сбросить вкусы",
+  "@tasteResetButton": {
+    "description": "Кнопка сброса профиля вкусов"
+  },
+  "tasteResetDialogTitle": "Сбросить вкусы?",
+  "@tasteResetDialogTitle": {
+    "description": "Заголовок диалога сброса вкусов"
+  },
+  "tasteResetDialogMessage": "Все накопленные оценки и вкусовые предпочтения будут сброшены. Ваши аллергии и исключения сохранятся.",
+  "@tasteResetDialogMessage": {
+    "description": "Текст предупреждения при сбросе вкусов"
+  },
+  "tasteResetDialogCancel": "Отмена",
+  "@tasteResetDialogCancel": {
+    "description": "Кнопка отмены сброса"
+  },
+  "tasteResetDialogConfirm": "Сбросить",
+  "@tasteResetDialogConfirm": {
+    "description": "Кнопка подтверждения сброса"
+  },
+  "tasteResetSuccess": "Профиль вкусов сброшен",
+  "@tasteResetSuccess": {
+    "description": "Сообщение об успешном сбросе вкусов"
+  },
+  "tasteAllergiesTitle": "Аллергии",
+  "@tasteAllergiesTitle": {
+    "description": "Заголовок секции аллергий"
+  },
+  "tasteAllergiesSubtitle": "Рецепты с этими продуктами никогда не будут предложены",
+  "@tasteAllergiesSubtitle": {
+    "description": "Пояснение к аллергиям"
+  },
+  "tasteAllergiesEmpty": "Аллергии не добавлены",
+  "@tasteAllergiesEmpty": {
+    "description": "Текст при пустом списке аллергий"
+  },
+  "tasteAddAllergyButton": "Добавить аллергию",
+  "@tasteAddAllergyButton": {
+    "description": "Кнопка добавления аллергии"
+  },
+  "tasteExclusionsTitle": "Исключения (не ем)",
+  "@tasteExclusionsTitle": {
+    "description": "Заголовок секции исключений"
+  },
+  "tasteExclusionsSubtitle": "Продукты, которые вы просто не хотите готовить",
+  "@tasteExclusionsSubtitle": {
+    "description": "Пояснение к исключениям"
+  },
+  "tasteExclusionsEmpty": "Исключения не добавлены",
+  "@tasteExclusionsEmpty": {
+    "description": "Текст при пустом списке исключений"
+  },
+  "tasteAddExclusionButton": "Добавить исключение",
+  "@tasteAddExclusionButton": {
+    "description": "Кнопка добавления исключения"
+  },
+  "tasteServingsTitle": "Порции по умолчанию",
+  "@tasteServingsTitle": {
+    "description": "Заголовок секции порций по умолчанию"
+  },
+  "tasteServingsSubtitle": "Количество порций при открытии рецепта",
+  "@tasteServingsSubtitle": {
+    "description": "Пояснение к порциям по умолчанию"
+  },
+  "tasteSelectIngredientTitle": "Выберите продукт",
+  "@tasteSelectIngredientTitle": {
+    "description": "Заголовок выбора продукта"
+  },
+  "tasteSearchIngredientHint": "Поиск продукта...",
+  "@tasteSearchIngredientHint": {
+    "description": "Подсказка поиска продукта"
+  },
+  "tastePopularSection": "Популярные",
+  "@tastePopularSection": {
+    "description": "Секция популярных продуктов"
+  },
+  "tasteAddCustomItem": "Добавить «{name}»",
+  "@tasteAddCustomItem": {
+    "description": "Добавление произвольного продукта",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
   }
 }
