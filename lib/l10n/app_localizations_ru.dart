@@ -432,6 +432,99 @@ class AppLocalizationsRu extends AppLocalizations {
   }
 
   @override
+  String get historySearchHint => 'Поиск по названию или заметке...';
+
+  @override
+  String get historySearchClear => 'Очистить поиск';
+
+  @override
+  String get historyFilterAll => 'Все';
+
+  @override
+  String get historyFilterFavorites => 'Любимые (4–5 ★)';
+
+  @override
+  String historyMonthSummaryTitle(String month) {
+    return 'Сводка за $month';
+  }
+
+  @override
+  String historySummaryCooked(int count) {
+    return 'Приготовлено: $count';
+  }
+
+  @override
+  String historySummaryNew(int count) {
+    return 'Новых блюд: $count';
+  }
+
+  @override
+  String historySummaryTopRated(String title) {
+    return 'Любимое: $title';
+  }
+
+  @override
+  String get historySummaryNoRatings => 'Пока без оценок';
+
+  @override
+  String get historyAddButton => 'Записать блюдо';
+
+  @override
+  String get historyAddModalTitle => 'Записать приготовленное';
+
+  @override
+  String get historyAddDishNameLabel => 'Название блюда';
+
+  @override
+  String get historyAddDishNameHint => 'Например, Домашние оладьи';
+
+  @override
+  String get historyAddDishTypeLabel => 'Тип блюда';
+
+  @override
+  String get historyAddDateLabel => 'Дата приготовления';
+
+  @override
+  String get historyAddRatingLabel => 'Оценка блюда';
+
+  @override
+  String get historyAddWouldRepeatLabel => 'Хочу приготовить снова';
+
+  @override
+  String get historyAddNoteLabel => 'Заметка (необязательно)';
+
+  @override
+  String get historyAddNoteHint =>
+      'Что понравилось или изменить в следующий раз...';
+
+  @override
+  String get historyAddSaveButton => 'Сохранить';
+
+  @override
+  String get historyAddCancelButton => 'Отмена';
+
+  @override
+  String get historyDeleteButton => 'Удалить запись';
+
+  @override
+  String get historyDeletedSnackbar => 'Запись удалена из истории';
+
+  @override
+  String get historyUndoDelete => 'Отменить';
+
+  @override
+  String get historyEditRating => 'Изменить оценку';
+
+  @override
+  String get historyNoFilteredResults => 'Ничего не найдено по вашему запросу';
+
+  @override
+  String get historyPreviousMonth => 'Предыдущий месяц';
+
+  @override
+  String get historyNextMonth => 'Следующий месяц';
+
+  @override
   String get dishesOtherVariants => 'Другие варианты';
 
   @override

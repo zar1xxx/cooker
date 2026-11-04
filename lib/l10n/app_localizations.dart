@@ -874,6 +874,174 @@ abstract class AppLocalizations {
   /// **'{minutes} мин'**
   String historyCookingTime(int minutes);
 
+  /// Подсказка в строке поиска истории
+  ///
+  /// In ru, this message translates to:
+  /// **'Поиск по названию или заметке...'**
+  String get historySearchHint;
+
+  /// Семантическое описание кнопки очистки поиска
+  ///
+  /// In ru, this message translates to:
+  /// **'Очистить поиск'**
+  String get historySearchClear;
+
+  /// Фильтр показа всех блюд в истории
+  ///
+  /// In ru, this message translates to:
+  /// **'Все'**
+  String get historyFilterAll;
+
+  /// Фильтр блюд с высокими оценками или отметкой Хочу повторить
+  ///
+  /// In ru, this message translates to:
+  /// **'Любимые (4–5 ★)'**
+  String get historyFilterFavorites;
+
+  /// Заголовок карточки сводки за месяц
+  ///
+  /// In ru, this message translates to:
+  /// **'Сводка за {month}'**
+  String historyMonthSummaryTitle(String month);
+
+  /// Количество приготовленных блюд в сводке
+  ///
+  /// In ru, this message translates to:
+  /// **'Приготовлено: {count}'**
+  String historySummaryCooked(int count);
+
+  /// Количество новых блюд в сводке
+  ///
+  /// In ru, this message translates to:
+  /// **'Новых блюд: {count}'**
+  String historySummaryNew(int count);
+
+  /// Название самого высокооценённого блюда в сводке
+  ///
+  /// In ru, this message translates to:
+  /// **'Любимое: {title}'**
+  String historySummaryTopRated(String title);
+
+  /// Сообщение в сводке, если в этом месяце нет оценок
+  ///
+  /// In ru, this message translates to:
+  /// **'Пока без оценок'**
+  String get historySummaryNoRatings;
+
+  /// Кнопка добавления блюда в историю вручную
+  ///
+  /// In ru, this message translates to:
+  /// **'Записать блюдо'**
+  String get historyAddButton;
+
+  /// Заголовок диалога ручного добавления в историю
+  ///
+  /// In ru, this message translates to:
+  /// **'Записать приготовленное'**
+  String get historyAddModalTitle;
+
+  /// Подпись поля названия блюда
+  ///
+  /// In ru, this message translates to:
+  /// **'Название блюда'**
+  String get historyAddDishNameLabel;
+
+  /// Подсказка к полю названия блюда
+  ///
+  /// In ru, this message translates to:
+  /// **'Например, Домашние оладьи'**
+  String get historyAddDishNameHint;
+
+  /// Подпись выбора типа блюда
+  ///
+  /// In ru, this message translates to:
+  /// **'Тип блюда'**
+  String get historyAddDishTypeLabel;
+
+  /// Подпись выбора даты приготовления
+  ///
+  /// In ru, this message translates to:
+  /// **'Дата приготовления'**
+  String get historyAddDateLabel;
+
+  /// Подпись блока оценки
+  ///
+  /// In ru, this message translates to:
+  /// **'Оценка блюда'**
+  String get historyAddRatingLabel;
+
+  /// Переключатель Хочу приготовить снова
+  ///
+  /// In ru, this message translates to:
+  /// **'Хочу приготовить снова'**
+  String get historyAddWouldRepeatLabel;
+
+  /// Подпись поля заметки
+  ///
+  /// In ru, this message translates to:
+  /// **'Заметка (необязательно)'**
+  String get historyAddNoteLabel;
+
+  /// Подсказка к полю заметки
+  ///
+  /// In ru, this message translates to:
+  /// **'Что понравилось или изменить в следующий раз...'**
+  String get historyAddNoteHint;
+
+  /// Кнопка сохранения в историю
+  ///
+  /// In ru, this message translates to:
+  /// **'Сохранить'**
+  String get historyAddSaveButton;
+
+  /// Кнопка отмены добавления в историю
+  ///
+  /// In ru, this message translates to:
+  /// **'Отмена'**
+  String get historyAddCancelButton;
+
+  /// Подпись действия удаления записи из истории
+  ///
+  /// In ru, this message translates to:
+  /// **'Удалить запись'**
+  String get historyDeleteButton;
+
+  /// Текст всплывающего уведомления при удалении
+  ///
+  /// In ru, this message translates to:
+  /// **'Запись удалена из истории'**
+  String get historyDeletedSnackbar;
+
+  /// Кнопка отмены удаления в уведомлении
+  ///
+  /// In ru, this message translates to:
+  /// **'Отменить'**
+  String get historyUndoDelete;
+
+  /// Подпись действия изменения оценки
+  ///
+  /// In ru, this message translates to:
+  /// **'Изменить оценку'**
+  String get historyEditRating;
+
+  /// Сообщение при отсутствии результатов фильтрации/поиска
+  ///
+  /// In ru, this message translates to:
+  /// **'Ничего не найдено по вашему запросу'**
+  String get historyNoFilteredResults;
+
+  /// Семантическое описание перехода к предыдущему месяцу в сводке
+  ///
+  /// In ru, this message translates to:
+  /// **'Предыдущий месяц'**
+  String get historyPreviousMonth;
+
+  /// Семантическое описание перехода к следующему месяцу в сводке
+  ///
+  /// In ru, this message translates to:
+  /// **'Следующий месяц'**
+  String get historyNextMonth;
+
   /// Кнопка запроса новых вариантов от ИИ
   ///
   /// In ru, this message translates to:

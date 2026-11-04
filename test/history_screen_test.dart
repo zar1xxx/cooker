@@ -43,7 +43,7 @@ void main() {
     await db.close();
   });
 
-  group('HistoryScreen (S2-05 / TZ 7.2)', () {
+  group('HistoryScreen (S4-01 / TZ 8.2)', () {
     testWidgets('renders empty state when no cooked entries exist', (
       tester,
     ) async {
@@ -58,11 +58,15 @@ void main() {
       expect(find.text('История'), findsOneWidget);
       expect(find.text('Вы ещё ничего не приготовили'), findsOneWidget);
       expect(find.text('Подобрать рецепт'), findsOneWidget);
+      expect(
+        find.text('Записать блюдо'),
+        findsNWidgets(2),
+      ); // in empty body and in FAB
       expect(find.byIcon(Icons.auto_stories_outlined), findsOneWidget);
     });
 
     testWidgets(
-      'renders date-grouped entries with rating, note, type, and cook again button',
+      'renders month summary, search, filters, and date-grouped entries',
       (tester) async {
         tester.view.physicalSize = const Size(800, 1600);
         tester.view.devicePixelRatio = 1.0;
@@ -94,18 +98,21 @@ void main() {
           await tester.pumpWidget(_createHistoryTestWidget(db));
           await tester.pumpAndSettle();
 
-          // Header for today
+          // Month summary card
+          expect(find.textContaining('Сводка за'), findsOneWidget);
+          expect(find.textContaining('Приготовлено: 2'), findsOneWidget);
+          expect(find.textContaining('Новых блюд: 2'), findsOneWidget);
+
+          // Search bar
+          expect(find.byIcon(Icons.search), findsOneWidget);
+
+          // Headers
           expect(find.textContaining('Сегодня'), findsOneWidget);
-          // Header for yesterday
           expect(find.textContaining('Вчера'), findsOneWidget);
 
           // Titles
           expect(find.text('Куриный суп с картошкой'), findsOneWidget);
           expect(find.text('Картофельное пюре'), findsOneWidget);
-
-          // Types
-          expect(find.text('Суп'), findsOneWidget);
-          expect(find.text('Гарнир'), findsOneWidget);
 
           // Ratings
           expect(find.text('Оценка: 5 из 5'), findsOneWidget);
@@ -118,10 +125,186 @@ void main() {
             findsOneWidget,
           );
 
-          // Buttons
+          // Action buttons: 2 recipe view buttons, 2 delete buttons
           expect(find.text('Посмотреть рецепт'), findsNWidgets(2));
+          expect(find.byIcon(Icons.delete_outline), findsNWidgets(2));
         });
       },
     );
+
+    testWidgets('search bar filters entries by title or note', (tester) async {
+      tester.view.physicalSize = const Size(800, 1600);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+
+      final fixedNow = DateTime(2026, 11, 4, 12, 0);
+
+      await withClock(Clock.fixed(fixedNow), () async {
+        final historyDao = HistoryDao(db);
+
+        await historyDao.recordCooked(
+          recipeId: 'chicken_soup_potato',
+          rating: 5,
+          note: 'Свежая зелень',
+          date: fixedNow,
+        );
+
+        await historyDao.recordCooked(
+          recipeId: 'mashed_potato',
+          rating: 4,
+          note: 'Сливочное масло',
+          date: fixedNow,
+        );
+
+        await tester.pumpWidget(_createHistoryTestWidget(db));
+        await tester.pumpAndSettle();
+
+        expect(find.text('Куриный суп с картошкой'), findsOneWidget);
+        expect(find.text('Картофельное пюре'), findsOneWidget);
+
+        // Filter by note keyword
+        await tester.enterText(find.byType(TextField).first, 'Сливочное');
+        await tester.pumpAndSettle();
+
+        expect(find.text('Картофельное пюре'), findsOneWidget);
+        expect(find.text('Куриный суп с картошкой'), findsNothing);
+
+        // Clear search
+        await tester.tap(find.byIcon(Icons.clear));
+        await tester.pumpAndSettle();
+
+        expect(find.text('Куриный суп с картошкой'), findsOneWidget);
+        expect(find.text('Картофельное пюре'), findsOneWidget);
+      });
+    });
+
+    testWidgets('filter chips filter entries by dish type', (tester) async {
+      tester.view.physicalSize = const Size(800, 1600);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+
+      final fixedNow = DateTime(2026, 11, 4, 12, 0);
+
+      await withClock(Clock.fixed(fixedNow), () async {
+        final historyDao = HistoryDao(db);
+
+        await historyDao.recordCooked(
+          recipeId: 'chicken_soup_potato',
+          date: fixedNow,
+        );
+
+        await historyDao.recordCooked(
+          recipeId: 'mashed_potato',
+          date: fixedNow,
+        );
+
+        await tester.pumpWidget(_createHistoryTestWidget(db));
+        await tester.pumpAndSettle();
+
+        // Tap filter chip "Суп"
+        final soupChip = find.widgetWithText(FilterChip, 'Суп');
+        await tester.tap(soupChip);
+        await tester.pumpAndSettle();
+
+        expect(find.text('Куриный суп с картошкой'), findsOneWidget);
+        expect(find.text('Картофельное пюре'), findsNothing);
+
+        // Reset to "Все"
+        final allChip = find.widgetWithText(FilterChip, 'Все');
+        await tester.tap(allChip);
+        await tester.pumpAndSettle();
+
+        expect(find.text('Куриный суп с картошкой'), findsOneWidget);
+        expect(find.text('Картофельное пюре'), findsOneWidget);
+      });
+    });
+
+    testWidgets(
+      'soft delete removes entry with 5-second SnackBar and undo restores it',
+      (tester) async {
+        tester.view.physicalSize = const Size(800, 1600);
+        tester.view.devicePixelRatio = 1.0;
+        addTearDown(tester.view.resetPhysicalSize);
+        addTearDown(tester.view.resetDevicePixelRatio);
+
+        final fixedNow = DateTime(2026, 11, 4, 12, 0);
+
+        await withClock(Clock.fixed(fixedNow), () async {
+          final historyDao = HistoryDao(db);
+
+          await historyDao.recordCooked(
+            recipeId: 'chicken_soup_potato',
+            date: fixedNow,
+          );
+
+          await tester.pumpWidget(_createHistoryTestWidget(db));
+          await tester.pumpAndSettle();
+
+          expect(find.text('Куриный суп с картошкой'), findsOneWidget);
+
+          // Tap delete button on the card
+          await tester.tap(find.byIcon(Icons.delete_outline).first);
+          await tester.pumpAndSettle();
+
+          // Entry is gone from list
+          expect(find.text('Куриный суп с картошкой'), findsNothing);
+
+          // SnackBar is shown with "Отменить"
+          expect(find.text('Запись удалена из истории'), findsOneWidget);
+          expect(find.text('Отменить'), findsOneWidget);
+
+          // Tap undo
+          await tester.tap(find.text('Отменить'));
+          await tester.pumpAndSettle();
+
+          // Entry is restored in list
+          expect(find.text('Куриный суп с картошкой'), findsOneWidget);
+        });
+      },
+    );
+
+    testWidgets('manual dish addition creates entry and user recipe', (
+      tester,
+    ) async {
+      tester.view.physicalSize = const Size(800, 1600);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+
+      final fixedNow = DateTime(2026, 11, 4, 12, 0);
+
+      await withClock(Clock.fixed(fixedNow), () async {
+        await tester.pumpWidget(_createHistoryTestWidget(db));
+        await tester.pumpAndSettle();
+
+        // Open add dish dialog via FAB
+        await tester.tap(
+          find.widgetWithText(FloatingActionButton, 'Записать блюдо'),
+        );
+        await tester.pumpAndSettle();
+
+        expect(find.text('Записать приготовленное'), findsOneWidget);
+
+        // Enter dish title
+        final titleField = find.widgetWithText(
+          TextField,
+          'Например, Домашние оладьи',
+        );
+        await tester.enterText(titleField, 'Бабушкины драники');
+        await tester.pumpAndSettle();
+
+        // Tap save button
+        final saveButton = find.widgetWithText(FilledButton, 'Сохранить');
+        await tester.tap(saveButton);
+        await tester.pumpAndSettle();
+
+        // Modal closed, dish appears in list
+        expect(find.text('Записать приготовленное'), findsNothing);
+        expect(find.text('Бабушкины драники'), findsOneWidget);
+        expect(find.widgetWithText(FilterChip, 'Второе'), findsOneWidget);
+      });
+    });
   });
 }

@@ -216,6 +216,12 @@ final historyEntriesProvider = FutureProvider<List<CookedEntryWithRecipe>>((
   return dao.allWithRecipes();
 });
 
+final historyMonthSummaryProvider =
+    FutureProvider.family<HistoryMonthSummary, DateTime?>((ref, month) async {
+      final dao = ref.watch(historyDaoProvider);
+      return dao.getMonthSummary(month: month);
+    });
+
 final aiSettingsServiceProvider = Provider<AiSettingsService>((ref) {
   return AiSettingsService();
 });

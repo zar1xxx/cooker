@@ -595,6 +595,138 @@
       }
     }
   },
+  "historySearchHint": "Поиск по названию или заметке...",
+  "@historySearchHint": {
+    "description": "Подсказка в строке поиска истории"
+  },
+  "historySearchClear": "Очистить поиск",
+  "@historySearchClear": {
+    "description": "Семантическое описание кнопки очистки поиска"
+  },
+  "historyFilterAll": "Все",
+  "@historyFilterAll": {
+    "description": "Фильтр показа всех блюд в истории"
+  },
+  "historyFilterFavorites": "Любимые (4–5 ★)",
+  "@historyFilterFavorites": {
+    "description": "Фильтр блюд с высокими оценками или отметкой Хочу повторить"
+  },
+  "historyMonthSummaryTitle": "Сводка за {month}",
+  "@historyMonthSummaryTitle": {
+    "description": "Заголовок карточки сводки за месяц",
+    "placeholders": {
+      "month": {
+        "type": "String"
+      }
+    }
+  },
+  "historySummaryCooked": "Приготовлено: {count}",
+  "@historySummaryCooked": {
+    "description": "Количество приготовленных блюд в сводке",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "historySummaryNew": "Новых блюд: {count}",
+  "@historySummaryNew": {
+    "description": "Количество новых блюд в сводке",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "historySummaryTopRated": "Любимое: {title}",
+  "@historySummaryTopRated": {
+    "description": "Название самого высокооценённого блюда в сводке",
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "historySummaryNoRatings": "Пока без оценок",
+  "@historySummaryNoRatings": {
+    "description": "Сообщение в сводке, если в этом месяце нет оценок"
+  },
+  "historyAddButton": "Записать блюдо",
+  "@historyAddButton": {
+    "description": "Кнопка добавления блюда в историю вручную"
+  },
+  "historyAddModalTitle": "Записать приготовленное",
+  "@historyAddModalTitle": {
+    "description": "Заголовок диалога ручного добавления в историю"
+  },
+  "historyAddDishNameLabel": "Название блюда",
+  "@historyAddDishNameLabel": {
+    "description": "Подпись поля названия блюда"
+  },
+  "historyAddDishNameHint": "Например, Домашние оладьи",
+  "@historyAddDishNameHint": {
+    "description": "Подсказка к полю названия блюда"
+  },
+  "historyAddDishTypeLabel": "Тип блюда",
+  "@historyAddDishTypeLabel": {
+    "description": "Подпись выбора типа блюда"
+  },
+  "historyAddDateLabel": "Дата приготовления",
+  "@historyAddDateLabel": {
+    "description": "Подпись выбора даты приготовления"
+  },
+  "historyAddRatingLabel": "Оценка блюда",
+  "@historyAddRatingLabel": {
+    "description": "Подпись блока оценки"
+  },
+  "historyAddWouldRepeatLabel": "Хочу приготовить снова",
+  "@historyAddWouldRepeatLabel": {
+    "description": "Переключатель Хочу приготовить снова"
+  },
+  "historyAddNoteLabel": "Заметка (необязательно)",
+  "@historyAddNoteLabel": {
+    "description": "Подпись поля заметки"
+  },
+  "historyAddNoteHint": "Что понравилось или изменить в следующий раз...",
+  "@historyAddNoteHint": {
+    "description": "Подсказка к полю заметки"
+  },
+  "historyAddSaveButton": "Сохранить",
+  "@historyAddSaveButton": {
+    "description": "Кнопка сохранения в историю"
+  },
+  "historyAddCancelButton": "Отмена",
+  "@historyAddCancelButton": {
+    "description": "Кнопка отмены добавления в историю"
+  },
+  "historyDeleteButton": "Удалить запись",
+  "@historyDeleteButton": {
+    "description": "Подпись действия удаления записи из истории"
+  },
+  "historyDeletedSnackbar": "Запись удалена из истории",
+  "@historyDeletedSnackbar": {
+    "description": "Текст всплывающего уведомления при удалении"
+  },
+  "historyUndoDelete": "Отменить",
+  "@historyUndoDelete": {
+    "description": "Кнопка отмены удаления в уведомлении"
+  },
+  "historyEditRating": "Изменить оценку",
+  "@historyEditRating": {
+    "description": "Подпись действия изменения оценки"
+  },
+  "historyNoFilteredResults": "Ничего не найдено по вашему запросу",
+  "@historyNoFilteredResults": {
+    "description": "Сообщение при отсутствии результатов фильтрации/поиска"
+  },
+  "historyPreviousMonth": "Предыдущий месяц",
+  "@historyPreviousMonth": {
+    "description": "Семантическое описание перехода к предыдущему месяцу в сводке"
+  },
+  "historyNextMonth": "Следующий месяц",
+  "@historyNextMonth": {
+    "description": "Семантическое описание перехода к следующему месяцу в сводке"
+  },
   "dishesOtherVariants": "Другие варианты",
   "@dishesOtherVariants": {
     "description": "Кнопка запроса новых вариантов от ИИ"
