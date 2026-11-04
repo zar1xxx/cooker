@@ -525,5 +525,74 @@
   "cookingSavedToHistory": "Блюдо записано в историю",
   "@cookingSavedToHistory": {
     "description": "Уведомление об успешной записи в историю"
+  },
+  "historyEmptyTitle": "Вы ещё ничего не приготовили",
+  "@historyEmptyTitle": {
+    "description": "Заголовок при пустой истории"
+  },
+  "historyEmptySubtitle": "Здесь сохраняются все приготовленные блюда с оценками и заметками",
+  "@historyEmptySubtitle": {
+    "description": "Подзаголовок при пустой истории"
+  },
+  "historyEmptyAction": "Подобрать рецепт",
+  "@historyEmptyAction": {
+    "description": "Кнопка перехода к подбору рецептов при пустой истории"
+  },
+  "historyDateToday": "Сегодня, {date}",
+  "@historyDateToday": {
+    "description": "Заголовок группы блюд за сегодня",
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "historyDateYesterday": "Вчера, {date}",
+  "@historyDateYesterday": {
+    "description": "Заголовок группы блюд за вчера",
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "historyRatingStars": "Оценка: {rating} из 5",
+  "@historyRatingStars": {
+    "description": "Отображение оценки звёздами",
+    "placeholders": {
+      "rating": {
+        "type": "int"
+      }
+    }
+  },
+  "historyRatingUnrated": "Без оценки",
+  "@historyRatingUnrated": {
+    "description": "Отображение блюда без оценки"
+  },
+  "historyWouldRepeat": "Хочу повторить",
+  "@historyWouldRepeat": {
+    "description": "Бейдж желания повторить блюдо"
+  },
+  "historyCookAgain": "Посмотреть рецепт",
+  "@historyCookAgain": {
+    "description": "Кнопка просмотра рецепта из истории"
+  },
+  "historyNote": "Заметка: {note}",
+  "@historyNote": {
+    "description": "Заметка к приготовленному блюду",
+    "placeholders": {
+      "note": {
+        "type": "String"
+      }
+    }
+  },
+  "historyCookingTime": "{minutes} мин",
+  "@historyCookingTime": {
+    "description": "Время готовки блюда в истории",
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
   }
 }

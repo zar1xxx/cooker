@@ -386,4 +386,48 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get cookingSavedToHistory => 'Блюдо записано в историю';
+
+  @override
+  String get historyEmptyTitle => 'Вы ещё ничего не приготовили';
+
+  @override
+  String get historyEmptySubtitle =>
+      'Здесь сохраняются все приготовленные блюда с оценками и заметками';
+
+  @override
+  String get historyEmptyAction => 'Подобрать рецепт';
+
+  @override
+  String historyDateToday(String date) {
+    return 'Сегодня, $date';
+  }
+
+  @override
+  String historyDateYesterday(String date) {
+    return 'Вчера, $date';
+  }
+
+  @override
+  String historyRatingStars(int rating) {
+    return 'Оценка: $rating из 5';
+  }
+
+  @override
+  String get historyRatingUnrated => 'Без оценки';
+
+  @override
+  String get historyWouldRepeat => 'Хочу повторить';
+
+  @override
+  String get historyCookAgain => 'Посмотреть рецепт';
+
+  @override
+  String historyNote(String note) {
+    return 'Заметка: $note';
+  }
+
+  @override
+  String historyCookingTime(int minutes) {
+    return '$minutes мин';
+  }
 }

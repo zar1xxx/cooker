@@ -807,6 +807,72 @@ abstract class AppLocalizations {
   /// In ru, this message translates to:
   /// **'Блюдо записано в историю'**
   String get cookingSavedToHistory;
+
+  /// Заголовок при пустой истории
+  ///
+  /// In ru, this message translates to:
+  /// **'Вы ещё ничего не приготовили'**
+  String get historyEmptyTitle;
+
+  /// Подзаголовок при пустой истории
+  ///
+  /// In ru, this message translates to:
+  /// **'Здесь сохраняются все приготовленные блюда с оценками и заметками'**
+  String get historyEmptySubtitle;
+
+  /// Кнопка перехода к подбору рецептов при пустой истории
+  ///
+  /// In ru, this message translates to:
+  /// **'Подобрать рецепт'**
+  String get historyEmptyAction;
+
+  /// Заголовок группы блюд за сегодня
+  ///
+  /// In ru, this message translates to:
+  /// **'Сегодня, {date}'**
+  String historyDateToday(String date);
+
+  /// Заголовок группы блюд за вчера
+  ///
+  /// In ru, this message translates to:
+  /// **'Вчера, {date}'**
+  String historyDateYesterday(String date);
+
+  /// Отображение оценки звёздами
+  ///
+  /// In ru, this message translates to:
+  /// **'Оценка: {rating} из 5'**
+  String historyRatingStars(int rating);
+
+  /// Отображение блюда без оценки
+  ///
+  /// In ru, this message translates to:
+  /// **'Без оценки'**
+  String get historyRatingUnrated;
+
+  /// Бейдж желания повторить блюдо
+  ///
+  /// In ru, this message translates to:
+  /// **'Хочу повторить'**
+  String get historyWouldRepeat;
+
+  /// Кнопка просмотра рецепта из истории
+  ///
+  /// In ru, this message translates to:
+  /// **'Посмотреть рецепт'**
+  String get historyCookAgain;
+
+  /// Заметка к приготовленному блюду
+  ///
+  /// In ru, this message translates to:
+  /// **'Заметка: {note}'**
+  String historyNote(String note);
+
+  /// Время готовки блюда в истории
+  ///
+  /// In ru, this message translates to:
+  /// **'{minutes} мин'**
+  String historyCookingTime(int minutes);
 }
 
 class _AppLocalizationsDelegate
