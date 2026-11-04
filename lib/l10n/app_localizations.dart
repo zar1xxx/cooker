@@ -909,6 +909,162 @@ abstract class AppLocalizations {
   /// In ru, this message translates to:
   /// **'Рецепт придуман помощником. Проверяйте готовность мяса и рыбы'**
   String get dishesAiDisclaimer;
+
+  /// Заголовок экрана настроек ИИ
+  ///
+  /// In ru, this message translates to:
+  /// **'Настройки помощника (ИИ)'**
+  String get aiSettingsTitle;
+
+  /// Секция настроек LM Studio
+  ///
+  /// In ru, this message translates to:
+  /// **'Домашний компьютер (LM Studio)'**
+  String get aiSettingsPcSection;
+
+  /// Подзаголовок секции LM Studio
+  ///
+  /// In ru, this message translates to:
+  /// **'Основной режим. Работает через домашний Wi-Fi'**
+  String get aiSettingsPcSubtitle;
+
+  /// Поле адреса компьютера
+  ///
+  /// In ru, this message translates to:
+  /// **'Адрес компьютера (IP)'**
+  String get aiSettingsPcHost;
+
+  /// Поле порта компьютера
+  ///
+  /// In ru, this message translates to:
+  /// **'Порт'**
+  String get aiSettingsPcPort;
+
+  /// Кнопка поиска компьютера в сети
+  ///
+  /// In ru, this message translates to:
+  /// **'Найти компьютер'**
+  String get aiSettingsFindPc;
+
+  /// Статус поиска компьютера
+  ///
+  /// In ru, this message translates to:
+  /// **'Поиск компьютера в сети...'**
+  String get aiSettingsFindingPc;
+
+  /// Сообщение об успешном обнаружении ПК
+  ///
+  /// In ru, this message translates to:
+  /// **'Компьютер найден: {host}'**
+  String aiSettingsPcFound(String host);
+
+  /// Сообщение об ошибке поиска ПК
+  ///
+  /// In ru, this message translates to:
+  /// **'Компьютер не найден в сети Wi-Fi'**
+  String get aiSettingsPcNotFound;
+
+  /// Поле выбора модели
+  ///
+  /// In ru, this message translates to:
+  /// **'Модель нейросети'**
+  String get aiSettingsModel;
+
+  /// Кнопка обновления моделей с ПК
+  ///
+  /// In ru, this message translates to:
+  /// **'Обновить список моделей'**
+  String get aiSettingsRefreshModels;
+
+  /// Секция настроек GigaChat
+  ///
+  /// In ru, this message translates to:
+  /// **'GigaChat (Сбер)'**
+  String get aiSettingsGigaChatSection;
+
+  /// Подзаголовок секции GigaChat
+  ///
+  /// In ru, this message translates to:
+  /// **'Запасной облачный режим, если компьютер выключен'**
+  String get aiSettingsGigaChatSubtitle;
+
+  /// Поле ввода ключа GigaChat
+  ///
+  /// In ru, this message translates to:
+  /// **'Авторизационные данные (Client Secret)'**
+  String get aiSettingsGigaChatKey;
+
+  /// Кнопка проверки связи с провайдерами
+  ///
+  /// In ru, this message translates to:
+  /// **'Проверить связь'**
+  String get aiSettingsCheckConnection;
+
+  /// Индикатор проверки связи
+  ///
+  /// In ru, this message translates to:
+  /// **'Проверка...'**
+  String get aiSettingsChecking;
+
+  /// Статус ПК: доступен
+  ///
+  /// In ru, this message translates to:
+  /// **'Домашний ПК: подключён'**
+  String get aiSettingsStatusPcOk;
+
+  /// Статус ПК: недоступен
+  ///
+  /// In ru, this message translates to:
+  /// **'Домашний ПК: не отвечает'**
+  String get aiSettingsStatusPcFails;
+
+  /// Статус GigaChat: доступен
+  ///
+  /// In ru, this message translates to:
+  /// **'GigaChat: подключён'**
+  String get aiSettingsStatusGigaChatOk;
+
+  /// Статус GigaChat: ошибка
+  ///
+  /// In ru, this message translates to:
+  /// **'GigaChat: ошибка авторизации'**
+  String get aiSettingsStatusGigaChatFails;
+
+  /// Статус GigaChat: не настроен
+  ///
+  /// In ru, this message translates to:
+  /// **'GigaChat: ключ не введён'**
+  String get aiSettingsStatusGigaChatNotConfigured;
+
+  /// Текущий активный режим ИИ
+  ///
+  /// In ru, this message translates to:
+  /// **'Активный режим: {mode}'**
+  String aiSettingsActiveMode(String mode);
+
+  /// Заголовок счётчика токенов
+  ///
+  /// In ru, this message translates to:
+  /// **'Расход токенов GigaChat'**
+  String get aiSettingsTokenUsageTitle;
+
+  /// Количество использованных токенов
+  ///
+  /// In ru, this message translates to:
+  /// **'{count} токенов в этом месяце'**
+  String aiSettingsTokenCount(int count);
+
+  /// Кнопка сохранения настроек
+  ///
+  /// In ru, this message translates to:
+  /// **'Сохранить настройки'**
+  String get aiSettingsSave;
+
+  /// Уведомление об успешном сохранении
+  ///
+  /// In ru, this message translates to:
+  /// **'Настройки успешно сохранены'**
+  String get aiSettingsSaved;
 }
 
 class _AppLocalizationsDelegate

@@ -449,4 +449,91 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get dishesAiDisclaimer =>
       'Рецепт придуман помощником. Проверяйте готовность мяса и рыбы';
+
+  @override
+  String get aiSettingsTitle => 'Настройки помощника (ИИ)';
+
+  @override
+  String get aiSettingsPcSection => 'Домашний компьютер (LM Studio)';
+
+  @override
+  String get aiSettingsPcSubtitle =>
+      'Основной режим. Работает через домашний Wi-Fi';
+
+  @override
+  String get aiSettingsPcHost => 'Адрес компьютера (IP)';
+
+  @override
+  String get aiSettingsPcPort => 'Порт';
+
+  @override
+  String get aiSettingsFindPc => 'Найти компьютер';
+
+  @override
+  String get aiSettingsFindingPc => 'Поиск компьютера в сети...';
+
+  @override
+  String aiSettingsPcFound(String host) {
+    return 'Компьютер найден: $host';
+  }
+
+  @override
+  String get aiSettingsPcNotFound => 'Компьютер не найден в сети Wi-Fi';
+
+  @override
+  String get aiSettingsModel => 'Модель нейросети';
+
+  @override
+  String get aiSettingsRefreshModels => 'Обновить список моделей';
+
+  @override
+  String get aiSettingsGigaChatSection => 'GigaChat (Сбер)';
+
+  @override
+  String get aiSettingsGigaChatSubtitle =>
+      'Запасной облачный режим, если компьютер выключен';
+
+  @override
+  String get aiSettingsGigaChatKey => 'Авторизационные данные (Client Secret)';
+
+  @override
+  String get aiSettingsCheckConnection => 'Проверить связь';
+
+  @override
+  String get aiSettingsChecking => 'Проверка...';
+
+  @override
+  String get aiSettingsStatusPcOk => 'Домашний ПК: подключён';
+
+  @override
+  String get aiSettingsStatusPcFails => 'Домашний ПК: не отвечает';
+
+  @override
+  String get aiSettingsStatusGigaChatOk => 'GigaChat: подключён';
+
+  @override
+  String get aiSettingsStatusGigaChatFails => 'GigaChat: ошибка авторизации';
+
+  @override
+  String get aiSettingsStatusGigaChatNotConfigured =>
+      'GigaChat: ключ не введён';
+
+  @override
+  String aiSettingsActiveMode(String mode) {
+    return 'Активный режим: $mode';
+  }
+
+  @override
+  String get aiSettingsTokenUsageTitle => 'Расход токенов GigaChat';
+
+  @override
+  String aiSettingsTokenCount(int count) {
+    return '$count токенов в этом месяце';
+  }
+
+  @override
+  String get aiSettingsSave => 'Сохранить настройки';
+
+  @override
+  String get aiSettingsSaved => 'Настройки успешно сохранены';
 }

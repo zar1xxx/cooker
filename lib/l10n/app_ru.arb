@@ -618,5 +618,124 @@
   "dishesAiDisclaimer": "Рецепт придуман помощником. Проверяйте готовность мяса и рыбы",
   "@dishesAiDisclaimer": {
     "description": "Предупреждение о рецепте от ИИ по ТЗ 9.1"
+  },
+  "aiSettingsTitle": "Настройки помощника (ИИ)",
+  "@aiSettingsTitle": {
+    "description": "Заголовок экрана настроек ИИ"
+  },
+  "aiSettingsPcSection": "Домашний компьютер (LM Studio)",
+  "@aiSettingsPcSection": {
+    "description": "Секция настроек LM Studio"
+  },
+  "aiSettingsPcSubtitle": "Основной режим. Работает через домашний Wi-Fi",
+  "@aiSettingsPcSubtitle": {
+    "description": "Подзаголовок секции LM Studio"
+  },
+  "aiSettingsPcHost": "Адрес компьютера (IP)",
+  "@aiSettingsPcHost": {
+    "description": "Поле адреса компьютера"
+  },
+  "aiSettingsPcPort": "Порт",
+  "@aiSettingsPcPort": {
+    "description": "Поле порта компьютера"
+  },
+  "aiSettingsFindPc": "Найти компьютер",
+  "@aiSettingsFindPc": {
+    "description": "Кнопка поиска компьютера в сети"
+  },
+  "aiSettingsFindingPc": "Поиск компьютера в сети...",
+  "@aiSettingsFindingPc": {
+    "description": "Статус поиска компьютера"
+  },
+  "aiSettingsPcFound": "Компьютер найден: {host}",
+  "@aiSettingsPcFound": {
+    "description": "Сообщение об успешном обнаружении ПК",
+    "placeholders": {
+      "host": {
+        "type": "String"
+      }
+    }
+  },
+  "aiSettingsPcNotFound": "Компьютер не найден в сети Wi-Fi",
+  "@aiSettingsPcNotFound": {
+    "description": "Сообщение об ошибке поиска ПК"
+  },
+  "aiSettingsModel": "Модель нейросети",
+  "@aiSettingsModel": {
+    "description": "Поле выбора модели"
+  },
+  "aiSettingsRefreshModels": "Обновить список моделей",
+  "@aiSettingsRefreshModels": {
+    "description": "Кнопка обновления моделей с ПК"
+  },
+  "aiSettingsGigaChatSection": "GigaChat (Сбер)",
+  "@aiSettingsGigaChatSection": {
+    "description": "Секция настроек GigaChat"
+  },
+  "aiSettingsGigaChatSubtitle": "Запасной облачный режим, если компьютер выключен",
+  "@aiSettingsGigaChatSubtitle": {
+    "description": "Подзаголовок секции GigaChat"
+  },
+  "aiSettingsGigaChatKey": "Авторизационные данные (Client Secret)",
+  "@aiSettingsGigaChatKey": {
+    "description": "Поле ввода ключа GigaChat"
+  },
+  "aiSettingsCheckConnection": "Проверить связь",
+  "@aiSettingsCheckConnection": {
+    "description": "Кнопка проверки связи с провайдерами"
+  },
+  "aiSettingsChecking": "Проверка...",
+  "@aiSettingsChecking": {
+    "description": "Индикатор проверки связи"
+  },
+  "aiSettingsStatusPcOk": "Домашний ПК: подключён",
+  "@aiSettingsStatusPcOk": {
+    "description": "Статус ПК: доступен"
+  },
+  "aiSettingsStatusPcFails": "Домашний ПК: не отвечает",
+  "@aiSettingsStatusPcFails": {
+    "description": "Статус ПК: недоступен"
+  },
+  "aiSettingsStatusGigaChatOk": "GigaChat: подключён",
+  "@aiSettingsStatusGigaChatOk": {
+    "description": "Статус GigaChat: доступен"
+  },
+  "aiSettingsStatusGigaChatFails": "GigaChat: ошибка авторизации",
+  "@aiSettingsStatusGigaChatFails": {
+    "description": "Статус GigaChat: ошибка"
+  },
+  "aiSettingsStatusGigaChatNotConfigured": "GigaChat: ключ не введён",
+  "@aiSettingsStatusGigaChatNotConfigured": {
+    "description": "Статус GigaChat: не настроен"
+  },
+  "aiSettingsActiveMode": "Активный режим: {mode}",
+  "@aiSettingsActiveMode": {
+    "description": "Текущий активный режим ИИ",
+    "placeholders": {
+      "mode": {
+        "type": "String"
+      }
+    }
+  },
+  "aiSettingsTokenUsageTitle": "Расход токенов GigaChat",
+  "@aiSettingsTokenUsageTitle": {
+    "description": "Заголовок счётчика токенов"
+  },
+  "aiSettingsTokenCount": "{count} токенов в этом месяце",
+  "@aiSettingsTokenCount": {
+    "description": "Количество использованных токенов",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "aiSettingsSave": "Сохранить настройки",
+  "@aiSettingsSave": {
+    "description": "Кнопка сохранения настроек"
+  },
+  "aiSettingsSaved": "Настройки успешно сохранены",
+  "@aiSettingsSaved": {
+    "description": "Уведомление об успешном сохранении"
   }
 }

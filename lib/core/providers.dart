@@ -2,6 +2,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'ai/ai_router.dart';
 import 'ai/ai_service.dart';
+import 'ai/ai_settings_service.dart';
+import 'ai/gigachat_provider.dart';
+import 'ai/lm_studio_provider.dart';
+import 'ai/pc_discovery.dart';
 import 'ai/recipe_validator.dart';
 import 'db/app_database.dart';
 import 'db/daos/ingredient_dao.dart';
@@ -212,8 +216,64 @@ final historyEntriesProvider = FutureProvider<List<CookedEntryWithRecipe>>((
   return dao.allWithRecipes();
 });
 
+final aiSettingsServiceProvider = Provider<AiSettingsService>((ref) {
+  return AiSettingsService();
+});
+
+final aiSettingsProvider = FutureProvider<AiSettings>((ref) async {
+  final service = ref.watch(aiSettingsServiceProvider);
+  return service.loadSettings();
+});
+
+final pcDiscoveryProvider = Provider<PcDiscovery>((ref) {
+  return PcDiscovery();
+});
+
 final aiRouterProvider = Provider<AiRouter>((ref) {
-  return AiRouter();
+  final router = AiRouter();
+  final settingsService = ref.watch(aiSettingsServiceProvider);
+  settingsService.loadSettings().then((settings) {
+    settingsService.applyToRouter(router, settings);
+  });
+  return router;
+});
+
+final monthlyGigaChatTokensProvider = FutureProvider<int>((ref) async {
+  final aiService = await ref.watch(aiServiceProvider.future);
+  return aiService.getMonthlyTokensUsed(modelFilter: 'gigachat');
+});
+
+class AiConnectionChecker {
+  const AiConnectionChecker();
+
+  Future<bool> checkPc(String host, int port) async {
+    if (host.trim().isEmpty) return false;
+    try {
+      final pc = LmStudioProvider(baseUrl: 'http://${host.trim()}:$port');
+      return await pc.isAvailable();
+    } catch (_) {
+      return false;
+    }
+  }
+
+  Future<bool> checkGigaChat(String authKey, String baseUrl) async {
+    if (authKey.trim().isEmpty) return false;
+    try {
+      final giga = GigaChatProvider(
+        authKey: authKey.trim(),
+        baseUrl: baseUrl.trim().isNotEmpty
+            ? baseUrl.trim()
+            : 'https://gigachat.devices.sberbank.ru',
+      );
+      return await giga.isAvailable();
+    } catch (_) {
+      return false;
+    }
+  }
+}
+
+final aiConnectionCheckerProvider = Provider<AiConnectionChecker>((ref) {
+  return const AiConnectionChecker();
 });
 
 final recipeValidatorProvider = FutureProvider<RecipeValidator>((ref) async {

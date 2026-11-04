@@ -229,25 +229,32 @@ class _SuggestionsScreenState extends ConsumerState<SuggestionsScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(l10n.dishesScreenTitle),
-            aiModeAsync.when(
-              data: (mode) => Text(
-                switch (mode) {
-                  AiMode.localPc => l10n.aiAssistantPc,
-                  AiMode.gigaChat => l10n.aiAssistantGigaChat,
-                  AiMode.offline => l10n.aiAssistantOffline,
-                },
-                style: theme.textTheme.bodySmall?.copyWith(
-                  color: theme.colorScheme.onSurfaceVariant,
+        title: GestureDetector(
+          behavior: HitTestBehavior.opaque,
+          onLongPress: () => context.push('/settings/ai'),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(l10n.dishesScreenTitle),
+              aiModeAsync.when(
+                data: (mode) => InkWell(
+                  onTap: () => context.push('/settings/ai'),
+                  child: Text(
+                    switch (mode) {
+                      AiMode.localPc => l10n.aiAssistantPc,
+                      AiMode.gigaChat => l10n.aiAssistantGigaChat,
+                      AiMode.offline => l10n.aiAssistantOffline,
+                    },
+                    style: theme.textTheme.bodySmall?.copyWith(
+                      color: theme.colorScheme.onSurfaceVariant,
+                    ),
+                  ),
                 ),
+                loading: () => const SizedBox.shrink(),
+                error: (_, _) => const SizedBox.shrink(),
               ),
-              loading: () => const SizedBox.shrink(),
-              error: (_, _) => const SizedBox.shrink(),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
       body: Column(

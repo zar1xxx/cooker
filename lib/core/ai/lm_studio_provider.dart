@@ -77,6 +77,7 @@ class LmStudioProvider implements AiProvider {
     final effectiveTimeout = timeout ?? const Duration(seconds: 60);
     return Options(
       headers: headers,
+      connectTimeout: effectiveTimeout,
       sendTimeout: effectiveTimeout,
       receiveTimeout: effectiveTimeout,
     );

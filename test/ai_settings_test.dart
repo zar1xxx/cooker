@@ -1,0 +1,149 @@
+import 'package:chto_prigotovit/core/ai/ai_router.dart';
+import 'package:chto_prigotovit/core/ai/ai_service.dart';
+import 'package:chto_prigotovit/core/ai/ai_settings_service.dart';
+import 'package:chto_prigotovit/core/ai/recipe_validator.dart';
+import 'package:chto_prigotovit/core/db/app_database.dart';
+import 'package:drift/drift.dart' hide isNull, isNotNull;
+import 'package:drift/native.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:flutter_test/flutter_test.dart';
+
+void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+
+  group('AiSettingsService (S3-08)', () {
+    setUp(() {
+      FlutterSecureStorage.setMockInitialValues({});
+    });
+
+    test('loads default settings when storage is empty', () async {
+      final service = AiSettingsService(storage: const FlutterSecureStorage());
+      final settings = await service.loadSettings();
+
+      expect(settings.lmStudioHost, isEmpty);
+      expect(settings.lmStudioPort, equals(1234));
+      expect(settings.gigaChatAuthKey, isEmpty);
+      expect(settings.gigaChatModel, equals('GigaChat-2'));
+    });
+
+    test('persists and reloads updated settings', () async {
+      final service = AiSettingsService(storage: const FlutterSecureStorage());
+      const newSettings = AiSettings(
+        lmStudioHost: '192.168.1.100',
+        lmStudioPort: 1234,
+        lmStudioModel: 'qwen2.5-7b-instruct',
+        gigaChatAuthKey: 'secret_key_123',
+        gigaChatModel: 'GigaChat-Pro',
+      );
+
+      await service.saveSettings(newSettings);
+      final loaded = await service.loadSettings();
+
+      expect(loaded.lmStudioHost, equals('192.168.1.100'));
+      expect(loaded.lmStudioPort, equals(1234));
+      expect(loaded.lmStudioModel, equals('qwen2.5-7b-instruct'));
+      expect(loaded.gigaChatAuthKey, equals('secret_key_123'));
+      expect(loaded.gigaChatModel, equals('GigaChat-Pro'));
+    });
+
+    test('applyToRouter updates router providers', () async {
+      final service = AiSettingsService(storage: const FlutterSecureStorage());
+      final router = AiRouter();
+
+      expect(router.lmStudioProvider, isNull);
+      expect(router.gigaChatProvider, isNull);
+
+      const settings = AiSettings(
+        lmStudioHost: '192.168.1.42',
+        lmStudioPort: 1234,
+        lmStudioModel: 'qwen-7b',
+        gigaChatAuthKey: 'token_abc',
+      );
+
+      service.applyToRouter(router, settings);
+
+      expect(router.lmStudioProvider, isNotNull);
+      expect(
+        router.lmStudioProvider!.baseUrl,
+        equals('http://192.168.1.42:1234'),
+      );
+      expect(router.lmStudioProvider!.model, equals('qwen-7b'));
+
+      expect(router.gigaChatProvider, isNotNull);
+      expect(router.gigaChatProvider!.authKey, equals('token_abc'));
+    });
+  });
+
+  group('AiService.getMonthlyTokensUsed with filter (S3-08)', () {
+    late AppDatabase db;
+
+    setUp(() {
+      db = AppDatabase(NativeDatabase.memory(), seed: false);
+    });
+
+    tearDown(() async {
+      await db.close();
+    });
+
+    test('correctly filters tokens by provider/model name', () async {
+      final now = DateTime.now().toUtc().millisecondsSinceEpoch;
+
+      // LM Studio entry
+      await db
+          .into(db.aiRequests)
+          .insert(
+            AiRequestsCompanion(
+              id: const Value('req1'),
+              kind: const Value('suggest_dishes'),
+              promptHash: const Value('h1'),
+              responseJson: const Value('{}'),
+              status: const Value('ok'),
+              at: Value(now),
+              createdAt: Value(now),
+              updatedAt: Value(now),
+              model: const Value('lm_studio:qwen2.5-7b'),
+              tokensIn: const Value(150),
+              tokensOut: const Value(50),
+            ),
+          );
+
+      // GigaChat entry
+      await db
+          .into(db.aiRequests)
+          .insert(
+            AiRequestsCompanion(
+              id: const Value('req2'),
+              kind: const Value('suggest_dishes'),
+              promptHash: const Value('h2'),
+              responseJson: const Value('{}'),
+              status: const Value('ok'),
+              at: Value(now),
+              createdAt: Value(now),
+              updatedAt: Value(now),
+              model: const Value('GigaChat-2'),
+              tokensIn: const Value(500),
+              tokensOut: const Value(200),
+            ),
+          );
+
+      final service = AiService(
+        router: AiRouter(),
+        validator: const RecipeValidator(safetyMinimums: {}),
+        db: db,
+      );
+
+      final allTokens = await service.getMonthlyTokensUsed();
+      expect(allTokens, equals(900)); // 200 + 700
+
+      final gigaTokens = await service.getMonthlyTokensUsed(
+        modelFilter: 'gigachat',
+      );
+      expect(gigaTokens, equals(700));
+
+      final lmTokens = await service.getMonthlyTokensUsed(
+        modelFilter: 'lm_studio',
+      );
+      expect(lmTokens, equals(200));
+    });
+  });
+}

@@ -586,7 +586,9 @@ class AiService {
   }
 
   /// Returns total tokens consumed during the current calendar month.
-  Future<int> getMonthlyTokensUsed() async {
+  ///
+  /// Can optionally be filtered by [modelFilter] (e.g. 'gigachat' per ТЗ 6.1.1).
+  Future<int> getMonthlyTokensUsed({String? modelFilter}) async {
     final database = db;
     if (database == null) return 0;
 
@@ -603,6 +605,10 @@ class AiService {
 
     int sum = 0;
     for (final row in rows) {
+      if (modelFilter != null &&
+          !row.model.toLowerCase().contains(modelFilter.toLowerCase())) {
+        continue;
+      }
       sum += (row.tokensIn ?? 0) + (row.tokensOut ?? 0);
     }
     return sum;
