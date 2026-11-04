@@ -13,3 +13,10 @@
 | D-007 | 2026-11-04 | tool/check.ps1 / S0-02 | sqlite3 native asset для Windows кэшируется в tool/bin/sqlite3.x64.windows.dll для гарантированного оффлайн-прогона тестов без обращения к GitHub | ИИ | принято |
 | D-008 | 2026-11-04 | l10n.yaml / S0-03 | Локализация генерируется в lib/l10n/ (output-dir: lib/l10n), чтобы сгенерированные файлы коммитились и были доступны анализатору напрямую | ИИ | принято |
 | D-009 | 2026-11-04 | android/app/build.gradle.kts / S0-08 | Включен isCoreLibraryDesugaringEnabled = true и библиотека desugar_jdk_libs:2.1.4 для поддержки flutter_local_notifications | ИИ | принято |
+| D-010 | 2026-11-04 | spec/ai/safety_minimums.json / ревью | Ключевые слова тепловой обработки — основы слов (`вар`, `жар`…), а не точные формы; общее время блюда не заменяет шаг готовки нужной длительности | ревьюер | принято |
+| D-011 | 2026-11-04 | lib/core/db / ревью | До первого релиза (S6-03) схему v1 можно менять без миграций; после релиза — только через `schemaVersion + 1` | ревьюер | принято |
+| D-012 | 2026-11-04 | lib/core/db / R0-05 | Seed загружается в `beforeOpen`, если `ingredients` пуста; ошибки seed не глушатся | ревьюер | принято |
+| D-013 | 2026-11-04 | RecipeValidator / ревью | Валидатор получает `resolveIngredientId` (имя → id) и `forbiddenTerms` (id → слова); ответы ИИ проверяются по именам ингредиентов | ревьюер | принято |
+| D-014 | 2026-11-04 | pubspec.yaml / R0-07 | Прямая зависимость `sqlite3_flutter_libs` удалена: на pub.dev версия `0.6.0+eol` помечена «Not used anymore», нативная библиотека поставляется `sqlite3` 3.x через hooks; `drift_flutter` тянет `sqlite3_flutter_libs` транзитивно | ИИ | принято |
+| D-015 | 2026-11-04 | lib/core/db / R0-05 | Seed выполняется в `beforeOpen`, если таблица `ingredients` пуста; ошибка логируется `debugPrint` и пробрасывается. Конструктор: `AppDatabase(executor, {bool seed = true})` | ИИ | принято |
+| D-016 | 2026-11-04 | lib/core/db / ревью | Время в `SeedLoader` и `CommonFields` берётся через `clock.now()` (`package:clock`), чтобы тесты могли фиксировать дату | ИИ | принято |

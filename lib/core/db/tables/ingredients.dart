@@ -11,4 +11,5 @@ class Ingredients extends Table with CommonFields {
   TextColumn get category => text()();
   BoolColumn get isStaple => boolean().withDefault(const Constant(false))();
   TextColumn get icon => text().nullable()();
+  TextColumn get parentId => text().nullable()();
 }

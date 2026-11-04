@@ -11,7 +11,7 @@ description: Запуск проверок, кодогенерации и сбо
 powershell -ExecutionPolicy Bypass -File tool\check.ps1
 ```
 
-Делает по порядку: `flutter pub get` → `dart run build_runner build --delete-conflicting-outputs` → `dart format --set-exit-if-changed lib test` → `flutter analyze` → `flutter test`. Пишет полный вывод в `docs/reports/last_check.txt`. Код выхода 0 = всё зелёное.
+Делает по порядку: `flutter pub get` → `dart run build_runner build` → `dart format --set-exit-if-changed lib test` → `flutter analyze` → `flutter test`. Пишет полный вывод в `docs/reports/last_check.txt`. Код выхода 0 = всё зелёное.
 
 Флаг `-Apk` дополнительно собирает `flutter build apk --debug`.
 

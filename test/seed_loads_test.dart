@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:chto_prigotovit/core/db/app_database.dart';
 import 'package:chto_prigotovit/core/db/seed_loader.dart';
+import 'package:drift/drift.dart' show Value;
 import 'package:drift/native.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -18,7 +19,7 @@ void main() {
   });
 
   setUp(() {
-    db = AppDatabase(NativeDatabase.memory());
+    db = AppDatabase(NativeDatabase.memory(), seed: false);
   });
 
   tearDown(() async {
@@ -90,5 +91,115 @@ void main() {
         expect(stepsCount2, stepsCount1);
       },
     );
+
+    test('seed loads parent_id so chicken_fillet belongs to chicken', () async {
+      const loader = SeedLoader();
+
+      await loader.loadSeedData(
+        db,
+        ingredientsJson: ingredientsJson,
+        recipesJson: recipesJson,
+      );
+
+      final fillet = await (db.select(
+        db.ingredients,
+      )..where((t) => t.id.equals('chicken_fillet'))).getSingle();
+      expect(fillet.parentId, 'chicken');
+    });
+
+    test('two products sharing a synonym are both found in FTS', () async {
+      const loader = SeedLoader();
+      const customIngredients = '''
+{
+  "ingredients": [
+    {
+      "id": "potato",
+      "name": "картофель",
+      "synonyms": ["картошка"],
+      "category": "vegetables",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "young_potato",
+      "name": "молодой картофель",
+      "synonyms": ["картошка"],
+      "category": "vegetables",
+      "parent_id": "potato",
+      "is_staple": false
+    }
+  ]
+}
+''';
+
+      await loader.loadSeedData(
+        db,
+        ingredientsJson: customIngredients,
+        recipesJson: '{"recipes": []}',
+      );
+
+      final results = await db.searchIngredientsFts('картошка').get();
+      expect(
+        results.map((row) => row.ingredientId),
+        containsAll(['potato', 'young_potato']),
+      );
+    });
+
+    test('database with seed: false stays empty until explicit load', () async {
+      expect(await db.select(db.ingredients).get(), isEmpty);
+      expect(await db.select(db.recipes).get(), isEmpty);
+    });
+
+    test('broken seed JSON throws instead of being swallowed', () async {
+      const loader = SeedLoader();
+
+      await expectLater(
+        loader.loadSeedData(
+          db,
+          ingredientsJson: '{broken',
+          recipesJson: '{"recipes": []}',
+        ),
+        throwsA(isA<FormatException>()),
+      );
+
+      expect(await db.select(db.ingredients).get(), isEmpty);
+    });
+
+    test('repeated seed keeps favorite flag and createdAt', () async {
+      const loader = SeedLoader();
+
+      await loader.loadSeedData(
+        db,
+        ingredientsJson: ingredientsJson,
+        recipesJson: recipesJson,
+      );
+
+      final recipeBefore = await (db.select(
+        db.recipes,
+      )..where((t) => t.id.equals('omelet_classic'))).getSingle();
+      final ingredientBefore = await (db.select(
+        db.ingredients,
+      )..where((t) => t.id.equals('potato'))).getSingle();
+
+      await (db.update(db.recipes)..where((t) => t.id.equals('omelet_classic')))
+          .write(const RecipesCompanion(isFavorite: Value(true)));
+
+      await loader.loadSeedData(
+        db,
+        ingredientsJson: ingredientsJson,
+        recipesJson: recipesJson,
+      );
+
+      final recipeAfter = await (db.select(
+        db.recipes,
+      )..where((t) => t.id.equals('omelet_classic'))).getSingle();
+      final ingredientAfter = await (db.select(
+        db.ingredients,
+      )..where((t) => t.id.equals('potato'))).getSingle();
+
+      expect(recipeAfter.isFavorite, isTrue);
+      expect(recipeAfter.createdAt, recipeBefore.createdAt);
+      expect(ingredientAfter.createdAt, ingredientBefore.createdAt);
+    });
   });
 }

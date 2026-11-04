@@ -11,6 +11,17 @@ class IngredientsFts extends Table
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
   IngredientsFts(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _ingredientIdMeta = const VerificationMeta(
+    'ingredientId',
+  );
+  late final GeneratedColumn<String> ingredientId = GeneratedColumn<String>(
+    'ingredient_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    $customConstraints: '',
+  );
   static const VerificationMeta _nameMeta = const VerificationMeta('name');
   late final GeneratedColumn<String> name = GeneratedColumn<String>(
     'name',
@@ -32,7 +43,7 @@ class IngredientsFts extends Table
     $customConstraints: '',
   );
   @override
-  List<GeneratedColumn> get $columns => [name, synonyms];
+  List<GeneratedColumn> get $columns => [ingredientId, name, synonyms];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -45,6 +56,17 @@ class IngredientsFts extends Table
   }) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
+    if (data.containsKey('ingredient_id')) {
+      context.handle(
+        _ingredientIdMeta,
+        ingredientId.isAcceptableOrUnknown(
+          data['ingredient_id']!,
+          _ingredientIdMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_ingredientIdMeta);
+    }
     if (data.containsKey('name')) {
       context.handle(
         _nameMeta,
@@ -70,6 +92,10 @@ class IngredientsFts extends Table
   IngredientsFt map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return IngredientsFt(
+      ingredientId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}ingredient_id'],
+      )!,
       name: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
         data['${effectivePrefix}name'],
@@ -89,16 +115,22 @@ class IngredientsFts extends Table
   @override
   bool get dontWriteConstraints => true;
   @override
-  String get moduleAndArgs => 'fts5(name, synonyms)';
+  String get moduleAndArgs => 'fts5(ingredient_id UNINDEXED, name, synonyms)';
 }
 
 class IngredientsFt extends DataClass implements Insertable<IngredientsFt> {
+  final String ingredientId;
   final String name;
   final String synonyms;
-  const IngredientsFt({required this.name, required this.synonyms});
+  const IngredientsFt({
+    required this.ingredientId,
+    required this.name,
+    required this.synonyms,
+  });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
+    map['ingredient_id'] = Variable<String>(ingredientId);
     map['name'] = Variable<String>(name);
     map['synonyms'] = Variable<String>(synonyms);
     return map;
@@ -106,6 +138,7 @@ class IngredientsFt extends DataClass implements Insertable<IngredientsFt> {
 
   IngredientsFtsCompanion toCompanion(bool nullToAbsent) {
     return IngredientsFtsCompanion(
+      ingredientId: Value(ingredientId),
       name: Value(name),
       synonyms: Value(synonyms),
     );
@@ -117,6 +150,7 @@ class IngredientsFt extends DataClass implements Insertable<IngredientsFt> {
   }) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return IngredientsFt(
+      ingredientId: serializer.fromJson<String>(json['ingredient_id']),
       name: serializer.fromJson<String>(json['name']),
       synonyms: serializer.fromJson<String>(json['synonyms']),
     );
@@ -125,17 +159,26 @@ class IngredientsFt extends DataClass implements Insertable<IngredientsFt> {
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
+      'ingredient_id': serializer.toJson<String>(ingredientId),
       'name': serializer.toJson<String>(name),
       'synonyms': serializer.toJson<String>(synonyms),
     };
   }
 
-  IngredientsFt copyWith({String? name, String? synonyms}) => IngredientsFt(
+  IngredientsFt copyWith({
+    String? ingredientId,
+    String? name,
+    String? synonyms,
+  }) => IngredientsFt(
+    ingredientId: ingredientId ?? this.ingredientId,
     name: name ?? this.name,
     synonyms: synonyms ?? this.synonyms,
   );
   IngredientsFt copyWithCompanion(IngredientsFtsCompanion data) {
     return IngredientsFt(
+      ingredientId: data.ingredientId.present
+          ? data.ingredientId.value
+          : this.ingredientId,
       name: data.name.present ? data.name.value : this.name,
       synonyms: data.synonyms.present ? data.synonyms.value : this.synonyms,
     );
@@ -144,6 +187,7 @@ class IngredientsFt extends DataClass implements Insertable<IngredientsFt> {
   @override
   String toString() {
     return (StringBuffer('IngredientsFt(')
+          ..write('ingredientId: $ingredientId, ')
           ..write('name: $name, ')
           ..write('synonyms: $synonyms')
           ..write(')'))
@@ -151,36 +195,43 @@ class IngredientsFt extends DataClass implements Insertable<IngredientsFt> {
   }
 
   @override
-  int get hashCode => Object.hash(name, synonyms);
+  int get hashCode => Object.hash(ingredientId, name, synonyms);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is IngredientsFt &&
+          other.ingredientId == this.ingredientId &&
           other.name == this.name &&
           other.synonyms == this.synonyms);
 }
 
 class IngredientsFtsCompanion extends UpdateCompanion<IngredientsFt> {
+  final Value<String> ingredientId;
   final Value<String> name;
   final Value<String> synonyms;
   final Value<int> rowid;
   const IngredientsFtsCompanion({
+    this.ingredientId = const Value.absent(),
     this.name = const Value.absent(),
     this.synonyms = const Value.absent(),
     this.rowid = const Value.absent(),
   });
   IngredientsFtsCompanion.insert({
+    required String ingredientId,
     required String name,
     required String synonyms,
     this.rowid = const Value.absent(),
-  }) : name = Value(name),
+  }) : ingredientId = Value(ingredientId),
+       name = Value(name),
        synonyms = Value(synonyms);
   static Insertable<IngredientsFt> custom({
+    Expression<String>? ingredientId,
     Expression<String>? name,
     Expression<String>? synonyms,
     Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
+      if (ingredientId != null) 'ingredient_id': ingredientId,
       if (name != null) 'name': name,
       if (synonyms != null) 'synonyms': synonyms,
       if (rowid != null) 'rowid': rowid,
@@ -188,11 +239,13 @@ class IngredientsFtsCompanion extends UpdateCompanion<IngredientsFt> {
   }
 
   IngredientsFtsCompanion copyWith({
+    Value<String>? ingredientId,
     Value<String>? name,
     Value<String>? synonyms,
     Value<int>? rowid,
   }) {
     return IngredientsFtsCompanion(
+      ingredientId: ingredientId ?? this.ingredientId,
       name: name ?? this.name,
       synonyms: synonyms ?? this.synonyms,
       rowid: rowid ?? this.rowid,
@@ -202,6 +255,9 @@ class IngredientsFtsCompanion extends UpdateCompanion<IngredientsFt> {
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
+    if (ingredientId.present) {
+      map['ingredient_id'] = Variable<String>(ingredientId.value);
+    }
     if (name.present) {
       map['name'] = Variable<String>(name.value);
     }
@@ -217,6 +273,7 @@ class IngredientsFtsCompanion extends UpdateCompanion<IngredientsFt> {
   @override
   String toString() {
     return (StringBuffer('IngredientsFtsCompanion(')
+          ..write('ingredientId: $ingredientId, ')
           ..write('name: $name, ')
           ..write('synonyms: $synonyms, ')
           ..write('rowid: $rowid')
@@ -251,7 +308,7 @@ class $IngredientsTable extends Ingredients
     false,
     type: DriftSqlType.int,
     requiredDuringInsert: false,
-    clientDefault: () => DateTime.now().toUtc().millisecondsSinceEpoch,
+    clientDefault: () => clock.now().toUtc().millisecondsSinceEpoch,
   );
   static const VerificationMeta _updatedAtMeta = const VerificationMeta(
     'updatedAt',
@@ -263,7 +320,7 @@ class $IngredientsTable extends Ingredients
     false,
     type: DriftSqlType.int,
     requiredDuringInsert: false,
-    clientDefault: () => DateTime.now().toUtc().millisecondsSinceEpoch,
+    clientDefault: () => clock.now().toUtc().millisecondsSinceEpoch,
   );
   static const VerificationMeta _deletedAtMeta = const VerificationMeta(
     'deletedAt',
@@ -330,6 +387,17 @@ class $IngredientsTable extends Ingredients
     type: DriftSqlType.string,
     requiredDuringInsert: false,
   );
+  static const VerificationMeta _parentIdMeta = const VerificationMeta(
+    'parentId',
+  );
+  @override
+  late final GeneratedColumn<String> parentId = GeneratedColumn<String>(
+    'parent_id',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
   @override
   List<GeneratedColumn> get $columns => [
     id,
@@ -341,6 +409,7 @@ class $IngredientsTable extends Ingredients
     category,
     isStaple,
     icon,
+    parentId,
   ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -403,6 +472,12 @@ class $IngredientsTable extends Ingredients
         icon.isAcceptableOrUnknown(data['icon']!, _iconMeta),
       );
     }
+    if (data.containsKey('parent_id')) {
+      context.handle(
+        _parentIdMeta,
+        parentId.isAcceptableOrUnknown(data['parent_id']!, _parentIdMeta),
+      );
+    }
     return context;
   }
 
@@ -450,6 +525,10 @@ class $IngredientsTable extends Ingredients
         DriftSqlType.string,
         data['${effectivePrefix}icon'],
       ),
+      parentId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}parent_id'],
+      ),
     );
   }
 
@@ -472,6 +551,7 @@ class Ingredient extends DataClass implements Insertable<Ingredient> {
   final String category;
   final bool isStaple;
   final String? icon;
+  final String? parentId;
   const Ingredient({
     required this.id,
     required this.createdAt,
@@ -482,6 +562,7 @@ class Ingredient extends DataClass implements Insertable<Ingredient> {
     required this.category,
     required this.isStaple,
     this.icon,
+    this.parentId,
   });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -503,6 +584,9 @@ class Ingredient extends DataClass implements Insertable<Ingredient> {
     if (!nullToAbsent || icon != null) {
       map['icon'] = Variable<String>(icon);
     }
+    if (!nullToAbsent || parentId != null) {
+      map['parent_id'] = Variable<String>(parentId);
+    }
     return map;
   }
 
@@ -519,6 +603,9 @@ class Ingredient extends DataClass implements Insertable<Ingredient> {
       category: Value(category),
       isStaple: Value(isStaple),
       icon: icon == null && nullToAbsent ? const Value.absent() : Value(icon),
+      parentId: parentId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(parentId),
     );
   }
 
@@ -537,6 +624,7 @@ class Ingredient extends DataClass implements Insertable<Ingredient> {
       category: serializer.fromJson<String>(json['category']),
       isStaple: serializer.fromJson<bool>(json['isStaple']),
       icon: serializer.fromJson<String?>(json['icon']),
+      parentId: serializer.fromJson<String?>(json['parentId']),
     );
   }
   @override
@@ -552,6 +640,7 @@ class Ingredient extends DataClass implements Insertable<Ingredient> {
       'category': serializer.toJson<String>(category),
       'isStaple': serializer.toJson<bool>(isStaple),
       'icon': serializer.toJson<String?>(icon),
+      'parentId': serializer.toJson<String?>(parentId),
     };
   }
 
@@ -565,6 +654,7 @@ class Ingredient extends DataClass implements Insertable<Ingredient> {
     String? category,
     bool? isStaple,
     Value<String?> icon = const Value.absent(),
+    Value<String?> parentId = const Value.absent(),
   }) => Ingredient(
     id: id ?? this.id,
     createdAt: createdAt ?? this.createdAt,
@@ -575,6 +665,7 @@ class Ingredient extends DataClass implements Insertable<Ingredient> {
     category: category ?? this.category,
     isStaple: isStaple ?? this.isStaple,
     icon: icon.present ? icon.value : this.icon,
+    parentId: parentId.present ? parentId.value : this.parentId,
   );
   Ingredient copyWithCompanion(IngredientsCompanion data) {
     return Ingredient(
@@ -587,6 +678,7 @@ class Ingredient extends DataClass implements Insertable<Ingredient> {
       category: data.category.present ? data.category.value : this.category,
       isStaple: data.isStaple.present ? data.isStaple.value : this.isStaple,
       icon: data.icon.present ? data.icon.value : this.icon,
+      parentId: data.parentId.present ? data.parentId.value : this.parentId,
     );
   }
 
@@ -601,7 +693,8 @@ class Ingredient extends DataClass implements Insertable<Ingredient> {
           ..write('synonyms: $synonyms, ')
           ..write('category: $category, ')
           ..write('isStaple: $isStaple, ')
-          ..write('icon: $icon')
+          ..write('icon: $icon, ')
+          ..write('parentId: $parentId')
           ..write(')'))
         .toString();
   }
@@ -617,6 +710,7 @@ class Ingredient extends DataClass implements Insertable<Ingredient> {
     category,
     isStaple,
     icon,
+    parentId,
   );
   @override
   bool operator ==(Object other) =>
@@ -630,7 +724,8 @@ class Ingredient extends DataClass implements Insertable<Ingredient> {
           other.synonyms == this.synonyms &&
           other.category == this.category &&
           other.isStaple == this.isStaple &&
-          other.icon == this.icon);
+          other.icon == this.icon &&
+          other.parentId == this.parentId);
 }
 
 class IngredientsCompanion extends UpdateCompanion<Ingredient> {
@@ -643,6 +738,7 @@ class IngredientsCompanion extends UpdateCompanion<Ingredient> {
   final Value<String> category;
   final Value<bool> isStaple;
   final Value<String?> icon;
+  final Value<String?> parentId;
   final Value<int> rowid;
   const IngredientsCompanion({
     this.id = const Value.absent(),
@@ -654,6 +750,7 @@ class IngredientsCompanion extends UpdateCompanion<Ingredient> {
     this.category = const Value.absent(),
     this.isStaple = const Value.absent(),
     this.icon = const Value.absent(),
+    this.parentId = const Value.absent(),
     this.rowid = const Value.absent(),
   });
   IngredientsCompanion.insert({
@@ -666,6 +763,7 @@ class IngredientsCompanion extends UpdateCompanion<Ingredient> {
     required String category,
     this.isStaple = const Value.absent(),
     this.icon = const Value.absent(),
+    this.parentId = const Value.absent(),
     this.rowid = const Value.absent(),
   }) : name = Value(name),
        category = Value(category);
@@ -679,6 +777,7 @@ class IngredientsCompanion extends UpdateCompanion<Ingredient> {
     Expression<String>? category,
     Expression<bool>? isStaple,
     Expression<String>? icon,
+    Expression<String>? parentId,
     Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
@@ -691,6 +790,7 @@ class IngredientsCompanion extends UpdateCompanion<Ingredient> {
       if (category != null) 'category': category,
       if (isStaple != null) 'is_staple': isStaple,
       if (icon != null) 'icon': icon,
+      if (parentId != null) 'parent_id': parentId,
       if (rowid != null) 'rowid': rowid,
     });
   }
@@ -705,6 +805,7 @@ class IngredientsCompanion extends UpdateCompanion<Ingredient> {
     Value<String>? category,
     Value<bool>? isStaple,
     Value<String?>? icon,
+    Value<String?>? parentId,
     Value<int>? rowid,
   }) {
     return IngredientsCompanion(
@@ -717,6 +818,7 @@ class IngredientsCompanion extends UpdateCompanion<Ingredient> {
       category: category ?? this.category,
       isStaple: isStaple ?? this.isStaple,
       icon: icon ?? this.icon,
+      parentId: parentId ?? this.parentId,
       rowid: rowid ?? this.rowid,
     );
   }
@@ -753,6 +855,9 @@ class IngredientsCompanion extends UpdateCompanion<Ingredient> {
     if (icon.present) {
       map['icon'] = Variable<String>(icon.value);
     }
+    if (parentId.present) {
+      map['parent_id'] = Variable<String>(parentId.value);
+    }
     if (rowid.present) {
       map['rowid'] = Variable<int>(rowid.value);
     }
@@ -771,6 +876,7 @@ class IngredientsCompanion extends UpdateCompanion<Ingredient> {
           ..write('category: $category, ')
           ..write('isStaple: $isStaple, ')
           ..write('icon: $icon, ')
+          ..write('parentId: $parentId, ')
           ..write('rowid: $rowid')
           ..write(')'))
         .toString();
@@ -803,7 +909,7 @@ class $PantryItemsTable extends PantryItems
     false,
     type: DriftSqlType.int,
     requiredDuringInsert: false,
-    clientDefault: () => DateTime.now().toUtc().millisecondsSinceEpoch,
+    clientDefault: () => clock.now().toUtc().millisecondsSinceEpoch,
   );
   static const VerificationMeta _updatedAtMeta = const VerificationMeta(
     'updatedAt',
@@ -815,7 +921,7 @@ class $PantryItemsTable extends PantryItems
     false,
     type: DriftSqlType.int,
     requiredDuringInsert: false,
-    clientDefault: () => DateTime.now().toUtc().millisecondsSinceEpoch,
+    clientDefault: () => clock.now().toUtc().millisecondsSinceEpoch,
   );
   static const VerificationMeta _deletedAtMeta = const VerificationMeta(
     'deletedAt',
@@ -1224,7 +1330,7 @@ class $RecipesTable extends Recipes with TableInfo<$RecipesTable, Recipe> {
     false,
     type: DriftSqlType.int,
     requiredDuringInsert: false,
-    clientDefault: () => DateTime.now().toUtc().millisecondsSinceEpoch,
+    clientDefault: () => clock.now().toUtc().millisecondsSinceEpoch,
   );
   static const VerificationMeta _updatedAtMeta = const VerificationMeta(
     'updatedAt',
@@ -1236,7 +1342,7 @@ class $RecipesTable extends Recipes with TableInfo<$RecipesTable, Recipe> {
     false,
     type: DriftSqlType.int,
     requiredDuringInsert: false,
-    clientDefault: () => DateTime.now().toUtc().millisecondsSinceEpoch,
+    clientDefault: () => clock.now().toUtc().millisecondsSinceEpoch,
   );
   static const VerificationMeta _deletedAtMeta = const VerificationMeta(
     'deletedAt',
@@ -2203,7 +2309,7 @@ class $RecipeIngredientsTable extends RecipeIngredients
     false,
     type: DriftSqlType.int,
     requiredDuringInsert: false,
-    clientDefault: () => DateTime.now().toUtc().millisecondsSinceEpoch,
+    clientDefault: () => clock.now().toUtc().millisecondsSinceEpoch,
   );
   static const VerificationMeta _updatedAtMeta = const VerificationMeta(
     'updatedAt',
@@ -2215,7 +2321,7 @@ class $RecipeIngredientsTable extends RecipeIngredients
     false,
     type: DriftSqlType.int,
     requiredDuringInsert: false,
-    clientDefault: () => DateTime.now().toUtc().millisecondsSinceEpoch,
+    clientDefault: () => clock.now().toUtc().millisecondsSinceEpoch,
   );
   static const VerificationMeta _deletedAtMeta = const VerificationMeta(
     'deletedAt',
@@ -2808,7 +2914,7 @@ class $RecipeStepsTable extends RecipeSteps
     false,
     type: DriftSqlType.int,
     requiredDuringInsert: false,
-    clientDefault: () => DateTime.now().toUtc().millisecondsSinceEpoch,
+    clientDefault: () => clock.now().toUtc().millisecondsSinceEpoch,
   );
   static const VerificationMeta _updatedAtMeta = const VerificationMeta(
     'updatedAt',
@@ -2820,7 +2926,7 @@ class $RecipeStepsTable extends RecipeSteps
     false,
     type: DriftSqlType.int,
     requiredDuringInsert: false,
-    clientDefault: () => DateTime.now().toUtc().millisecondsSinceEpoch,
+    clientDefault: () => clock.now().toUtc().millisecondsSinceEpoch,
   );
   static const VerificationMeta _deletedAtMeta = const VerificationMeta(
     'deletedAt',
@@ -3368,7 +3474,7 @@ class $CookedEntriesTable extends CookedEntries
     false,
     type: DriftSqlType.int,
     requiredDuringInsert: false,
-    clientDefault: () => DateTime.now().toUtc().millisecondsSinceEpoch,
+    clientDefault: () => clock.now().toUtc().millisecondsSinceEpoch,
   );
   static const VerificationMeta _updatedAtMeta = const VerificationMeta(
     'updatedAt',
@@ -3380,7 +3486,7 @@ class $CookedEntriesTable extends CookedEntries
     false,
     type: DriftSqlType.int,
     requiredDuringInsert: false,
-    clientDefault: () => DateTime.now().toUtc().millisecondsSinceEpoch,
+    clientDefault: () => clock.now().toUtc().millisecondsSinceEpoch,
   );
   static const VerificationMeta _deletedAtMeta = const VerificationMeta(
     'deletedAt',
@@ -3928,7 +4034,7 @@ class $MealPlanEntriesTable extends MealPlanEntries
     false,
     type: DriftSqlType.int,
     requiredDuringInsert: false,
-    clientDefault: () => DateTime.now().toUtc().millisecondsSinceEpoch,
+    clientDefault: () => clock.now().toUtc().millisecondsSinceEpoch,
   );
   static const VerificationMeta _updatedAtMeta = const VerificationMeta(
     'updatedAt',
@@ -3940,7 +4046,7 @@ class $MealPlanEntriesTable extends MealPlanEntries
     false,
     type: DriftSqlType.int,
     requiredDuringInsert: false,
-    clientDefault: () => DateTime.now().toUtc().millisecondsSinceEpoch,
+    clientDefault: () => clock.now().toUtc().millisecondsSinceEpoch,
   );
   static const VerificationMeta _deletedAtMeta = const VerificationMeta(
     'deletedAt',
@@ -4483,7 +4589,7 @@ class $FeedbackEventsTable extends FeedbackEvents
     false,
     type: DriftSqlType.int,
     requiredDuringInsert: false,
-    clientDefault: () => DateTime.now().toUtc().millisecondsSinceEpoch,
+    clientDefault: () => clock.now().toUtc().millisecondsSinceEpoch,
   );
   static const VerificationMeta _updatedAtMeta = const VerificationMeta(
     'updatedAt',
@@ -4495,7 +4601,7 @@ class $FeedbackEventsTable extends FeedbackEvents
     false,
     type: DriftSqlType.int,
     requiredDuringInsert: false,
-    clientDefault: () => DateTime.now().toUtc().millisecondsSinceEpoch,
+    clientDefault: () => clock.now().toUtc().millisecondsSinceEpoch,
   );
   static const VerificationMeta _deletedAtMeta = const VerificationMeta(
     'deletedAt',
@@ -4988,7 +5094,7 @@ class $PreferenceProfileTable extends PreferenceProfile
     false,
     type: DriftSqlType.int,
     requiredDuringInsert: false,
-    clientDefault: () => DateTime.now().toUtc().millisecondsSinceEpoch,
+    clientDefault: () => clock.now().toUtc().millisecondsSinceEpoch,
   );
   static const VerificationMeta _updatedAtMeta = const VerificationMeta(
     'updatedAt',
@@ -5000,7 +5106,7 @@ class $PreferenceProfileTable extends PreferenceProfile
     false,
     type: DriftSqlType.int,
     requiredDuringInsert: false,
-    clientDefault: () => DateTime.now().toUtc().millisecondsSinceEpoch,
+    clientDefault: () => clock.now().toUtc().millisecondsSinceEpoch,
   );
   static const VerificationMeta _deletedAtMeta = const VerificationMeta(
     'deletedAt',
@@ -5770,7 +5876,7 @@ class $AiRequestsTable extends AiRequests
     false,
     type: DriftSqlType.int,
     requiredDuringInsert: false,
-    clientDefault: () => DateTime.now().toUtc().millisecondsSinceEpoch,
+    clientDefault: () => clock.now().toUtc().millisecondsSinceEpoch,
   );
   static const VerificationMeta _updatedAtMeta = const VerificationMeta(
     'updatedAt',
@@ -5782,7 +5888,7 @@ class $AiRequestsTable extends AiRequests
     false,
     type: DriftSqlType.int,
     requiredDuringInsert: false,
-    clientDefault: () => DateTime.now().toUtc().millisecondsSinceEpoch,
+    clientDefault: () => clock.now().toUtc().millisecondsSinceEpoch,
   );
   static const VerificationMeta _deletedAtMeta = const VerificationMeta(
     'deletedAt',
@@ -6457,18 +6563,36 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   late final $PreferenceProfileTable preferenceProfile =
       $PreferenceProfileTable(this);
   late final $AiRequestsTable aiRequests = $AiRequestsTable(this);
-  Selectable<SearchIngredientsFtsResult> searchIngredientsFts(String query) {
+  late final Index idxPantryItemsIngredientId = Index(
+    'idx_pantry_items_ingredient_id',
+    'CREATE UNIQUE INDEX idx_pantry_items_ingredient_id ON pantry_items (ingredient_id)',
+  );
+  late final Index idxRecipeIngredientsRecipeId = Index(
+    'idx_recipe_ingredients_recipe_id',
+    'CREATE INDEX idx_recipe_ingredients_recipe_id ON recipe_ingredients (recipe_id)',
+  );
+  late final Index idxRecipeIngredientsIngredientId = Index(
+    'idx_recipe_ingredients_ingredient_id',
+    'CREATE INDEX idx_recipe_ingredients_ingredient_id ON recipe_ingredients (ingredient_id)',
+  );
+  late final Index idxRecipeStepsRecipeId = Index(
+    'idx_recipe_steps_recipe_id',
+    'CREATE INDEX idx_recipe_steps_recipe_id ON recipe_steps (recipe_id)',
+  );
+  late final Index idxCookedEntriesCookedOn = Index(
+    'idx_cooked_entries_cooked_on',
+    'CREATE INDEX idx_cooked_entries_cooked_on ON cooked_entries (cooked_on)',
+  );
+  late final Index idxMealPlanEntriesDateSlot = Index(
+    'idx_meal_plan_entries_date_slot',
+    'CREATE UNIQUE INDEX idx_meal_plan_entries_date_slot ON meal_plan_entries (date, meal_slot)',
+  );
+  Selectable<IngredientsFt> searchIngredientsFts(String query) {
     return customSelect(
-      'SELECT "rowid", name, synonyms FROM ingredients_fts WHERE ingredients_fts MATCH ?1',
+      'SELECT ingredient_id, name, synonyms FROM ingredients_fts WHERE ingredients_fts MATCH ?1',
       variables: [Variable<String>(query)],
       readsFrom: {this.ingredientsFts},
-    ).map(
-      (QueryRow row) => SearchIngredientsFtsResult(
-        rowid: row.read<int>('rowid'),
-        name: row.read<String>('name'),
-        synonyms: row.read<String>('synonyms'),
-      ),
-    );
+    ).asyncMap(this.ingredientsFts.mapFromRow);
   }
 
   @override
@@ -6487,17 +6611,25 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     feedbackEvents,
     preferenceProfile,
     aiRequests,
+    idxPantryItemsIngredientId,
+    idxRecipeIngredientsRecipeId,
+    idxRecipeIngredientsIngredientId,
+    idxRecipeStepsRecipeId,
+    idxCookedEntriesCookedOn,
+    idxMealPlanEntriesDateSlot,
   ];
 }
 
 typedef $IngredientsFtsCreateCompanionBuilder =
     IngredientsFtsCompanion Function({
+      required String ingredientId,
       required String name,
       required String synonyms,
       Value<int> rowid,
     });
 typedef $IngredientsFtsUpdateCompanionBuilder =
     IngredientsFtsCompanion Function({
+      Value<String> ingredientId,
       Value<String> name,
       Value<String> synonyms,
       Value<int> rowid,
@@ -6512,6 +6644,11 @@ class $IngredientsFtsFilterComposer
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
+  ColumnFilters<String> get ingredientId => $composableBuilder(
+    column: $table.ingredientId,
+    builder: (column) => ColumnFilters(column),
+  );
+
   ColumnFilters<String> get name => $composableBuilder(
     column: $table.name,
     builder: (column) => ColumnFilters(column),
@@ -6532,6 +6669,11 @@ class $IngredientsFtsOrderingComposer
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
+  ColumnOrderings<String> get ingredientId => $composableBuilder(
+    column: $table.ingredientId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   ColumnOrderings<String> get name => $composableBuilder(
     column: $table.name,
     builder: (column) => ColumnOrderings(column),
@@ -6552,6 +6694,11 @@ class $IngredientsFtsAnnotationComposer
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
+  GeneratedColumn<String> get ingredientId => $composableBuilder(
+    column: $table.ingredientId,
+    builder: (column) => column,
+  );
+
   GeneratedColumn<String> get name =>
       $composableBuilder(column: $table.name, builder: (column) => column);
 
@@ -6590,20 +6737,24 @@ class $IngredientsFtsTableManager
               $IngredientsFtsAnnotationComposer($db: db, $table: table),
           updateCompanionCallback:
               ({
+                Value<String> ingredientId = const Value.absent(),
                 Value<String> name = const Value.absent(),
                 Value<String> synonyms = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => IngredientsFtsCompanion(
+                ingredientId: ingredientId,
                 name: name,
                 synonyms: synonyms,
                 rowid: rowid,
               ),
           createCompanionCallback:
               ({
+                required String ingredientId,
                 required String name,
                 required String synonyms,
                 Value<int> rowid = const Value.absent(),
               }) => IngredientsFtsCompanion.insert(
+                ingredientId: ingredientId,
                 name: name,
                 synonyms: synonyms,
                 rowid: rowid,
@@ -6653,6 +6804,7 @@ typedef $$IngredientsTableCreateCompanionBuilder =
       required String category,
       Value<bool> isStaple,
       Value<String?> icon,
+      Value<String?> parentId,
       Value<int> rowid,
     });
 typedef $$IngredientsTableUpdateCompanionBuilder =
@@ -6666,6 +6818,7 @@ typedef $$IngredientsTableUpdateCompanionBuilder =
       Value<String> category,
       Value<bool> isStaple,
       Value<String?> icon,
+      Value<String?> parentId,
       Value<int> rowid,
     });
 
@@ -6723,6 +6876,11 @@ class $$IngredientsTableFilterComposer
     column: $table.icon,
     builder: (column) => ColumnFilters(column),
   );
+
+  ColumnFilters<String> get parentId => $composableBuilder(
+    column: $table.parentId,
+    builder: (column) => ColumnFilters(column),
+  );
 }
 
 class $$IngredientsTableOrderingComposer
@@ -6778,6 +6936,11 @@ class $$IngredientsTableOrderingComposer
     column: $table.icon,
     builder: (column) => ColumnOrderings(column),
   );
+
+  ColumnOrderings<String> get parentId => $composableBuilder(
+    column: $table.parentId,
+    builder: (column) => ColumnOrderings(column),
+  );
 }
 
 class $$IngredientsTableAnnotationComposer
@@ -6815,6 +6978,9 @@ class $$IngredientsTableAnnotationComposer
 
   GeneratedColumn<String> get icon =>
       $composableBuilder(column: $table.icon, builder: (column) => column);
+
+  GeneratedColumn<String> get parentId =>
+      $composableBuilder(column: $table.parentId, builder: (column) => column);
 }
 
 class $$IngredientsTableTableManager
@@ -6857,6 +7023,7 @@ class $$IngredientsTableTableManager
                 Value<String> category = const Value.absent(),
                 Value<bool> isStaple = const Value.absent(),
                 Value<String?> icon = const Value.absent(),
+                Value<String?> parentId = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => IngredientsCompanion(
                 id: id,
@@ -6868,6 +7035,7 @@ class $$IngredientsTableTableManager
                 category: category,
                 isStaple: isStaple,
                 icon: icon,
+                parentId: parentId,
                 rowid: rowid,
               ),
           createCompanionCallback:
@@ -6881,6 +7049,7 @@ class $$IngredientsTableTableManager
                 required String category,
                 Value<bool> isStaple = const Value.absent(),
                 Value<String?> icon = const Value.absent(),
+                Value<String?> parentId = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => IngredientsCompanion.insert(
                 id: id,
@@ -6892,6 +7061,7 @@ class $$IngredientsTableTableManager
                 category: category,
                 isStaple: isStaple,
                 icon: icon,
+                parentId: parentId,
                 rowid: rowid,
               ),
           withReferenceMapper: (p0) => p0
@@ -9834,15 +10004,4 @@ class $AppDatabaseManager {
       $$PreferenceProfileTableTableManager(_db, _db.preferenceProfile);
   $$AiRequestsTableTableManager get aiRequests =>
       $$AiRequestsTableTableManager(_db, _db.aiRequests);
-}
-
-class SearchIngredientsFtsResult {
-  final int rowid;
-  final String name;
-  final String synonyms;
-  SearchIngredientsFtsResult({
-    required this.rowid,
-    required this.name,
-    required this.synonyms,
-  });
 }

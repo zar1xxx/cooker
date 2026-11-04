@@ -143,7 +143,7 @@ RESULT: GREEN (2026-11-04T15:10:51)
 
 ## Условие «Готово, когда» из docs/TASKS.md
 
-- [x] debug-APK ставится на телефон: файл `build\app\outputs\flutter-apk\app-debug.apk` успешно собран.
+- [x] debug-APK собран: файл `build\app\outputs\flutter-apk\app-debug.apk`. Установку на телефон проверяет владелец (на момент отчёта не проверялась).
 - [x] 4 вкладки переключаются: подтверждено виджет-тестом `test/navigation_test.dart`.
 - [x] тест `seed_loads_test` проходит: подтверждено прохождением тестов в `test/seed_loads_test.dart`.
 - [x] `check.ps1` зелёный: все шаги проверки завершились с кодом 0 (`RESULT: GREEN`).

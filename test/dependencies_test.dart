@@ -12,7 +12,7 @@ void main() {
         'go_router',
         'drift',
         'drift_flutter',
-        'sqlite3_flutter_libs',
+        'clock',
         'path_provider',
         'freezed_annotation',
         'json_annotation',

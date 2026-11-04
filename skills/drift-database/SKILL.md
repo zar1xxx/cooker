@@ -36,5 +36,5 @@ description: Таблицы, миграции, DAO и кодогенерация
 ## Кодогенерация
 
 ```powershell
-dart run build_runner build --delete-conflicting-outputs
+dart run build_runner build
 ```

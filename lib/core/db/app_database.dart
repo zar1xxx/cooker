@@ -1,5 +1,7 @@
+import 'package:clock/clock.dart';
 import 'package:drift/drift.dart';
 import 'package:drift_flutter/drift_flutter.dart';
+import 'package:flutter/foundation.dart' show debugPrint;
 import 'package:uuid/uuid.dart';
 
 import 'converters/json_converters.dart';
@@ -34,7 +36,10 @@ part 'app_database.g.dart';
   include: {'tables/ingredients_fts.drift'},
 )
 class AppDatabase extends _$AppDatabase {
-  AppDatabase([QueryExecutor? executor]) : super(executor ?? _openConnection());
+  AppDatabase(QueryExecutor? executor, {this.seed = true})
+    : super(executor ?? _openConnection());
+
+  final bool seed;
 
   @override
   int get schemaVersion => 1;
@@ -43,16 +48,27 @@ class AppDatabase extends _$AppDatabase {
   MigrationStrategy get migration => MigrationStrategy(
     onCreate: (Migrator m) async {
       await m.createAll();
-      try {
-        await const SeedLoader().loadSeedData(this);
-      } catch (_) {
-        // In unit tests without asset rootBundle, seed data is loaded via explicit test calls
-      }
     },
     beforeOpen: (details) async {
       await customStatement('PRAGMA foreign_keys = ON');
+      // Self-healing seed: if the first launch failed halfway, the next launch
+      // fills the empty table. Errors are reported, never swallowed.
+      if (seed && await _isIngredientsEmpty()) {
+        try {
+          await const SeedLoader().loadSeedData(this);
+        } catch (error, stackTrace) {
+          debugPrint('Seed loading failed: $error\n$stackTrace');
+          rethrow;
+        }
+      }
     },
   );
+
+  Future<bool> _isIngredientsEmpty() async {
+    final row = await customSelect('SELECT COUNT(*) AS c FROM ingredients')
+        .getSingle();
+    return row.read<int>('c') == 0;
+  }
 
   static QueryExecutor _openConnection() {
     return driftDatabase(name: 'chto_prigotovit');

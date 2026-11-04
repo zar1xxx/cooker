@@ -1,7 +1,8 @@
 CREATE VIRTUAL TABLE IF NOT EXISTS ingredients_fts USING fts5(
+    ingredient_id UNINDEXED,
     name,
     synonyms
 );
 
 searchIngredientsFts:
-SELECT rowid, name, synonyms FROM ingredients_fts WHERE ingredients_fts MATCH :query;
+SELECT ingredient_id, name, synonyms FROM ingredients_fts WHERE ingredients_fts MATCH :query;

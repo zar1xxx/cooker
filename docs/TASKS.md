@@ -21,10 +21,39 @@
 
 ---
 
+## Исправления после ревью этапа 0 (делать до этапа 1)
+
+Подробности — `docs/reports/REVIEW_STAGE_0.md`. Порядок важен: R0-09 первым (там мои непрогнанные правки).
+
+- [x] **R0-09** Проверь правки ревьюера: `dart format lib test`, затем `tool\check.ps1`. Изменены `lib/core/ai/recipe_validator.dart`, `spec/ai/safety_minimums.json`, `tool/check.ps1`, `tool/ci/ci.yml`. Сломалось — чини, не откатывай смысл правок.
+- [x] **R0-01** Тесты на исправленную проверку готовки (`test/recipe_validator_test.dart`):
+    - рецепт на 60 мин, шаг «Обжарьте курицу 3 минуты» (`timer_seconds: 180`) → `Retryable`;
+    - `full_recipe_undercooked.json` → `Retryable`;
+    - «Отварите курицу» с `timer_seconds: 1500` → `Valid` (основа `вар`);
+    - «Обжаривайте фарш 20 минут» без таймера → `Valid` (минуты из текста);
+    - курица через потомка: `chicken_fillet` с иерархией `chicken_fillet → [chicken]` и шагом 3 мин → `Retryable`.
+- [x] **R0-02** Тесты на ингредиенты по имени: `full_recipe_allergen.json`, аллергия `nuts`, `forbiddenTerms: {nuts: [орехи, грецкие орехи, фундук]}`, `resolveIngredientId` — фейк-словарь. → `Rejected`, **даже если** из текста шагов убрать слово «орехи». Лимиты на порцию — с переводом единиц через `unit_to_base` (1 ст. л. соли = 18 г).
+- [x] **R0-03** **Блокер.** Колонка `parentId` (nullable) в `ingredients`, загрузка `parent_id` в `SeedLoader`, тест: после seed у `chicken_fillet` родитель `chicken`. Схема остаётся v1 (см. D-011).
+- [x] **R0-04** **Блокер.** FTS: добавь `ingredient_id UNINDEXED`, синхронизацию по id (удалить по `ingredient_id`, вставить), запрос `searchIngredientsFts` возвращает `ingredient_id`. Тест: два продукта с общим синонимом находятся оба.
+- [x] **R0-05** Seed не должен падать молча. Убери `catch (_) {}` из `onCreate`. Seed запускай в `beforeOpen`, если таблица `ingredients` пуста (самовосстановление: не загрузилось сейчас — загрузится при следующем запуске). Конструктор `AppDatabase(executor, {bool seed = true})`; тесты, которым seed не нужен, передают `seed: false`. Ошибку seed логируй через `debugPrint` и пробрасывай. Тест: битый JSON → исключение, а не тишина.
+- [x] **R0-06** `SeedLoader`: для существующих id не трогать `createdAt`, `isFavorite`, `deletedAt`; новые id — добавлять. Индексы: `recipe_ingredients(recipe_id)`, `recipe_ingredients(ingredient_id)`, `recipe_steps(recipe_id)`, `cooked_entries(cooked_on)`, уникальные `pantry_items(ingredient_id)` и `meal_plan_entries(date, meal_slot)`. Тест: пометил рецепт избранным → повторный seed → избранное осталось.
+- [x] **R0-07** Проверь на pub.dev статус `sqlite3_flutter_libs 0.6.0+eol`. Если пакет снят с поддержки и `drift_flutter` + `sqlite3` 3.x поставляют библиотеку сами — удали зависимость, собери APK, убедись, что БД открывается (тест на устройстве или эмуляторе — владелец). Решение — в DECISIONS.
+- [x] **R0-08** Обнови `.github/workflows/ci.yml` из `tool/ci/ci.yml` (убран флаг build_runner) и заново скопируй `skills/*` → `.claude/skills/` (ревьюер обновил `stage-workflow`, `flutter-checks`, `drift-database`).
+- [x] **R0-10** `check.ps1`: папку для `sqlite3.dll` находить по маске `.dart_tool\hooks_runner\shared\sqlite3\build\*`, а не по захардкоженному хэшу; если папки нет — понятное сообщение в лог.
+- [x] **R0-11** В `docs/reports/STAGE_0.md` исправь пункт «APK ставится на телефон» → «APK собран; установку на телефон проверяет владелец». Впредь непроверенное на устройстве так и помечай (правило в `skills/stage-workflow`).
+
+**Готово, когда:** все R0 закрыты, `check.ps1` зелёный, тестов стало ≥ 25, отчёт `docs/reports/STAGE_0_FIXES.md` по шаблону.
+
+---
+
 ## Этап 1. «Что есть дома» и подбор без ИИ
 
-- [ ] **S1-01** Полные seed-файлы: ≥ 250 продуктов, ≥ 120 рецептов — по `skills/seed-data`, каждый рецепт проходит `RecipeValidator` (его базовую версию сделай здесь же, полную — S3-05).
-- [ ] **S1-02** `IngredientNormalizer` (ТЗ 5.1): регистр, ё→е, стемминг, синонимы, Левенштейн ≤ 2, иерархия родитель/потомок.
+Порядок выполнения этапа 1 (не по номерам!): S1-09 → S1-02 → S1-01 → S1-04 → S1-05 → S1-06 → S1-03 → S1-07 → S1-08. Логика и данные — раньше экранов.
+
+- [ ] **S1-09** Слой доступа: `PantryDao`, `RecipeDao`, `IngredientDao` (поиск через FTS + нормализатор); Riverpod-провайдеры `databaseProvider`, `pantryProvider`, `suggestionsProvider`. БД открывается один раз на приложение. Тесты DAO на `NativeDatabase.memory()`.
+
+- [ ] **S1-01** Полные seed-файлы: ≥ 250 продуктов, ≥ 120 рецептов — по `skills/seed-data`, каждый рецепт проходит `RecipeValidator` (базовая версия уже есть, после R0-01/R0-02; полная — S3-05). У всех мясных, рыбных и яичных рецептов — шаг тепловой обработки с таймером. Тесты `seed_recipes_valid_test`, `seed_refs_test`, `seed_no_duplicates_test` из `skills/seed-data`. Список 20 случайных рецептов для ручной проверки — в отчёт.
+- [ ] **S1-02** `IngredientNormalizer` (ТЗ 5.1): регистр, ё→е, стемминг, синонимы, Левенштейн ≤ 2, иерархия родитель/потомок. Чистая Dart-логика без БД (словарь передаётся в конструктор) — её же использует `RecipeValidator.resolveIngredientId`. Стемминг: отрезать окончания `-ами -ями -ого -ему -ой -ей -ий -ый -ая -яя -ое -ее -ые -ие -ов -ев -ах -ях -ам -ям -ом -ем -у -ю -а -я -о -е -ы -и -ь`, оставляя основу ≥ 3 букв. Метод `descendantsOf(id)` для аллергий.
 - [ ] **S1-03** Экран «Что есть дома»: категории плитками, поиск, «Часто выбираете», голосовой ввод, счётчик «Показать блюда (N)».
 - [ ] **S1-04** `RecipeMatcher` (ТЗ 5.2): `missing`, `coverage`, две группы.
 - [ ] **S1-05** `RecipeScorer` (ТЗ 5.3) с `ScoringWeights`; `taste` = 0.5 до этапа 4; `explore` с seed по дате.

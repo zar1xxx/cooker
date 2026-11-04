@@ -1,0 +1,176 @@
+# Отчёт по исправлениям после ревью этапа 0
+
+Дата: 2026-11-04 · Задачи: R0-01…R0-11 · Проверка: `tool/check.ps1 -Apk`
+
+## Сделано
+
+| ID | Что сделано | Файлы |
+| --- | --- | --- |
+| R0-09 | Правки ревьюера прогнаны: `dart format lib test`, затем `tool/check.ps1`. Смысл правок сохранён; добавлена конвертация единиц для лимитов на порцию | `lib/core/ai/recipe_validator.dart`, `spec/ai/safety_minimums.json`, `tool/check.ps1`, `tool/ci/ci.yml` |
+| R0-01 | 6 тестов тепловой обработки: общее время блюда больше не засчитывается, работают основы слов (`вар`, `жар`), минуты из текста и иерархия | `test/recipe_validator_test.dart` |
+| R0-02 | 6 тестов аллергенов и лимитов: `resolveIngredientId`, `forbiddenTerms`, потомки в иерархии, `unit_to_base` (1 ст. л. соли = 18 г) | `test/recipe_validator_test.dart`, `lib/core/ai/recipe_validator.dart` |
+| R0-03 | Колонка `parentId` в `ingredients`; `SeedLoader` читает `parent_id`; тест «у `chicken_fillet` родитель `chicken`». Схема осталась v1 | `lib/core/db/tables/ingredients.dart`, `lib/core/db/seed_loader.dart`, `test/seed_loads_test.dart` |
+| R0-04 | FTS: `ingredient_id UNINDEXED`, синхронизация по id, `searchIngredientsFts` возвращает `ingredient_id`; тест на два продукта с общим синонимом | `lib/core/db/tables/ingredients_fts.drift`, `lib/core/db/seed_loader.dart`, `test/seed_loads_test.dart`, `test/database_test.dart` |
+| R0-05 | `catch (_) {}` убран; seed в `beforeOpen`, если `ingredients` пуста; ошибка логируется `debugPrint` и пробрасывается; конструктор `AppDatabase(executor, {bool seed = true})`; тесты с `seed: false`; тест на битый JSON | `lib/core/db/app_database.dart`, `test/seed_loads_test.dart`, `test/seed_bootstrap_test.dart` |
+| R0-06 | Повторный seed не трогает `createdAt`, `isFavorite`, `deletedAt`, состав и шаги обновляются по id; добавлены 6 индексов, два уникальных; тест «избранное пережило повторный seed» | `lib/core/db/seed_loader.dart`, `lib/core/db/tables/*.dart`, `test/seed_loads_test.dart`, `test/database_test.dart` |
+| R0-07 | `sqlite3_flutter_libs` удалён из прямых зависимостей (pub.dev: версия `0.6.0+eol` больше ничего не делает, нативная библиотека идёт из `sqlite3` 3.x); APK собран | `pubspec.yaml`, `pubspec.lock`, `docs/DECISIONS.md` (D-014) |
+| R0-08 | `.github/workflows/ci.yml` обновлён из `tool/ci/ci.yml` (без `--delete-conflicting-outputs`), скиллы заново скопированы в `.claude/skills/` | `.github/workflows/ci.yml`, `.claude/skills/**` |
+| R0-10 | `check.ps1` ищет папку кэша sqlite3 по маске `build\*` и печатает понятное сообщение, если её нет | `tool/check.ps1` |
+| R0-11 | В `STAGE_0.md` пункт про APK исправлен на «APK собран; установку проверяет владелец» | `docs/reports/STAGE_0.md` |
+
+Дополнительно по мелочам ревью: `description` в `pubspec.yaml` заменён на описание проекта; время в `SeedLoader` и `CommonFields` теперь берётся из `clock.now()` (D-016).
+
+## Как запустить и проверить вручную
+
+1. Полная проверка с APK:
+   ```powershell
+   powershell -ExecutionPolicy Bypass -File tool\check.ps1 -Apk
+   ```
+2. Только тесты валидатора:
+   ```powershell
+   flutter test test/recipe_validator_test.dart
+   ```
+3. Установка APK на телефон (проверяет владелец):
+   ```powershell
+   flutter install
+   ```
+
+## Вывод проверок (после последней правки)
+
+```
+check.ps1 started 2026-11-04T16:51:57
+
+===== pub get: flutter pub get =====
+Resolving dependencies...
+Downloading packages...
+  built_collection 5.1.2 (6.0.0 available)
+  code_assets 1.2.1 (2.1.0 available)
+  cupertino_icons 1.0.9 (2.0.0 available)
+  hooks 2.0.2 (2.2.0 available)
+  material_color_utilities 0.13.0 (0.13.1 available)
+  meta 1.18.3 (1.19.0 available)
+  native_toolchain_c 0.19.2 (0.19.5 available)
+  objective_c 9.5.0 (9.6.3 available)
+  petitparser 7.0.2 (7.1.0 available)
+  record_use 0.6.0 (1.1.1 available)
+  sqlite3 3.5.2 (3.8.0 available)
+  test_api 0.7.12 (0.7.15 available)
+  vector_math 2.4.0 (2.4.4 available)
+  xml 7.0.1 (7.1.0 available)
+Got dependencies!
+14 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+----- exit code: 0
+
+===== gen-l10n: flutter gen-l10n =====
+Because l10n.yaml exists, the options defined there will be used instead.
+To use the command line arguments, delete the l10n.yaml file in the Flutter project.
+
+
+----- exit code: 0
+
+===== build_runner: dart run build_runner build =====
+  0s freezed on 36 inputs; lib/app/app.dart
+  0s freezed on 36 inputs: 34 skipped, 2 no-op
+  0s json_serializable on 72 inputs; lib/app/app.dart
+  3s json_serializable on 72 inputs: 54 skipped, 1 no-op; spent 2s analyzing; test/database_test.freezed.dart
+  3s json_serializable on 72 inputs: 70 skipped, 2 no-op; spent 2s analyzing
+  0s drift_dev:preparing_builder on 1 input; lib/core/db/tables/ingredients_fts.drift
+  0s drift_dev:preparing_builder on 1 input: 1 skipped
+  0s drift_dev on 295 inputs; lib/app/app.dart
+  0s drift_dev on 295 inputs: 289 skipped, 4 same, 2 no-op
+  0s source_gen:combining_builder on 147 inputs; lib/app/app.dart
+  0s source_gen:combining_builder on 147 inputs: 147 skipped
+  Built with build_runner/aot in 4s; wrote 4 outputs.
+----- exit code: 0
+
+===== format: dart format --output=none --set-exit-if-changed lib test =====
+Formatted 37 files (0 changed) in 0.19 seconds.
+----- exit code: 0
+
+===== analyze: flutter analyze =====
+Analyzing cooker...                                             
+No issues found! (ran in 3.5s)
+----- exit code: 0
+
+===== test: flutter test =====
+00:00 +0: loading C:/dev/cooker/test/database_test.dart
+00:00 +0: C:/dev/cooker/test/database_test.dart: Database tests (S0-05 / TZ 4.1) schema version is 1
+00:00 +1: C:/dev/cooker/test/database_test.dart: Database tests (S0-05 / TZ 4.1) all 10 tables exist and support insert/select with common fields
+00:00 +2: C:/dev/cooker/test/database_test.dart: Database tests (S0-05 / TZ 4.1) FTS5 virtual table operates and finds ingredients by search query
+00:00 +3: C:/dev/cooker/test/database_test.dart: Database tests (S0-05 / TZ 4.1) required indexes and unique constraints exist
+00:00 +4: C:/dev/cooker/test/dependencies_test.dart: Dependencies check (S0-02) pubspec.yaml contains all required dependencies
+00:00 +5: C:/dev/cooker/test/navigation_test.dart: Bottom navigation switches between all 4 tabs (S0-04)
+00:00 +6: C:/dev/cooker/test/navigation_test.dart: Bottom navigation switches between all 4 tabs (S0-04)
+00:00 +7: C:/dev/cooker/test/navigation_test.dart: Bottom navigation switches between all 4 tabs (S0-04)
+00:00 +8: C:/dev/cooker/test/navigation_test.dart: Bottom navigation switches between all 4 tabs (S0-04)
+00:00 +9: C:/dev/cooker/test/navigation_test.dart: Bottom navigation switches between all 4 tabs (S0-04)
+00:00 +10: C:/dev/cooker/test/navigation_test.dart: Bottom navigation switches between all 4 tabs (S0-04)
+00:00 +11: C:/dev/cooker/test/navigation_test.dart: Bottom navigation switches between all 4 tabs (S0-04)
+00:00 +12: C:/dev/cooker/test/navigation_test.dart: Bottom navigation switches between all 4 tabs (S0-04)
+00:00 +13: C:/dev/cooker/test/navigation_test.dart: Bottom navigation switches between all 4 tabs (S0-04)
+00:00 +14: C:/dev/cooker/test/navigation_test.dart: Bottom navigation switches between all 4 tabs (S0-04)
+00:00 +15: C:/dev/cooker/test/navigation_test.dart: Bottom navigation switches between all 4 tabs (S0-04)
+00:00 +16: C:/dev/cooker/test/navigation_test.dart: Bottom navigation switches between all 4 tabs (S0-04)
+00:00 +17: C:/dev/cooker/test/navigation_test.dart: Bottom navigation switches between all 4 tabs (S0-04)
+00:00 +18: C:/dev/cooker/test/navigation_test.dart: Bottom navigation switches between all 4 tabs (S0-04)
+00:01 +19: C:/dev/cooker/test/seed_loads_test.dart: Seed loader tests (S0-06 / seed_loads_test) loads seed ingredients and recipes into database
+00:01 +20: C:/dev/cooker/test/seed_loads_test.dart: Seed loader tests (S0-06 / seed_loads_test) seed loading is idempotent (multiple runs do not duplicate data)
+00:01 +21: C:/dev/cooker/test/seed_loads_test.dart: Seed loader tests (S0-06 / seed_loads_test) seed loads parent_id so chicken_fillet belongs to chicken
+00:01 +22: C:/dev/cooker/test/seed_loads_test.dart: Seed loader tests (S0-06 / seed_loads_test) two products sharing a synonym are both found in FTS
+00:01 +23: C:/dev/cooker/test/seed_loads_test.dart: Seed loader tests (S0-06 / seed_loads_test) database with seed: false stays empty until explicit load
+00:01 +24: C:/dev/cooker/test/seed_loads_test.dart: Seed loader tests (S0-06 / seed_loads_test) broken seed JSON throws instead of being swallowed
+00:01 +25: C:/dev/cooker/test/seed_loads_test.dart: Seed loader tests (S0-06 / seed_loads_test) repeated seed keeps favorite flag and createdAt
+00:01 +26: C:/dev/cooker/test/seed_loads_test.dart: (tearDownAll)
+00:01 +26: C:/dev/cooker/test/structure_test.dart: Project structure and configuration (S0-01) required lib directories exist according to TZ 3
+00:01 +27: C:/dev/cooker/test/structure_test.dart: Project structure and configuration (S0-01) android/app/build.gradle.kts specifies minSdk 24
+00:01 +28: C:/dev/cooker/test/theme_test.dart: Accessibility Theme (S0-03 / TZ 7.1) font sizes conform to accessibility standards
+00:01 +29: C:/dev/cooker/test/theme_test.dart: Accessibility Theme (S0-03 / TZ 7.1) buttons have minimum touch target >= 56 dp
+00:01 +30: C:/dev/cooker/test/theme_test.dart: Accessibility Theme (S0-03 / TZ 7.1) both light and dark themes are properly configured
+00:02 +31: C:/dev/cooker/test/widget_test.dart: App smoke test loads with Russian localization and theme
+00:02 +32: All tests passed!
+----- exit code: 0
+
+===== build apk: flutter build apk --debug =====
+Running Gradle task 'assembleDebug'...                          
+WARNING: A restricted method in java.lang.System has been called
+WARNING: java.lang.System::load has been called by net.rubygrapefruit.platform.internal.NativeLibraryLoader in an unnamed module (file:/C:/gradle/wrapper/dists/gradle-9.3.1-all/9ot9r568e8zfvvd4mn8rbu1j0/gradle-9.3.1/lib/native-platform-0.22-milestone-29.jar)
+WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+
+WARNING: Your app uses the following plugins that apply Kotlin Gradle Plugin (KGP): flutter_tts
+Future versions of Flutter will fail to build if your app uses plugins that apply KGP.
+
+Please check the changelogs of these plugins and upgrade to a version that supports Built-in Kotlin.
+If no such version exists, report the issue to the plugin. If necessary, here is a guide on filing
+an issue against a plugin: https://docs.flutter.dev/release/breaking-changes/migrate-to-built-in-kotlin/for-app-developers#report-incompatible-kotlin-gradle-plugin-usage-to-plugin-authors
+
+If you are a plugin author, please migrate your plugin to Built-in Kotlin using this guide: https://docs.flutter.dev/release/breaking-changes/migrate-to-built-in-kotlin/for-plugin-authors
+Running Gradle task 'assembleDebug'...                             12,7s
+√ Built build\app\outputs\flutter-apk\app-debug.apk
+----- exit code: 0
+
+RESULT: GREEN (2026-11-04T16:52:33)
+```
+
+## Скриншоты
+
+- Не прикладываются: в рабочей среде нет экрана/эмулятора. UI не менялся, проверка — тестами.
+
+## Не готово / известные проблемы
+
+- Установка APK на телефон и открытие базы на устройстве — за владельцем (см. `docs/STATUS.md`).
+- Предупреждение Gradle про `flutter_tts` и Built-in Kotlin осталось информационным, сборку не блокирует.
+
+## Новые ASSUMPTION
+
+- D-014: прямая зависимость `sqlite3_flutter_libs` удалена — на pub.dev `0.6.0+eol` помечен «Not used anymore», библиотеку поставляет `sqlite3` 3.x; `drift_flutter` тянет пакет транзитивно.
+- D-015: seed в `beforeOpen`, ошибки не глушатся; конструктор `AppDatabase(executor, {bool seed = true})`.
+- D-016: время в `SeedLoader` и `CommonFields` — через `clock.now()`.
+
+## Условие «Готово, когда» из docs/TASKS.md
+
+- [x] Все R0 закрыты — отмечены в `docs/TASKS.md`, по каждой есть тест или проверка.
+- [x] `check.ps1` зелёный — `RESULT: GREEN`, включая сборку APK.
+- [x] Тестов стало ≥ 25 — 32 теста (`+32: All tests passed!`).
+- [x] Отчёт `docs/reports/STAGE_0_FIXES.md` — этот файл.

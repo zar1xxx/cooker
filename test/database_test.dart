@@ -8,7 +8,7 @@ void main() {
   late AppDatabase db;
 
   setUp(() {
-    db = AppDatabase(NativeDatabase.memory());
+    db = AppDatabase(NativeDatabase.memory(), seed: false);
   });
 
   tearDown(() async {
@@ -169,6 +169,7 @@ void main() {
             .into(db.ingredientsFts)
             .insert(
               IngredientsFtsCompanion.insert(
+                ingredientId: 'potato',
                 name: 'картофель',
                 synonyms: 'картошка, бульба',
               ),
@@ -176,9 +177,39 @@ void main() {
 
         final searchResults = await db.searchIngredientsFts('картошка').get();
         expect(searchResults, isNotEmpty);
+        expect(searchResults.first.ingredientId, 'potato');
         expect(searchResults.first.name, 'картофель');
         expect(searchResults.first.synonyms, contains('картошка'));
       },
     );
+
+    test('required indexes and unique constraints exist', () async {
+      final rows = await db
+          .customSelect("SELECT name FROM sqlite_master WHERE type = 'index'")
+          .get();
+      final names = rows.map((row) => row.read<String>('name')).toSet();
+
+      expect(
+        names,
+        containsAll([
+          'idx_recipe_ingredients_recipe_id',
+          'idx_recipe_ingredients_ingredient_id',
+          'idx_recipe_steps_recipe_id',
+          'idx_cooked_entries_cooked_on',
+          'idx_pantry_items_ingredient_id',
+          'idx_meal_plan_entries_date_slot',
+        ]),
+      );
+
+      await db
+          .into(db.pantryItems)
+          .insert(PantryItemsCompanion.insert(ingredientId: 'potato'));
+      await expectLater(
+        db
+            .into(db.pantryItems)
+            .insert(PantryItemsCompanion.insert(ingredientId: 'potato')),
+        throwsA(anything),
+      );
+    });
   });
 }

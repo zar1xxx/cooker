@@ -1,5 +1,5 @@
 name: chto_prigotovit
-description: "A new Flutter project."
+description: "«Что приготовить?» — подбор домашних блюд из того, что есть дома."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -38,7 +38,7 @@ dependencies:
   go_router: ^18.1.2
   drift: ^2.35.3
   drift_flutter: ^0.3.1
-  sqlite3_flutter_libs: ^0.6.0+eol
+  clock: ^1.1.3
   path_provider: ^2.1.6
   freezed_annotation: ^3.1.0
   json_annotation: ^4.12.0

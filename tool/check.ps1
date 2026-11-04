@@ -18,11 +18,26 @@ if (Test-Path 'test') {
   Copy-Item 'spec\fixtures\ai\*' 'test\fixtures\ai\' -Force
 }
 
-# Ensure precompiled sqlite3 native asset is present for Windows tests without network dependency
-$sqliteHookDir = Join-Path $root '.dart_tool\hooks_runner\shared\sqlite3\build\download-2bf39f2a'
-if ((Test-Path 'tool\bin\sqlite3.x64.windows.dll') -and !(Test-Path (Join-Path $sqliteHookDir 'sqlite3.dll'))) {
-  New-Item -ItemType Directory -Force -Path $sqliteHookDir | Out-Null
-  Copy-Item 'tool\bin\sqlite3.x64.windows.dll' (Join-Path $sqliteHookDir 'sqlite3.dll') -Force
+# Ensure precompiled sqlite3 native asset is present for Windows tests without network dependency.
+# The hook cache directory has a hash in its name, so find it by mask instead of hardcoding it.
+$sqliteBuildRoot = Join-Path $root '.dart_tool\hooks_runner\shared\sqlite3\build'
+$sqliteDllSource = 'tool\bin\sqlite3.x64.windows.dll'
+if (Test-Path $sqliteDllSource) {
+  $sqliteHookDirs = @(Get-ChildItem -Path (Join-Path $sqliteBuildRoot '*') -Directory -ErrorAction SilentlyContinue)
+  if ($sqliteHookDirs.Count -eq 0) {
+    Write-Host "NOTE: sqlite3 hook cache not found under $sqliteBuildRoot; tests may download the native library."
+  } else {
+    $targetDirs = @($sqliteHookDirs | Where-Object { Test-Path (Join-Path $_.FullName 'sqlite3.dll') })
+    if ($targetDirs.Count -eq 0) {
+      $targetDirs = @($sqliteHookDirs | Where-Object { $_.Name -like 'download-*' })
+    }
+    foreach ($dir in $targetDirs) {
+      $targetDll = Join-Path $dir.FullName 'sqlite3.dll'
+      if (!(Test-Path $targetDll)) {
+        Copy-Item $sqliteDllSource $targetDll -Force
+      }
+    }
+  }
 }
 
 # ASSUMPTION: run build_runner only if declared in pubspec.yaml (before S0-02 it is not present)
@@ -32,7 +47,7 @@ $steps = @(
   @{ name = 'gen-l10n';     cmd = 'flutter gen-l10n' }
 )
 if ($hasBuildRunner) {
-  $steps += @{ name = 'build_runner'; cmd = 'dart run build_runner build --delete-conflicting-outputs' }
+  $steps += @{ name = 'build_runner'; cmd = 'dart run build_runner build' }
 }
 $steps += @(
   @{ name = 'format';       cmd = 'dart format --output=none --set-exit-if-changed lib test' },

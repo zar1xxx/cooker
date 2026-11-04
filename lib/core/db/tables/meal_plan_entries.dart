@@ -3,6 +3,11 @@ import 'package:drift/drift.dart';
 import '../enums.dart';
 import 'common.dart';
 
+@TableIndex(
+  name: 'idx_meal_plan_entries_date_slot',
+  columns: {#date, #mealSlot},
+  unique: true,
+)
 class MealPlanEntries extends Table with CommonFields {
   TextColumn get date => text()();
   TextColumn get recipeId => text()();
