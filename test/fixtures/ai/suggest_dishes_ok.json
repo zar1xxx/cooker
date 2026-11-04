@@ -1,0 +1,31 @@
+{
+  "dishes": [
+    {
+      "title": "Картофельные драники",
+      "dish_type": "main",
+      "difficulty": "medium",
+      "total_minutes": 40,
+      "main_ingredients": [
+        "картофель",
+        "лук",
+        "яйца"
+      ],
+      "missing": [],
+      "why": "Похоже на ваши любимые картофельные блюда"
+    },
+    {
+      "title": "Луковый суп",
+      "dish_type": "soup",
+      "difficulty": "easy",
+      "total_minutes": 45,
+      "main_ingredients": [
+        "лук",
+        "картофель"
+      ],
+      "missing": [
+        "сыр"
+      ],
+      "why": "Супы вы оцениваете высоко"
+    }
+  ]
+}

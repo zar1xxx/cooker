@@ -1,4 +1,4 @@
-﻿# Runs all project checks. Exit code 0 = green.
+# Runs all project checks. Exit code 0 = green.
 # Usage: powershell -ExecutionPolicy Bypass -File tool\check.ps1 [-Apk]
 param([switch]$Apk)
 $ErrorActionPreference = 'Continue'
@@ -18,9 +18,15 @@ if (Test-Path 'test') {
   Copy-Item 'spec\fixtures\ai\*' 'test\fixtures\ai\' -Force
 }
 
+# ASSUMPTION: run build_runner only if declared in pubspec.yaml (before S0-02 it is not present)
+$hasBuildRunner = Select-String -Path 'pubspec.yaml' -Pattern 'build_runner' -Quiet
 $steps = @(
-  @{ name = 'pub get';      cmd = 'flutter pub get' },
-  @{ name = 'build_runner'; cmd = 'dart run build_runner build --delete-conflicting-outputs' },
+  @{ name = 'pub get';      cmd = 'flutter pub get' }
+)
+if ($hasBuildRunner) {
+  $steps += @{ name = 'build_runner'; cmd = 'dart run build_runner build --delete-conflicting-outputs' }
+}
+$steps += @(
   @{ name = 'format';       cmd = 'dart format --output=none --set-exit-if-changed lib test' },
   @{ name = 'analyze';      cmd = 'flutter analyze' },
   @{ name = 'test';         cmd = 'flutter test' }

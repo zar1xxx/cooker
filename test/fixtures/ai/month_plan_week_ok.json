@@ -1,0 +1,35 @@
+{
+  "days": [
+    {
+      "date": "2026-12-01",
+      "title": "Борщ",
+      "dish_type": "soup",
+      "difficulty": "medium",
+      "main_ingredients": [
+        "свёкла",
+        "капуста",
+        "говядина"
+      ]
+    },
+    {
+      "date": "2026-12-02",
+      "title": "Гречка с курицей",
+      "dish_type": "main",
+      "difficulty": "easy",
+      "main_ingredients": [
+        "гречка",
+        "курица"
+      ]
+    },
+    {
+      "date": "2026-12-03",
+      "title": "Сырники",
+      "dish_type": "breakfast",
+      "difficulty": "easy",
+      "main_ingredients": [
+        "творог",
+        "яйца"
+      ]
+    }
+  ]
+}

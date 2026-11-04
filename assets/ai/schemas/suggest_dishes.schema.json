@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "suggest_dishes",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "dishes"
+  ],
+  "properties": {
+    "dishes": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 8,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "title",
+          "dish_type",
+          "difficulty",
+          "total_minutes",
+          "main_ingredients",
+          "missing",
+          "why"
+        ],
+        "properties": {
+          "title": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 80
+          },
+          "dish_type": {
+            "type": "string",
+            "enum": [
+              "soup",
+              "main",
+              "side",
+              "salad",
+              "breakfast",
+              "snack",
+              "baking",
+              "dessert",
+              "drink",
+              "preserve"
+            ]
+          },
+          "difficulty": {
+            "type": "string",
+            "enum": [
+              "easy",
+              "medium",
+              "hard"
+            ]
+          },
+          "total_minutes": {
+            "type": "integer",
+            "minimum": 5,
+            "maximum": 600
+          },
+          "main_ingredients": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 6,
+            "items": {
+              "type": "string"
+            }
+          },
+          "missing": {
+            "type": "array",
+            "maxItems": 2,
+            "items": {
+              "type": "string"
+            }
+          },
+          "why": {
+            "type": "string",
+            "maxLength": 140
+          }
+        }
+      }
+    }
+  }
+}

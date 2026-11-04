@@ -1,0 +1,34 @@
+{
+  "title": "Салат с грецкими орехами",
+  "dish_type": "salad",
+  "difficulty": "easy",
+  "cuisine": "домашняя",
+  "total_minutes": 15,
+  "active_minutes": 15,
+  "servings": 2,
+  "description": "Должен быть отклонён при аллергии на орехи.",
+  "ingredients": [
+    {
+      "name": "свёкла",
+      "amount": 2,
+      "unit": "pcs",
+      "is_optional": false
+    },
+    {
+      "name": "грецкие орехи",
+      "amount": 50,
+      "unit": "g",
+      "is_optional": false
+    }
+  ],
+  "steps": [
+    {
+      "text": "Натрите варёную свёклу.",
+      "timer_seconds": null
+    },
+    {
+      "text": "Добавьте измельчённые орехи и перемешайте.",
+      "timer_seconds": null
+    }
+  ]
+}

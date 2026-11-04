@@ -1,0 +1,145 @@
+{
+  "_comment": "Минимальные режимы тепловой обработки для RecipeValidator. Консервативные бытовые ориентиры, не рекомендации по рецептуре. Владелец может уточнить.",
+  "heat_treatment": [
+    {
+      "category": "poultry",
+      "ingredient_ids": [
+        "chicken",
+        "chicken_fillet",
+        "chicken_thigh",
+        "turkey",
+        "duck"
+      ],
+      "keywords": [
+        "варите",
+        "обжарьте",
+        "запекайте",
+        "тушите",
+        "жарьте"
+      ],
+      "min_minutes": 20,
+      "note": "Курицу доводить до прозрачного сока без розового цвета"
+    },
+    {
+      "category": "minced_meat",
+      "ingredient_ids": [
+        "minced_meat",
+        "minced_pork",
+        "minced_beef",
+        "minced_chicken"
+      ],
+      "keywords": [
+        "обжарьте",
+        "варите",
+        "запекайте",
+        "тушите",
+        "жарьте"
+      ],
+      "min_minutes": 15,
+      "note": "Фарш — без розовых участков внутри"
+    },
+    {
+      "category": "pork",
+      "ingredient_ids": [
+        "pork"
+      ],
+      "keywords": [
+        "обжарьте",
+        "варите",
+        "запекайте",
+        "тушите",
+        "жарьте"
+      ],
+      "min_minutes": 20
+    },
+    {
+      "category": "beef",
+      "ingredient_ids": [
+        "beef"
+      ],
+      "keywords": [
+        "обжарьте",
+        "варите",
+        "запекайте",
+        "тушите",
+        "жарьте"
+      ],
+      "min_minutes": 10
+    },
+    {
+      "category": "fish",
+      "ingredient_ids": [
+        "fish",
+        "pollock",
+        "salmon",
+        "cod",
+        "hake"
+      ],
+      "keywords": [
+        "обжарьте",
+        "варите",
+        "запекайте",
+        "тушите",
+        "жарьте"
+      ],
+      "min_minutes": 10
+    },
+    {
+      "category": "eggs",
+      "ingredient_ids": [
+        "egg"
+      ],
+      "keywords": [
+        "варите",
+        "обжарьте",
+        "запекайте",
+        "жарьте"
+      ],
+      "min_minutes": 3,
+      "except_dish_types": [
+        "drink"
+      ],
+      "note": "Сырые яйца в рецептах без нагрева — предупреждение"
+    },
+    {
+      "category": "dry_beans",
+      "ingredient_ids": [
+        "beans_dry",
+        "chickpeas_dry"
+      ],
+      "keywords": [
+        "варите"
+      ],
+      "min_minutes": 40,
+      "note": "Сухую фасоль варить, не только замачивать"
+    },
+    {
+      "category": "mushrooms_wild",
+      "ingredient_ids": [
+        "forest_mushrooms"
+      ],
+      "keywords": [
+        "отварите",
+        "варите"
+      ],
+      "min_minutes": 20,
+      "note": "Лесные грибы предварительно отваривать"
+    }
+  ],
+  "per_serving_limits": {
+    "salt_g": 10,
+    "sugar_g": 80,
+    "oil_ml": 50,
+    "butter_g": 60,
+    "vinegar_ml": 30,
+    "chili_pcs": 1
+  },
+  "stop_list": [
+    "бытовая химия",
+    "сырая фасоль без варки",
+    "горький миндаль",
+    "зелёный картофель",
+    "бледная поганка",
+    "спирт технический"
+  ]
+}
