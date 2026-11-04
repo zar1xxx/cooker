@@ -5,14 +5,15 @@
 ## Сейчас
 
 - Этап: **этап 3 — ИИ (LM Studio на ПК + GigaChat)**
-- Последняя закрытая задача: S3-02 (`LmStudioProvider`: `/v1/models`, `/v1/chat/completions` с `response_format: json_schema`)
-- Следующая задача: **S3-03** (`GigaChatProvider`: OAuth-токен с кэшем до `expires_at − 60 с`, `RqUID`, свой `Dio` с сертификатом из `assets/certs/`, схема в системном промпте)
-- Последний прогон `tool/check.ps1`: зелёный, 124 теста (2026-11-04 20:27:35)
+- Последняя закрытая задача: S3-03 (`GigaChatProvider`: OAuth-токен с кэшем до `expires_at − 60 с`, `RqUID`, свой `Dio` с сертификатом, схема в системном промпте)
+- Следующая задача: **S3-04** (`PcDiscovery` + `AiRouter`, ТЗ 6.1.1: поиск ПК по подсети, health-check, кэш 60 с, fallback, индикатор режима)
+- Последний прогон `tool/check.ps1`: зелёный, 128 тестов (2026-11-04 20:33:37)
 
 ## Журнал (новые сверху)
 
 | Дата | Задача | Результат | Комментарий |
 | --- | --- | --- | --- |
+| 2026-11-04 | S3-03 | Выполнено | Провайдер `GigaChatProvider`: OAuth-авторизация с `RqUID`, кэш токена до `expires_at - 60 с`, повтор при 401, принудительный HTTPS, внедрение схемы JSON Schema в промпт, очередь последовательного выполнения вызовов, поддержка доверенного сертификата `russian_trusted_root_ca.cer`. 4 теста (всего 128) |
 | 2026-11-04 | S3-02 | Выполнено | Провайдер `LmStudioProvider`: получение моделей `/v1/models`, чат `/v1/chat/completions` со структурированным выводом `response_format: json_schema` (strict: true). Добавлен `network_security_config.xml` и валидация хостов: HTTP разрешён только для частных/локальных сетей (10.*, 172.16–31.*, 192.168.*, localhost). 5 тестов (всего 124) |
 | 2026-11-04 | S3-01 | Выполнено | Архитектура ИИ: `AiProvider`, `AiChatMessage`, `AiChatRequest`, `AiCompletionResponse` с надёжным парсером `extractJsonPayload` (markdown fences, окружающий текст). `FakeAiProvider` с чтением эталонных фикстур `test/fixtures/ai/`, очередью FIFO, симуляцией ошибок и доступности. 10 тестов (всего 119) |
 | 2026-11-04 | Этап 2 | Закрыт | Все 5 задач этапа 2 (S2-01…S2-05) закрыты, 109 тестов зелёные, `check.ps1 -Apk` успешен, собран `app-debug.apk`, отчёт `docs/reports/STAGE_2.md` |
