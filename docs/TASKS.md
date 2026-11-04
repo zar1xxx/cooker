@@ -48,13 +48,21 @@
 
 ## Этап 1. «Что есть дома» и подбор без ИИ
 
-Порядок выполнения этапа 1 (не по номерам!): S1-09 → S1-02 → S1-01 → S1-04 → S1-05 → S1-06 → S1-03 → S1-07 → S1-08. Логика и данные — раньше экранов.
+Порядок выполнения этапа 1 (не по номерам!): S1-09 → S1-02 → S1-01 → S1-04 → S1-05 → S1-06 → A-01 → S1-03 → S1-07 → S1-08. Логика и данные — раньше экранов.
 
 - [x] **S1-09** Слой доступа: `PantryDao`, `RecipeDao`, `IngredientDao` (поиск через FTS + нормализатор); Riverpod-провайдеры `databaseProvider`, `pantryProvider`, `suggestionsProvider`. БД открывается один раз на приложение. Тесты DAO на `NativeDatabase.memory()`.
 
 - [x] **S1-01** Полные seed-файлы: ≥ 250 продуктов, ≥ 120 рецептов — по `skills/seed-data`, каждый рецепт проходит `RecipeValidator` (базовая версия уже есть, после R0-01/R0-02; полная — S3-05). У всех мясных, рыбных и яичных рецептов — шаг тепловой обработки с таймером. Тесты `seed_recipes_valid_test`, `seed_refs_test`, `seed_no_duplicates_test` из `skills/seed-data`. Список 20 случайных рецептов для ручной проверки — в отчёт.
 - [x] **S1-02** `IngredientNormalizer` (ТЗ 5.1): регистр, ё→е, стемминг, синонимы, Левенштейн ≤ 2, иерархия родитель/потомок. Чистая Dart-логика без БД (словарь передаётся в конструктор) — её же использует `RecipeValidator.resolveIngredientId`. Стемминг: отрезать окончания `-ами -ями -ого -ему -ой -ей -ий -ый -ая -яя -ое -ее -ые -ие -ов -ев -ах -ях -ам -ям -ом -ем -у -ю -а -я -о -е -ы -и -ь`, оставляя основу ≥ 3 букв. Метод `descendantsOf(id)` для аллергий.
-- [ ] **S1-03** Экран «Что есть дома»: категории плитками, поиск, «Часто выбираете», голосовой ввод, счётчик «Показать блюда (N)».
+- [ ] **A-01** Графика (сделать **до S1-03**, см. `docs/design/ASSETS.md`):
+    - в `pubspec.yaml` → `assets:` добавить `assets/icons/categories/`, `assets/icons/dish_types/`, `assets/images/placeholders/`, `assets/images/states/`, `assets/images/cooking/`;
+    - `AppImages` (`lib/app/app_images.dart`): пути по `category id` / `DishType` с фолбэком — нет файла → иконка категории → Material-иконка; виджет-тест, что все 15 категорий и 10 типов блюд резолвятся в существующий asset;
+    - иконки — `Image.asset` в `ClipRRect` (скругление ~10 %), без своей подложки; размер от темы, ≤ 60 dp; `Semantics` с подписью из ARB;
+    - иконка приложения: dev-зависимость `flutter_launcher_icons` (`image_path: assets/branding/icon_1024.png`, `adaptive_icon_background: "#226440"`, `adaptive_icon_foreground`, `adaptive_icon_monochrome` из `assets/branding/`), `min_sdk_android: 24`;
+    - заставка: `flutter_native_splash` с настройками из `docs/design/ASSETS.md`;
+    - иконка уведомлений: `ic_notification_96.png` → `android/app/src/main/res/drawable-*/ic_notification.png` (24/36/48/72/96 px) — понадобится в S2-03;
+    - `assets/branding/` в `pubspec` **не** добавлять (исходники для генераторов, в APK не нужны).
+- [x] **S1-03** Экран «Что есть дома»: категории плитками, поиск, «Часто выбираете», голосовой ввод, счётчик «Показать блюда (N)».
 - [x] **S1-04** `RecipeMatcher` (ТЗ 5.2): `missing`, `coverage`, две группы.
 - [x] **S1-05** `RecipeScorer` (ТЗ 5.3) с `ScoringWeights`; `taste` = 0.5 до этапа 4; `explore` с seed по дате.
 - [x] **S1-06** Разнообразие выдачи (ТЗ 5.4).

@@ -35,5 +35,190 @@
   "screenHistoryTitle": "История",
   "@screenHistoryTitle": {
     "description": "Заголовок экрана История"
+  },
+  "pantrySearchHint": "Найти продукт...",
+  "@pantrySearchHint": {
+    "description": "Подсказка в строке поиска продуктов"
+  },
+  "pantryVoiceSearch": "Голос",
+  "@pantryVoiceSearch": {
+    "description": "Кнопка голосового ввода"
+  },
+  "pantryVoiceUnavailable": "Голосовой ввод недоступен на этом устройстве",
+  "@pantryVoiceUnavailable": {
+    "description": "Сообщение о недоступности голосового ввода"
+  },
+  "pantryFrequentSection": "Часто выбираете",
+  "@pantryFrequentSection": {
+    "description": "Заголовок секции популярных продуктов"
+  },
+  "pantryCategoriesSection": "Категории продуктов",
+  "@pantryCategoriesSection": {
+    "description": "Заголовок секции категорий"
+  },
+  "pantryShowDishes": "Показать блюда ({count})",
+  "@pantryShowDishes": {
+    "description": "Кнопка перехода к подобранным блюдам",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "pantryNothingFound": "Ничего не нашлось",
+  "@pantryNothingFound": {
+    "description": "Текст при пустом поиске"
+  },
+  "pantryAddCustom": "Добавить «{name}» как новый продукт",
+  "@pantryAddCustom": {
+    "description": "Кнопка добавления незнакомого продукта",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "pantrySelectedCount": "Выбрано: {count}",
+  "@pantrySelectedCount": {
+    "description": "Количество выбранных продуктов в категории",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "pantryClearSearch": "Очистить поиск",
+  "@pantryClearSearch": {
+    "description": "Кнопка очистки поиска"
+  },
+  "pantryClose": "Закрыть",
+  "@pantryClose": {
+    "description": "Кнопка закрытия"
+  },
+  "categoryVegetables": "Овощи",
+  "@categoryVegetables": {
+    "description": "Категория Овощи"
+  },
+  "categoryFruits": "Фрукты и ягоды",
+  "@categoryFruits": {
+    "description": "Категория Фрукты и ягоды"
+  },
+  "categoryMeat": "Мясо",
+  "@categoryMeat": {
+    "description": "Категория Мясо"
+  },
+  "categoryPoultry": "Птица",
+  "@categoryPoultry": {
+    "description": "Категория Птица"
+  },
+  "categoryFish": "Рыба и морепродукты",
+  "@categoryFish": {
+    "description": "Категория Рыба"
+  },
+  "categoryDairy": "Молочное и яйца",
+  "@categoryDairy": {
+    "description": "Категория Молочное и яйца"
+  },
+  "categoryGrains": "Крупы и макароны",
+  "@categoryGrains": {
+    "description": "Категория Крупы"
+  },
+  "categoryBakery": "Мука и хлеб",
+  "@categoryBakery": {
+    "description": "Категория Мука и хлеб"
+  },
+  "categoryLegumes": "Бобовые",
+  "@categoryLegumes": {
+    "description": "Категория Бобовые"
+  },
+  "categoryMushrooms": "Грибы",
+  "@categoryMushrooms": {
+    "description": "Категория Грибы"
+  },
+  "categoryCanned": "Консервы",
+  "@categoryCanned": {
+    "description": "Категория Консервы"
+  },
+  "categorySpices": "Специи и соусы",
+  "@categorySpices": {
+    "description": "Категория Специи"
+  },
+  "categoryNuts": "Орехи и семечки",
+  "@categoryNuts": {
+    "description": "Категория Орехи"
+  },
+  "categorySweets": "Сладкое",
+  "@categorySweets": {
+    "description": "Категория Сладкое"
+  },
+  "categoryGreens": "Зелень",
+  "@categoryGreens": {
+    "description": "Категория Зелень"
+  },
+  "dishesScreenTitle": "Подходящие блюда",
+  "@dishesScreenTitle": {
+    "description": "Заголовок экрана Блюда"
+  },
+  "dishesCanCookNow": "Можно приготовить сейчас",
+  "@dishesCanCookNow": {
+    "description": "Секция блюд без недостающих ингредиентов"
+  },
+  "dishesMissingFew": "Не хватает 1–2 продуктов",
+  "@dishesMissingFew": {
+    "description": "Секция блюд с 1-2 недостающими продуктами"
+  },
+  "dishesMissing": "Не хватает: {items}",
+  "@dishesMissing": {
+    "description": "Список недостающих ингредиентов на карточке",
+    "placeholders": {
+      "items": {
+        "type": "String"
+      }
+    }
+  },
+  "dishesFilterAllTypes": "Все типы",
+  "@dishesFilterAllTypes": {
+    "description": "Фильтр: все типы блюд"
+  },
+  "dishesFilterAllDifficulties": "Любая сложность",
+  "@dishesFilterAllDifficulties": {
+    "description": "Фильтр: любая сложность"
+  },
+  "dishesFilterEasy": "Легко",
+  "@dishesFilterEasy": {
+    "description": "Фильтр: легко"
+  },
+  "dishesFilterMedium": "Средне",
+  "@dishesFilterMedium": {
+    "description": "Фильтр: средне"
+  },
+  "dishesFilterHard": "Сложно",
+  "@dishesFilterHard": {
+    "description": "Фильтр: сложно"
+  },
+  "dishesBadgeNew": "Новое",
+  "@dishesBadgeNew": {
+    "description": "Бейдж Новое от ИИ"
+  },
+  "dishesActionReject": "Не хочу",
+  "@dishesActionReject": {
+    "description": "Кнопка Не хочу на карточке"
+  },
+  "dishesActionOpen": "Открыть рецепт",
+  "@dishesActionOpen": {
+    "description": "Кнопка Открыть рецепт"
+  },
+  "dishesEmpty": "Нет подходящих блюд из выбранных продуктов",
+  "@dishesEmpty": {
+    "description": "Текст при отсутствии подходящих блюд"
+  },
+  "dishesMinutes": "{minutes} мин",
+  "@dishesMinutes": {
+    "description": "Длительность приготовления в минутах",
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
   }
 }

@@ -5,6 +5,7 @@ import '../features/calendar/calendar_screen.dart';
 import '../features/calendar/today_screen.dart';
 import '../features/history/history_screen.dart';
 import '../features/pantry/pantry_screen.dart';
+import '../features/suggestions/suggestions_screen.dart';
 import 'scaffold_with_nav_bar.dart';
 
 final GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>(
@@ -15,6 +16,11 @@ final GoRouter appRouter = GoRouter(
   navigatorKey: rootNavigatorKey,
   initialLocation: '/today',
   routes: [
+    GoRoute(
+      path: '/suggestions',
+      parentNavigatorKey: rootNavigatorKey,
+      builder: (context, state) => const SuggestionsScreen(),
+    ),
     StatefulShellRoute.indexedStack(
       builder: (context, state, navigationShell) {
         return ScaffoldWithNavBar(navigationShell: navigationShell);

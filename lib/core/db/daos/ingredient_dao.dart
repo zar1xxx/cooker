@@ -1,4 +1,6 @@
+import 'package:clock/clock.dart';
 import 'package:drift/drift.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../matching/ingredient_normalizer.dart';
 import '../app_database.dart';
@@ -36,6 +38,33 @@ class IngredientDao {
         .get();
   }
 
+  /// Inserts a new custom ingredient created by the user and indexes it in FTS.
+  Future<Ingredient> addCustom(String name, {String category = 'other'}) async {
+    final nowMs = clock.now().toUtc().millisecondsSinceEpoch;
+    final id = 'custom_${const Uuid().v4()}';
+    final trimmedName = name.trim();
+    final companion = IngredientsCompanion(
+      id: Value(id),
+      createdAt: Value(nowMs),
+      updatedAt: Value(nowMs),
+      name: Value(trimmedName),
+      synonyms: const Value([]),
+      category: Value(category),
+      isStaple: const Value(false),
+    );
+    await _db.into(_db.ingredients).insert(companion);
+    await _db
+        .into(_db.ingredientsFts)
+        .insert(
+          IngredientsFtsCompanion(
+            ingredientId: Value(id),
+            name: Value(trimmedName),
+            synonyms: const Value(''),
+          ),
+        );
+    return (await byId(id))!;
+  }
+
   /// Searches `name` and `synonyms` through the FTS5 table. Falls back to a
   /// LIKE scan for queries FTS cannot tokenize.
   Future<List<Ingredient>> search(String query) async {
@@ -70,12 +99,24 @@ class IngredientDao {
     );
   }
 
-  /// Resolves free text through the normalizer first, then falls back to FTS.
+  /// Searches via FTS first, then enriches with normalizer (synonyms, typos).
   Future<List<Ingredient>> searchWithNormalizer(String query) async {
+    final ftsResults = await search(query);
     final normalizer = await createNormalizer();
-    final ids = normalizer.resolveMany(query);
-    if (ids.isNotEmpty) return byIds(ids);
-    return search(query);
+    final normalizedIds = normalizer.resolveMany(query);
+    final normalizedResults = await byIds(normalizedIds);
+
+    final seenIds = <String>{};
+    final combined = <Ingredient>[];
+
+    for (final item in ftsResults) {
+      if (seenIds.add(item.id)) combined.add(item);
+    }
+    for (final item in normalizedResults) {
+      if (seenIds.add(item.id)) combined.add(item);
+    }
+
+    return combined;
   }
 
   /// Returns `childId -> [direct parent, grandparent, ...]` so callers can

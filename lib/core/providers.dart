@@ -4,6 +4,9 @@ import 'db/app_database.dart';
 import 'db/daos/ingredient_dao.dart';
 import 'db/daos/pantry_dao.dart';
 import 'db/daos/recipe_dao.dart';
+import 'matching/diversity_reorderer.dart';
+import 'matching/recipe_matcher.dart';
+import 'matching/recipe_scorer.dart';
 
 /// One database instance per application.
 final databaseProvider = Provider<AppDatabase>((ref) {
@@ -61,23 +64,120 @@ class PantryNotifier extends AsyncNotifier<Set<String>> {
   }
 }
 
-/// Minimal local suggestions: recipes fully covered by the pantry.
-/// S1-04…S1-06 replace this with the matcher, scorer and diversity rules.
-final suggestionsProvider = FutureProvider<List<RecipeWithIngredients>>((
+/// Category metadata for the pantry UI.
+class IngredientCategory {
+  const IngredientCategory({
+    required this.id,
+    required this.name,
+    required this.icon,
+  });
+
+  final String id;
+  final String name;
+  final String icon;
+}
+
+final categoriesProvider = Provider<List<IngredientCategory>>((ref) {
+  return const [
+    IngredientCategory(id: 'vegetables', name: 'Овощи', icon: 'carrot'),
+    IngredientCategory(id: 'meat', name: 'Мясо', icon: 'meat'),
+    IngredientCategory(id: 'poultry', name: 'Птица', icon: 'chicken'),
+    IngredientCategory(id: 'dairy', name: 'Молочное и яйца', icon: 'milk'),
+    IngredientCategory(id: 'grains', name: 'Крупы и макароны', icon: 'grain'),
+    IngredientCategory(id: 'fish', name: 'Рыба и морепродукты', icon: 'fish'),
+    IngredientCategory(id: 'bakery', name: 'Мука и хлеб', icon: 'bread'),
+    IngredientCategory(id: 'fruits', name: 'Фрукты и ягоды', icon: 'apple'),
+    IngredientCategory(id: 'greens', name: 'Зелень', icon: 'leaf'),
+    IngredientCategory(id: 'mushrooms', name: 'Грибы', icon: 'mushroom'),
+    IngredientCategory(id: 'legumes', name: 'Бобовые', icon: 'bean'),
+    IngredientCategory(id: 'canned', name: 'Консервы', icon: 'can'),
+    IngredientCategory(id: 'spices', name: 'Специи и соусы', icon: 'spice'),
+    IngredientCategory(id: 'nuts', name: 'Орехи и семечки', icon: 'nut'),
+    IngredientCategory(id: 'sweets', name: 'Сладкое', icon: 'candy'),
+  ];
+});
+
+final ingredientsByCategoryProvider =
+    FutureProvider.family<List<Ingredient>, String>((ref, categoryId) async {
+      final dao = ref.watch(ingredientDaoProvider);
+      return dao.byCategory(categoryId);
+    });
+
+final frequentIngredientsProvider = FutureProvider<List<Ingredient>>((
   ref,
 ) async {
-  final available = await ref.watch(pantryProvider.future);
-  if (available.isEmpty) return const [];
+  final dao = ref.watch(ingredientDaoProvider);
+  const defaultFrequentIds = [
+    'onion',
+    'carrot',
+    'egg',
+    'potato',
+    'garlic',
+    'butter',
+    'chicken',
+    'flour',
+    'milk',
+    'sour_cream',
+    'tomato',
+    'dill',
+  ];
+  return dao.byIds(defaultFrequentIds);
+});
 
-  final recipes = await ref.watch(recipeDaoProvider).allWithIngredients();
-  return recipes.where((entry) {
-    final required = entry.ingredients.where(
-      (line) =>
-          line.ingredient?.isStaple != true &&
-          !line.recipeIngredient.isOptional,
-    );
-    return required.every(
-      (line) => available.contains(line.recipeIngredient.ingredientId),
-    );
-  }).toList();
+final ingredientSearchProvider =
+    FutureProvider.family<List<Ingredient>, String>((ref, query) async {
+      final trimmed = query.trim();
+      if (trimmed.isEmpty) return const [];
+      final dao = ref.watch(ingredientDaoProvider);
+      return dao.searchWithNormalizer(trimmed);
+    });
+
+/// Recommendation result grouped into «Можно приготовить сейчас» and
+/// «Не хватает 1–2 продуктов» per TZ 5.2.
+class SuggestionsState {
+  const SuggestionsState({this.ready = const [], this.almostReady = const []});
+
+  final List<ScoredRecipe> ready;
+  final List<ScoredRecipe> almostReady;
+
+  int get totalCount => ready.length + almostReady.length;
+  bool get isEmpty => ready.isEmpty && almostReady.isEmpty;
+}
+
+final suggestionsProvider = FutureProvider<SuggestionsState>((ref) async {
+  final available = await ref.watch(pantryProvider.future);
+  if (available.isEmpty) return const SuggestionsState();
+
+  final recipeDao = ref.watch(recipeDaoProvider);
+  final ingredientDao = ref.watch(ingredientDaoProvider);
+
+  final recipes = await recipeDao.allWithIngredients();
+  final hierarchy = await ingredientDao.hierarchy();
+  final normalizer = await ingredientDao.createNormalizer();
+
+  const matcher = RecipeMatcher();
+  final matchResult = matcher.match(
+    recipes: recipes,
+    availableIds: available,
+    hierarchy: hierarchy,
+  );
+
+  const scorer = RecipeScorer();
+  final scoredReady = scorer.rank(matchResult.ready);
+  final scoredAlmost = scorer.rank(matchResult.almostReady);
+
+  const reorderer = RecipeDiversityReorderer();
+  String rootAncestorLookup(String id) =>
+      normalizer.ancestorsOf(id).lastOrNull ?? id;
+
+  final diverseReady = reorderer.reorder(
+    scoredReady,
+    rootAncestorLookup: rootAncestorLookup,
+  );
+  final diverseAlmost = reorderer.reorder(
+    scoredAlmost,
+    rootAncestorLookup: rootAncestorLookup,
+  );
+
+  return SuggestionsState(ready: diverseReady, almostReady: diverseAlmost);
 });
