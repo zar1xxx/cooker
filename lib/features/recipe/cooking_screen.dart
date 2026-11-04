@@ -8,6 +8,7 @@ import 'package:wakelock_plus/wakelock_plus.dart';
 import '../../app/theme.dart';
 import '../../core/db/app_database.dart';
 import '../../core/providers.dart';
+import '../../core/services/notification_service.dart';
 import '../../l10n/app_localizations.dart';
 
 class CookingScreen extends ConsumerStatefulWidget {
@@ -81,6 +82,9 @@ class _CookingScreenState extends ConsumerState<CookingScreen> {
     _activeTicker?.cancel();
     _stopTts();
     _disableWakelock();
+    try {
+      ref.read(notificationServiceProvider).cancelAll();
+    } catch (_) {}
     super.dispose();
   }
 
@@ -114,11 +118,14 @@ class _CookingScreenState extends ConsumerState<CookingScreen> {
     });
   }
 
-  void _toggleStepTimer(int stepIndex, int totalSeconds) {
+  void _toggleStepTimer(int stepIndex, int totalSeconds, String recipeTitle) {
     final isRunning = _timerIsRunning[stepIndex] ?? false;
     if (isRunning) {
       // Pause
       _activeTicker?.cancel();
+      try {
+        ref.read(notificationServiceProvider).cancelTimer(stepIndex);
+      } catch (_) {}
       setState(() {
         _timerIsRunning[stepIndex] = false;
       });
@@ -128,6 +135,18 @@ class _CookingScreenState extends ConsumerState<CookingScreen> {
       if ((_timerRemaining[stepIndex] ?? 0) <= 0) {
         _timerRemaining[stepIndex] = totalSeconds;
       }
+
+      final remaining = _timerRemaining[stepIndex] ?? totalSeconds;
+      try {
+        ref
+            .read(notificationServiceProvider)
+            .scheduleTimer(
+              id: stepIndex,
+              recipeTitle: recipeTitle,
+              stepNumber: stepIndex + 1,
+              seconds: remaining,
+            );
+      } catch (_) {}
 
       _activeTicker?.cancel();
       setState(() {
@@ -139,16 +158,19 @@ class _CookingScreenState extends ConsumerState<CookingScreen> {
           timer.cancel();
           return;
         }
-        final remaining = _timerRemaining[stepIndex] ?? 0;
-        if (remaining <= 1) {
+        final rem = _timerRemaining[stepIndex] ?? 0;
+        if (rem <= 1) {
           timer.cancel();
+          try {
+            ref.read(notificationServiceProvider).cancelTimer(stepIndex);
+          } catch (_) {}
           setState(() {
             _timerRemaining[stepIndex] = 0;
             _timerIsRunning[stepIndex] = false;
           });
         } else {
           setState(() {
-            _timerRemaining[stepIndex] = remaining - 1;
+            _timerRemaining[stepIndex] = rem - 1;
           });
         }
       });
@@ -157,6 +179,9 @@ class _CookingScreenState extends ConsumerState<CookingScreen> {
 
   void _resetStepTimer(int stepIndex, int totalSeconds) {
     _activeTicker?.cancel();
+    try {
+      ref.read(notificationServiceProvider).cancelTimer(stepIndex);
+    } catch (_) {}
     setState(() {
       _timerRemaining[stepIndex] = totalSeconds;
       _timerIsRunning[stepIndex] = false;
@@ -173,6 +198,9 @@ class _CookingScreenState extends ConsumerState<CookingScreen> {
 
   void _onFinishCooking(Recipe recipe, AppLocalizations l10n) {
     _stopTts();
+    try {
+      ref.read(notificationServiceProvider).cancelAll();
+    } catch (_) {}
     // In S2-02 cooking mode completed. In S2-04 rating 1-5 will record entry.
     // For now, confirm completion and navigate back.
     ScaffoldMessenger.of(context).showSnackBar(
@@ -358,6 +386,7 @@ class _CookingScreenState extends ConsumerState<CookingScreen> {
                           _buildTimerCard(
                             theme: theme,
                             l10n: l10n,
+                            recipeTitle: detail.recipe.title,
                             stepIndex: _currentStepIndex,
                             totalSeconds: timerSeconds,
                             remainingSeconds: remainingSeconds,
@@ -488,6 +517,7 @@ class _CookingScreenState extends ConsumerState<CookingScreen> {
   Widget _buildTimerCard({
     required ThemeData theme,
     required AppLocalizations l10n,
+    required String recipeTitle,
     required int stepIndex,
     required int totalSeconds,
     required int remainingSeconds,
@@ -568,8 +598,11 @@ class _CookingScreenState extends ConsumerState<CookingScreen> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      onPressed: () =>
-                          _toggleStepTimer(stepIndex, totalSeconds),
+                      onPressed: () => _toggleStepTimer(
+                        stepIndex,
+                        totalSeconds,
+                        recipeTitle,
+                      ),
                     ),
                   ),
                 ),

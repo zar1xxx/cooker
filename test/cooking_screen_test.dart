@@ -1,6 +1,7 @@
 import 'package:chto_prigotovit/app/theme.dart';
 import 'package:chto_prigotovit/core/db/app_database.dart';
 import 'package:chto_prigotovit/core/providers.dart';
+import 'package:chto_prigotovit/core/services/notification_service.dart';
 import 'package:chto_prigotovit/features/recipe/cooking_screen.dart';
 import 'package:chto_prigotovit/l10n/app_localizations.dart';
 import 'package:drift/native.dart';
@@ -9,9 +10,44 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-Widget _createCookingTestWidget(AppDatabase db, String recipeId) {
+class FakeCookingNotificationService extends Fake
+    implements CookingNotificationService {
+  final List<int> scheduled = [];
+  final List<int> cancelled = [];
+
+  @override
+  Future<void> init() async {}
+
+  @override
+  Future<void> scheduleTimer({
+    required int id,
+    required String recipeTitle,
+    required int stepNumber,
+    required int seconds,
+  }) async {
+    scheduled.add(id);
+  }
+
+  @override
+  Future<void> cancelTimer(int id) async {
+    cancelled.add(id);
+  }
+
+  @override
+  Future<void> cancelAll() async {}
+}
+
+Widget _createCookingTestWidget(
+  AppDatabase db,
+  String recipeId, {
+  CookingNotificationService? notificationService,
+}) {
   return ProviderScope(
-    overrides: [databaseProvider.overrideWithValue(db)],
+    overrides: [
+      databaseProvider.overrideWithValue(db),
+      if (notificationService != null)
+        notificationServiceProvider.overrideWithValue(notificationService),
+    ],
     child: MaterialApp(
       theme: AppTheme.light,
       localizationsDelegates: const [
@@ -147,5 +183,42 @@ void main() {
       await tester.pump();
       expect(find.text('Продолжить'), findsOneWidget);
     });
+
+    testWidgets(
+      'starting timer schedules exact notification and pausing cancels it (S2-03)',
+      (tester) async {
+        tester.view.physicalSize = const Size(800, 1600);
+        tester.view.devicePixelRatio = 1.0;
+        addTearDown(tester.view.resetPhysicalSize);
+        addTearDown(tester.view.resetDevicePixelRatio);
+
+        final fakeNotifications = FakeCookingNotificationService();
+
+        await tester.pumpWidget(
+          _createCookingTestWidget(
+            db,
+            'chicken_soup_potato',
+            notificationService: fakeNotifications,
+          ),
+        );
+        await tester.pumpAndSettle();
+
+        // Move to step 2 with timer
+        await tester.tap(find.text('Дальше'));
+        await tester.pumpAndSettle();
+
+        // Start timer -> schedules notification
+        await tester.tap(find.text('Запустить таймер'));
+        await tester.pump();
+
+        expect(fakeNotifications.scheduled, contains(1));
+
+        // Pause timer -> cancels notification
+        await tester.tap(find.text('Пауза'));
+        await tester.pump();
+
+        expect(fakeNotifications.cancelled, contains(1));
+      },
+    );
   });
 }
