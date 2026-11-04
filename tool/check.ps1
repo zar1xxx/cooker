@@ -33,20 +33,25 @@ $steps += @(
 )
 if ($Apk) { $steps += @{ name = 'build apk'; cmd = 'flutter build apk --debug' } }
 
+function Log-Text($text) {
+  Write-Host $text
+  $text | Out-File -FilePath $log -Append -Encoding utf8
+}
+
 $failed = @()
 foreach ($s in $steps) {
-  "`n===== $($s.name): $($s.cmd) =====" | Tee-Object -FilePath $log -Append
+  Log-Text "`n===== $($s.name): $($s.cmd) ====="
   $out = cmd /c "$($s.cmd) 2>&1"
   $code = $LASTEXITCODE
-  $out | Tee-Object -FilePath $log -Append
-  "----- exit code: $code" | Tee-Object -FilePath $log -Append
+  Log-Text ($out -join "`n")
+  Log-Text "----- exit code: $code"
   if ($code -ne 0) { $failed += $s.name }
 }
 
 if ($failed.Count -eq 0) {
-  "`nRESULT: GREEN ($(Get-Date -Format s))" | Tee-Object -FilePath $log -Append
+  Log-Text "`nRESULT: GREEN ($(Get-Date -Format s))"
   exit 0
 } else {
-  "`nRESULT: RED - failed: $($failed -join ', ') ($(Get-Date -Format s))" | Tee-Object -FilePath $log -Append
+  Log-Text "`nRESULT: RED - failed: $($failed -join ', ') ($(Get-Date -Format s))"
   exit 1
 }
