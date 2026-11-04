@@ -20,3 +20,4 @@
 | D-014 | 2026-11-04 | pubspec.yaml / R0-07 | Прямая зависимость `sqlite3_flutter_libs` удалена: на pub.dev версия `0.6.0+eol` помечена «Not used anymore», нативная библиотека поставляется `sqlite3` 3.x через hooks; `drift_flutter` тянет `sqlite3_flutter_libs` транзитивно | ИИ | принято |
 | D-015 | 2026-11-04 | lib/core/db / R0-05 | Seed выполняется в `beforeOpen`, если таблица `ingredients` пуста; ошибка логируется `debugPrint` и пробрасывается. Конструктор: `AppDatabase(executor, {bool seed = true})` | ИИ | принято |
 | D-016 | 2026-11-04 | lib/core/db / ревью | Время в `SeedLoader` и `CommonFields` берётся через `clock.now()` (`package:clock`), чтобы тесты могли фиксировать дату | ИИ | принято |
+| D-017 | 2026-11-04 | RecipeMatcher / S1-04 | Рецепт без обязательных ингредиентов (только staple/optional) считается доступным: `missing = 0`, `coverage = 1.0` | ИИ | принято |
