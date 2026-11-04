@@ -8,6 +8,7 @@ import '../db/app_database.dart';
 import '../db/enums.dart';
 import 'ai_provider.dart';
 import 'ai_router.dart';
+import 'anti_repeat.dart';
 import 'prompts.dart';
 import 'recipe_validator.dart';
 
@@ -92,10 +93,32 @@ class AiService {
     Map<String, List<String>>? ingredientHierarchy,
     String? Function(String name)? resolveIngredientId,
     Map<String, List<String>>? forbiddenTerms,
+    bool bypassCache = false,
   }) async {
+    final database = db;
+    // 1. Check cache first unless bypassCache is requested per ТЗ 6.3
+    if (!bypassCache && database != null) {
+      final cached = await AntiRepeat.getCachedSuggestions(
+        database,
+        availableIngredientIds: availableIngredients,
+        dishTypeFilter: dishTypeFilter,
+        difficultyFilter: difficultyFilter,
+      );
+      if (cached != null && cached.isNotEmpty) {
+        return cached;
+      }
+    }
+
     final activeProvider = await router.getActiveProvider();
     if (activeProvider == null) {
       return const [];
+    }
+
+    // 2. Augment doNotSuggest list from database per ТЗ 6.3
+    var fullDoNotSuggest = doNotSuggest;
+    if (database != null) {
+      final dbDoNotSuggest = await AntiRepeat.getDoNotSuggestList(database);
+      fullDoNotSuggest = {...doNotSuggest, ...dbDoNotSuggest}.toList();
     }
 
     final schema = await AiSchemas.loadSuggestDishesSchema();
@@ -109,7 +132,7 @@ class AiService {
     final userPrompt = promptTemplates.buildSuggestDishes(
       availableIngredients: availableIngredients,
       forbiddenIngredients: forbiddenIngredients,
-      doNotSuggest: doNotSuggest,
+      doNotSuggest: fullDoNotSuggest,
       dishTypeFilter: dishTypeFilter,
       difficultyFilter: difficultyFilter,
       maxTotalMinutes: maxTotalMinutes,
@@ -231,15 +254,18 @@ class AiService {
       return const [];
     }
 
-    await _logRequest(
-      kind: 'suggest_dishes',
-      prompt: userPrompt,
-      responseJson: response.rawContent,
-      model: response.model,
-      tokensIn: response.promptTokens,
-      tokensOut: response.completionTokens,
-      status: 'ok',
-    );
+    if (database != null) {
+      await AntiRepeat.cacheSuggestions(
+        database,
+        availableIngredientIds: availableIngredients,
+        dishTypeFilter: dishTypeFilter,
+        difficultyFilter: difficultyFilter,
+        responseJson: response.rawContent,
+        model: response.model,
+        tokensIn: response.promptTokens,
+        tokensOut: response.completionTokens,
+      );
+    }
 
     try {
       final decoded = jsonDecode(
@@ -470,6 +496,17 @@ class AiService {
     }
     sortedIngIds.sort();
     final fingerprint = '$dishTypeStr:${sortedIngIds.take(4).join(',')}';
+
+    // Check for duplicate recipe per ТЗ 6.3 (title match or Jaccard similarity >= 0.8)
+    final duplicate = await AntiRepeat.findDuplicate(
+      database,
+      title: title,
+      dishType: dishTypeStr,
+      ingredientIds: sortedIngIds,
+    );
+    if (duplicate != null) {
+      return duplicate;
+    }
 
     return database.transaction(() async {
       await database

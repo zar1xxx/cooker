@@ -594,5 +594,29 @@
         "type": "int"
       }
     }
+  },
+  "dishesOtherVariants": "Другие варианты",
+  "@dishesOtherVariants": {
+    "description": "Кнопка запроса новых вариантов от ИИ"
+  },
+  "aiAssistantPc": "Помощник: домашний ПК",
+  "@aiAssistantPc": {
+    "description": "Индикатор активного режима ИИ: LM Studio на ПК"
+  },
+  "aiAssistantGigaChat": "Помощник: GigaChat",
+  "@aiAssistantGigaChat": {
+    "description": "Индикатор активного режима ИИ: GigaChat"
+  },
+  "aiAssistantOffline": "Без помощника",
+  "@aiAssistantOffline": {
+    "description": "Индикатор активного режима ИИ: офлайн"
+  },
+  "dishesFromAssistant": "Предложения от помощника",
+  "@dishesFromAssistant": {
+    "description": "Заголовок блока предложений от ИИ"
+  },
+  "dishesAiDisclaimer": "Рецепт придуман помощником. Проверяйте готовность мяса и рыбы",
+  "@dishesAiDisclaimer": {
+    "description": "Предупреждение о рецепте от ИИ по ТЗ 9.1"
   }
 }

@@ -430,4 +430,23 @@ class AppLocalizationsRu extends AppLocalizations {
   String historyCookingTime(int minutes) {
     return '$minutes мин';
   }
+
+  @override
+  String get dishesOtherVariants => 'Другие варианты';
+
+  @override
+  String get aiAssistantPc => 'Помощник: домашний ПК';
+
+  @override
+  String get aiAssistantGigaChat => 'Помощник: GigaChat';
+
+  @override
+  String get aiAssistantOffline => 'Без помощника';
+
+  @override
+  String get dishesFromAssistant => 'Предложения от помощника';
+
+  @override
+  String get dishesAiDisclaimer =>
+      'Рецепт придуман помощником. Проверяйте готовность мяса и рыбы';
 }

@@ -873,6 +873,42 @@ abstract class AppLocalizations {
   /// In ru, this message translates to:
   /// **'{minutes} мин'**
   String historyCookingTime(int minutes);
+
+  /// Кнопка запроса новых вариантов от ИИ
+  ///
+  /// In ru, this message translates to:
+  /// **'Другие варианты'**
+  String get dishesOtherVariants;
+
+  /// Индикатор активного режима ИИ: LM Studio на ПК
+  ///
+  /// In ru, this message translates to:
+  /// **'Помощник: домашний ПК'**
+  String get aiAssistantPc;
+
+  /// Индикатор активного режима ИИ: GigaChat
+  ///
+  /// In ru, this message translates to:
+  /// **'Помощник: GigaChat'**
+  String get aiAssistantGigaChat;
+
+  /// Индикатор активного режима ИИ: офлайн
+  ///
+  /// In ru, this message translates to:
+  /// **'Без помощника'**
+  String get aiAssistantOffline;
+
+  /// Заголовок блока предложений от ИИ
+  ///
+  /// In ru, this message translates to:
+  /// **'Предложения от помощника'**
+  String get dishesFromAssistant;
+
+  /// Предупреждение о рецепте от ИИ по ТЗ 9.1
+  ///
+  /// In ru, this message translates to:
+  /// **'Рецепт придуман помощником. Проверяйте готовность мяса и рыбы'**
+  String get dishesAiDisclaimer;
 }
 
 class _AppLocalizationsDelegate

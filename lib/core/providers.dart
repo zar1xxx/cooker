@@ -226,3 +226,49 @@ final aiServiceProvider = FutureProvider<AiService>((ref) async {
   final db = ref.watch(databaseProvider);
   return AiService(router: router, validator: validator, db: db);
 });
+
+final aiModeProvider = FutureProvider<AiMode>((ref) async {
+  final router = ref.watch(aiRouterProvider);
+  return router.getMode();
+});
+
+final aiDishesProvider =
+    AsyncNotifierProvider<AiDishesNotifier, List<AiDishSuggestion>>(
+      AiDishesNotifier.new,
+    );
+
+class AiDishesNotifier extends AsyncNotifier<List<AiDishSuggestion>> {
+  @override
+  Future<List<AiDishSuggestion>> build() async {
+    final availableIds = await ref.watch(pantryProvider.future);
+    if (availableIds.isEmpty) return const [];
+
+    final aiService = await ref.watch(aiServiceProvider.future);
+    final ingredientDao = ref.watch(ingredientDaoProvider);
+    final ingredients = await ingredientDao.byIds(availableIds.toList());
+    final availableNames = ingredients.map((i) => i.name).toList();
+
+    return aiService.suggestDishes(availableIngredients: availableNames);
+  }
+
+  Future<void> fetchOtherVariants({
+    List<String> alreadyShown = const [],
+  }) async {
+    final availableIds = await ref.read(pantryProvider.future);
+    if (availableIds.isEmpty) return;
+
+    state = const AsyncValue.loading();
+    state = await AsyncValue.guard(() async {
+      final aiService = await ref.read(aiServiceProvider.future);
+      final ingredientDao = ref.read(ingredientDaoProvider);
+      final ingredients = await ingredientDao.byIds(availableIds.toList());
+      final availableNames = ingredients.map((i) => i.name).toList();
+
+      return aiService.suggestDishes(
+        availableIngredients: availableNames,
+        doNotSuggest: alreadyShown,
+        bypassCache: true,
+      );
+    });
+  }
+}

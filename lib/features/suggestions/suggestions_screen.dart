@@ -1,7 +1,12 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../core/ai/ai_router.dart';
+import '../../core/ai/ai_service.dart';
+import '../../core/ai/anti_repeat.dart';
 import '../../core/db/app_database.dart';
 import '../../core/db/enums.dart';
 import '../../core/matching/recipe_scorer.dart';
@@ -91,6 +96,7 @@ class _SuggestionsScreenState extends ConsumerState<SuggestionsScreen> {
   DishType? _selectedDishType;
   Difficulty? _selectedDifficulty;
   final Set<String> _rejectedRecipeIds = <String>{};
+  final Set<String> _rejectedAiTitles = <String>{};
 
   void _rejectRecipe(Recipe recipe) {
     final l10n = AppLocalizations.of(context)!;
@@ -119,8 +125,98 @@ class _SuggestionsScreenState extends ConsumerState<SuggestionsScreen> {
     );
   }
 
+  void _rejectAiSuggestion(AiDishSuggestion suggestion) {
+    final l10n = AppLocalizations.of(context)!;
+    setState(() {
+      _rejectedAiTitles.add(suggestion.title.toLowerCase().trim());
+    });
+
+    ScaffoldMessenger.of(context).clearSnackBars();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          l10n.dishesRejectedSnackbar,
+          style: Theme.of(context).textTheme.bodyLarge
+              ?.copyWith(color: Theme.of(context).colorScheme.onInverseSurface),
+        ),
+        action: SnackBarAction(
+          label: l10n.dishesUndoReject,
+          onPressed: () {
+            setState(() {
+              _rejectedAiTitles.remove(suggestion.title.toLowerCase().trim());
+            });
+          },
+        ),
+        duration: const Duration(seconds: 5),
+      ),
+    );
+  }
+
   void _openRecipe(Recipe recipe) {
     context.push('/recipe/${recipe.id}');
+  }
+
+  Future<void> _openAiSuggestion(AiDishSuggestion suggestion) async {
+    final l10n = AppLocalizations.of(context)!;
+    final db = ref.read(databaseProvider);
+
+    // Check if duplicate already exists in DB
+    final existing = await AntiRepeat.findDuplicate(
+      db,
+      title: suggestion.title,
+      dishType: suggestion.dishType,
+      ingredientIds: suggestion.mainIngredients,
+    );
+    if (existing != null) {
+      if (!mounted) return;
+      unawaited(context.push('/recipe/${existing.id}'));
+      return;
+    }
+
+    // Generate full recipe
+    if (!mounted) return;
+    unawaited(
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (_) => const Center(child: CircularProgressIndicator()),
+      ),
+    );
+
+    try {
+      final aiService = await ref.read(aiServiceProvider.future);
+      final pantryIds = await ref.read(pantryProvider.future);
+      final ingDao = ref.read(ingredientDaoProvider);
+      final ings = await ingDao.byIds(pantryIds.toList());
+      final availableNames = ings.map((i) => i.name).toList();
+
+      final fullRecipeJson = await aiService.fullRecipe(
+        title: suggestion.title,
+        dishType: suggestion.dishType,
+        difficulty: suggestion.difficulty,
+        mainIngredients: suggestion.mainIngredients,
+        availableIngredients: availableNames,
+      );
+
+      if (!mounted) return;
+      Navigator.of(context, rootNavigator: true).pop(); // dismiss dialog
+
+      if (fullRecipeJson != null) {
+        final saved = await aiService.saveAiRecipeToDatabase(fullRecipeJson);
+        if (saved != null && mounted) {
+          unawaited(context.push('/recipe/${saved.id}'));
+          return;
+        }
+      }
+
+      if (!mounted) return;
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(l10n.dishesEmpty)));
+    } catch (_) {
+      if (mounted) {
+        Navigator.of(context, rootNavigator: true).pop();
+      }
+    }
   }
 
   @override
@@ -128,9 +224,32 @@ class _SuggestionsScreenState extends ConsumerState<SuggestionsScreen> {
     final l10n = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
     final suggestionsAsync = ref.watch(suggestionsProvider);
+    final aiDishesAsync = ref.watch(aiDishesProvider);
+    final aiModeAsync = ref.watch(aiModeProvider);
 
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.dishesScreenTitle)),
+      appBar: AppBar(
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(l10n.dishesScreenTitle),
+            aiModeAsync.when(
+              data: (mode) => Text(
+                switch (mode) {
+                  AiMode.localPc => l10n.aiAssistantPc,
+                  AiMode.gigaChat => l10n.aiAssistantGigaChat,
+                  AiMode.offline => l10n.aiAssistantOffline,
+                },
+                style: theme.textTheme.bodySmall?.copyWith(
+                  color: theme.colorScheme.onSurfaceVariant,
+                ),
+              ),
+              loading: () => const SizedBox.shrink(),
+              error: (_, _) => const SizedBox.shrink(),
+            ),
+          ],
+        ),
+      ),
       body: Column(
         children: [
           // Filter Chips (DishType & Difficulty)
@@ -175,7 +294,30 @@ class _SuggestionsScreenState extends ConsumerState<SuggestionsScreen> {
                   return true;
                 }).toList();
 
-                if (filteredReady.isEmpty && filteredAlmostReady.isEmpty) {
+                final aiDishes =
+                    aiDishesAsync.value ?? const <AiDishSuggestion>[];
+                final filteredAiDishes = aiDishes.where((d) {
+                  if (_rejectedAiTitles.contains(
+                    d.title.toLowerCase().trim(),
+                  )) {
+                    return false;
+                  }
+                  if (_selectedDishType != null &&
+                      d.dishType.toLowerCase().trim() !=
+                          _selectedDishType!.name) {
+                    return false;
+                  }
+                  if (_selectedDifficulty != null &&
+                      d.difficulty.toLowerCase().trim() !=
+                          _selectedDifficulty!.name) {
+                    return false;
+                  }
+                  return true;
+                }).toList();
+
+                if (filteredReady.isEmpty &&
+                    filteredAlmostReady.isEmpty &&
+                    filteredAiDishes.isEmpty) {
                   return Center(
                     child: Padding(
                       padding: const EdgeInsets.all(24),
@@ -205,6 +347,39 @@ class _SuggestionsScreenState extends ConsumerState<SuggestionsScreen> {
                     vertical: 12,
                   ),
                   children: [
+                    // AI Suggestions Group (if available)
+                    if (filteredAiDishes.isNotEmpty) ...[
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8),
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.auto_awesome,
+                              size: 20,
+                              color: theme.colorScheme.primary,
+                            ),
+                            const SizedBox(width: 8),
+                            Text(
+                              l10n.dishesFromAssistant,
+                              style: theme.textTheme.titleMedium?.copyWith(
+                                fontWeight: FontWeight.bold,
+                                color: theme.colorScheme.primary,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      for (final suggestion in filteredAiDishes)
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 12),
+                          child: _AiDishCard(
+                            suggestion: suggestion,
+                            onOpen: () => _openAiSuggestion(suggestion),
+                            onReject: () => _rejectAiSuggestion(suggestion),
+                          ),
+                        ),
+                    ],
+
                     // Group 1: «Можно приготовить сейчас»
                     if (filteredReady.isNotEmpty) ...[
                       Padding(
@@ -250,6 +425,36 @@ class _SuggestionsScreenState extends ConsumerState<SuggestionsScreen> {
                           ),
                         ),
                     ],
+
+                    // «Другие варианты» Button (ТЗ 6.3)
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      child: OutlinedButton.icon(
+                        key: const Key('btn_other_variants'),
+                        style: OutlinedButton.styleFrom(
+                          minimumSize: const Size.fromHeight(56),
+                        ),
+                        onPressed: () {
+                          final allShown = [
+                            ...filteredReady.map((r) => r.entry.recipe.title),
+                            ...filteredAlmostReady.map(
+                              (r) => r.entry.recipe.title,
+                            ),
+                            ...filteredAiDishes.map((d) => d.title),
+                          ];
+                          unawaited(
+                            ref
+                                .read(aiDishesProvider.notifier)
+                                .fetchOtherVariants(alreadyShown: allShown),
+                          );
+                        },
+                        icon: const Icon(Icons.refresh, size: 28),
+                        label: Text(
+                          l10n.dishesOtherVariants,
+                          style: theme.textTheme.titleMedium,
+                        ),
+                      ),
+                    ),
                   ],
                 );
               },
@@ -447,10 +652,10 @@ class _RecipeCard extends StatelessWidget {
                       children: [
                         Icon(
                           _dishTypeIcon(recipe.dishType),
-                          size: 22,
+                          size: 20,
                           color: theme.colorScheme.primary,
                         ),
-                        const SizedBox(width: 4),
+                        const SizedBox(width: 6),
                         Text(
                           _dishTypeName(l10n, recipe.dishType),
                           style: theme.textTheme.bodyLarge,
@@ -458,17 +663,18 @@ class _RecipeCard extends StatelessWidget {
                       ],
                     ),
 
-                    // Difficulty (1-3 caps with text)
+                    // Difficulty (Chef hat icon repeated 1..3 times)
                     Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        for (int i = 0; i < 3; i++)
-                          Icon(
-                            Icons.soup_kitchen,
-                            size: 18,
-                            color: i < capsCount
-                                ? theme.colorScheme.primary
-                                : theme.colorScheme.outlineVariant,
+                        for (int i = 0; i < capsCount; i++)
+                          Padding(
+                            padding: const EdgeInsets.only(right: 2),
+                            child: Icon(
+                              Icons.skateboarding,
+                              size: 18,
+                              color: theme.colorScheme.primary,
+                            ),
                           ),
                         const SizedBox(width: 4),
                         Text(
@@ -487,7 +693,7 @@ class _RecipeCard extends StatelessWidget {
                           size: 20,
                           color: theme.colorScheme.onSurfaceVariant,
                         ),
-                        const SizedBox(width: 4),
+                        const SizedBox(width: 6),
                         Text(
                           l10n.dishesMinutes(recipe.totalMinutes),
                           style: theme.textTheme.bodyLarge,
@@ -575,6 +781,212 @@ class _RecipeCard extends StatelessWidget {
                           style: FilledButton.styleFrom(
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _AiDishCard extends StatelessWidget {
+  const _AiDishCard({
+    required this.suggestion,
+    required this.onOpen,
+    required this.onReject,
+  });
+
+  final AiDishSuggestion suggestion;
+  final VoidCallback onOpen;
+  final VoidCallback onReject;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context)!;
+    final dishTypeEnum =
+        DishType.values
+            .where((e) => e.name == suggestion.dishType)
+            .firstOrNull ??
+        DishType.main;
+    final diffEnum =
+        Difficulty.values
+            .where((e) => e.name == suggestion.difficulty)
+            .firstOrNull ??
+        Difficulty.easy;
+
+    return Semantics(
+      button: true,
+      label: '${suggestion.title}, ${_dishTypeName(l10n, dishTypeEnum)}',
+      child: Card(
+        elevation: 2,
+        color: theme.colorScheme.surfaceContainerLow,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+          side: BorderSide(
+            color: theme.colorScheme.primary.withValues(alpha: 0.3),
+          ),
+        ),
+        clipBehavior: Clip.antiAlias,
+        child: InkWell(
+          onTap: onOpen,
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Title & Badge
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: Text(
+                        suggestion.title,
+                        style: theme.textTheme.titleMedium?.copyWith(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8,
+                        vertical: 4,
+                      ),
+                      decoration: BoxDecoration(
+                        color: theme.colorScheme.primaryContainer,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(
+                            Icons.auto_awesome,
+                            size: 14,
+                            color: theme.colorScheme.onPrimaryContainer,
+                          ),
+                          const SizedBox(width: 4),
+                          Text(
+                            l10n.dishesBadgeNew,
+                            style: theme.textTheme.bodyMedium?.copyWith(
+                              color: theme.colorScheme.onPrimaryContainer,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 8),
+
+                // Why phrase
+                if (suggestion.why.isNotEmpty)
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 8),
+                    child: Text(
+                      '«${suggestion.why}»',
+                      style: theme.textTheme.bodyLarge?.copyWith(
+                        fontStyle: FontStyle.italic,
+                        color: theme.colorScheme.onSurfaceVariant,
+                      ),
+                    ),
+                  ),
+
+                // Attributes
+                Wrap(
+                  spacing: 16,
+                  runSpacing: 8,
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  children: [
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(
+                          _dishTypeIcon(dishTypeEnum),
+                          size: 20,
+                          color: theme.colorScheme.primary,
+                        ),
+                        const SizedBox(width: 6),
+                        Text(
+                          _dishTypeName(l10n, dishTypeEnum),
+                          style: theme.textTheme.bodyLarge,
+                        ),
+                      ],
+                    ),
+                    Text(
+                      _difficultyName(l10n, diffEnum),
+                      style: theme.textTheme.bodyLarge,
+                    ),
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(
+                          Icons.schedule,
+                          size: 20,
+                          color: theme.colorScheme.onSurfaceVariant,
+                        ),
+                        const SizedBox(width: 6),
+                        Text(
+                          l10n.dishesMinutes(suggestion.totalMinutes),
+                          style: theme.textTheme.bodyLarge,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+
+                if (suggestion.missing.isNotEmpty) ...[
+                  const SizedBox(height: 8),
+                  Text(
+                    l10n.dishesMissing(suggestion.missing.join(', ')),
+                    style: theme.textTheme.bodyMedium?.copyWith(
+                      color: theme.colorScheme.error,
+                    ),
+                  ),
+                ],
+
+                const SizedBox(height: 16),
+
+                // Action buttons
+                Row(
+                  children: [
+                    Expanded(
+                      flex: 2,
+                      child: SizedBox(
+                        height: 56,
+                        child: OutlinedButton.icon(
+                          onPressed: onReject,
+                          icon: const Icon(Icons.close, size: 24),
+                          label: Text(
+                            l10n.dishesActionReject,
+                            style: theme.textTheme.bodyLarge,
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      flex: 3,
+                      child: SizedBox(
+                        height: 56,
+                        child: FilledButton.icon(
+                          onPressed: onOpen,
+                          icon: const Icon(Icons.auto_awesome, size: 24),
+                          label: Text(
+                            l10n.dishesActionOpen,
+                            style: theme.textTheme.bodyLarge?.copyWith(
+                              color: theme.colorScheme.onPrimary,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
                         ),
