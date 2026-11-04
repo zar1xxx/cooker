@@ -92,7 +92,7 @@
 - [x] **S3-03** `GigaChatProvider`: OAuth-токен с кэшем до `expires_at − 60 с`, `RqUID`, свой `Dio` с сертификатом из `assets/certs/`, схема в системном промпте.
 - [x] **S3-04** `PcDiscovery` + `AiRouter` (ТЗ 6.1.1): поиск ПК по подсети, health-check, кэш 60 с, fallback, индикатор режима.
 - [x] **S3-05** `RecipeValidator` полный (ТЗ 9.1 + `spec/ai/safety_minimums.json`).
-- [ ] **S3-06** Запросы `suggest_dishes`, `full_recipe` по схемам из `spec/ai/schemas/` и промптам `spec/ai/prompts/`; повтор при невалидном JSON.
+- [x] **S3-06** Запросы `suggest_dishes`, `full_recipe` по схемам из `spec/ai/schemas/` и промптам `spec/ai/prompts/`; повтор при невалидном JSON.
 - [ ] **S3-07** Антиповторы (ТЗ 6.3): «не предлагать», `fingerprint`, Жаккар ≥ 0.8, кэш `ai_requests`, «Другие варианты».
 - [ ] **S3-08** Экран настроек ИИ (за PIN или долгим нажатием): адрес ПК, «Найти компьютер», выбор модели из `/v1/models`, ключ GigaChat, «Проверить связь», счётчик токенов GigaChat.
 - [ ] **S3-09** Тесты: битый JSON → повтор → отказ; аллерген → отброс; дубль → не сохраняется; LM Studio таймаут → GigaChat; оба недоступны → только локальные; токен GigaChat обновляется после истечения.

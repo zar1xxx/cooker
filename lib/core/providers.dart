@@ -1,5 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'ai/ai_router.dart';
+import 'ai/ai_service.dart';
+import 'ai/recipe_validator.dart';
 import 'db/app_database.dart';
 import 'db/daos/ingredient_dao.dart';
 import 'db/daos/history_dao.dart';
@@ -207,4 +210,19 @@ final historyEntriesProvider = FutureProvider<List<CookedEntryWithRecipe>>((
 ) async {
   final dao = ref.watch(historyDaoProvider);
   return dao.allWithRecipes();
+});
+
+final aiRouterProvider = Provider<AiRouter>((ref) {
+  return AiRouter();
+});
+
+final recipeValidatorProvider = FutureProvider<RecipeValidator>((ref) async {
+  return RecipeValidator.fromAsset();
+});
+
+final aiServiceProvider = FutureProvider<AiService>((ref) async {
+  final router = ref.watch(aiRouterProvider);
+  final validator = await ref.watch(recipeValidatorProvider.future);
+  final db = ref.watch(databaseProvider);
+  return AiService(router: router, validator: validator, db: db);
 });
