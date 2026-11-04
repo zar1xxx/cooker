@@ -88,7 +88,7 @@
 ## Этап 3. ИИ (LM Studio на ПК + GigaChat)
 
 - [x] **S3-01** `AiProvider` + `FakeAiProvider` (читает `spec/fixtures/ai/`, скопированные в `test/fixtures/ai/`).
-- [ ] **S3-02** `LmStudioProvider`: `/v1/models`, `/v1/chat/completions` с `response_format: json_schema` (см. `skills/ai-integration`).
+- [x] **S3-02** `LmStudioProvider`: `/v1/models`, `/v1/chat/completions` с `response_format: json_schema` (см. `skills/ai-integration`).
 - [ ] **S3-03** `GigaChatProvider`: OAuth-токен с кэшем до `expires_at − 60 с`, `RqUID`, свой `Dio` с сертификатом из `assets/certs/`, схема в системном промпте.
 - [ ] **S3-04** `PcDiscovery` + `AiRouter` (ТЗ 6.1.1): поиск ПК по подсети, health-check, кэш 60 с, fallback, индикатор режима.
 - [ ] **S3-05** `RecipeValidator` полный (ТЗ 9.1 + `spec/ai/safety_minimums.json`).
