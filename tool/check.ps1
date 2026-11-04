@@ -18,6 +18,13 @@ if (Test-Path 'test') {
   Copy-Item 'spec\fixtures\ai\*' 'test\fixtures\ai\' -Force
 }
 
+# Ensure precompiled sqlite3 native asset is present for Windows tests without network dependency
+$sqliteHookDir = Join-Path $root '.dart_tool\hooks_runner\shared\sqlite3\build\download-2bf39f2a'
+if ((Test-Path 'tool\bin\sqlite3.x64.windows.dll') -and !(Test-Path (Join-Path $sqliteHookDir 'sqlite3.dll'))) {
+  New-Item -ItemType Directory -Force -Path $sqliteHookDir | Out-Null
+  Copy-Item 'tool\bin\sqlite3.x64.windows.dll' (Join-Path $sqliteHookDir 'sqlite3.dll') -Force
+}
+
 # ASSUMPTION: run build_runner only if declared in pubspec.yaml (before S0-02 it is not present)
 $hasBuildRunner = Select-String -Path 'pubspec.yaml' -Pattern 'build_runner' -Quiet
 $steps = @(

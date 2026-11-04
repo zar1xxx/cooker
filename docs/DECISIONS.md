@@ -10,3 +10,4 @@
 | D-004 | 2026-11-04 | spec/data/enums.json | Единицы измерения хранятся кодами (`g`, `pcs`, `tbsp`…), русские подписи — только в UI | подготовка | принято |
 | D-005 | 2026-11-04 | spec/ai | JSON-схемы и промпты — единый источник в `spec/ai/`, в `assets/ai/` копируются `tool/check.ps1` и CI | подготовка | принято |
 | D-006 | 2026-11-04 | tool/check.ps1 / S0-01 | Запуск build_runner в check.ps1 выполняется только при наличии build_runner в pubspec.yaml (до S0-02 он отсутствует) | ИИ | принято |
+| D-007 | 2026-11-04 | tool/check.ps1 / S0-02 | sqlite3 native asset для Windows кэшируется в tool/bin/sqlite3.x64.windows.dll для гарантированного оффлайн-прогона тестов без обращения к GitHub | ИИ | принято |

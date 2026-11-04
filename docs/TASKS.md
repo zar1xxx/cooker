@@ -9,7 +9,7 @@
 ## Этап 0. Каркас
 
 - [x] **S0-01** `flutter create` с параметрами из `AGENTS.md`; структура папок ТЗ 3.
-- [ ] **S0-02** Зависимости в `pubspec.yaml` (последние stable): `flutter_riverpod`, `go_router`, `drift`, `drift_flutter` (или `sqlite3_flutter_libs` + `path_provider`), `freezed_annotation`, `json_annotation`, `dio`, `connectivity_plus`, `network_info_plus`, `uuid`, `table_calendar`, `speech_to_text`, `flutter_tts`, `wakelock_plus`, `flutter_local_notifications`, `flutter_secure_storage`, `intl`, `flutter_localizations` (sdk). Dev: `build_runner`, `drift_dev`, `freezed`, `json_serializable`, `mocktail`, `flutter_lints`.
+- [x] **S0-02** Зависимости в `pubspec.yaml` (последние stable): `flutter_riverpod`, `go_router`, `drift`, `drift_flutter` (или `sqlite3_flutter_libs` + `path_provider`), `freezed_annotation`, `json_annotation`, `dio`, `connectivity_plus`, `network_info_plus`, `uuid`, `table_calendar`, `speech_to_text`, `flutter_tts`, `wakelock_plus`, `flutter_local_notifications`, `flutter_secure_storage`, `intl`, `flutter_localizations` (sdk). Dev: `build_runner`, `drift_dev`, `freezed`, `json_serializable`, `mocktail`, `flutter_lints`.
 - [ ] **S0-03** Тема: шрифт 18 sp, заголовки 24 sp, кнопки ≥ 56 dp, светлая + тёмная (ТЗ 7.1). Локализация `ru` через ARB.
 - [ ] **S0-04** `go_router` + нижняя панель: Сегодня · Что есть дома · Календарь · История (пустые экраны с заголовком).
 - [ ] **S0-05** drift: все таблицы ТЗ 4.1, общие поля `id/created_at/updated_at/deleted_at`, схема v1, FTS5 по `ingredients(name, synonyms)`.
