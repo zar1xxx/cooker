@@ -15,6 +15,7 @@ import 'db/daos/recipe_dao.dart';
 import 'matching/diversity_reorderer.dart';
 import 'matching/recipe_matcher.dart';
 import 'matching/recipe_scorer.dart';
+import 'preferences/preference_service.dart';
 
 /// One database instance per application.
 final databaseProvider = Provider<AppDatabase>((ref) {
@@ -205,8 +206,20 @@ final ingredientHierarchyProvider = FutureProvider<Map<String, List<String>>>((
   return dao.hierarchy();
 });
 
+final preferenceServiceProvider = Provider<PreferenceService>((ref) {
+  return PreferenceService(ref.watch(databaseProvider));
+});
+
+final preferenceProfileProvider = FutureProvider<TasteProfile>((ref) async {
+  final service = ref.watch(preferenceServiceProvider);
+  return service.getProfile();
+});
+
 final historyDaoProvider = Provider<HistoryDao>((ref) {
-  return HistoryDao(ref.watch(databaseProvider));
+  return HistoryDao(
+    ref.watch(databaseProvider),
+    preferenceService: ref.watch(preferenceServiceProvider),
+  );
 });
 
 final historyEntriesProvider = FutureProvider<List<CookedEntryWithRecipe>>((

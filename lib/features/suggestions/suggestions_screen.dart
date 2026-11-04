@@ -104,6 +104,14 @@ class _SuggestionsScreenState extends ConsumerState<SuggestionsScreen> {
       _rejectedRecipeIds.add(recipe.id);
     });
 
+    ref
+        .read(preferenceServiceProvider)
+        .recordEvent(
+          recipeId: recipe.id,
+          kind: FeedbackKind.rejected_suggestion,
+          reason: 'rejected_suggestion',
+        );
+
     ScaffoldMessenger.of(context).clearSnackBars();
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(

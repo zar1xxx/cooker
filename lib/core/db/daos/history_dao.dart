@@ -4,6 +4,7 @@ import 'package:uuid/uuid.dart';
 
 import '../app_database.dart';
 import '../enums.dart';
+import '../../preferences/preference_service.dart';
 
 class CookedEntryWithRecipe {
   const CookedEntryWithRecipe({required this.entry, required this.recipe});
@@ -29,9 +30,11 @@ class HistoryMonthSummary {
 }
 
 class HistoryDao {
-  HistoryDao(this._db, {Uuid? uuid}) : _uuid = uuid ?? const Uuid();
+  HistoryDao(this._db, {this.preferenceService, Uuid? uuid})
+    : _uuid = uuid ?? const Uuid();
 
   final AppDatabase _db;
+  final PreferenceService? preferenceService;
   final Uuid _uuid;
 
   String _formatIsoDate(DateTime dt) {
@@ -81,6 +84,7 @@ class HistoryDao {
     );
 
     await _db.into(_db.feedbackEvents).insert(feedback);
+    await preferenceService?.recalculateProfile();
 
     return entry;
   }
@@ -114,6 +118,25 @@ class HistoryDao {
     )..where((tbl) => tbl.id.equals(entryId))).write(
       CookedEntriesCompanion(rating: Value(rating), updatedAt: Value(nowMs)),
     );
+
+    // Also record feedback event for updated rating and recalculate profile
+    final entry = await (_db.select(
+      _db.cookedEntries,
+    )..where((tbl) => tbl.id.equals(entryId))).getSingleOrNull();
+    if (entry != null) {
+      final feedbackId = _uuid.v4();
+      final feedback = FeedbackEvent(
+        id: feedbackId,
+        createdAt: nowMs,
+        updatedAt: nowMs,
+        recipeId: entry.recipeId,
+        kind: FeedbackKind.cooked,
+        reason: 'rating: $rating',
+        at: nowMs,
+      );
+      await _db.into(_db.feedbackEvents).insert(feedback);
+      await preferenceService?.recalculateProfile();
+    }
   }
 
   /// Soft deletes a cooked entry by marking its deletedAt timestamp.
