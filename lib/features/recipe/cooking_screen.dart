@@ -80,17 +80,17 @@ class _CookingScreenState extends ConsumerState<CookingScreen> {
   @override
   void dispose() {
     _activeTicker?.cancel();
-    _stopTts();
+    _stopTts(updateState: false);
     _disableWakelock();
     try {
-      ref.read(notificationServiceProvider).cancelAll();
+      unawaited(ref.read(notificationServiceProvider).cancelAll());
     } catch (_) {}
     super.dispose();
   }
 
   Future<void> _speakText(String text) async {
     if (_isSpeaking) {
-      await _stopTts();
+      _stopTts();
     } else {
       try {
         setState(() => _isSpeaking = true);
@@ -101,12 +101,14 @@ class _CookingScreenState extends ConsumerState<CookingScreen> {
     }
   }
 
-  Future<void> _stopTts() async {
+  void _stopTts({bool updateState = true}) {
     try {
-      await _flutterTts.stop();
+      _flutterTts.stop();
     } catch (_) {}
-    if (mounted) {
+    if (updateState && mounted) {
       setState(() => _isSpeaking = false);
+    } else {
+      _isSpeaking = false;
     }
   }
 
@@ -197,23 +199,224 @@ class _CookingScreenState extends ConsumerState<CookingScreen> {
   }
 
   void _onFinishCooking(Recipe recipe, AppLocalizations l10n) {
+    _showRatingDialog(recipe, l10n);
+  }
+
+  Future<void> _showRatingDialog(Recipe recipe, AppLocalizations l10n) async {
     _stopTts();
     try {
-      ref.read(notificationServiceProvider).cancelAll();
+      await ref.read(notificationServiceProvider).cancelAll();
     } catch (_) {}
-    // In S2-02 cooking mode completed. In S2-04 rating 1-5 will record entry.
-    // For now, confirm completion and navigate back.
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-          '${l10n.cookingButtonFinish} Приятного аппетита!',
-          style: Theme.of(context).textTheme.bodyLarge
-              ?.copyWith(color: Theme.of(context).colorScheme.onInverseSurface),
-        ),
-        duration: const Duration(seconds: 3),
+    if (!mounted) return;
+
+    int? selectedRating = 5;
+    bool wouldRepeat = true;
+    final noteController = TextEditingController();
+
+    String ratingLabel(int? rating) {
+      switch (rating) {
+        case 1:
+          return l10n.cookingRate1;
+        case 2:
+          return l10n.cookingRate2;
+        case 3:
+          return l10n.cookingRate3;
+        case 4:
+          return l10n.cookingRate4;
+        case 5:
+          return l10n.cookingRate5;
+        default:
+          return '';
+      }
+    }
+
+    final saved = await showModalBottomSheet<bool>(
+      context: context,
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
       ),
+      builder: (sheetContext) {
+        final theme = Theme.of(sheetContext);
+        return StatefulBuilder(
+          builder: (context, setModalState) {
+            return Padding(
+              padding: EdgeInsets.only(
+                left: 20,
+                right: 20,
+                top: 24,
+                bottom: MediaQuery.of(context).viewInsets.bottom + 24,
+              ),
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Text(
+                      l10n.cookingRateTitle,
+                      style: theme.textTheme.headlineSmall?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 6),
+                    Text(
+                      recipe.title,
+                      style: theme.textTheme.titleMedium?.copyWith(
+                        color: theme.colorScheme.onSurfaceVariant,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 20),
+
+                    // 5 Star Buttons Row
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        for (int star = 1; star <= 5; star++)
+                          Semantics(
+                            label: '$star ${ratingLabel(star)}',
+                            button: true,
+                            child: SizedBox(
+                              width: 56,
+                              height: 56,
+                              child: IconButton(
+                                iconSize: 36,
+                                padding: EdgeInsets.zero,
+                                icon: Icon(
+                                  star <= (selectedRating ?? 0)
+                                      ? Icons.star_rounded
+                                      : Icons.star_outline_rounded,
+                                  color: star <= (selectedRating ?? 0)
+                                      ? const Color(0xFFF9A825)
+                                      : theme.colorScheme.outlineVariant,
+                                ),
+                                onPressed: () {
+                                  setModalState(() {
+                                    selectedRating = star;
+                                    wouldRepeat = star >= 4;
+                                  });
+                                },
+                              ),
+                            ),
+                          ),
+                      ],
+                    ),
+                    if (selectedRating != null) ...[
+                      const SizedBox(height: 8),
+                      Text(
+                        ratingLabel(selectedRating),
+                        style: theme.textTheme.titleMedium?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: const Color(0xFFE65100),
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                    const SizedBox(height: 16),
+
+                    // Would repeat switch
+                    SwitchListTile(
+                      contentPadding: EdgeInsets.zero,
+                      title: Text(
+                        l10n.cookingRateRepeat,
+                        style: theme.textTheme.bodyLarge,
+                      ),
+                      value: wouldRepeat,
+                      onChanged: (val) {
+                        setModalState(() {
+                          wouldRepeat = val;
+                        });
+                      },
+                    ),
+                    const SizedBox(height: 8),
+
+                    // Note input
+                    TextField(
+                      controller: noteController,
+                      style: theme.textTheme.bodyLarge,
+                      decoration: InputDecoration(
+                        hintText: l10n.cookingRateNoteHint,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        prefixIcon: const Icon(Icons.edit_note),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+
+                    // Save button
+                    SizedBox(
+                      height: 56,
+                      child: FilledButton(
+                        style: FilledButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(14),
+                          ),
+                        ),
+                        onPressed: () => Navigator.of(sheetContext).pop(true),
+                        child: Text(
+                          l10n.cookingRateSave,
+                          style: theme.textTheme.titleMedium?.copyWith(
+                            color: theme.colorScheme.onPrimary,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+
+                    // Skip button
+                    SizedBox(
+                      height: 48,
+                      child: TextButton(
+                        onPressed: () {
+                          selectedRating = null;
+                          Navigator.of(sheetContext).pop(true);
+                        },
+                        child: Text(
+                          l10n.cookingRateSkip,
+                          style: theme.textTheme.bodyLarge,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        );
+      },
     );
-    Navigator.of(context).pop();
+
+    if (saved == true && mounted) {
+      final noteText = noteController.text.trim();
+      await ref
+          .read(historyDaoProvider)
+          .recordCooked(
+            recipeId: recipe.id,
+            rating: selectedRating,
+            wouldRepeat: selectedRating != null ? wouldRepeat : null,
+            note: noteText.isNotEmpty ? noteText : null,
+          );
+      ref.invalidate(historyEntriesProvider);
+
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            l10n.cookingSavedToHistory,
+            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+              color: Theme.of(context).colorScheme.onInverseSurface,
+            ),
+          ),
+          duration: const Duration(seconds: 3),
+        ),
+      );
+      if (Navigator.of(context).canPop()) {
+        Navigator.of(context).pop();
+      }
+    }
   }
 
   @override

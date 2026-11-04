@@ -735,6 +735,78 @@ abstract class AppLocalizations {
   /// In ru, this message translates to:
   /// **'В этом рецепте нет описания шагов'**
   String get cookingNoSteps;
+
+  /// Заголовок диалога оценки блюда
+  ///
+  /// In ru, this message translates to:
+  /// **'Как получилось?'**
+  String get cookingRateTitle;
+
+  /// Подзаголовок диалога оценки блюда
+  ///
+  /// In ru, this message translates to:
+  /// **'Поставьте оценку блюду'**
+  String get cookingRateSubtitle;
+
+  /// Кнопка сохранения оценки блюда
+  ///
+  /// In ru, this message translates to:
+  /// **'Сохранить'**
+  String get cookingRateSave;
+
+  /// Кнопка завершения без оценки
+  ///
+  /// In ru, this message translates to:
+  /// **'Без оценки'**
+  String get cookingRateSkip;
+
+  /// Описание оценки 1 звезда
+  ///
+  /// In ru, this message translates to:
+  /// **'Плохо'**
+  String get cookingRate1;
+
+  /// Описание оценки 2 звезды
+  ///
+  /// In ru, this message translates to:
+  /// **'Так себе'**
+  String get cookingRate2;
+
+  /// Описание оценки 3 звезды
+  ///
+  /// In ru, this message translates to:
+  /// **'Нормально'**
+  String get cookingRate3;
+
+  /// Описание оценки 4 звезды
+  ///
+  /// In ru, this message translates to:
+  /// **'Вкусно'**
+  String get cookingRate4;
+
+  /// Описание оценки 5 звёзд
+  ///
+  /// In ru, this message translates to:
+  /// **'Очень вкусно!'**
+  String get cookingRate5;
+
+  /// Подсказка для поля ввода заметки к блюду
+  ///
+  /// In ru, this message translates to:
+  /// **'Заметка (по желанию)'**
+  String get cookingRateNoteHint;
+
+  /// Чекбокс желания приготовить блюдо снова
+  ///
+  /// In ru, this message translates to:
+  /// **'Хочу приготовить снова'**
+  String get cookingRateRepeat;
+
+  /// Уведомление об успешной записи в историю
+  ///
+  /// In ru, this message translates to:
+  /// **'Блюдо записано в историю'**
+  String get cookingSavedToHistory;
 }
 
 class _AppLocalizationsDelegate

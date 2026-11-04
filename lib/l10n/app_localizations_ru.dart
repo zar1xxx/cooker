@@ -350,4 +350,40 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get cookingNoSteps => 'В этом рецепте нет описания шагов';
+
+  @override
+  String get cookingRateTitle => 'Как получилось?';
+
+  @override
+  String get cookingRateSubtitle => 'Поставьте оценку блюду';
+
+  @override
+  String get cookingRateSave => 'Сохранить';
+
+  @override
+  String get cookingRateSkip => 'Без оценки';
+
+  @override
+  String get cookingRate1 => 'Плохо';
+
+  @override
+  String get cookingRate2 => 'Так себе';
+
+  @override
+  String get cookingRate3 => 'Нормально';
+
+  @override
+  String get cookingRate4 => 'Вкусно';
+
+  @override
+  String get cookingRate5 => 'Очень вкусно!';
+
+  @override
+  String get cookingRateNoteHint => 'Заметка (по желанию)';
+
+  @override
+  String get cookingRateRepeat => 'Хочу приготовить снова';
+
+  @override
+  String get cookingSavedToHistory => 'Блюдо записано в историю';
 }

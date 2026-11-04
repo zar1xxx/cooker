@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'db/app_database.dart';
 import 'db/daos/ingredient_dao.dart';
+import 'db/daos/history_dao.dart';
 import 'db/daos/pantry_dao.dart';
 import 'db/daos/recipe_dao.dart';
 import 'matching/diversity_reorderer.dart';
@@ -195,4 +196,15 @@ final ingredientHierarchyProvider = FutureProvider<Map<String, List<String>>>((
 ) async {
   final dao = ref.watch(ingredientDaoProvider);
   return dao.hierarchy();
+});
+
+final historyDaoProvider = Provider<HistoryDao>((ref) {
+  return HistoryDao(ref.watch(databaseProvider));
+});
+
+final historyEntriesProvider = FutureProvider<List<CookedEntryWithRecipe>>((
+  ref,
+) async {
+  final dao = ref.watch(historyDaoProvider);
+  return dao.allWithRecipes();
 });

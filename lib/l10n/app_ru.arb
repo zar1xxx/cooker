@@ -477,5 +477,53 @@
   "@cookingTimerDone": {
     "description": "Сообщение об окончании времени таймера"
   },
-  "cookingNoSteps": "В этом рецепте нет описания шагов"
+  "cookingNoSteps": "В этом рецепте нет описания шагов",
+  "cookingRateTitle": "Как получилось?",
+  "@cookingRateTitle": {
+    "description": "Заголовок диалога оценки блюда"
+  },
+  "cookingRateSubtitle": "Поставьте оценку блюду",
+  "@cookingRateSubtitle": {
+    "description": "Подзаголовок диалога оценки блюда"
+  },
+  "cookingRateSave": "Сохранить",
+  "@cookingRateSave": {
+    "description": "Кнопка сохранения оценки блюда"
+  },
+  "cookingRateSkip": "Без оценки",
+  "@cookingRateSkip": {
+    "description": "Кнопка завершения без оценки"
+  },
+  "cookingRate1": "Плохо",
+  "@cookingRate1": {
+    "description": "Описание оценки 1 звезда"
+  },
+  "cookingRate2": "Так себе",
+  "@cookingRate2": {
+    "description": "Описание оценки 2 звезды"
+  },
+  "cookingRate3": "Нормально",
+  "@cookingRate3": {
+    "description": "Описание оценки 3 звезды"
+  },
+  "cookingRate4": "Вкусно",
+  "@cookingRate4": {
+    "description": "Описание оценки 4 звезды"
+  },
+  "cookingRate5": "Очень вкусно!",
+  "@cookingRate5": {
+    "description": "Описание оценки 5 звёзд"
+  },
+  "cookingRateNoteHint": "Заметка (по желанию)",
+  "@cookingRateNoteHint": {
+    "description": "Подсказка для поля ввода заметки к блюду"
+  },
+  "cookingRateRepeat": "Хочу приготовить снова",
+  "@cookingRateRepeat": {
+    "description": "Чекбокс желания приготовить блюдо снова"
+  },
+  "cookingSavedToHistory": "Блюдо записано в историю",
+  "@cookingSavedToHistory": {
+    "description": "Уведомление об успешной записи в историю"
+  }
 }

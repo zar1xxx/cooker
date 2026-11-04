@@ -1,5 +1,6 @@
 import 'package:chto_prigotovit/app/theme.dart';
 import 'package:chto_prigotovit/core/db/app_database.dart';
+import 'package:chto_prigotovit/core/db/daos/history_dao.dart';
 import 'package:chto_prigotovit/core/providers.dart';
 import 'package:chto_prigotovit/core/services/notification_service.dart';
 import 'package:chto_prigotovit/features/recipe/cooking_screen.dart';
@@ -218,6 +219,52 @@ void main() {
         await tester.pump();
 
         expect(fakeNotifications.cancelled, contains(1));
+      },
+    );
+
+    testWidgets(
+      'tapping Готово opens rating sheet and records to cooked_entries (S2-04)',
+      (tester) async {
+        tester.view.physicalSize = const Size(800, 1600);
+        tester.view.devicePixelRatio = 1.0;
+        addTearDown(tester.view.resetPhysicalSize);
+        addTearDown(tester.view.resetDevicePixelRatio);
+
+        await tester.pumpWidget(
+          _createCookingTestWidget(db, 'chicken_soup_potato'),
+        );
+        await tester.pumpAndSettle();
+
+        // Advance to last step (step 4)
+        for (int i = 0; i < 3; i++) {
+          await tester.tap(find.text('Дальше'));
+          await tester.pumpAndSettle();
+        }
+
+        // Tap «Готово!»
+        await tester.tap(find.text('Готово!'));
+        await tester.pumpAndSettle();
+
+        // Rating modal sheet is visible
+        expect(find.text('Как получилось?'), findsOneWidget);
+        expect(find.text('Куриный суп с картошкой'), findsWidgets);
+        expect(find.text('Очень вкусно!'), findsOneWidget);
+        expect(find.text('Хочу приготовить снова'), findsOneWidget);
+
+        // Tap «Сохранить»
+        await tester.tap(find.text('Сохранить'));
+        await tester.pumpAndSettle();
+
+        // Confirm snackbar
+        expect(find.text('Блюдо записано в историю'), findsOneWidget);
+        await tester.pump(const Duration(seconds: 5));
+
+        // Verify DB entry
+        final historyDao = HistoryDao(db);
+        final history = await historyDao.allWithRecipes();
+        expect(history.length, 1);
+        expect(history.first.entry.recipeId, 'chicken_soup_potato');
+        expect(history.first.entry.rating, 5);
       },
     );
   });
