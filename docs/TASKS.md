@@ -90,7 +90,7 @@
 - [x] **S3-01** `AiProvider` + `FakeAiProvider` (читает `spec/fixtures/ai/`, скопированные в `test/fixtures/ai/`).
 - [x] **S3-02** `LmStudioProvider`: `/v1/models`, `/v1/chat/completions` с `response_format: json_schema` (см. `skills/ai-integration`).
 - [x] **S3-03** `GigaChatProvider`: OAuth-токен с кэшем до `expires_at − 60 с`, `RqUID`, свой `Dio` с сертификатом из `assets/certs/`, схема в системном промпте.
-- [ ] **S3-04** `PcDiscovery` + `AiRouter` (ТЗ 6.1.1): поиск ПК по подсети, health-check, кэш 60 с, fallback, индикатор режима.
+- [x] **S3-04** `PcDiscovery` + `AiRouter` (ТЗ 6.1.1): поиск ПК по подсети, health-check, кэш 60 с, fallback, индикатор режима.
 - [ ] **S3-05** `RecipeValidator` полный (ТЗ 9.1 + `spec/ai/safety_minimums.json`).
 - [ ] **S3-06** Запросы `suggest_dishes`, `full_recipe` по схемам из `spec/ai/schemas/` и промптам `spec/ai/prompts/`; повтор при невалидном JSON.
 - [ ] **S3-07** Антиповторы (ТЗ 6.3): «не предлагать», `fingerprint`, Жаккар ≥ 0.8, кэш `ai_requests`, «Другие варианты».
