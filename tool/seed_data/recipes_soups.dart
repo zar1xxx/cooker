@@ -8,7 +8,7 @@ final List<RecipeSpec> soupRecipes = [
     'soup',
     4,
     20,
-    'chicken:500:g;potato:3:pcs;carrot:1:pcs;onion:1:pcs;water:2:l;salt:null:to_taste;bay_leaf:2:pcs',
+    'chicken:500:g;potato:3:pcs;carrot:1:pcs;onion:1:pcs;water:2:l;salt:null:to_taste;bay_leaf:2:pcs:opt',
     description: 'Домашний куриный суп с картофелем и овощами.',
     cuisine: 'русская',
   ),

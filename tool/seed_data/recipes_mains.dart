@@ -49,7 +49,7 @@ final List<RecipeSpec> mainRecipes = [
     'bake',
     4,
     25,
-    'chicken:600:g;potato:4:pcs;carrot:1:pcs;onion:1:pcs;bell_pepper:1:pcs;sunflower_oil:2:tbsp;salt:null:to_taste',
+    'chicken:600:g;potato:4:pcs;carrot:1:pcs;onion:1:pcs;bell_pepper:1:pcs:opt;sunflower_oil:2:tbsp;salt:null:to_taste',
     description: 'Курица с овощами, запечённая в духовке.',
   ),
   r(

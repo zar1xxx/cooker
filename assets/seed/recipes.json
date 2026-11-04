@@ -52,7 +52,7 @@
           "ingredient_id": "bay_leaf",
           "amount": 2.0,
           "unit": "pcs",
-          "is_optional": false
+          "is_optional": true
         }
       ],
       "steps": [
@@ -1666,7 +1666,7 @@
           "ingredient_id": "bell_pepper",
           "amount": 1.0,
           "unit": "pcs",
-          "is_optional": false
+          "is_optional": true
         },
         {
           "ingredient_id": "sunflower_oil",
