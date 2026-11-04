@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../core/db/app_database.dart';
 import '../../core/db/enums.dart';
@@ -119,18 +120,7 @@ class _SuggestionsScreenState extends ConsumerState<SuggestionsScreen> {
   }
 
   void _openRecipe(Recipe recipe) {
-    // In Stage 1, recipe screen is not yet built (comes in Stage 2 / S2-01).
-    // Show a clean snackbar confirming recipe selection.
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-          recipe.title,
-          style: Theme.of(context).textTheme.bodyLarge
-              ?.copyWith(color: Theme.of(context).colorScheme.onInverseSurface),
-        ),
-        duration: const Duration(seconds: 2),
-      ),
-    );
+    context.push('/recipe/${recipe.id}');
   }
 
   @override

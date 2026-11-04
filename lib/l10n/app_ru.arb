@@ -268,5 +268,157 @@
   "dishTypePreserve": "Заготовки",
   "@dishTypePreserve": {
     "description": "Тип блюда: заготовки"
+  },
+  "recipeScreenTitle": "Рецепт",
+  "@recipeScreenTitle": {
+    "description": "Заголовок экрана рецепта"
+  },
+  "recipeServingsLabel": "Порции: {count}",
+  "@recipeServingsLabel": {
+    "description": "Количество порций",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "recipeServingsDecrease": "Уменьшить количество порций",
+  "@recipeServingsDecrease": {
+    "description": "Семантика кнопки уменьшения порций"
+  },
+  "recipeServingsIncrease": "Увеличить количество порций",
+  "@recipeServingsIncrease": {
+    "description": "Семантика кнопки увеличения порций"
+  },
+  "recipeIngredientsHeader": "Ингредиенты",
+  "@recipeIngredientsHeader": {
+    "description": "Заголовок секции ингредиентов"
+  },
+  "recipeIngredientsSubtitle": "Зелёная отметка — есть дома",
+  "@recipeIngredientsSubtitle": {
+    "description": "Подзаголовок секции ингредиентов"
+  },
+  "recipeStepsHeader": "Шаги приготовления",
+  "@recipeStepsHeader": {
+    "description": "Заголовок секции шагов рецепта"
+  },
+  "recipeTipsHeader": "Советы",
+  "@recipeTipsHeader": {
+    "description": "Заголовок советов"
+  },
+  "recipeTipPrefix": "Совет: ",
+  "@recipeTipPrefix": {
+    "description": "Префикс совета к шагу"
+  },
+  "recipeStartCooking": "Начать готовить",
+  "@recipeStartCooking": {
+    "description": "Главная кнопка перехода в режим готовки"
+  },
+  "recipeFavoriteAdd": "В избранное",
+  "@recipeFavoriteAdd": {
+    "description": "Кнопка добавления в избранное"
+  },
+  "recipeFavoriteIn": "В избранном",
+  "@recipeFavoriteIn": {
+    "description": "Кнопка удаление из избранного"
+  },
+  "recipeAddToCalendar": "Поставить в календарь",
+  "@recipeAddToCalendar": {
+    "description": "Кнопка планирования в календаре"
+  },
+  "recipeAddedToCalendar": "Блюдо запланировано в календаре",
+  "@recipeAddedToCalendar": {
+    "description": "Уведомление о добавлении в календарь"
+  },
+  "recipeFavoriteAdded": "Рецепт добавлен в избранное",
+  "@recipeFavoriteAdded": {
+    "description": "Уведомление о добавлении в избранное"
+  },
+  "recipeFavoriteRemoved": "Рецепт удалён из избранного",
+  "@recipeFavoriteRemoved": {
+    "description": "Уведомление об удалении из избранного"
+  },
+  "recipeIngredientInPantry": "Есть дома",
+  "@recipeIngredientInPantry": {
+    "description": "Статус ингредиента: есть в запасах"
+  },
+  "recipeIngredientMissing": "Нужно купить",
+  "@recipeIngredientMissing": {
+    "description": "Статус ингредиента: нет в запасах"
+  },
+  "recipeOptional": "(по желанию)",
+  "@recipeOptional": {
+    "description": "Метка опционального ингредиента"
+  },
+  "recipeStepTimer": "⏱ {minutes} мин",
+  "@recipeStepTimer": {
+    "description": "Таймер шага в минутах",
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "recipeStepNumber": "Шаг {number}",
+  "@recipeStepNumber": {
+    "description": "Номер шага",
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+  "recipeNotFound": "Рецепт не найден",
+  "@recipeNotFound": {
+    "description": "Сообщение если рецепт отсутствует"
+  },
+  "recipeCuisineLabel": "Кухня: {cuisine}",
+  "@recipeCuisineLabel": {
+    "description": "Кухня блюда",
+    "placeholders": {
+      "cuisine": {
+        "type": "String"
+      }
+    }
+  },
+  "recipeUnitGram": "г",
+  "@recipeUnitGram": {
+    "description": "Единица измерения: граммы"
+  },
+  "recipeUnitKilogram": "кг",
+  "@recipeUnitKilogram": {
+    "description": "Единица измерения: килограммы"
+  },
+  "recipeUnitMilliliter": "мл",
+  "@recipeUnitMilliliter": {
+    "description": "Единица измерения: миллилитры"
+  },
+  "recipeUnitLiter": "л",
+  "@recipeUnitLiter": {
+    "description": "Единица измерения: литры"
+  },
+  "recipeUnitPieces": "шт.",
+  "@recipeUnitPieces": {
+    "description": "Единица измерения: штуки"
+  },
+  "recipeUnitTbsp": "ст. л.",
+  "@recipeUnitTbsp": {
+    "description": "Единица измерения: столовые ложки"
+  },
+  "recipeUnitTsp": "ч. л.",
+  "@recipeUnitTsp": {
+    "description": "Единица измерения: чайные ложки"
+  },
+  "recipeUnitToTaste": "по вкусу",
+  "@recipeUnitToTaste": {
+    "description": "Единица измерения: по вкусу"
+  },
+  "recipeUnitPinch": "щепотка",
+  "@recipeUnitPinch": {
+    "description": "Единица измерения: щепотка"
+  },
+  "recipeUnitClove": "зубчик",
+  "@recipeUnitClove": {
+    "description": "Единица измерения: зубчик"
   }
 }

@@ -459,6 +459,204 @@ abstract class AppLocalizations {
   /// In ru, this message translates to:
   /// **'Заготовки'**
   String get dishTypePreserve;
+
+  /// Заголовок экрана рецепта
+  ///
+  /// In ru, this message translates to:
+  /// **'Рецепт'**
+  String get recipeScreenTitle;
+
+  /// Количество порций
+  ///
+  /// In ru, this message translates to:
+  /// **'Порции: {count}'**
+  String recipeServingsLabel(int count);
+
+  /// Семантика кнопки уменьшения порций
+  ///
+  /// In ru, this message translates to:
+  /// **'Уменьшить количество порций'**
+  String get recipeServingsDecrease;
+
+  /// Семантика кнопки увеличения порций
+  ///
+  /// In ru, this message translates to:
+  /// **'Увеличить количество порций'**
+  String get recipeServingsIncrease;
+
+  /// Заголовок секции ингредиентов
+  ///
+  /// In ru, this message translates to:
+  /// **'Ингредиенты'**
+  String get recipeIngredientsHeader;
+
+  /// Подзаголовок секции ингредиентов
+  ///
+  /// In ru, this message translates to:
+  /// **'Зелёная отметка — есть дома'**
+  String get recipeIngredientsSubtitle;
+
+  /// Заголовок секции шагов рецепта
+  ///
+  /// In ru, this message translates to:
+  /// **'Шаги приготовления'**
+  String get recipeStepsHeader;
+
+  /// Заголовок советов
+  ///
+  /// In ru, this message translates to:
+  /// **'Советы'**
+  String get recipeTipsHeader;
+
+  /// Префикс совета к шагу
+  ///
+  /// In ru, this message translates to:
+  /// **'Совет: '**
+  String get recipeTipPrefix;
+
+  /// Главная кнопка перехода в режим готовки
+  ///
+  /// In ru, this message translates to:
+  /// **'Начать готовить'**
+  String get recipeStartCooking;
+
+  /// Кнопка добавления в избранное
+  ///
+  /// In ru, this message translates to:
+  /// **'В избранное'**
+  String get recipeFavoriteAdd;
+
+  /// Кнопка удаление из избранного
+  ///
+  /// In ru, this message translates to:
+  /// **'В избранном'**
+  String get recipeFavoriteIn;
+
+  /// Кнопка планирования в календаре
+  ///
+  /// In ru, this message translates to:
+  /// **'Поставить в календарь'**
+  String get recipeAddToCalendar;
+
+  /// Уведомление о добавлении в календарь
+  ///
+  /// In ru, this message translates to:
+  /// **'Блюдо запланировано в календаре'**
+  String get recipeAddedToCalendar;
+
+  /// Уведомление о добавлении в избранное
+  ///
+  /// In ru, this message translates to:
+  /// **'Рецепт добавлен в избранное'**
+  String get recipeFavoriteAdded;
+
+  /// Уведомление об удалении из избранного
+  ///
+  /// In ru, this message translates to:
+  /// **'Рецепт удалён из избранного'**
+  String get recipeFavoriteRemoved;
+
+  /// Статус ингредиента: есть в запасах
+  ///
+  /// In ru, this message translates to:
+  /// **'Есть дома'**
+  String get recipeIngredientInPantry;
+
+  /// Статус ингредиента: нет в запасах
+  ///
+  /// In ru, this message translates to:
+  /// **'Нужно купить'**
+  String get recipeIngredientMissing;
+
+  /// Метка опционального ингредиента
+  ///
+  /// In ru, this message translates to:
+  /// **'(по желанию)'**
+  String get recipeOptional;
+
+  /// Таймер шага в минутах
+  ///
+  /// In ru, this message translates to:
+  /// **'⏱ {minutes} мин'**
+  String recipeStepTimer(int minutes);
+
+  /// Номер шага
+  ///
+  /// In ru, this message translates to:
+  /// **'Шаг {number}'**
+  String recipeStepNumber(int number);
+
+  /// Сообщение если рецепт отсутствует
+  ///
+  /// In ru, this message translates to:
+  /// **'Рецепт не найден'**
+  String get recipeNotFound;
+
+  /// Кухня блюда
+  ///
+  /// In ru, this message translates to:
+  /// **'Кухня: {cuisine}'**
+  String recipeCuisineLabel(String cuisine);
+
+  /// Единица измерения: граммы
+  ///
+  /// In ru, this message translates to:
+  /// **'г'**
+  String get recipeUnitGram;
+
+  /// Единица измерения: килограммы
+  ///
+  /// In ru, this message translates to:
+  /// **'кг'**
+  String get recipeUnitKilogram;
+
+  /// Единица измерения: миллилитры
+  ///
+  /// In ru, this message translates to:
+  /// **'мл'**
+  String get recipeUnitMilliliter;
+
+  /// Единица измерения: литры
+  ///
+  /// In ru, this message translates to:
+  /// **'л'**
+  String get recipeUnitLiter;
+
+  /// Единица измерения: штуки
+  ///
+  /// In ru, this message translates to:
+  /// **'шт.'**
+  String get recipeUnitPieces;
+
+  /// Единица измерения: столовые ложки
+  ///
+  /// In ru, this message translates to:
+  /// **'ст. л.'**
+  String get recipeUnitTbsp;
+
+  /// Единица измерения: чайные ложки
+  ///
+  /// In ru, this message translates to:
+  /// **'ч. л.'**
+  String get recipeUnitTsp;
+
+  /// Единица измерения: по вкусу
+  ///
+  /// In ru, this message translates to:
+  /// **'по вкусу'**
+  String get recipeUnitToTaste;
+
+  /// Единица измерения: щепотка
+  ///
+  /// In ru, this message translates to:
+  /// **'щепотка'**
+  String get recipeUnitPinch;
+
+  /// Единица измерения: зубчик
+  ///
+  /// In ru, this message translates to:
+  /// **'зубчик'**
+  String get recipeUnitClove;
 }
 
 class _AppLocalizationsDelegate

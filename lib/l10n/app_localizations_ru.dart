@@ -202,4 +202,111 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get dishTypePreserve => 'Заготовки';
+
+  @override
+  String get recipeScreenTitle => 'Рецепт';
+
+  @override
+  String recipeServingsLabel(int count) {
+    return 'Порции: $count';
+  }
+
+  @override
+  String get recipeServingsDecrease => 'Уменьшить количество порций';
+
+  @override
+  String get recipeServingsIncrease => 'Увеличить количество порций';
+
+  @override
+  String get recipeIngredientsHeader => 'Ингредиенты';
+
+  @override
+  String get recipeIngredientsSubtitle => 'Зелёная отметка — есть дома';
+
+  @override
+  String get recipeStepsHeader => 'Шаги приготовления';
+
+  @override
+  String get recipeTipsHeader => 'Советы';
+
+  @override
+  String get recipeTipPrefix => 'Совет: ';
+
+  @override
+  String get recipeStartCooking => 'Начать готовить';
+
+  @override
+  String get recipeFavoriteAdd => 'В избранное';
+
+  @override
+  String get recipeFavoriteIn => 'В избранном';
+
+  @override
+  String get recipeAddToCalendar => 'Поставить в календарь';
+
+  @override
+  String get recipeAddedToCalendar => 'Блюдо запланировано в календаре';
+
+  @override
+  String get recipeFavoriteAdded => 'Рецепт добавлен в избранное';
+
+  @override
+  String get recipeFavoriteRemoved => 'Рецепт удалён из избранного';
+
+  @override
+  String get recipeIngredientInPantry => 'Есть дома';
+
+  @override
+  String get recipeIngredientMissing => 'Нужно купить';
+
+  @override
+  String get recipeOptional => '(по желанию)';
+
+  @override
+  String recipeStepTimer(int minutes) {
+    return '⏱ $minutes мин';
+  }
+
+  @override
+  String recipeStepNumber(int number) {
+    return 'Шаг $number';
+  }
+
+  @override
+  String get recipeNotFound => 'Рецепт не найден';
+
+  @override
+  String recipeCuisineLabel(String cuisine) {
+    return 'Кухня: $cuisine';
+  }
+
+  @override
+  String get recipeUnitGram => 'г';
+
+  @override
+  String get recipeUnitKilogram => 'кг';
+
+  @override
+  String get recipeUnitMilliliter => 'мл';
+
+  @override
+  String get recipeUnitLiter => 'л';
+
+  @override
+  String get recipeUnitPieces => 'шт.';
+
+  @override
+  String get recipeUnitTbsp => 'ст. л.';
+
+  @override
+  String get recipeUnitTsp => 'ч. л.';
+
+  @override
+  String get recipeUnitToTaste => 'по вкусу';
+
+  @override
+  String get recipeUnitPinch => 'щепотка';
+
+  @override
+  String get recipeUnitClove => 'зубчик';
 }

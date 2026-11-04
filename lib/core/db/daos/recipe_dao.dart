@@ -23,6 +23,18 @@ class RecipeWithIngredients {
   final List<RecipeIngredientLine> ingredients;
 }
 
+class RecipeDetail {
+  const RecipeDetail({
+    required this.recipe,
+    required this.ingredients,
+    required this.steps,
+  });
+
+  final Recipe recipe;
+  final List<RecipeIngredientLine> ingredients;
+  final List<RecipeStep> steps;
+}
+
 /// Read access to recipes and their composition.
 class RecipeDao {
   RecipeDao(this._db);
@@ -82,5 +94,38 @@ class RecipeDao {
     )..where((tbl) => tbl.id.equals(recipeId))).write(
       RecipesCompanion(isFavorite: Value(isFavorite), updatedAt: Value(nowMs)),
     );
+  }
+
+  Future<bool> toggleFavorite(String recipeId) async {
+    final recipe = await byId(recipeId);
+    if (recipe == null) return false;
+    final next = !recipe.isFavorite;
+    await setFavorite(recipeId, next);
+    return next;
+  }
+
+  Future<RecipeDetail?> getRecipeDetail(String recipeId) async {
+    final recipe = await byId(recipeId);
+    if (recipe == null) return null;
+
+    final ingredientRows = await (_db.select(
+      _db.recipeIngredients,
+    )..where((tbl) => tbl.recipeId.equals(recipeId))).get();
+    final ingredientIds = ingredientRows.map((r) => r.ingredientId).toSet();
+    final ingredients = await (_db.select(
+      _db.ingredients,
+    )..where((tbl) => tbl.id.isIn(ingredientIds))).get();
+    final ingredientById = {for (final ing in ingredients) ing.id: ing};
+
+    final lines = [
+      for (final row in ingredientRows)
+        RecipeIngredientLine(
+          recipeIngredient: row,
+          ingredient: ingredientById[row.ingredientId],
+        ),
+    ];
+    final steps = await stepsFor(recipeId);
+
+    return RecipeDetail(recipe: recipe, ingredients: lines, steps: steps);
   }
 }

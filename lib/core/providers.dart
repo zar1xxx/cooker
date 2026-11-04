@@ -181,3 +181,18 @@ final suggestionsProvider = FutureProvider<SuggestionsState>((ref) async {
 
   return SuggestionsState(ready: diverseReady, almostReady: diverseAlmost);
 });
+
+final recipeDetailProvider = FutureProvider.family<RecipeDetail?, String>((
+  ref,
+  recipeId,
+) async {
+  final dao = ref.watch(recipeDaoProvider);
+  return dao.getRecipeDetail(recipeId);
+});
+
+final ingredientHierarchyProvider = FutureProvider<Map<String, List<String>>>((
+  ref,
+) async {
+  final dao = ref.watch(ingredientDaoProvider);
+  return dao.hierarchy();
+});

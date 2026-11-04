@@ -5,6 +5,8 @@ import '../features/calendar/calendar_screen.dart';
 import '../features/calendar/today_screen.dart';
 import '../features/history/history_screen.dart';
 import '../features/pantry/pantry_screen.dart';
+import '../features/recipe/cooking_screen.dart';
+import '../features/recipe/recipe_screen.dart';
 import '../features/suggestions/suggestions_screen.dart';
 import 'scaffold_with_nav_bar.dart';
 
@@ -20,6 +22,22 @@ final GoRouter appRouter = GoRouter(
       path: '/suggestions',
       parentNavigatorKey: rootNavigatorKey,
       builder: (context, state) => const SuggestionsScreen(),
+    ),
+    GoRoute(
+      path: '/recipe/:id',
+      parentNavigatorKey: rootNavigatorKey,
+      builder: (context, state) {
+        final id = state.pathParameters['id'] ?? '';
+        return RecipeScreen(recipeId: id);
+      },
+    ),
+    GoRoute(
+      path: '/cooking/:id',
+      parentNavigatorKey: rootNavigatorKey,
+      builder: (context, state) {
+        final id = state.pathParameters['id'] ?? '';
+        return CookingScreen(recipeId: id);
+      },
     ),
     StatefulShellRoute.indexedStack(
       builder: (context, state, navigationShell) {
