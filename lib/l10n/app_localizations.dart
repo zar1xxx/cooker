@@ -657,6 +657,84 @@ abstract class AppLocalizations {
   /// In ru, this message translates to:
   /// **'зубчик'**
   String get recipeUnitClove;
+
+  /// Заголовок экрана режима готовки
+  ///
+  /// In ru, this message translates to:
+  /// **'Приготовление'**
+  String get cookingScreenTitle;
+
+  /// Индикатор прогресса шагов готовки
+  ///
+  /// In ru, this message translates to:
+  /// **'Шаг {current} из {total}'**
+  String cookingStepProgress(int current, int total);
+
+  /// Кнопка перехода к предыдущему шагу
+  ///
+  /// In ru, this message translates to:
+  /// **'Назад'**
+  String get cookingButtonPrevious;
+
+  /// Кнопка перехода к следующему шагу
+  ///
+  /// In ru, this message translates to:
+  /// **'Дальше'**
+  String get cookingButtonNext;
+
+  /// Кнопка завершения готовки на последнем шаге
+  ///
+  /// In ru, this message translates to:
+  /// **'Готово!'**
+  String get cookingButtonFinish;
+
+  /// Кнопка голосового чтения шага
+  ///
+  /// In ru, this message translates to:
+  /// **'Прочитать вслух'**
+  String get cookingTtsSpeak;
+
+  /// Кнопка остановки голосового чтения
+  ///
+  /// In ru, this message translates to:
+  /// **'Остановить чтение'**
+  String get cookingTtsStop;
+
+  /// Кнопка запуска таймера
+  ///
+  /// In ru, this message translates to:
+  /// **'Запустить таймер'**
+  String get cookingTimerStart;
+
+  /// Кнопка паузы таймера
+  ///
+  /// In ru, this message translates to:
+  /// **'Пауза'**
+  String get cookingTimerPause;
+
+  /// Кнопка возобновления таймера
+  ///
+  /// In ru, this message translates to:
+  /// **'Продолжить'**
+  String get cookingTimerResume;
+
+  /// Кнопка сброса таймера
+  ///
+  /// In ru, this message translates to:
+  /// **'Сбросить'**
+  String get cookingTimerReset;
+
+  /// Сообщение об окончании времени таймера
+  ///
+  /// In ru, this message translates to:
+  /// **'Время вышло!'**
+  String get cookingTimerDone;
+
+  /// No description provided for @cookingNoSteps.
+  ///
+  /// In ru, this message translates to:
+  /// **'В этом рецепте нет описания шагов'**
+  String get cookingNoSteps;
 }
 
 class _AppLocalizationsDelegate

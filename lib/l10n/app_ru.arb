@@ -420,5 +420,62 @@
   "recipeUnitClove": "зубчик",
   "@recipeUnitClove": {
     "description": "Единица измерения: зубчик"
-  }
+  },
+  "cookingScreenTitle": "Приготовление",
+  "@cookingScreenTitle": {
+    "description": "Заголовок экрана режима готовки"
+  },
+  "cookingStepProgress": "Шаг {current} из {total}",
+  "@cookingStepProgress": {
+    "description": "Индикатор прогресса шагов готовки",
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "cookingButtonPrevious": "Назад",
+  "@cookingButtonPrevious": {
+    "description": "Кнопка перехода к предыдущему шагу"
+  },
+  "cookingButtonNext": "Дальше",
+  "@cookingButtonNext": {
+    "description": "Кнопка перехода к следующему шагу"
+  },
+  "cookingButtonFinish": "Готово!",
+  "@cookingButtonFinish": {
+    "description": "Кнопка завершения готовки на последнем шаге"
+  },
+  "cookingTtsSpeak": "Прочитать вслух",
+  "@cookingTtsSpeak": {
+    "description": "Кнопка голосового чтения шага"
+  },
+  "cookingTtsStop": "Остановить чтение",
+  "@cookingTtsStop": {
+    "description": "Кнопка остановки голосового чтения"
+  },
+  "cookingTimerStart": "Запустить таймер",
+  "@cookingTimerStart": {
+    "description": "Кнопка запуска таймера"
+  },
+  "cookingTimerPause": "Пауза",
+  "@cookingTimerPause": {
+    "description": "Кнопка паузы таймера"
+  },
+  "cookingTimerResume": "Продолжить",
+  "@cookingTimerResume": {
+    "description": "Кнопка возобновления таймера"
+  },
+  "cookingTimerReset": "Сбросить",
+  "@cookingTimerReset": {
+    "description": "Кнопка сброса таймера"
+  },
+  "cookingTimerDone": "Время вышло!",
+  "@cookingTimerDone": {
+    "description": "Сообщение об окончании времени таймера"
+  },
+  "cookingNoSteps": "В этом рецепте нет описания шагов"
 }

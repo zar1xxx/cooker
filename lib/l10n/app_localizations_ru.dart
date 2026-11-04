@@ -309,4 +309,45 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get recipeUnitClove => 'зубчик';
+
+  @override
+  String get cookingScreenTitle => 'Приготовление';
+
+  @override
+  String cookingStepProgress(int current, int total) {
+    return 'Шаг $current из $total';
+  }
+
+  @override
+  String get cookingButtonPrevious => 'Назад';
+
+  @override
+  String get cookingButtonNext => 'Дальше';
+
+  @override
+  String get cookingButtonFinish => 'Готово!';
+
+  @override
+  String get cookingTtsSpeak => 'Прочитать вслух';
+
+  @override
+  String get cookingTtsStop => 'Остановить чтение';
+
+  @override
+  String get cookingTimerStart => 'Запустить таймер';
+
+  @override
+  String get cookingTimerPause => 'Пауза';
+
+  @override
+  String get cookingTimerResume => 'Продолжить';
+
+  @override
+  String get cookingTimerReset => 'Сбросить';
+
+  @override
+  String get cookingTimerDone => 'Время вышло!';
+
+  @override
+  String get cookingNoSteps => 'В этом рецепте нет описания шагов';
 }
