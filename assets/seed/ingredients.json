@@ -1,0 +1,228 @@
+{
+  "version": 1,
+  "ingredients": [
+    {
+      "id": "potato",
+      "name": "картофель",
+      "synonyms": [
+        "картошка",
+        "картошку",
+        "картофелина"
+      ],
+      "category": "vegetables",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "onion",
+      "name": "лук репчатый",
+      "synonyms": [
+        "лук",
+        "луковица",
+        "лучок"
+      ],
+      "category": "vegetables",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "carrot",
+      "name": "морковь",
+      "synonyms": [
+        "морковка",
+        "морковку"
+      ],
+      "category": "vegetables",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "beet",
+      "name": "свёкла",
+      "synonyms": [
+        "свекла",
+        "бурак",
+        "буряк"
+      ],
+      "category": "vegetables",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "cabbage",
+      "name": "капуста белокочанная",
+      "synonyms": [
+        "капуста"
+      ],
+      "category": "vegetables",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "chicken",
+      "name": "курица",
+      "synonyms": [
+        "кура",
+        "курятина",
+        "курочка"
+      ],
+      "category": "poultry",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "chicken_fillet",
+      "name": "куриное филе",
+      "synonyms": [
+        "филе",
+        "грудка",
+        "куриная грудка"
+      ],
+      "category": "poultry",
+      "parent_id": "chicken",
+      "is_staple": false
+    },
+    {
+      "id": "minced_meat",
+      "name": "фарш",
+      "synonyms": [
+        "фарш мясной"
+      ],
+      "category": "meat",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "egg",
+      "name": "яйца",
+      "synonyms": [
+        "яйцо",
+        "яички"
+      ],
+      "category": "dairy",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "milk",
+      "name": "молоко",
+      "synonyms": [],
+      "category": "dairy",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "rice",
+      "name": "рис",
+      "synonyms": [
+        "рисовая крупа"
+      ],
+      "category": "grains",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "buckwheat",
+      "name": "гречка",
+      "synonyms": [
+        "гречневая крупа",
+        "греча"
+      ],
+      "category": "grains",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "flour",
+      "name": "мука пшеничная",
+      "synonyms": [
+        "мука"
+      ],
+      "category": "bakery",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "nuts",
+      "name": "орехи",
+      "synonyms": [],
+      "category": "nuts",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "walnut",
+      "name": "грецкие орехи",
+      "synonyms": [
+        "грецкий орех"
+      ],
+      "category": "nuts",
+      "parent_id": "nuts",
+      "is_staple": false
+    },
+    {
+      "id": "mushrooms",
+      "name": "грибы",
+      "synonyms": [],
+      "category": "mushrooms",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "champignon",
+      "name": "шампиньоны",
+      "synonyms": [
+        "шампиньон"
+      ],
+      "category": "mushrooms",
+      "parent_id": "mushrooms",
+      "is_staple": false
+    },
+    {
+      "id": "salt",
+      "name": "соль",
+      "synonyms": [],
+      "category": "spices",
+      "parent_id": null,
+      "is_staple": true
+    },
+    {
+      "id": "water",
+      "name": "вода",
+      "synonyms": [],
+      "category": "spices",
+      "parent_id": null,
+      "is_staple": true
+    },
+    {
+      "id": "sugar",
+      "name": "сахар",
+      "synonyms": [],
+      "category": "sweets",
+      "parent_id": null,
+      "is_staple": true
+    },
+    {
+      "id": "black_pepper",
+      "name": "перец чёрный молотый",
+      "synonyms": [
+        "перец",
+        "чёрный перец"
+      ],
+      "category": "spices",
+      "parent_id": null,
+      "is_staple": true
+    },
+    {
+      "id": "sunflower_oil",
+      "name": "масло подсолнечное",
+      "synonyms": [
+        "растительное масло",
+        "масло растительное"
+      ],
+      "category": "spices",
+      "parent_id": null,
+      "is_staple": true
+    }
+  ]
+}

@@ -4,6 +4,7 @@ import 'package:uuid/uuid.dart';
 
 import 'converters/json_converters.dart';
 import 'enums.dart';
+import 'seed_loader.dart';
 import 'tables/ai_requests.dart';
 import 'tables/cooked_entries.dart';
 import 'tables/feedback_events.dart';
@@ -42,6 +43,11 @@ class AppDatabase extends _$AppDatabase {
   MigrationStrategy get migration => MigrationStrategy(
     onCreate: (Migrator m) async {
       await m.createAll();
+      try {
+        await const SeedLoader().loadSeedData(this);
+      } catch (_) {
+        // In unit tests without asset rootBundle, seed data is loaded via explicit test calls
+      }
     },
     beforeOpen: (details) async {
       await customStatement('PRAGMA foreign_keys = ON');
