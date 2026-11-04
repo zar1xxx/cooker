@@ -35,9 +35,21 @@ String? _fakeResolver(String name) => switch (name.toLowerCase().trim()) {
   'куриное филе' => 'chicken_fillet',
   'фарш' => 'minced_meat',
   'соль' => 'salt',
+  'сахар' => 'sugar',
+  'масло подсолнечное' => 'sunflower_oil',
+  'сливочное масло' => 'butter',
+  'уксус' => 'vinegar',
+  'острый перец' => 'chili_pepper',
+  'перец чили' => 'chili_pepper',
+  'говядина' => 'beef',
   'свёкла' => 'beet',
   'грецкие орехи' => 'walnut',
   'ядра' => 'walnut',
+  'яйца' || 'яйцо' => 'egg',
+  'картофель' => 'potato',
+  'лук' => 'onion',
+  'мука' => 'flour',
+  'сметана' => 'sour_cream',
   _ => null,
 };
 
@@ -145,6 +157,190 @@ void main() {
 
       expect(result, isA<Retryable>());
     });
+
+    test('braising beef for 1 hour from text is Valid', () {
+      final recipe = {
+        'title': 'Тушёная говядина',
+        'dish_type': 'main',
+        'total_minutes': 75,
+        'servings': 4,
+        'ingredients': [
+          {'name': 'говядина', 'amount': 600, 'unit': 'g'},
+        ],
+        'steps': [
+          {'text': 'Нарежьте мясо кубиками.', 'timer_seconds': null},
+          {
+            'text': 'Тушите мясо 1 час на медленном огне.',
+            'timer_seconds': null,
+          },
+        ],
+      };
+
+      final result = _validator().validate(
+        recipe,
+        resolveIngredientId: _fakeResolver,
+      );
+
+      expect(result, isA<Valid>());
+    });
+  });
+
+  group('Attempt counter (TZ 9.1)', () {
+    test('undercooked recipe on attempt 1 returns Retryable', () {
+      final result = _validator().validate(
+        _chickenRecipe(
+          totalMinutes: 30,
+          stepText: 'Обжарьте 3 минуты.',
+          timerSeconds: 180,
+        ),
+        resolveIngredientId: _fakeResolver,
+        attempt: 1,
+      );
+
+      expect(result, isA<Retryable>());
+    });
+
+    test('undercooked recipe on attempt 2 returns Rejected', () {
+      final result = _validator().validate(
+        _chickenRecipe(
+          totalMinutes: 30,
+          stepText: 'Обжарьте 3 минуты.',
+          timerSeconds: 180,
+        ),
+        resolveIngredientId: _fakeResolver,
+        attempt: 2,
+      );
+
+      expect(result, isA<Rejected>());
+      expect((result as Rejected).reason, contains('тепловая обработка'));
+    });
+
+    test('schema violation on attempt 2 returns Rejected', () {
+      final result = _validator().validate({
+        'title': 'A', // too short (< 2 chars)
+        'dish_type': 'main',
+        'total_minutes': 20,
+        'servings': 2,
+        'ingredients': [
+          {'name': 'картофель', 'amount': 300, 'unit': 'g'},
+        ],
+        'steps': [
+          {'text': 'Очистите картофель.', 'timer_seconds': null},
+          {'text': 'Отварите до готовности.', 'timer_seconds': null},
+        ],
+      }, attempt: 2);
+
+      expect(result, isA<Rejected>());
+    });
+  });
+
+  group('Schema adherence (TZ 9.1 & full_recipe.schema.json)', () {
+    Map<String, dynamic> validBaseRecipe() => {
+      'title': 'Картофельное пюре',
+      'dish_type': 'side',
+      'difficulty': 'easy',
+      'cuisine': 'домашняя',
+      'total_minutes': 25,
+      'active_minutes': 15,
+      'servings': 3,
+      'description': 'Нежное картофельное пюре.',
+      'ingredients': [
+        {'name': 'картофель', 'amount': 600, 'unit': 'g', 'is_optional': false},
+        {'name': 'молоко', 'amount': 100, 'unit': 'ml', 'is_optional': false},
+      ],
+      'steps': [
+        {'text': 'Очистите и отварите картофель.', 'timer_seconds': null},
+        {'text': 'Разомните с тёплым молоком.', 'timer_seconds': null},
+      ],
+    };
+
+    test('title too short or missing produces Retryable', () {
+      final r = validBaseRecipe()..['title'] = 'X';
+      expect(_validator().validate(r), isA<Retryable>());
+
+      final rEmpty = validBaseRecipe()..['title'] = ' ';
+      expect(_validator().validate(rEmpty), isA<Retryable>());
+    });
+
+    test('unknown dish_type produces Retryable', () {
+      final r = validBaseRecipe()..['dish_type'] = 'fastfood';
+      expect(_validator().validate(r), isA<Retryable>());
+    });
+
+    test('unknown difficulty produces Retryable', () {
+      final r = validBaseRecipe()..['difficulty'] = 'expert';
+      expect(_validator().validate(r), isA<Retryable>());
+    });
+
+    test('total_minutes out of bounds (< 5 or > 600) produces Retryable', () {
+      final r1 = validBaseRecipe()..['total_minutes'] = 2;
+      expect(_validator().validate(r1), isA<Retryable>());
+
+      final r2 = validBaseRecipe()..['total_minutes'] = 700;
+      expect(_validator().validate(r2), isA<Retryable>());
+    });
+
+    test('active_minutes > total_minutes produces Retryable', () {
+      final r = validBaseRecipe()
+        ..['total_minutes'] = 20
+        ..['active_minutes'] = 25;
+      expect(_validator().validate(r), isA<Retryable>());
+    });
+
+    test('servings out of bounds (< 1 or > 12) produces Retryable', () {
+      final r0 = validBaseRecipe()..['servings'] = 0;
+      expect(_validator().validate(r0), isA<Retryable>());
+
+      final r15 = validBaseRecipe()..['servings'] = 15;
+      expect(_validator().validate(r15), isA<Retryable>());
+    });
+
+    test('empty ingredients list produces Retryable', () {
+      final r = validBaseRecipe()..['ingredients'] = [];
+      expect(_validator().validate(r), isA<Retryable>());
+    });
+
+    test('invalid ingredient unit produces Retryable', () {
+      final r = validBaseRecipe()
+        ..['ingredients'] = [
+          {'name': 'картофель', 'amount': 5, 'unit': 'meter'},
+        ];
+      expect(_validator().validate(r), isA<Retryable>());
+    });
+
+    test('negative ingredient amount produces Retryable', () {
+      final r = validBaseRecipe()
+        ..['ingredients'] = [
+          {'name': 'картофель', 'amount': -100, 'unit': 'g'},
+        ];
+      expect(_validator().validate(r), isA<Retryable>());
+    });
+
+    test('less than 2 steps produces Retryable', () {
+      final r = validBaseRecipe()
+        ..['steps'] = [
+          {'text': 'Очистите картофель.', 'timer_seconds': null},
+        ];
+      expect(_validator().validate(r), isA<Retryable>());
+    });
+
+    test('step timer exceeding total_minutes + 10% produces Retryable', () {
+      final r = validBaseRecipe()
+        ..['total_minutes'] = 10
+        ..['steps'] = [
+          {'text': 'Шаг 1.', 'timer_seconds': 400},
+          {
+            'text': 'Шаг 2.',
+            'timer_seconds': 400,
+          }, // sum 800s > 10 * 60 * 1.1 = 660s
+        ];
+      expect(_validator().validate(r), isA<Retryable>());
+    });
+
+    test('strictSchema enforces difficulty, cuisine, active_minutes', () {
+      final r = validBaseRecipe()..remove('difficulty');
+      expect(_validator().validate(r, strictSchema: true), isA<Retryable>());
+    });
   });
 
   group('Allergens by ingredient name (R0-02)', () {
@@ -226,25 +422,76 @@ void main() {
     });
   });
 
-  group('Per-serving limits (R0-02)', () {
-    Map<String, dynamic> saltRecipe(num amount, String unit) => {
-      'title': 'Простой суп',
+  group('Stop-list checks (TZ 9.1)', () {
+    test('recipe mentioning pale deathcap is Rejected', () {
+      final recipe = {
+        'title': 'Грибной суп',
+        'dish_type': 'soup',
+        'total_minutes': 30,
+        'servings': 2,
+        'ingredients': [
+          {'name': 'картофель', 'amount': 200, 'unit': 'g'},
+          {'name': 'бледная поганка', 'amount': 50, 'unit': 'g'},
+        ],
+        'steps': [
+          {'text': 'Нарежьте грибы.', 'timer_seconds': null},
+          {'text': 'Отварите в супе.', 'timer_seconds': 600},
+        ],
+      };
+
+      final result = _validator().validate(recipe);
+      expect(result, isA<Rejected>());
+      expect((result as Rejected).reason, contains('бледная поганка'));
+    });
+
+    test('recipe mentioning household chemicals in step text is Rejected', () {
+      final recipe = {
+        'title': 'Пирог',
+        'dish_type': 'baking',
+        'total_minutes': 40,
+        'servings': 4,
+        'ingredients': [
+          {'name': 'мука', 'amount': 300, 'unit': 'g'},
+        ],
+        'steps': [
+          {'text': 'Замесите тесто.', 'timer_seconds': null},
+          {
+            'text': 'Протрите стол, где была бытовая химия.',
+            'timer_seconds': null,
+          },
+        ],
+      };
+
+      final result = _validator().validate(recipe);
+      expect(result, isA<Rejected>());
+      expect((result as Rejected).reason, contains('бытовая химия'));
+    });
+  });
+
+  group('Per-serving limits (R0-02 & TZ 9.1)', () {
+    Map<String, dynamic> singleIngRecipe(
+      String name,
+      num amount,
+      String unit, {
+      int servings = 1,
+    }) => {
+      'title': 'Блюдо с приправой',
       'dish_type': 'soup',
-      'total_minutes': 10,
-      'servings': 1,
-      'description': 'Суп.',
+      'total_minutes': 15,
+      'servings': servings,
+      'description': 'Тестовое блюдо.',
       'ingredients': [
-        {'name': 'соль', 'amount': amount, 'unit': unit},
+        {'name': name, 'amount': amount, 'unit': unit},
       ],
       'steps': [
-        {'text': 'Вскипятите воду.', 'timer_seconds': null},
-        {'text': 'Добавьте соль.', 'timer_seconds': null},
+        {'text': 'Шаг 1.', 'timer_seconds': null},
+        {'text': 'Шаг 2.', 'timer_seconds': null},
       ],
     };
 
-    test('1 tbsp of salt per serving produces a warning (18 g)', () {
+    test('1 tbsp of salt per serving produces a warning (18 g > 10 g)', () {
       final result = _validator().validate(
-        saltRecipe(1, 'tbsp'),
+        singleIngRecipe('соль', 1, 'tbsp'),
         resolveIngredientId: _fakeResolver,
       );
 
@@ -253,9 +500,9 @@ void main() {
       expect(result.warnings.first, contains('соли'));
     });
 
-    test('1 tsp of salt per serving does not warn (6 g)', () {
+    test('1 tsp of salt per serving does not warn (6 g <= 10 g)', () {
       final result = _validator().validate(
-        saltRecipe(1, 'tsp'),
+        singleIngRecipe('соль', 1, 'tsp'),
         resolveIngredientId: _fakeResolver,
       );
 
@@ -263,14 +510,194 @@ void main() {
       expect((result as Valid).warnings, isEmpty);
     });
 
-    test('grams are compared without conversion', () {
+    test('sugar exceeding 80 g per serving produces a warning', () {
       final result = _validator().validate(
-        saltRecipe(30, 'g'),
+        singleIngRecipe('сахар', 100, 'g', servings: 1),
         resolveIngredientId: _fakeResolver,
       );
 
       expect(result, isA<Valid>());
-      expect((result as Valid).warnings, isNotEmpty);
+      expect((result as Valid).warnings.first, contains('сахара'));
+    });
+
+    test('oil exceeding 50 ml per serving produces a warning', () {
+      final result = _validator().validate(
+        singleIngRecipe(
+          'масло подсолнечное',
+          4,
+          'tbsp',
+          servings: 1,
+        ), // 4 * 15 = 60 ml > 50 ml
+        resolveIngredientId: _fakeResolver,
+      );
+
+      expect(result, isA<Valid>());
+      expect((result as Valid).warnings.first, contains('масла'));
+    });
+
+    test('butter exceeding 60 g per serving produces a warning', () {
+      final result = _validator().validate(
+        singleIngRecipe('сливочное масло', 70, 'g', servings: 1),
+        resolveIngredientId: _fakeResolver,
+      );
+
+      expect(result, isA<Valid>());
+      expect((result as Valid).warnings.first, contains('сливочного масла'));
+    });
+
+    test('vinegar exceeding 30 ml per serving produces a warning', () {
+      final result = _validator().validate(
+        singleIngRecipe(
+          'уксус',
+          3,
+          'tbsp',
+          servings: 1,
+        ), // 3 * 15 = 45 ml > 30 ml
+        resolveIngredientId: _fakeResolver,
+      );
+
+      expect(result, isA<Valid>());
+      expect((result as Valid).warnings.first, contains('уксуса'));
+    });
+
+    test('chili exceeding 1 pcs per serving produces a warning', () {
+      final result = _validator().validate(
+        singleIngRecipe('острый перец', 2, 'pcs', servings: 1),
+        resolveIngredientId: _fakeResolver,
+      );
+
+      expect(result, isA<Valid>());
+      expect((result as Valid).warnings.first, contains('острого перца'));
+    });
+  });
+
+  group('validateDishes (suggest_dishes)', () {
+    test('suggest_dishes_ok.json passes validation', () {
+      final data = _loadJson('test/fixtures/ai/suggest_dishes_ok.json');
+      final result = _validator().validateDishes(
+        data,
+        resolveIngredientId: _fakeResolver,
+      );
+      expect(result, isA<Valid>());
+    });
+
+    test('dish with allergen in main_ingredients is Rejected', () {
+      final data = {
+        'dishes': [
+          {
+            'title': 'Ореховый салат',
+            'dish_type': 'salad',
+            'difficulty': 'easy',
+            'total_minutes': 15,
+            'main_ingredients': ['грецкие орехи', 'свёкла'],
+            'missing': [],
+            'why': 'Полезно',
+          },
+        ],
+      };
+
+      final result = _validator().validateDishes(
+        data,
+        profile: {
+          'allergies': ['nuts'],
+        },
+        ingredientHierarchy: {
+          'walnut': ['nuts'],
+        },
+        resolveIngredientId: _fakeResolver,
+        forbiddenTerms: {
+          'nuts': ['орехи', 'грецкие орехи'],
+        },
+      );
+
+      expect(result, isA<Rejected>());
+    });
+
+    test('dish with stop-list component is Rejected', () {
+      final data = {
+        'dishes': [
+          {
+            'title': 'Суп с поганкой',
+            'dish_type': 'soup',
+            'difficulty': 'easy',
+            'total_minutes': 20,
+            'main_ingredients': ['картофель'],
+            'missing': [],
+            'why': 'Содержит бледная поганка для вкуса',
+          },
+        ],
+      };
+
+      final result = _validator().validateDishes(data);
+      expect(result, isA<Rejected>());
+    });
+
+    test('dishes with invalid dish_type returns Retryable', () {
+      final data = {
+        'dishes': [
+          {
+            'title': 'Пицца',
+            'dish_type': 'fast_food', // invalid
+            'difficulty': 'easy',
+            'total_minutes': 20,
+            'main_ingredients': ['мука', 'сыр'],
+            'missing': [],
+            'why': 'Быстро',
+          },
+        ],
+      };
+
+      final result = _validator().validateDishes(data);
+      expect(result, isA<Retryable>());
+    });
+  });
+
+  group('Raw JSON validation', () {
+    test('full_recipe_ok.json is Valid', () {
+      final jsonStr = File('test/fixtures/ai/full_recipe_ok.json')
+          .readAsStringSync();
+      final result = _validator().validateRawRecipeJson(
+        jsonStr,
+        resolveIngredientId: _fakeResolver,
+      );
+      expect(result, isA<Valid>());
+      expect((result as Valid).warnings, isEmpty);
+    });
+
+    test(
+      'broken json in full_recipe_broken.txt returns Retryable on attempt 1',
+      () {
+        final rawText = File('test/fixtures/ai/full_recipe_broken.txt')
+            .readAsStringSync();
+        final result = _validator().validateRawRecipeJson(rawText, attempt: 1);
+        expect(result, isA<Retryable>());
+        expect(
+          (result as Retryable).reasonForModel,
+          contains('Некорректный JSON'),
+        );
+      },
+    );
+
+    test(
+      'broken json in full_recipe_broken.txt returns Rejected on attempt 2',
+      () {
+        final rawText = File('test/fixtures/ai/full_recipe_broken.txt')
+            .readAsStringSync();
+        final result = _validator().validateRawRecipeJson(rawText, attempt: 2);
+        expect(result, isA<Rejected>());
+      },
+    );
+
+    test('markdown code fences around json are handled cleanly', () {
+      final validJson = File('test/fixtures/ai/full_recipe_ok.json')
+          .readAsStringSync();
+      final wrapped =
+          'Вот рецепт блюда:\n```json\n$validJson\n```\nПриятного аппетита!';
+      final result = _validator().validateRawRecipeJson(
+        wrapped,
+        resolveIngredientId: _fakeResolver,
+      );
+      expect(result, isA<Valid>());
     });
   });
 }
