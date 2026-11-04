@@ -19,6 +19,7 @@ import 'matching/recipe_matcher.dart';
 import 'matching/recipe_scorer.dart';
 import 'preferences/preference_service.dart';
 import 'backup/backup_service.dart';
+import 'calendar/meal_planner.dart';
 
 /// One database instance per application.
 final databaseProvider = Provider<AppDatabase>((ref) {
@@ -47,6 +48,16 @@ final calendarPlanEntriesProvider =
     FutureProvider<List<MealPlanEntryWithRecipe>>((ref) async {
       return ref.watch(planDaoProvider).allWithRecipes();
     });
+
+final mealPlannerProvider = Provider<MealPlanner>((ref) {
+  return MealPlanner(
+    recipeDao: ref.watch(recipeDaoProvider),
+    planDao: ref.watch(planDaoProvider),
+    ingredientDao: ref.watch(ingredientDaoProvider),
+    preferenceService: ref.watch(preferenceServiceProvider),
+    historyDao: ref.watch(historyDaoProvider),
+  );
+});
 
 /// Ingredient ids currently marked as available at home.
 final pantryProvider = AsyncNotifierProvider<PantryNotifier, Set<String>>(

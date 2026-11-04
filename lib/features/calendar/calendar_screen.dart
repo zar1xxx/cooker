@@ -328,17 +328,22 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
     }
   }
 
-  void _handleMakeMonthPlan(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-          '${l10n.calendarMakeMonthPlan}...',
-          style: const TextStyle(fontSize: 16),
+  Future<void> _handleMakeMonthPlan(BuildContext context) async {
+    final planner = ref.read(mealPlannerProvider);
+    final planned = await planner.generateMonthPlan(fromDate: _focusedDay);
+    ref.invalidate(calendarPlanEntriesProvider);
+
+    if (context.mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            'План составлен: ${planned.length} дней',
+            style: const TextStyle(fontSize: 16),
+          ),
+          duration: const Duration(seconds: 2),
         ),
-        duration: const Duration(seconds: 2),
-      ),
-    );
+      );
+    }
   }
 
   Future<void> _showRecipePicker(BuildContext context) async {

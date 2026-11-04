@@ -217,5 +217,36 @@ void main() {
         );
       });
     });
+
+    testWidgets(
+      'make month plan button generates plan and updates calendar grid',
+      (tester) async {
+        tester.view.physicalSize = const Size(800, 1600);
+        tester.view.devicePixelRatio = 1.0;
+        addTearDown(tester.view.resetPhysicalSize);
+        addTearDown(tester.view.resetDevicePixelRatio);
+
+        final fixedToday = DateTime(2026, 11, 14);
+
+        await withClock(Clock.fixed(fixedToday), () async {
+          await tester.pumpWidget(_createCalendarTestWidget(db));
+          await tester.pumpAndSettle();
+
+          // Tap "Составить план на месяц"
+          final makePlanButton = find.byKey(
+            const Key('calendar_make_month_plan_button'),
+          );
+          expect(makePlanButton, findsOneWidget);
+          await tester.tap(makePlanButton);
+          await tester.pumpAndSettle();
+
+          // Verify SnackBar and plan created in database
+          expect(find.textContaining('План составлен:'), findsOneWidget);
+
+          final entries = await planDao.allWithRecipes();
+          expect(entries.length, greaterThanOrEqualTo(10));
+        });
+      },
+    );
   });
 }
