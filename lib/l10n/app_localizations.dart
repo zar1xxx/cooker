@@ -387,6 +387,78 @@ abstract class AppLocalizations {
   /// In ru, this message translates to:
   /// **'{minutes} мин'**
   String dishesMinutes(int minutes);
+
+  /// Кнопка отмены скрытия блюда
+  ///
+  /// In ru, this message translates to:
+  /// **'Отменить'**
+  String get dishesUndoReject;
+
+  /// Уведомление при нажатии Не хочу
+  ///
+  /// In ru, this message translates to:
+  /// **'Блюдо скрыто'**
+  String get dishesRejectedSnackbar;
+
+  /// Тип блюда: суп
+  ///
+  /// In ru, this message translates to:
+  /// **'Суп'**
+  String get dishTypeSoup;
+
+  /// Тип блюда: второе
+  ///
+  /// In ru, this message translates to:
+  /// **'Второе'**
+  String get dishTypeMain;
+
+  /// Тип блюда: гарнир
+  ///
+  /// In ru, this message translates to:
+  /// **'Гарнир'**
+  String get dishTypeSide;
+
+  /// Тип блюда: салат
+  ///
+  /// In ru, this message translates to:
+  /// **'Салат'**
+  String get dishTypeSalad;
+
+  /// Тип блюда: завтрак
+  ///
+  /// In ru, this message translates to:
+  /// **'Завтрак'**
+  String get dishTypeBreakfast;
+
+  /// Тип блюда: закуска
+  ///
+  /// In ru, this message translates to:
+  /// **'Закуска'**
+  String get dishTypeSnack;
+
+  /// Тип блюда: выпечка
+  ///
+  /// In ru, this message translates to:
+  /// **'Выпечка'**
+  String get dishTypeBaking;
+
+  /// Тип блюда: десерт
+  ///
+  /// In ru, this message translates to:
+  /// **'Десерт'**
+  String get dishTypeDessert;
+
+  /// Тип блюда: напиток
+  ///
+  /// In ru, this message translates to:
+  /// **'Напиток'**
+  String get dishTypeDrink;
+
+  /// Тип блюда: заготовки
+  ///
+  /// In ru, this message translates to:
+  /// **'Заготовки'**
+  String get dishTypePreserve;
 }
 
 class _AppLocalizationsDelegate

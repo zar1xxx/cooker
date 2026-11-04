@@ -220,5 +220,53 @@
         "type": "int"
       }
     }
+  },
+  "dishesUndoReject": "Отменить",
+  "@dishesUndoReject": {
+    "description": "Кнопка отмены скрытия блюда"
+  },
+  "dishesRejectedSnackbar": "Блюдо скрыто",
+  "@dishesRejectedSnackbar": {
+    "description": "Уведомление при нажатии Не хочу"
+  },
+  "dishTypeSoup": "Суп",
+  "@dishTypeSoup": {
+    "description": "Тип блюда: суп"
+  },
+  "dishTypeMain": "Второе",
+  "@dishTypeMain": {
+    "description": "Тип блюда: второе"
+  },
+  "dishTypeSide": "Гарнир",
+  "@dishTypeSide": {
+    "description": "Тип блюда: гарнир"
+  },
+  "dishTypeSalad": "Салат",
+  "@dishTypeSalad": {
+    "description": "Тип блюда: салат"
+  },
+  "dishTypeBreakfast": "Завтрак",
+  "@dishTypeBreakfast": {
+    "description": "Тип блюда: завтрак"
+  },
+  "dishTypeSnack": "Закуска",
+  "@dishTypeSnack": {
+    "description": "Тип блюда: закуска"
+  },
+  "dishTypeBaking": "Выпечка",
+  "@dishTypeBaking": {
+    "description": "Тип блюда: выпечка"
+  },
+  "dishTypeDessert": "Десерт",
+  "@dishTypeDessert": {
+    "description": "Тип блюда: десерт"
+  },
+  "dishTypeDrink": "Напиток",
+  "@dishTypeDrink": {
+    "description": "Тип блюда: напиток"
+  },
+  "dishTypePreserve": "Заготовки",
+  "@dishTypePreserve": {
+    "description": "Тип блюда: заготовки"
   }
 }

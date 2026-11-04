@@ -166,4 +166,40 @@ class AppLocalizationsRu extends AppLocalizations {
   String dishesMinutes(int minutes) {
     return '$minutes мин';
   }
+
+  @override
+  String get dishesUndoReject => 'Отменить';
+
+  @override
+  String get dishesRejectedSnackbar => 'Блюдо скрыто';
+
+  @override
+  String get dishTypeSoup => 'Суп';
+
+  @override
+  String get dishTypeMain => 'Второе';
+
+  @override
+  String get dishTypeSide => 'Гарнир';
+
+  @override
+  String get dishTypeSalad => 'Салат';
+
+  @override
+  String get dishTypeBreakfast => 'Завтрак';
+
+  @override
+  String get dishTypeSnack => 'Закуска';
+
+  @override
+  String get dishTypeBaking => 'Выпечка';
+
+  @override
+  String get dishTypeDessert => 'Десерт';
+
+  @override
+  String get dishTypeDrink => 'Напиток';
+
+  @override
+  String get dishTypePreserve => 'Заготовки';
 }
