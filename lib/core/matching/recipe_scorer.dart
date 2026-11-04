@@ -3,6 +3,7 @@ import 'package:clock/clock.dart';
 import '../db/app_database.dart';
 import '../db/daos/recipe_dao.dart';
 import '../db/enums.dart';
+import '../preferences/preference_service.dart';
 import 'recipe_matcher.dart';
 
 /// Formula weights from TZ 5.3. The defaults sum to 1.0.
@@ -72,10 +73,38 @@ class RecipeScorer {
   const RecipeScorer({
     this.weights = const ScoringWeights(),
     this.tasteLookup = defaultTasteLookup,
+    this.matchTasteLookup,
   });
+
+  /// Factory creating a RecipeScorer configured with a learned TasteProfile
+  /// and personal dish ratings from history per ТЗ 5.3 and 6.4.
+  factory RecipeScorer.withProfile(
+    TasteProfile profile, {
+    Map<String, double> recipeRatings = const {},
+    ScoringWeights weights = const ScoringWeights(),
+  }) {
+    return RecipeScorer(
+      weights: weights,
+      matchTasteLookup: (match) {
+        final recipeId = match.entry.recipe.id;
+        final personalRating = recipeRatings[recipeId];
+        if (personalRating != null) {
+          // Normalize 1..5 star rating to 0..1: (r - 1) / 4
+          return ((personalRating - 1.0) / 4.0).clamp(0.0, 1.0);
+        }
+        // Normalize profile score (-1..1) to 0..1: (w + 1) / 2
+        final ingIds = match.entry.ingredients
+            .map((i) => i.recipeIngredient.ingredientId)
+            .toList();
+        final w = profile.scoreRecipe(match.entry.recipe, ingIds);
+        return ((w + 1.0) / 2.0).clamp(0.0, 1.0);
+      },
+    );
+  }
 
   final ScoringWeights weights;
   final TasteLookup tasteLookup;
+  final double Function(RecipeMatch match)? matchTasteLookup;
 
   /// Sorts descending by total score. Ties are broken by title so the order
   /// stays deterministic.
@@ -115,7 +144,11 @@ class RecipeScorer {
     final now = date ?? clock.now();
     final recipe = match.entry.recipe;
     final coverage = match.coverage.clamp(0.0, 1.0);
-    final taste = tasteLookup(recipe).clamp(0.0, 1.0);
+    final taste =
+        (matchTasteLookup != null
+                ? matchTasteLookup!(match)
+                : tasteLookup(recipe))
+            .clamp(0.0, 1.0);
     final novelty = _novelty(recipe, now, lastCooked, similarRecentlyCooked);
     final fit = _fit(recipe, profile);
     final explore = _explore(recipe.id, now);

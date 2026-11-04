@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'ai/ai_router.dart';
 import 'ai/ai_service.dart';
 import 'ai/ai_settings_service.dart';
+import 'ai/anti_repeat.dart';
 import 'ai/gigachat_provider.dart';
 import 'ai/lm_studio_provider.dart';
 import 'ai/pc_discovery.dart';
@@ -159,6 +160,8 @@ final suggestionsProvider = FutureProvider<SuggestionsState>((ref) async {
 
   final recipeDao = ref.watch(recipeDaoProvider);
   final ingredientDao = ref.watch(ingredientDaoProvider);
+  final historyDao = ref.watch(historyDaoProvider);
+  final tasteProfile = await ref.watch(preferenceProfileProvider.future);
 
   final recipes = await recipeDao.allWithIngredients();
   final hierarchy = await ingredientDao.hierarchy();
@@ -171,9 +174,22 @@ final suggestionsProvider = FutureProvider<SuggestionsState>((ref) async {
     hierarchy: hierarchy,
   );
 
-  const scorer = RecipeScorer();
-  final scoredReady = scorer.rank(matchResult.ready);
-  final scoredAlmost = scorer.rank(matchResult.almostReady);
+  // Exclude recipes with rating 1 per ТЗ 5.3 & 6.4 ("блюдо с оценкой 1 не предлагается")
+  final dislikedIds = await historyDao.getDislikedRecipeIds();
+  final readyMatches = matchResult.ready
+      .where((m) => !dislikedIds.contains(m.entry.recipe.id))
+      .toList();
+  final almostMatches = matchResult.almostReady
+      .where((m) => !dislikedIds.contains(m.entry.recipe.id))
+      .toList();
+
+  final recipeRatings = await historyDao.getAverageRatingsByRecipe();
+  final scorer = RecipeScorer.withProfile(
+    tasteProfile,
+    recipeRatings: recipeRatings,
+  );
+  final scoredReady = scorer.rank(readyMatches);
+  final scoredAlmost = scorer.rank(almostMatches);
 
   const reorderer = RecipeDiversityReorderer();
   String rootAncestorLookup(String id) =>
@@ -324,10 +340,26 @@ class AiDishesNotifier extends AsyncNotifier<List<AiDishSuggestion>> {
 
     final aiService = await ref.watch(aiServiceProvider.future);
     final ingredientDao = ref.watch(ingredientDaoProvider);
+    final prefService = ref.watch(preferenceServiceProvider);
+    final db = ref.watch(databaseProvider);
+
     final ingredients = await ingredientDao.byIds(availableIds.toList());
     final availableNames = ingredients.map((i) => i.name).toList();
 
-    return aiService.suggestDishes(availableIngredients: availableNames);
+    final profile = await prefService.getProfile();
+    final compressed = await prefService.getCompressedProfile();
+    final doNotSuggest = await AntiRepeat.getDoNotSuggestList(db);
+    final forbidden = [...profile.allergies, ...profile.excludedIngredients];
+
+    return aiService.suggestDishes(
+      availableIngredients: availableNames,
+      forbiddenIngredients: forbidden,
+      doNotSuggest: doNotSuggest,
+      likes: compressed.topLikedFeatures.map((e) => e.key).toList(),
+      dislikes: compressed.topDislikedFeatures.map((e) => e.key).toList(),
+      topRated: compressed.topRatedRecipeTitles,
+      maxTotalMinutes: profile.maxTotalMinutes,
+    );
   }
 
   Future<void> fetchOtherVariants({
@@ -340,12 +372,29 @@ class AiDishesNotifier extends AsyncNotifier<List<AiDishSuggestion>> {
     state = await AsyncValue.guard(() async {
       final aiService = await ref.read(aiServiceProvider.future);
       final ingredientDao = ref.read(ingredientDaoProvider);
+      final prefService = ref.read(preferenceServiceProvider);
+      final db = ref.read(databaseProvider);
+
       final ingredients = await ingredientDao.byIds(availableIds.toList());
       final availableNames = ingredients.map((i) => i.name).toList();
 
+      final profile = await prefService.getProfile();
+      final compressed = await prefService.getCompressedProfile();
+      final baseDoNotSuggest = await AntiRepeat.getDoNotSuggestList(db);
+      final mergedDoNotSuggest = {
+        ...baseDoNotSuggest,
+        ...alreadyShown,
+      }.toList();
+      final forbidden = [...profile.allergies, ...profile.excludedIngredients];
+
       return aiService.suggestDishes(
         availableIngredients: availableNames,
-        doNotSuggest: alreadyShown,
+        forbiddenIngredients: forbidden,
+        doNotSuggest: mergedDoNotSuggest,
+        likes: compressed.topLikedFeatures.map((e) => e.key).toList(),
+        dislikes: compressed.topDislikedFeatures.map((e) => e.key).toList(),
+        topRated: compressed.topRatedRecipeTitles,
+        maxTotalMinutes: profile.maxTotalMinutes,
         bypassCache: true,
       );
     });

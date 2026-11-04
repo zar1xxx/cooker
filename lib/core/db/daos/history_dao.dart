@@ -300,4 +300,29 @@ class HistoryDao {
       topRating: topRating,
     );
   }
+
+  /// Returns recipe IDs that have been rated 1 star (or disliked), which must not be suggested.
+  Future<Set<String>> getDislikedRecipeIds() async {
+    final entries = await (_db.select(
+      _db.cookedEntries,
+    )..where((tbl) => tbl.deletedAt.isNull() & tbl.rating.equals(1))).get();
+    return entries.map((e) => e.recipeId).toSet();
+  }
+
+  /// Computes average rating for recipes cooked and rated in history.
+  Future<Map<String, double>> getAverageRatingsByRecipe() async {
+    final entries = await (_db.select(
+      _db.cookedEntries,
+    )..where((tbl) => tbl.deletedAt.isNull() & tbl.rating.isNotNull())).get();
+
+    final sumMap = <String, double>{};
+    final countMap = <String, int>{};
+
+    for (final e in entries) {
+      sumMap[e.recipeId] = (sumMap[e.recipeId] ?? 0.0) + e.rating!;
+      countMap[e.recipeId] = (countMap[e.recipeId] ?? 0) + 1;
+    }
+
+    return {for (final id in sumMap.keys) id: sumMap[id]! / countMap[id]!};
+  }
 }
