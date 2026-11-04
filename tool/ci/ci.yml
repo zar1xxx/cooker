@@ -23,6 +23,7 @@ jobs:
           cp spec/ai/safety_minimums.json assets/ai/
           cp spec/fixtures/ai/* test/fixtures/ai/
       - run: flutter pub get
+      - run: flutter gen-l10n
       - run: dart run build_runner build --delete-conflicting-outputs
       - run: dart format --output=none --set-exit-if-changed lib test
       - run: flutter analyze

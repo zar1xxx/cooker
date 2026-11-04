@@ -14,7 +14,7 @@
 - [x] **S0-04** `go_router` + нижняя панель: Сегодня · Что есть дома · Календарь · История (пустые экраны с заголовком).
 - [x] **S0-05** drift: все таблицы ТЗ 4.1, общие поля `id/created_at/updated_at/deleted_at`, схема v1, FTS5 по `ingredients(name, synonyms)`.
 - [x] **S0-06** Загрузка `assets/seed/ingredients.json` и `assets/seed/recipes.json` при первом запуске (идемпотентно, в транзакции). На этом этапе достаточно временных seed-файлов из `spec/data/seed_examples/`.
-- [ ] **S0-07** Перенеси `tool/ci/ci.yml` → `.github/workflows/ci.yml` (снаружи эту папку записать нельзя) и скопируй `skills/*` → `.claude/skills/`, если исполнитель — Claude Code. CI должен быть зелёным.
+- [x] **S0-07** Перенеси `tool/ci/ci.yml` → `.github/workflows/ci.yml` (снаружи эту папку записать нельзя) и скопируй `skills/*` → `.claude/skills/`, если исполнитель — Claude Code. CI должен быть зелёным.
 - [ ] **S0-08** `tool/check.ps1` проходит локально.
 
 **Готово, когда:** debug-APK ставится на телефон, 4 вкладки переключаются, тест `seed_loads_test` проходит, `check.ps1` зелёный.
