@@ -990,5 +990,104 @@
         "type": "String"
       }
     }
+  },
+  "backupScreenTitle": "Резервная копия",
+  "@backupScreenTitle": {
+    "description": "Заголовок экрана резервной копии"
+  },
+  "backupScreenSubtitle": "Экспорт и импорт истории и вкусов",
+  "@backupScreenSubtitle": {
+    "description": "Подзаголовок настроек резервной копии"
+  },
+  "backupAboutCard": "Резервная копия сохраняет всю историю приготовленных блюд, оценки, аллергии и вкусы. Секретные ключи в копию не входят.",
+  "@backupAboutCard": {
+    "description": "Пояснение о безопасности резервной копии"
+  },
+  "backupExportSection": "Экспорт (сохранить)",
+  "@backupExportSection": {
+    "description": "Заголовок секции экспорта"
+  },
+  "backupExportButton": "Скопировать резервную копию",
+  "@backupExportButton": {
+    "description": "Кнопка копирования резервной копии"
+  },
+  "backupExportSuccess": "Резервная копия скопирована в буфер обмена ({kb} КБ)",
+  "@backupExportSuccess": {
+    "description": "Уведомление об успешном копировании копии",
+    "placeholders": {
+      "kb": {
+        "type": "String"
+      }
+    }
+  },
+  "backupExportSummary": "В копии: {cooked} записей истории, {recipes} рецептов",
+  "@backupExportSummary": {
+    "description": "Сводка экспорта",
+    "placeholders": {
+      "cooked": {
+        "type": "int"
+      },
+      "recipes": {
+        "type": "int"
+      }
+    }
+  },
+  "backupImportSection": "Импорт (восстановить)",
+  "@backupImportSection": {
+    "description": "Заголовок секции импорта"
+  },
+  "backupImportSubtitle": "Вставьте текст резервной копии, сохранённый ранее",
+  "@backupImportSubtitle": {
+    "description": "Подзаголовок секции импорта"
+  },
+  "backupImportHint": "Вставьте сюда текст резервной копии JSON...",
+  "@backupImportHint": {
+    "description": "Подсказка в поле ввода копии"
+  },
+  "backupPasteButton": "Вставить из буфера",
+  "@backupPasteButton": {
+    "description": "Кнопка вставки из буфера"
+  },
+  "backupImportButton": "Восстановить данные",
+  "@backupImportButton": {
+    "description": "Кнопка запуска восстановления"
+  },
+  "backupImportConfirmTitle": "Восстановить данные?",
+  "@backupImportConfirmTitle": {
+    "description": "Заголовок подтверждения восстановления"
+  },
+  "backupImportConfirmMessage": "История, блюда и настройки будут восстановлены из копии. Продолжить?",
+  "@backupImportConfirmMessage": {
+    "description": "Текст подтверждения восстановления"
+  },
+  "backupImportConfirm": "Восстановить",
+  "@backupImportConfirm": {
+    "description": "Кнопка подтверждения"
+  },
+  "backupImportCancel": "Отмена",
+  "@backupImportCancel": {
+    "description": "Кнопка отмены"
+  },
+  "backupImportSuccess": "Данные успешно восстановлены: {count} записей истории",
+  "@backupImportSuccess": {
+    "description": "Уведомление об успешном восстановлении",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "backupImportError": "Ошибка при восстановлении: {error}",
+  "@backupImportError": {
+    "description": "Сообщение об ошибке при импорте",
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "backupEmptyInputError": "Пожалуйста, вставьте текст резервной копии",
+  "@backupEmptyInputError": {
+    "description": "Ошибка при пустом поле ввода копии"
   }
 }

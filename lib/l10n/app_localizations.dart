@@ -1407,6 +1407,120 @@ abstract class AppLocalizations {
   /// In ru, this message translates to:
   /// **'Добавить «{name}»'**
   String tasteAddCustomItem(String name);
+
+  /// Заголовок экрана резервной копии
+  ///
+  /// In ru, this message translates to:
+  /// **'Резервная копия'**
+  String get backupScreenTitle;
+
+  /// Подзаголовок настроек резервной копии
+  ///
+  /// In ru, this message translates to:
+  /// **'Экспорт и импорт истории и вкусов'**
+  String get backupScreenSubtitle;
+
+  /// Пояснение о безопасности резервной копии
+  ///
+  /// In ru, this message translates to:
+  /// **'Резервная копия сохраняет всю историю приготовленных блюд, оценки, аллергии и вкусы. Секретные ключи в копию не входят.'**
+  String get backupAboutCard;
+
+  /// Заголовок секции экспорта
+  ///
+  /// In ru, this message translates to:
+  /// **'Экспорт (сохранить)'**
+  String get backupExportSection;
+
+  /// Кнопка копирования резервной копии
+  ///
+  /// In ru, this message translates to:
+  /// **'Скопировать резервную копию'**
+  String get backupExportButton;
+
+  /// Уведомление об успешном копировании копии
+  ///
+  /// In ru, this message translates to:
+  /// **'Резервная копия скопирована в буфер обмена ({kb} КБ)'**
+  String backupExportSuccess(String kb);
+
+  /// Сводка экспорта
+  ///
+  /// In ru, this message translates to:
+  /// **'В копии: {cooked} записей истории, {recipes} рецептов'**
+  String backupExportSummary(int cooked, int recipes);
+
+  /// Заголовок секции импорта
+  ///
+  /// In ru, this message translates to:
+  /// **'Импорт (восстановить)'**
+  String get backupImportSection;
+
+  /// Подзаголовок секции импорта
+  ///
+  /// In ru, this message translates to:
+  /// **'Вставьте текст резервной копии, сохранённый ранее'**
+  String get backupImportSubtitle;
+
+  /// Подсказка в поле ввода копии
+  ///
+  /// In ru, this message translates to:
+  /// **'Вставьте сюда текст резервной копии JSON...'**
+  String get backupImportHint;
+
+  /// Кнопка вставки из буфера
+  ///
+  /// In ru, this message translates to:
+  /// **'Вставить из буфера'**
+  String get backupPasteButton;
+
+  /// Кнопка запуска восстановления
+  ///
+  /// In ru, this message translates to:
+  /// **'Восстановить данные'**
+  String get backupImportButton;
+
+  /// Заголовок подтверждения восстановления
+  ///
+  /// In ru, this message translates to:
+  /// **'Восстановить данные?'**
+  String get backupImportConfirmTitle;
+
+  /// Текст подтверждения восстановления
+  ///
+  /// In ru, this message translates to:
+  /// **'История, блюда и настройки будут восстановлены из копии. Продолжить?'**
+  String get backupImportConfirmMessage;
+
+  /// Кнопка подтверждения
+  ///
+  /// In ru, this message translates to:
+  /// **'Восстановить'**
+  String get backupImportConfirm;
+
+  /// Кнопка отмены
+  ///
+  /// In ru, this message translates to:
+  /// **'Отмена'**
+  String get backupImportCancel;
+
+  /// Уведомление об успешном восстановлении
+  ///
+  /// In ru, this message translates to:
+  /// **'Данные успешно восстановлены: {count} записей истории'**
+  String backupImportSuccess(int count);
+
+  /// Сообщение об ошибке при импорте
+  ///
+  /// In ru, this message translates to:
+  /// **'Ошибка при восстановлении: {error}'**
+  String backupImportError(String error);
+
+  /// Ошибка при пустом поле ввода копии
+  ///
+  /// In ru, this message translates to:
+  /// **'Пожалуйста, вставьте текст резервной копии'**
+  String get backupEmptyInputError;
 }
 
 class _AppLocalizationsDelegate

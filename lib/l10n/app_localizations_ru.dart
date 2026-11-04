@@ -724,4 +724,73 @@ class AppLocalizationsRu extends AppLocalizations {
   String tasteAddCustomItem(String name) {
     return 'Добавить «$name»';
   }
+
+  @override
+  String get backupScreenTitle => 'Резервная копия';
+
+  @override
+  String get backupScreenSubtitle => 'Экспорт и импорт истории и вкусов';
+
+  @override
+  String get backupAboutCard =>
+      'Резервная копия сохраняет всю историю приготовленных блюд, оценки, аллергии и вкусы. Секретные ключи в копию не входят.';
+
+  @override
+  String get backupExportSection => 'Экспорт (сохранить)';
+
+  @override
+  String get backupExportButton => 'Скопировать резервную копию';
+
+  @override
+  String backupExportSuccess(String kb) {
+    return 'Резервная копия скопирована в буфер обмена ($kb КБ)';
+  }
+
+  @override
+  String backupExportSummary(int cooked, int recipes) {
+    return 'В копии: $cooked записей истории, $recipes рецептов';
+  }
+
+  @override
+  String get backupImportSection => 'Импорт (восстановить)';
+
+  @override
+  String get backupImportSubtitle =>
+      'Вставьте текст резервной копии, сохранённый ранее';
+
+  @override
+  String get backupImportHint => 'Вставьте сюда текст резервной копии JSON...';
+
+  @override
+  String get backupPasteButton => 'Вставить из буфера';
+
+  @override
+  String get backupImportButton => 'Восстановить данные';
+
+  @override
+  String get backupImportConfirmTitle => 'Восстановить данные?';
+
+  @override
+  String get backupImportConfirmMessage =>
+      'История, блюда и настройки будут восстановлены из копии. Продолжить?';
+
+  @override
+  String get backupImportConfirm => 'Восстановить';
+
+  @override
+  String get backupImportCancel => 'Отмена';
+
+  @override
+  String backupImportSuccess(int count) {
+    return 'Данные успешно восстановлены: $count записей истории';
+  }
+
+  @override
+  String backupImportError(String error) {
+    return 'Ошибка при восстановлении: $error';
+  }
+
+  @override
+  String get backupEmptyInputError =>
+      'Пожалуйста, вставьте текст резервной копии';
 }

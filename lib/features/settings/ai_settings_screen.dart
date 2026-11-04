@@ -311,6 +311,32 @@ class _AiSettingsScreenState extends ConsumerState<AiSettingsScreen> {
             ),
             const SizedBox(height: 12),
 
+            // Backup Link Card
+            Card(
+              elevation: 0,
+              color: theme.colorScheme.tertiaryContainer.withValues(alpha: 0.4),
+              child: ListTile(
+                leading: const Icon(
+                  Icons.settings_backup_restore,
+                  color: Colors.teal,
+                  size: 28,
+                ),
+                title: Text(
+                  l10n.backupScreenTitle,
+                  style: theme.textTheme.titleSmall?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                subtitle: Text(
+                  l10n.backupScreenSubtitle,
+                  style: theme.textTheme.bodySmall,
+                ),
+                trailing: const Icon(Icons.chevron_right),
+                onTap: () => context.push('/settings/backup'),
+              ),
+            ),
+            const SizedBox(height: 12),
+
             // Active Mode Status Card
             Card(
               elevation: 0,

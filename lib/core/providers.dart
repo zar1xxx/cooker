@@ -17,6 +17,7 @@ import 'matching/diversity_reorderer.dart';
 import 'matching/recipe_matcher.dart';
 import 'matching/recipe_scorer.dart';
 import 'preferences/preference_service.dart';
+import 'backup/backup_service.dart';
 
 /// One database instance per application.
 final databaseProvider = Provider<AppDatabase>((ref) {
@@ -270,6 +271,10 @@ final ingredientHierarchyProvider = FutureProvider<Map<String, List<String>>>((
 
 final preferenceServiceProvider = Provider<PreferenceService>((ref) {
   return PreferenceService(ref.watch(databaseProvider));
+});
+
+final backupServiceProvider = Provider<BackupService>((ref) {
+  return BackupService(ref.watch(databaseProvider));
 });
 
 final preferenceProfileProvider = FutureProvider<TasteProfile>((ref) async {
