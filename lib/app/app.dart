@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 import '../l10n/app_localizations.dart';
+import 'router.dart';
 import 'theme.dart';
 
 class ChtoPrigotovitApp extends StatelessWidget {
@@ -9,7 +10,8 @@ class ChtoPrigotovitApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
+      routerConfig: appRouter,
       onGenerateTitle: (context) => AppLocalizations.of(context)!.appTitle,
       localizationsDelegates: const [
         AppLocalizations.delegate,
@@ -22,17 +24,6 @@ class ChtoPrigotovitApp extends StatelessWidget {
       theme: AppTheme.light,
       darkTheme: AppTheme.dark,
       themeMode: ThemeMode.system,
-      home: Builder(
-        builder: (context) {
-          final l10n = AppLocalizations.of(context)!;
-          return Scaffold(
-            appBar: AppBar(title: Text(l10n.appTitle)),
-            body: Center(
-              child: FilledButton(onPressed: () {}, child: Text(l10n.tabToday)),
-            ),
-          );
-        },
-      ),
     );
   }
 }

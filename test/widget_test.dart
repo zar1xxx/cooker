@@ -10,7 +10,7 @@ void main() {
     await tester.pumpWidget(const ProviderScope(child: ChtoPrigotovitApp()));
     await tester.pumpAndSettle();
 
-    expect(find.text('Что приготовить?'), findsOneWidget);
-    expect(find.byType(FilledButton), findsOneWidget);
+    expect(find.byType(NavigationBar), findsOneWidget);
+    expect(find.text('Сегодня'), findsWidgets);
   });
 }

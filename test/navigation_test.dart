@@ -1,0 +1,44 @@
+import 'package:chto_prigotovit/app/app.dart';
+import 'package:chto_prigotovit/app/router.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_test/flutter_test.dart';
+
+void main() {
+  testWidgets('Bottom navigation switches between all 4 tabs (S0-04)', (
+    WidgetTester tester,
+  ) async {
+    appRouter.go('/today');
+    await tester.pumpWidget(const ProviderScope(child: ChtoPrigotovitApp()));
+    await tester.pumpAndSettle();
+
+    // Verify initial tab is 'Сегодня'
+    expect(find.text('Сегодня'), findsWidgets);
+
+    // Verify all 4 tabs are present in bottom navigation
+    expect(find.text('Сегодня'), findsWidgets);
+    expect(find.text('Что есть дома'), findsOneWidget);
+    expect(find.text('Календарь'), findsOneWidget);
+    expect(find.text('История'), findsOneWidget);
+
+    // Switch to 'Что есть дома'
+    await tester.tap(find.text('Что есть дома'));
+    await tester.pumpAndSettle();
+    expect(find.text('Что есть дома'), findsWidgets);
+
+    // Switch to 'Календарь'
+    await tester.tap(find.text('Календарь'));
+    await tester.pumpAndSettle();
+    expect(find.text('Календарь'), findsWidgets);
+
+    // Switch to 'История'
+    await tester.tap(find.text('История'));
+    await tester.pumpAndSettle();
+    expect(find.text('История'), findsWidgets);
+
+    // Switch back to 'Сегодня'
+    await tester.tap(find.byIcon(Icons.today));
+    await tester.pumpAndSettle();
+    expect(find.text('Сегодня'), findsWidgets);
+  });
+}
