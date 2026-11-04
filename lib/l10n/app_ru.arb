@@ -1,0 +1,39 @@
+{
+  "@@locale": "ru",
+  "appTitle": "Что приготовить?",
+  "@appTitle": {
+    "description": "Название приложения"
+  },
+  "tabToday": "Сегодня",
+  "@tabToday": {
+    "description": "Вкладка 'Сегодня'"
+  },
+  "tabPantry": "Что есть дома",
+  "@tabPantry": {
+    "description": "Вкладка 'Что есть дома'"
+  },
+  "tabCalendar": "Календарь",
+  "@tabCalendar": {
+    "description": "Вкладка 'Календарь'"
+  },
+  "tabHistory": "История",
+  "@tabHistory": {
+    "description": "Вкладка 'История'"
+  },
+  "screenTodayTitle": "Сегодня",
+  "@screenTodayTitle": {
+    "description": "Заголовок экрана Сегодня"
+  },
+  "screenPantryTitle": "Что есть дома",
+  "@screenPantryTitle": {
+    "description": "Заголовок экрана Что есть дома"
+  },
+  "screenCalendarTitle": "Календарь",
+  "@screenCalendarTitle": {
+    "description": "Заголовок экрана Календарь"
+  },
+  "screenHistoryTitle": "История",
+  "@screenHistoryTitle": {
+    "description": "Заголовок экрана История"
+  }
+}

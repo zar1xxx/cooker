@@ -28,7 +28,8 @@ if ((Test-Path 'tool\bin\sqlite3.x64.windows.dll') -and !(Test-Path (Join-Path $
 # ASSUMPTION: run build_runner only if declared in pubspec.yaml (before S0-02 it is not present)
 $hasBuildRunner = Select-String -Path 'pubspec.yaml' -Pattern 'build_runner' -Quiet
 $steps = @(
-  @{ name = 'pub get';      cmd = 'flutter pub get' }
+  @{ name = 'pub get';      cmd = 'flutter pub get' },
+  @{ name = 'gen-l10n';     cmd = 'flutter gen-l10n' }
 )
 if ($hasBuildRunner) {
   $steps += @{ name = 'build_runner'; cmd = 'dart run build_runner build --delete-conflicting-outputs' }
