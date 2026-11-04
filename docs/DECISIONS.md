@@ -12,3 +12,4 @@
 | D-006 | 2026-11-04 | tool/check.ps1 / S0-01 | Запуск build_runner в check.ps1 выполняется только при наличии build_runner в pubspec.yaml (до S0-02 он отсутствует) | ИИ | принято |
 | D-007 | 2026-11-04 | tool/check.ps1 / S0-02 | sqlite3 native asset для Windows кэшируется в tool/bin/sqlite3.x64.windows.dll для гарантированного оффлайн-прогона тестов без обращения к GitHub | ИИ | принято |
 | D-008 | 2026-11-04 | l10n.yaml / S0-03 | Локализация генерируется в lib/l10n/ (output-dir: lib/l10n), чтобы сгенерированные файлы коммитились и были доступны анализатору напрямую | ИИ | принято |
+| D-009 | 2026-11-04 | android/app/build.gradle.kts / S0-08 | Включен isCoreLibraryDesugaringEnabled = true и библиотека desugar_jdk_libs:2.1.4 для поддержки flutter_local_notifications | ИИ | принято |
