@@ -26,6 +26,17 @@
       "is_staple": false
     },
     {
+      "id": "red_onion",
+      "name": "лук красный",
+      "synonyms": [
+        "красный лук",
+        "лук-шалот"
+      ],
+      "category": "vegetables",
+      "parent_id": "onion",
+      "is_staple": false
+    },
+    {
       "id": "carrot",
       "name": "морковь",
       "synonyms": [
@@ -52,9 +63,1009 @@
       "id": "cabbage",
       "name": "капуста белокочанная",
       "synonyms": [
-        "капуста"
+        "капуста",
+        "капустка"
       ],
       "category": "vegetables",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "red_cabbage",
+      "name": "капуста краснокочанная",
+      "synonyms": [
+        "красная капуста"
+      ],
+      "category": "vegetables",
+      "parent_id": "cabbage",
+      "is_staple": false
+    },
+    {
+      "id": "cauliflower",
+      "name": "капуста цветная",
+      "synonyms": [
+        "цветная капуста"
+      ],
+      "category": "vegetables",
+      "parent_id": "cabbage",
+      "is_staple": false
+    },
+    {
+      "id": "broccoli",
+      "name": "брокколи",
+      "synonyms": [
+        "брокколи"
+      ],
+      "category": "vegetables",
+      "parent_id": "cabbage",
+      "is_staple": false
+    },
+    {
+      "id": "kohlrabi",
+      "name": "капуста кольраби",
+      "synonyms": [
+        "кольраби"
+      ],
+      "category": "vegetables",
+      "parent_id": "cabbage",
+      "is_staple": false
+    },
+    {
+      "id": "brussels_sprouts",
+      "name": "капуста брюссельская",
+      "synonyms": [
+        "брюссельская капуста"
+      ],
+      "category": "vegetables",
+      "parent_id": "cabbage",
+      "is_staple": false
+    },
+    {
+      "id": "zucchini",
+      "name": "кабачок",
+      "synonyms": [
+        "кабачки",
+        "цукини"
+      ],
+      "category": "vegetables",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "squash",
+      "name": "тыква",
+      "synonyms": [
+        "тыкву",
+        "тыковка"
+      ],
+      "category": "vegetables",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "pattypan",
+      "name": "патиссон",
+      "synonyms": [
+        "патиссоны"
+      ],
+      "category": "vegetables",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "cucumber",
+      "name": "огурец",
+      "synonyms": [
+        "огурцы",
+        "огурчик"
+      ],
+      "category": "vegetables",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "tomato",
+      "name": "помидор",
+      "synonyms": [
+        "томат",
+        "помидоры",
+        "томаты"
+      ],
+      "category": "vegetables",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "cherry_tomato",
+      "name": "помидоры черри",
+      "synonyms": [
+        "черри"
+      ],
+      "category": "vegetables",
+      "parent_id": "tomato",
+      "is_staple": false
+    },
+    {
+      "id": "bell_pepper",
+      "name": "перец болгарский",
+      "synonyms": [
+        "сладкий перец",
+        "болгарский перец"
+      ],
+      "category": "vegetables",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "chili_pepper",
+      "name": "перец острый",
+      "synonyms": [
+        "чили",
+        "острый перец"
+      ],
+      "category": "vegetables",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "eggplant",
+      "name": "баклажан",
+      "synonyms": [
+        "баклажаны",
+        "синенькие"
+      ],
+      "category": "vegetables",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "radish",
+      "name": "редис",
+      "synonyms": [
+        "редиска"
+      ],
+      "category": "vegetables",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "daikon",
+      "name": "дайкон",
+      "synonyms": [
+        "редис белый"
+      ],
+      "category": "vegetables",
+      "parent_id": "radish",
+      "is_staple": false
+    },
+    {
+      "id": "turnip",
+      "name": "репа",
+      "synonyms": [
+        "репка"
+      ],
+      "category": "vegetables",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "celery",
+      "name": "сельдерей стеблевой",
+      "synonyms": [
+        "сельдерей"
+      ],
+      "category": "vegetables",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "celery_root",
+      "name": "сельдерей корневой",
+      "synonyms": [
+        "корень сельдерея"
+      ],
+      "category": "vegetables",
+      "parent_id": "celery",
+      "is_staple": false
+    },
+    {
+      "id": "parsley_root",
+      "name": "корень петрушки",
+      "synonyms": [
+        "петрушка корневая"
+      ],
+      "category": "vegetables",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "leek",
+      "name": "лук-порей",
+      "synonyms": [
+        "порей"
+      ],
+      "category": "vegetables",
+      "parent_id": "onion",
+      "is_staple": false
+    },
+    {
+      "id": "garlic",
+      "name": "чеснок",
+      "synonyms": [
+        "чесночок",
+        "зубчик чеснока"
+      ],
+      "category": "vegetables",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "spinach",
+      "name": "шпинат",
+      "synonyms": [
+        "шпинат"
+      ],
+      "category": "vegetables",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "lettuce",
+      "name": "салат листовой",
+      "synonyms": [
+        "листья салата",
+        "салат"
+      ],
+      "category": "vegetables",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "arugula",
+      "name": "рукола",
+      "synonyms": [
+        "руккола"
+      ],
+      "category": "vegetables",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "sorrel",
+      "name": "щавель",
+      "synonyms": [
+        "щавель"
+      ],
+      "category": "vegetables",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "green_peas",
+      "name": "горошек зелёный",
+      "synonyms": [
+        "зелёный горошек",
+        "свежий горох"
+      ],
+      "category": "vegetables",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "green_beans",
+      "name": "фасоль стручковая",
+      "synonyms": [
+        "зелёная фасоль",
+        "стручковая фасоль"
+      ],
+      "category": "vegetables",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "corn",
+      "name": "кукуруза",
+      "synonyms": [
+        "кукуруза в початках"
+      ],
+      "category": "vegetables",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "asparagus",
+      "name": "спаржа",
+      "synonyms": [
+        "спаржа"
+      ],
+      "category": "vegetables",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "sweet_potato",
+      "name": "батат",
+      "synonyms": [
+        "сладкий картофель"
+      ],
+      "category": "vegetables",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "avocado",
+      "name": "авокадо",
+      "synonyms": [
+        "авокадо"
+      ],
+      "category": "vegetables",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "olives",
+      "name": "оливки",
+      "synonyms": [
+        "маслины"
+      ],
+      "category": "vegetables",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "capers",
+      "name": "каперсы",
+      "synonyms": [
+        "каперсы"
+      ],
+      "category": "vegetables",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "sauerkraut",
+      "name": "капуста квашеная",
+      "synonyms": [
+        "квашеная капуста",
+        "кислая капуста"
+      ],
+      "category": "vegetables",
+      "parent_id": "cabbage",
+      "is_staple": false
+    },
+    {
+      "id": "pickles",
+      "name": "огурцы солёные",
+      "synonyms": [
+        "солёные огурцы",
+        "огурчики"
+      ],
+      "category": "vegetables",
+      "parent_id": "cucumber",
+      "is_staple": false
+    },
+    {
+      "id": "seaweed",
+      "name": "морская капуста",
+      "synonyms": [
+        "ламинария"
+      ],
+      "category": "vegetables",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "artichoke",
+      "name": "артишок",
+      "synonyms": [
+        "артишоки"
+      ],
+      "category": "vegetables",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "parsnip",
+      "name": "пастернак",
+      "synonyms": [
+        "пастернак"
+      ],
+      "category": "vegetables",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "rhubarb",
+      "name": "ревень",
+      "synonyms": [
+        "ревень"
+      ],
+      "category": "vegetables",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "horseradish_root",
+      "name": "хрен корень",
+      "synonyms": [
+        "корень хрена"
+      ],
+      "category": "vegetables",
+      "parent_id": "horseradish",
+      "is_staple": false
+    },
+    {
+      "id": "Jerusalem_artichoke",
+      "name": "топинамбур",
+      "synonyms": [
+        "топинамбур"
+      ],
+      "category": "vegetables",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "apple",
+      "name": "яблоко",
+      "synonyms": [
+        "яблоки",
+        "яблочко"
+      ],
+      "category": "fruits",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "pear",
+      "name": "груша",
+      "synonyms": [
+        "груши"
+      ],
+      "category": "fruits",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "banana",
+      "name": "банан",
+      "synonyms": [
+        "бананы"
+      ],
+      "category": "fruits",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "orange",
+      "name": "апельсин",
+      "synonyms": [
+        "апельсины"
+      ],
+      "category": "fruits",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "mandarin",
+      "name": "мандарин",
+      "synonyms": [
+        "мандарины"
+      ],
+      "category": "fruits",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "lemon",
+      "name": "лимон",
+      "synonyms": [
+        "лимоны"
+      ],
+      "category": "fruits",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "lime",
+      "name": "лайм",
+      "synonyms": [
+        "лаймы"
+      ],
+      "category": "fruits",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "grapefruit",
+      "name": "грейпфрут",
+      "synonyms": [
+        "грейпфруты"
+      ],
+      "category": "fruits",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "peach",
+      "name": "персик",
+      "synonyms": [
+        "персики"
+      ],
+      "category": "fruits",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "apricot",
+      "name": "абрикос",
+      "synonyms": [
+        "абрикосы"
+      ],
+      "category": "fruits",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "plum",
+      "name": "слива",
+      "synonyms": [
+        "сливы",
+        "сливка"
+      ],
+      "category": "fruits",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "cherry",
+      "name": "вишня",
+      "synonyms": [
+        "вишни"
+      ],
+      "category": "fruits",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "sweet_cherry",
+      "name": "черешня",
+      "synonyms": [
+        "черешни"
+      ],
+      "category": "fruits",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "grape",
+      "name": "виноград",
+      "synonyms": [
+        "виноградины"
+      ],
+      "category": "fruits",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "strawberry",
+      "name": "земляника",
+      "synonyms": [
+        "клубника",
+        "земляничка"
+      ],
+      "category": "fruits",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "raspberry",
+      "name": "малина",
+      "synonyms": [
+        "малинка"
+      ],
+      "category": "fruits",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "blackberry",
+      "name": "ежевика",
+      "synonyms": [
+        "ежевика"
+      ],
+      "category": "fruits",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "blueberry",
+      "name": "голубика",
+      "synonyms": [
+        "голубика"
+      ],
+      "category": "fruits",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "cranberry",
+      "name": "клюква",
+      "synonyms": [
+        "клюква"
+      ],
+      "category": "fruits",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "currant_black",
+      "name": "смородина чёрная",
+      "synonyms": [
+        "чёрная смородина"
+      ],
+      "category": "fruits",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "currant_red",
+      "name": "смородина красная",
+      "synonyms": [
+        "красная смородина"
+      ],
+      "category": "fruits",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "gooseberry",
+      "name": "крыжовник",
+      "synonyms": [
+        "крыжовник"
+      ],
+      "category": "fruits",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "watermelon",
+      "name": "арбуз",
+      "synonyms": [
+        "арбузик"
+      ],
+      "category": "fruits",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "melon",
+      "name": "дыня",
+      "synonyms": [
+        "дынька"
+      ],
+      "category": "fruits",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "kiwi",
+      "name": "киви",
+      "synonyms": [
+        "киви"
+      ],
+      "category": "fruits",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "pineapple",
+      "name": "ананас",
+      "synonyms": [
+        "ананасы"
+      ],
+      "category": "fruits",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "pomegranate",
+      "name": "гранат",
+      "synonyms": [
+        "гранаты"
+      ],
+      "category": "fruits",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "persimmon",
+      "name": "хурма",
+      "synonyms": [
+        "хурма"
+      ],
+      "category": "fruits",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "fig",
+      "name": "инжир",
+      "synonyms": [
+        "инжир"
+      ],
+      "category": "fruits",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "dates",
+      "name": "финики",
+      "synonyms": [
+        "финик"
+      ],
+      "category": "fruits",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "prunes",
+      "name": "чернослив",
+      "synonyms": [
+        "чернослив"
+      ],
+      "category": "fruits",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "raisins",
+      "name": "изюм",
+      "synonyms": [
+        "изюм"
+      ],
+      "category": "fruits",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "dried_apricots",
+      "name": "курага",
+      "synonyms": [
+        "курага"
+      ],
+      "category": "fruits",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "dried_fruits",
+      "name": "сухофрукты",
+      "synonyms": [
+        "сушёные фрукты"
+      ],
+      "category": "fruits",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "coconut",
+      "name": "кокос",
+      "synonyms": [
+        "кокосовая стружка"
+      ],
+      "category": "fruits",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "meat",
+      "name": "мясо",
+      "synonyms": [
+        "мясо"
+      ],
+      "category": "meat",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "beef",
+      "name": "говядина",
+      "synonyms": [
+        "говядину",
+        "говядинка"
+      ],
+      "category": "meat",
+      "parent_id": "meat",
+      "is_staple": false
+    },
+    {
+      "id": "beef_stew",
+      "name": "говядина тушёная",
+      "synonyms": [
+        "тушёнка говяжья"
+      ],
+      "category": "meat",
+      "parent_id": "beef",
+      "is_staple": false
+    },
+    {
+      "id": "veal",
+      "name": "телятина",
+      "synonyms": [
+        "телятину"
+      ],
+      "category": "meat",
+      "parent_id": "beef",
+      "is_staple": false
+    },
+    {
+      "id": "pork",
+      "name": "свинина",
+      "synonyms": [
+        "свинину",
+        "свининка"
+      ],
+      "category": "meat",
+      "parent_id": "meat",
+      "is_staple": false
+    },
+    {
+      "id": "pork_ribs",
+      "name": "рёбра свиные",
+      "synonyms": [
+        "свиные рёбра"
+      ],
+      "category": "meat",
+      "parent_id": "pork",
+      "is_staple": false
+    },
+    {
+      "id": "bacon",
+      "name": "бекон",
+      "synonyms": [
+        "бекон"
+      ],
+      "category": "meat",
+      "parent_id": "pork",
+      "is_staple": false
+    },
+    {
+      "id": "ham",
+      "name": "ветчина",
+      "synonyms": [
+        "ветчину"
+      ],
+      "category": "meat",
+      "parent_id": "pork",
+      "is_staple": false
+    },
+    {
+      "id": "sausage",
+      "name": "колбаса",
+      "synonyms": [
+        "колбаска"
+      ],
+      "category": "meat",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "frankfurters",
+      "name": "сосиски",
+      "synonyms": [
+        "сосиска"
+      ],
+      "category": "meat",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "minced_meat",
+      "name": "фарш",
+      "synonyms": [
+        "фарш мясной"
+      ],
+      "category": "meat",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "minced_pork",
+      "name": "фарш свиной",
+      "synonyms": [
+        "свиной фарш"
+      ],
+      "category": "meat",
+      "parent_id": "minced_meat",
+      "is_staple": false
+    },
+    {
+      "id": "minced_beef",
+      "name": "фарш говяжий",
+      "synonyms": [
+        "говяжий фарш"
+      ],
+      "category": "meat",
+      "parent_id": "minced_meat",
+      "is_staple": false
+    },
+    {
+      "id": "minced_chicken",
+      "name": "фарш куриный",
+      "synonyms": [
+        "куриный фарш"
+      ],
+      "category": "meat",
+      "parent_id": "minced_meat",
+      "is_staple": false
+    },
+    {
+      "id": "liver",
+      "name": "печень",
+      "synonyms": [
+        "печёнка"
+      ],
+      "category": "meat",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "liver_chicken",
+      "name": "печень куриная",
+      "synonyms": [
+        "куриная печень"
+      ],
+      "category": "meat",
+      "parent_id": "liver",
+      "is_staple": false
+    },
+    {
+      "id": "heart",
+      "name": "сердце",
+      "synonyms": [
+        "сердечки"
+      ],
+      "category": "meat",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "tongue",
+      "name": "язык",
+      "synonyms": [
+        "язык говяжий"
+      ],
+      "category": "meat",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "lamb",
+      "name": "баранина",
+      "synonyms": [
+        "баранину"
+      ],
+      "category": "meat",
+      "parent_id": "meat",
+      "is_staple": false
+    },
+    {
+      "id": "rabbit",
+      "name": "кролик",
+      "synonyms": [
+        "крольчатина"
+      ],
+      "category": "meat",
+      "parent_id": "meat",
+      "is_staple": false
+    },
+    {
+      "id": "lard",
+      "name": "сало",
+      "synonyms": [
+        "шпик"
+      ],
+      "category": "meat",
       "parent_id": null,
       "is_staple": false
     },
@@ -83,13 +1094,236 @@
       "is_staple": false
     },
     {
-      "id": "minced_meat",
-      "name": "фарш",
+      "id": "chicken_thigh",
+      "name": "куриное бедро",
       "synonyms": [
-        "фарш мясной"
+        "бёдра",
+        "куриные бёдра"
       ],
-      "category": "meat",
+      "category": "poultry",
+      "parent_id": "chicken",
+      "is_staple": false
+    },
+    {
+      "id": "chicken_wings",
+      "name": "куриные крылья",
+      "synonyms": [
+        "крылышки"
+      ],
+      "category": "poultry",
+      "parent_id": "chicken",
+      "is_staple": false
+    },
+    {
+      "id": "turkey",
+      "name": "индейка",
+      "synonyms": [
+        "индюшатина"
+      ],
+      "category": "poultry",
       "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "turkey_fillet",
+      "name": "индюшиное филе",
+      "synonyms": [
+        "филе индейки"
+      ],
+      "category": "poultry",
+      "parent_id": "turkey",
+      "is_staple": false
+    },
+    {
+      "id": "duck",
+      "name": "утка",
+      "synonyms": [
+        "утиное мясо"
+      ],
+      "category": "poultry",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "goose",
+      "name": "гусь",
+      "synonyms": [
+        "гусятина"
+      ],
+      "category": "poultry",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "fish",
+      "name": "рыба",
+      "synonyms": [
+        "рыбу",
+        "рыбка"
+      ],
+      "category": "fish",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "seafood",
+      "name": "морепродукты",
+      "synonyms": [
+        "дары моря"
+      ],
+      "category": "fish",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "pollock",
+      "name": "минтай",
+      "synonyms": [
+        "минтай"
+      ],
+      "category": "fish",
+      "parent_id": "fish",
+      "is_staple": false
+    },
+    {
+      "id": "cod",
+      "name": "треска",
+      "synonyms": [
+        "треску"
+      ],
+      "category": "fish",
+      "parent_id": "fish",
+      "is_staple": false
+    },
+    {
+      "id": "hake",
+      "name": "хек",
+      "synonyms": [
+        "хек"
+      ],
+      "category": "fish",
+      "parent_id": "fish",
+      "is_staple": false
+    },
+    {
+      "id": "salmon",
+      "name": "лосось",
+      "synonyms": [
+        "сёмга",
+        "красная рыба"
+      ],
+      "category": "fish",
+      "parent_id": "fish",
+      "is_staple": false
+    },
+    {
+      "id": "trout",
+      "name": "форель",
+      "synonyms": [
+        "форель"
+      ],
+      "category": "fish",
+      "parent_id": "fish",
+      "is_staple": false
+    },
+    {
+      "id": "herring",
+      "name": "сельдь",
+      "synonyms": [
+        "селёдка"
+      ],
+      "category": "fish",
+      "parent_id": "fish",
+      "is_staple": false
+    },
+    {
+      "id": "mackerel",
+      "name": "скумбрия",
+      "synonyms": [
+        "скумбрия"
+      ],
+      "category": "fish",
+      "parent_id": "fish",
+      "is_staple": false
+    },
+    {
+      "id": "pike",
+      "name": "щука",
+      "synonyms": [
+        "щуку"
+      ],
+      "category": "fish",
+      "parent_id": "fish",
+      "is_staple": false
+    },
+    {
+      "id": "perch",
+      "name": "окунь",
+      "synonyms": [
+        "окунь"
+      ],
+      "category": "fish",
+      "parent_id": "fish",
+      "is_staple": false
+    },
+    {
+      "id": "carp",
+      "name": "карп",
+      "synonyms": [
+        "карп"
+      ],
+      "category": "fish",
+      "parent_id": "fish",
+      "is_staple": false
+    },
+    {
+      "id": "catfish",
+      "name": "сом",
+      "synonyms": [
+        "сом"
+      ],
+      "category": "fish",
+      "parent_id": "fish",
+      "is_staple": false
+    },
+    {
+      "id": "shrimp",
+      "name": "креветки",
+      "synonyms": [
+        "креветка"
+      ],
+      "category": "fish",
+      "parent_id": "seafood",
+      "is_staple": false
+    },
+    {
+      "id": "squid",
+      "name": "кальмар",
+      "synonyms": [
+        "кальмары"
+      ],
+      "category": "fish",
+      "parent_id": "seafood",
+      "is_staple": false
+    },
+    {
+      "id": "mussels",
+      "name": "мидии",
+      "synonyms": [
+        "мидия"
+      ],
+      "category": "fish",
+      "parent_id": "seafood",
+      "is_staple": false
+    },
+    {
+      "id": "crab_sticks",
+      "name": "крабовые палочки",
+      "synonyms": [
+        "крабовые палочки"
+      ],
+      "category": "fish",
+      "parent_id": "seafood",
       "is_staple": false
     },
     {
@@ -106,7 +1340,209 @@
     {
       "id": "milk",
       "name": "молоко",
-      "synonyms": [],
+      "synonyms": [
+        "молочко"
+      ],
+      "category": "dairy",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "kefir",
+      "name": "кефир",
+      "synonyms": [
+        "кефирчик"
+      ],
+      "category": "dairy",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "yogurt",
+      "name": "йогурт",
+      "synonyms": [
+        "йогурт натуральный"
+      ],
+      "category": "dairy",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "sour_cream",
+      "name": "сметана",
+      "synonyms": [
+        "сметанка"
+      ],
+      "category": "dairy",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "cream",
+      "name": "сливки",
+      "synonyms": [
+        "сливочки"
+      ],
+      "category": "dairy",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "butter",
+      "name": "масло сливочное",
+      "synonyms": [
+        "сливочное масло"
+      ],
+      "category": "dairy",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "cheese",
+      "name": "сыр",
+      "synonyms": [
+        "сырок"
+      ],
+      "category": "dairy",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "hard_cheese",
+      "name": "сыр твёрдый",
+      "synonyms": [
+        "твёрдый сыр"
+      ],
+      "category": "dairy",
+      "parent_id": "cheese",
+      "is_staple": false
+    },
+    {
+      "id": "processed_cheese",
+      "name": "сыр плавленый",
+      "synonyms": [
+        "плавленый сырок"
+      ],
+      "category": "dairy",
+      "parent_id": "cheese",
+      "is_staple": false
+    },
+    {
+      "id": "cottage_cheese",
+      "name": "творог",
+      "synonyms": [
+        "творожок"
+      ],
+      "category": "dairy",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "feta",
+      "name": "сыр фета",
+      "synonyms": [
+        "фета"
+      ],
+      "category": "dairy",
+      "parent_id": "cheese",
+      "is_staple": false
+    },
+    {
+      "id": "mozzarella",
+      "name": "моцарелла",
+      "synonyms": [
+        "моцарелла"
+      ],
+      "category": "dairy",
+      "parent_id": "cheese",
+      "is_staple": false
+    },
+    {
+      "id": "parmesan",
+      "name": "пармезан",
+      "synonyms": [
+        "пармезан"
+      ],
+      "category": "dairy",
+      "parent_id": "hard_cheese",
+      "is_staple": false
+    },
+    {
+      "id": "cream_cheese",
+      "name": "сливочный сыр",
+      "synonyms": [
+        "крем-сыр"
+      ],
+      "category": "dairy",
+      "parent_id": "cheese",
+      "is_staple": false
+    },
+    {
+      "id": "condensed_milk",
+      "name": "молоко сгущённое",
+      "synonyms": [
+        "сгущёнка"
+      ],
+      "category": "dairy",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "curdled_milk",
+      "name": "ряженка",
+      "synonyms": [
+        "ряженка"
+      ],
+      "category": "dairy",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "buttermilk",
+      "name": "пахта",
+      "synonyms": [
+        "пахта"
+      ],
+      "category": "dairy",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "ice_cream",
+      "name": "мороженое",
+      "synonyms": [
+        "пломбир"
+      ],
+      "category": "dairy",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "powdered_milk",
+      "name": "молоко сухое",
+      "synonyms": [
+        "сухое молоко"
+      ],
+      "category": "dairy",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "whey",
+      "name": "сыворотка",
+      "synonyms": [
+        "сыворотка"
+      ],
+      "category": "dairy",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "tofu",
+      "name": "тофу",
+      "synonyms": [
+        "соевый творог"
+      ],
       "category": "dairy",
       "parent_id": null,
       "is_staple": false
@@ -122,6 +1558,26 @@
       "is_staple": false
     },
     {
+      "id": "round_rice",
+      "name": "рис круглозёрный",
+      "synonyms": [
+        "рис для каши"
+      ],
+      "category": "grains",
+      "parent_id": "rice",
+      "is_staple": false
+    },
+    {
+      "id": "basmati_rice",
+      "name": "рис басмати",
+      "synonyms": [
+        "басмати"
+      ],
+      "category": "grains",
+      "parent_id": "rice",
+      "is_staple": false
+    },
+    {
       "id": "buckwheat",
       "name": "гречка",
       "synonyms": [
@@ -130,6 +1586,158 @@
       ],
       "category": "grains",
       "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "oatmeal",
+      "name": "овсянка",
+      "synonyms": [
+        "овсяные хлопья",
+        "геркулес"
+      ],
+      "category": "grains",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "rolled_oats",
+      "name": "хлопья овсяные",
+      "synonyms": [
+        "овсяные хлопья"
+      ],
+      "category": "grains",
+      "parent_id": "oatmeal",
+      "is_staple": false
+    },
+    {
+      "id": "semolina",
+      "name": "манка",
+      "synonyms": [
+        "манная крупа"
+      ],
+      "category": "grains",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "millet",
+      "name": "пшено",
+      "synonyms": [
+        "пшённая крупа"
+      ],
+      "category": "grains",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "barley",
+      "name": "ячмень",
+      "synonyms": [
+        "ячневая крупа"
+      ],
+      "category": "grains",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "pearl_barley",
+      "name": "перловка",
+      "synonyms": [
+        "перловая крупа"
+      ],
+      "category": "grains",
+      "parent_id": "barley",
+      "is_staple": false
+    },
+    {
+      "id": "cornmeal",
+      "name": "кукурузная крупа",
+      "synonyms": [
+        "полента"
+      ],
+      "category": "grains",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "couscous",
+      "name": "кускус",
+      "synonyms": [
+        "кускус"
+      ],
+      "category": "grains",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "bulgur",
+      "name": "булгур",
+      "synonyms": [
+        "булгур"
+      ],
+      "category": "grains",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "quinoa",
+      "name": "киноа",
+      "synonyms": [
+        "киноа"
+      ],
+      "category": "grains",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "pasta",
+      "name": "макароны",
+      "synonyms": [
+        "паста",
+        "макаронные изделия"
+      ],
+      "category": "grains",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "spaghetti",
+      "name": "спагетти",
+      "synonyms": [
+        "спагетти"
+      ],
+      "category": "grains",
+      "parent_id": "pasta",
+      "is_staple": false
+    },
+    {
+      "id": "vermicelli",
+      "name": "вермишель",
+      "synonyms": [
+        "вермишель"
+      ],
+      "category": "grains",
+      "parent_id": "pasta",
+      "is_staple": false
+    },
+    {
+      "id": "noodles",
+      "name": "лапша",
+      "synonyms": [
+        "лапша яичная"
+      ],
+      "category": "grains",
+      "parent_id": "pasta",
+      "is_staple": false
+    },
+    {
+      "id": "lasagna_sheets",
+      "name": "листы для лазаньи",
+      "synonyms": [
+        "лазанья"
+      ],
+      "category": "grains",
+      "parent_id": "pasta",
       "is_staple": false
     },
     {
@@ -143,27 +1751,216 @@
       "is_staple": false
     },
     {
-      "id": "nuts",
-      "name": "орехи",
-      "synonyms": [],
-      "category": "nuts",
+      "id": "rye_flour",
+      "name": "мука ржаная",
+      "synonyms": [
+        "ржаная мука"
+      ],
+      "category": "bakery",
+      "parent_id": "flour",
+      "is_staple": false
+    },
+    {
+      "id": "wholegrain_flour",
+      "name": "мука цельнозерновая",
+      "synonyms": [
+        "цельнозерновая мука"
+      ],
+      "category": "bakery",
+      "parent_id": "flour",
+      "is_staple": false
+    },
+    {
+      "id": "starch",
+      "name": "крахмал",
+      "synonyms": [
+        "кукурузный крахмал"
+      ],
+      "category": "bakery",
       "parent_id": null,
       "is_staple": false
     },
     {
-      "id": "walnut",
-      "name": "грецкие орехи",
+      "id": "breadcrumbs",
+      "name": "сухари панировочные",
       "synonyms": [
-        "грецкий орех"
+        "панировочные сухари"
       ],
-      "category": "nuts",
-      "parent_id": "nuts",
+      "category": "bakery",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "bread",
+      "name": "хлеб",
+      "synonyms": [
+        "хлебушек"
+      ],
+      "category": "bakery",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "white_bread",
+      "name": "хлеб белый",
+      "synonyms": [
+        "батон",
+        "белый хлеб"
+      ],
+      "category": "bakery",
+      "parent_id": "bread",
+      "is_staple": false
+    },
+    {
+      "id": "black_bread",
+      "name": "хлеб чёрный",
+      "synonyms": [
+        "ржаной хлеб",
+        "чёрный хлеб"
+      ],
+      "category": "bakery",
+      "parent_id": "bread",
+      "is_staple": false
+    },
+    {
+      "id": "lavash",
+      "name": "лаваш",
+      "synonyms": [
+        "лаваш тонкий"
+      ],
+      "category": "bakery",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "pita",
+      "name": "пита",
+      "synonyms": [
+        "пита"
+      ],
+      "category": "bakery",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "tortilla",
+      "name": "тортилья",
+      "synonyms": [
+        "лепёшка"
+      ],
+      "category": "bakery",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "beans_dry",
+      "name": "фасоль сухая",
+      "synonyms": [
+        "фасоль",
+        "сухая фасоль"
+      ],
+      "category": "legumes",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "beans_red",
+      "name": "фасоль красная",
+      "synonyms": [
+        "красная фасоль"
+      ],
+      "category": "legumes",
+      "parent_id": "beans_dry",
+      "is_staple": false
+    },
+    {
+      "id": "beans_white",
+      "name": "фасоль белая",
+      "synonyms": [
+        "белая фасоль"
+      ],
+      "category": "legumes",
+      "parent_id": "beans_dry",
+      "is_staple": false
+    },
+    {
+      "id": "chickpeas_dry",
+      "name": "нут сухой",
+      "synonyms": [
+        "нут",
+        "турецкий горох"
+      ],
+      "category": "legumes",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "lentils_red",
+      "name": "чечевица красная",
+      "synonyms": [
+        "красная чечевица"
+      ],
+      "category": "legumes",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "lentils_green",
+      "name": "чечевица зелёная",
+      "synonyms": [
+        "зелёная чечевица"
+      ],
+      "category": "legumes",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "peas_dry",
+      "name": "горох сухой",
+      "synonyms": [
+        "сухой горох",
+        "горох"
+      ],
+      "category": "legumes",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "soybeans",
+      "name": "соя",
+      "synonyms": [
+        "соевые бобы"
+      ],
+      "category": "legumes",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "mung_beans",
+      "name": "маш",
+      "synonyms": [
+        "бобы мунг"
+      ],
+      "category": "legumes",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "azuki",
+      "name": "адзуки",
+      "synonyms": [
+        "красные бобы"
+      ],
+      "category": "legumes",
+      "parent_id": null,
       "is_staple": false
     },
     {
       "id": "mushrooms",
       "name": "грибы",
-      "synonyms": [],
+      "synonyms": [
+        "грибочки"
+      ],
       "category": "mushrooms",
       "parent_id": null,
       "is_staple": false
@@ -176,6 +1973,227 @@
       ],
       "category": "mushrooms",
       "parent_id": "mushrooms",
+      "is_staple": false
+    },
+    {
+      "id": "oyster_mushroom",
+      "name": "вешенки",
+      "synonyms": [
+        "вешенка"
+      ],
+      "category": "mushrooms",
+      "parent_id": "mushrooms",
+      "is_staple": false
+    },
+    {
+      "id": "forest_mushrooms",
+      "name": "грибы лесные",
+      "synonyms": [
+        "лесные грибы"
+      ],
+      "category": "mushrooms",
+      "parent_id": "mushrooms",
+      "is_staple": false
+    },
+    {
+      "id": "porcini",
+      "name": "белые грибы",
+      "synonyms": [
+        "боровики"
+      ],
+      "category": "mushrooms",
+      "parent_id": "forest_mushrooms",
+      "is_staple": false
+    },
+    {
+      "id": "chanterelles",
+      "name": "лисички",
+      "synonyms": [
+        "лисичка"
+      ],
+      "category": "mushrooms",
+      "parent_id": "forest_mushrooms",
+      "is_staple": false
+    },
+    {
+      "id": "honey_mushrooms",
+      "name": "опята",
+      "synonyms": [
+        "опёнок"
+      ],
+      "category": "mushrooms",
+      "parent_id": "forest_mushrooms",
+      "is_staple": false
+    },
+    {
+      "id": "shiitake",
+      "name": "шиитаке",
+      "synonyms": [
+        "шиитаке"
+      ],
+      "category": "mushrooms",
+      "parent_id": "mushrooms",
+      "is_staple": false
+    },
+    {
+      "id": "tomatoes_canned",
+      "name": "помидоры консервированные",
+      "synonyms": [
+        "консервированные помидоры"
+      ],
+      "category": "canned",
+      "parent_id": "tomato",
+      "is_staple": false
+    },
+    {
+      "id": "tomato_paste",
+      "name": "томатная паста",
+      "synonyms": [
+        "паста томатная"
+      ],
+      "category": "canned",
+      "parent_id": "tomato",
+      "is_staple": false
+    },
+    {
+      "id": "tomato_sauce",
+      "name": "томатный соус",
+      "synonyms": [
+        "соус томатный"
+      ],
+      "category": "canned",
+      "parent_id": "tomato",
+      "is_staple": false
+    },
+    {
+      "id": "peas_canned",
+      "name": "горошек консервированный",
+      "synonyms": [
+        "консервированный горошек"
+      ],
+      "category": "canned",
+      "parent_id": "green_peas",
+      "is_staple": false
+    },
+    {
+      "id": "corn_canned",
+      "name": "кукуруза консервированная",
+      "synonyms": [
+        "консервированная кукуруза"
+      ],
+      "category": "canned",
+      "parent_id": "corn",
+      "is_staple": false
+    },
+    {
+      "id": "beans_canned",
+      "name": "фасоль консервированная",
+      "synonyms": [
+        "консервированная фасоль"
+      ],
+      "category": "canned",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "chickpeas_canned",
+      "name": "нут консервированный",
+      "synonyms": [
+        "консервированный нут"
+      ],
+      "category": "canned",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "tuna_canned",
+      "name": "тунец консервированный",
+      "synonyms": [
+        "тунец в масле"
+      ],
+      "category": "canned",
+      "parent_id": "fish",
+      "is_staple": false
+    },
+    {
+      "id": "saury_canned",
+      "name": "сайра консервированная",
+      "synonyms": [
+        "сайра"
+      ],
+      "category": "canned",
+      "parent_id": "fish",
+      "is_staple": false
+    },
+    {
+      "id": "sardines_canned",
+      "name": "сардины консервированные",
+      "synonyms": [
+        "сардины"
+      ],
+      "category": "canned",
+      "parent_id": "fish",
+      "is_staple": false
+    },
+    {
+      "id": "coconut_milk",
+      "name": "молоко кокосовое",
+      "synonyms": [
+        "кокосовое молоко"
+      ],
+      "category": "canned",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "jam",
+      "name": "варенье",
+      "synonyms": [
+        "джем",
+        "повидло"
+      ],
+      "category": "canned",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "preserves",
+      "name": "консервы домашние",
+      "synonyms": [
+        "заготовки"
+      ],
+      "category": "canned",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "mushrooms_canned",
+      "name": "грибы консервированные",
+      "synonyms": [
+        "консервированные грибы"
+      ],
+      "category": "canned",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "artichokes_canned",
+      "name": "артишоки консервированные",
+      "synonyms": [
+        "консервированные артишоки"
+      ],
+      "category": "canned",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "lecho",
+      "name": "лечо",
+      "synonyms": [
+        "лечо домашнее"
+      ],
+      "category": "canned",
+      "parent_id": null,
       "is_staple": false
     },
     {
@@ -197,7 +2215,9 @@
     {
       "id": "sugar",
       "name": "сахар",
-      "synonyms": [],
+      "synonyms": [
+        "сахарный песок"
+      ],
       "category": "sweets",
       "parent_id": null,
       "is_staple": true
@@ -223,6 +2243,647 @@
       "category": "spices",
       "parent_id": null,
       "is_staple": true
+    },
+    {
+      "id": "olive_oil",
+      "name": "масло оливковое",
+      "synonyms": [
+        "оливковое масло"
+      ],
+      "category": "spices",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "white_pepper",
+      "name": "перец белый",
+      "synonyms": [
+        "белый перец"
+      ],
+      "category": "spices",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "red_pepper",
+      "name": "перец красный молотый",
+      "synonyms": [
+        "красный перец"
+      ],
+      "category": "spices",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "paprika",
+      "name": "паприка",
+      "synonyms": [
+        "паприка молотая"
+      ],
+      "category": "spices",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "bay_leaf",
+      "name": "лавровый лист",
+      "synonyms": [
+        "лаврушка"
+      ],
+      "category": "spices",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "cinnamon",
+      "name": "корица",
+      "synonyms": [
+        "корица молотая"
+      ],
+      "category": "spices",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "cloves",
+      "name": "гвоздика",
+      "synonyms": [
+        "гвоздика"
+      ],
+      "category": "spices",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "nutmeg",
+      "name": "мускатный орех",
+      "synonyms": [
+        "мускат"
+      ],
+      "category": "spices",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "ginger",
+      "name": "имбирь",
+      "synonyms": [
+        "корень имбиря"
+      ],
+      "category": "spices",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "turmeric",
+      "name": "куркума",
+      "synonyms": [
+        "куркума"
+      ],
+      "category": "spices",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "coriander",
+      "name": "кориандр",
+      "synonyms": [
+        "кинза семена"
+      ],
+      "category": "spices",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "cumin",
+      "name": "зира",
+      "synonyms": [
+        "кумин"
+      ],
+      "category": "spices",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "mustard_seeds",
+      "name": "горчица семена",
+      "synonyms": [
+        "семена горчицы"
+      ],
+      "category": "spices",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "cardamom",
+      "name": "кардамон",
+      "synonyms": [
+        "кардамон"
+      ],
+      "category": "spices",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "vanilla",
+      "name": "ваниль",
+      "synonyms": [
+        "стручок ванили"
+      ],
+      "category": "spices",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "vanilla_sugar",
+      "name": "ванильный сахар",
+      "synonyms": [
+        "ванилин"
+      ],
+      "category": "spices",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "baking_soda",
+      "name": "сода пищевая",
+      "synonyms": [
+        "сода"
+      ],
+      "category": "spices",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "baking_powder",
+      "name": "разрыхлитель",
+      "synonyms": [
+        "пекарский порошок"
+      ],
+      "category": "spices",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "yeast",
+      "name": "дрожжи",
+      "synonyms": [
+        "дрожжи сухие"
+      ],
+      "category": "spices",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "vinegar",
+      "name": "уксус",
+      "synonyms": [
+        "уксус столовый"
+      ],
+      "category": "spices",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "apple_vinegar",
+      "name": "уксус яблочный",
+      "synonyms": [
+        "яблочный уксус"
+      ],
+      "category": "spices",
+      "parent_id": "vinegar",
+      "is_staple": false
+    },
+    {
+      "id": "soy_sauce",
+      "name": "соевый соус",
+      "synonyms": [
+        "соевый соус"
+      ],
+      "category": "spices",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "ketchup",
+      "name": "кетчуп",
+      "synonyms": [
+        "кетчуп"
+      ],
+      "category": "spices",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "mayonnaise",
+      "name": "майонез",
+      "synonyms": [
+        "майонез"
+      ],
+      "category": "spices",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "mustard",
+      "name": "горчица",
+      "synonyms": [
+        "горчица столовая"
+      ],
+      "category": "spices",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "horseradish",
+      "name": "хрен",
+      "synonyms": [
+        "хрен столовый"
+      ],
+      "category": "spices",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "adjika",
+      "name": "аджика",
+      "synonyms": [
+        "аджика"
+      ],
+      "category": "spices",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "broth_cube",
+      "name": "бульонный кубик",
+      "synonyms": [
+        "кубик бульона"
+      ],
+      "category": "spices",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "curry_powder",
+      "name": "карри",
+      "synonyms": [
+        "порошок карри"
+      ],
+      "category": "spices",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "sesame_oil",
+      "name": "масло кунжутное",
+      "synonyms": [
+        "кунжутное масло"
+      ],
+      "category": "spices",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "nuts",
+      "name": "орехи",
+      "synonyms": [
+        "орешки"
+      ],
+      "category": "nuts",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "walnut",
+      "name": "грецкие орехи",
+      "synonyms": [
+        "грецкий орех"
+      ],
+      "category": "nuts",
+      "parent_id": "nuts",
+      "is_staple": false
+    },
+    {
+      "id": "almond",
+      "name": "миндаль",
+      "synonyms": [
+        "миндальный орех"
+      ],
+      "category": "nuts",
+      "parent_id": "nuts",
+      "is_staple": false
+    },
+    {
+      "id": "hazelnut",
+      "name": "фундук",
+      "synonyms": [
+        "лесной орех"
+      ],
+      "category": "nuts",
+      "parent_id": "nuts",
+      "is_staple": false
+    },
+    {
+      "id": "cashew",
+      "name": "кешью",
+      "synonyms": [
+        "орех кешью"
+      ],
+      "category": "nuts",
+      "parent_id": "nuts",
+      "is_staple": false
+    },
+    {
+      "id": "pistachio",
+      "name": "фисташки",
+      "synonyms": [
+        "фисташка"
+      ],
+      "category": "nuts",
+      "parent_id": "nuts",
+      "is_staple": false
+    },
+    {
+      "id": "peanut",
+      "name": "арахис",
+      "synonyms": [
+        "земляной орех"
+      ],
+      "category": "nuts",
+      "parent_id": "nuts",
+      "is_staple": false
+    },
+    {
+      "id": "pine_nuts",
+      "name": "кедровые орехи",
+      "synonyms": [
+        "кедровый орех"
+      ],
+      "category": "nuts",
+      "parent_id": "nuts",
+      "is_staple": false
+    },
+    {
+      "id": "sunflower_seeds",
+      "name": "семечки подсолнечника",
+      "synonyms": [
+        "семечки"
+      ],
+      "category": "nuts",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "pumpkin_seeds",
+      "name": "семечки тыквенные",
+      "synonyms": [
+        "тыквенные семечки"
+      ],
+      "category": "nuts",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "sesame",
+      "name": "кунжут",
+      "synonyms": [
+        "семена кунжута"
+      ],
+      "category": "nuts",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "poppy_seeds",
+      "name": "мак",
+      "synonyms": [
+        "семена мака"
+      ],
+      "category": "nuts",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "coconut_flakes",
+      "name": "стружка кокосовая",
+      "synonyms": [
+        "кокосовая стружка"
+      ],
+      "category": "nuts",
+      "parent_id": "coconut",
+      "is_staple": false
+    },
+    {
+      "id": "honey",
+      "name": "мёд",
+      "synonyms": [
+        "мед"
+      ],
+      "category": "sweets",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "chocolate",
+      "name": "шоколад",
+      "synonyms": [
+        "шоколадка"
+      ],
+      "category": "sweets",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "cocoa",
+      "name": "какао",
+      "synonyms": [
+        "какао-порошок"
+      ],
+      "category": "sweets",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "caramel",
+      "name": "карамель",
+      "synonyms": [
+        "карамель"
+      ],
+      "category": "sweets",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "halva",
+      "name": "халва",
+      "synonyms": [
+        "халва"
+      ],
+      "category": "sweets",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "marshmallow",
+      "name": "зефир",
+      "synonyms": [
+        "зефир"
+      ],
+      "category": "sweets",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "cookies",
+      "name": "печенье",
+      "synonyms": [
+        "печеньице"
+      ],
+      "category": "sweets",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "gingerbread",
+      "name": "пряники",
+      "synonyms": [
+        "пряник"
+      ],
+      "category": "sweets",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "syrup",
+      "name": "сироп",
+      "synonyms": [
+        "сироп сахарный"
+      ],
+      "category": "sweets",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "parsley",
+      "name": "петрушка",
+      "synonyms": [
+        "петрушка зелень"
+      ],
+      "category": "greens",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "dill",
+      "name": "укроп",
+      "synonyms": [
+        "укропчик"
+      ],
+      "category": "greens",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "cilantro",
+      "name": "кинза",
+      "synonyms": [
+        "кориандр зелень"
+      ],
+      "category": "greens",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "basil",
+      "name": "базилик",
+      "synonyms": [
+        "базилик свежий"
+      ],
+      "category": "greens",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "green_onion",
+      "name": "лук зелёный",
+      "synonyms": [
+        "перо лука",
+        "зелёный лук"
+      ],
+      "category": "greens",
+      "parent_id": "onion",
+      "is_staple": false
+    },
+    {
+      "id": "mint",
+      "name": "мята",
+      "synonyms": [
+        "мята свежая"
+      ],
+      "category": "greens",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "oregano",
+      "name": "орегано",
+      "synonyms": [
+        "душица"
+      ],
+      "category": "greens",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "thyme",
+      "name": "чабрец",
+      "synonyms": [
+        "тимьян"
+      ],
+      "category": "greens",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "rosemary",
+      "name": "розмарин",
+      "synonyms": [
+        "розмарин"
+      ],
+      "category": "greens",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "tarragon",
+      "name": "тархун",
+      "synonyms": [
+        "эстрагон"
+      ],
+      "category": "greens",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "nettle",
+      "name": "крапива",
+      "synonyms": [
+        "крапива"
+      ],
+      "category": "greens",
+      "parent_id": null,
+      "is_staple": false
+    },
+    {
+      "id": "microgreens",
+      "name": "микрозелень",
+      "synonyms": [
+        "ростки"
+      ],
+      "category": "greens",
+      "parent_id": null,
+      "is_staple": false
     }
   ]
 }
