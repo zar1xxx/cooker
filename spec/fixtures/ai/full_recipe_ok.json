@@ -1,0 +1,70 @@
+{
+  "title": "Картофельные драники",
+  "dish_type": "main",
+  "difficulty": "medium",
+  "cuisine": "белорусская",
+  "total_minutes": 40,
+  "active_minutes": 30,
+  "servings": 3,
+  "description": "Хрустящие драники из тёртого картофеля.",
+  "ingredients": [
+    {
+      "name": "картофель",
+      "amount": 600,
+      "unit": "g",
+      "is_optional": false
+    },
+    {
+      "name": "лук",
+      "amount": 1,
+      "unit": "pcs",
+      "is_optional": false
+    },
+    {
+      "name": "яйца",
+      "amount": 1,
+      "unit": "pcs",
+      "is_optional": false
+    },
+    {
+      "name": "мука",
+      "amount": 2,
+      "unit": "tbsp",
+      "is_optional": false
+    },
+    {
+      "name": "соль",
+      "amount": null,
+      "unit": "to_taste",
+      "is_optional": false
+    },
+    {
+      "name": "масло подсолнечное",
+      "amount": 4,
+      "unit": "tbsp",
+      "is_optional": false
+    },
+    {
+      "name": "сметана",
+      "amount": 100,
+      "unit": "g",
+      "is_optional": true,
+      "note": "для подачи"
+    }
+  ],
+  "steps": [
+    {
+      "text": "Натрите картофель и лук на мелкой тёрке, отожмите сок.",
+      "timer_seconds": null
+    },
+    {
+      "text": "Добавьте яйцо, муку и соль, перемешайте.",
+      "timer_seconds": null
+    },
+    {
+      "text": "Выкладывайте ложкой на разогретое масло и жарьте с двух сторон до румяности.",
+      "timer_seconds": 360,
+      "tip": "Жарьте на среднем огне, чтобы драники пропеклись внутри."
+    }
+  ]
+}

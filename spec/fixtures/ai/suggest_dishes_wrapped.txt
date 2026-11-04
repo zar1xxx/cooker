@@ -1,0 +1,5 @@
+Вот подходящие блюда:
+```json
+{"dishes": [{"title": "Гречка по-купечески", "dish_type": "main", "difficulty": "easy", "total_minutes": 40, "main_ingredients": ["гречка", "фарш"], "missing": [], "why": "Сытно и просто"}]}
+```
+Приятного аппетита!

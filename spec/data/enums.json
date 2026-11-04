@@ -1,0 +1,60 @@
+{
+  "DishType": {
+    "soup": "Суп",
+    "main": "Второе",
+    "side": "Гарнир",
+    "salad": "Салат",
+    "breakfast": "Завтрак",
+    "snack": "Закуска",
+    "baking": "Выпечка",
+    "dessert": "Десерт",
+    "drink": "Напиток",
+    "preserve": "Заготовки"
+  },
+  "Difficulty": {
+    "easy": "Легко",
+    "medium": "Средне",
+    "hard": "Сложно"
+  },
+  "Unit": {
+    "g": "г",
+    "kg": "кг",
+    "ml": "мл",
+    "l": "л",
+    "pcs": "шт",
+    "tbsp": "ст. л.",
+    "tsp": "ч. л.",
+    "cup": "стакан",
+    "pinch": "щепотка",
+    "to_taste": "по вкусу"
+  },
+  "MealPlanStatus": {
+    "planned": "Запланировано",
+    "cooked": "Приготовлено",
+    "skipped": "Пропущено"
+  },
+  "FeedbackKind": [
+    "liked",
+    "disliked",
+    "skipped",
+    "cooked",
+    "opened",
+    "rejected_suggestion"
+  ],
+  "RecipeSource": [
+    "seed",
+    "ai",
+    "user"
+  ],
+  "DifficultyRules": {
+    "easy": {
+      "max_steps": 5,
+      "max_active_minutes": 30
+    },
+    "medium": {
+      "max_steps": 10,
+      "max_active_minutes": 60
+    },
+    "hard": "всё остальное, а также тесто или несколько одновременных процессов"
+  }
+}

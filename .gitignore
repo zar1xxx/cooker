@@ -1,0 +1,23 @@
+# Flutter / Dart
+.dart_tool/
+.packages
+build/
+.flutter-plugins
+.flutter-plugins-dependencies
+*.iml
+.idea/
+.vscode/
+
+# Android
+android/.gradle/
+android/local.properties
+android/key.properties
+android/app/*.jks
+*.keystore
+
+# Secrets
+.env
+*.secret
+
+# Reports output
+docs/reports/last_check.txt

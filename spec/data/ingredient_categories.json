@@ -1,0 +1,77 @@
+[
+  {
+    "id": "vegetables",
+    "name": "Овощи",
+    "icon": "carrot"
+  },
+  {
+    "id": "fruits",
+    "name": "Фрукты и ягоды",
+    "icon": "apple"
+  },
+  {
+    "id": "meat",
+    "name": "Мясо",
+    "icon": "meat"
+  },
+  {
+    "id": "poultry",
+    "name": "Птица",
+    "icon": "chicken"
+  },
+  {
+    "id": "fish",
+    "name": "Рыба и морепродукты",
+    "icon": "fish"
+  },
+  {
+    "id": "dairy",
+    "name": "Молочное и яйца",
+    "icon": "milk"
+  },
+  {
+    "id": "grains",
+    "name": "Крупы и макароны",
+    "icon": "grain"
+  },
+  {
+    "id": "bakery",
+    "name": "Мука и хлеб",
+    "icon": "bread"
+  },
+  {
+    "id": "legumes",
+    "name": "Бобовые",
+    "icon": "bean"
+  },
+  {
+    "id": "mushrooms",
+    "name": "Грибы",
+    "icon": "mushroom"
+  },
+  {
+    "id": "canned",
+    "name": "Консервы",
+    "icon": "can"
+  },
+  {
+    "id": "spices",
+    "name": "Специи и соусы",
+    "icon": "spice"
+  },
+  {
+    "id": "nuts",
+    "name": "Орехи и семечки",
+    "icon": "nut"
+  },
+  {
+    "id": "sweets",
+    "name": "Сладкое",
+    "icon": "candy"
+  },
+  {
+    "id": "greens",
+    "name": "Зелень",
+    "icon": "leaf"
+  }
+]

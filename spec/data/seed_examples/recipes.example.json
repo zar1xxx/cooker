@@ -1,0 +1,125 @@
+{
+  "version": 1,
+  "recipes": [
+    {
+      "id": "omelet_classic",
+      "title": "Омлет на молоке",
+      "dish_type": "breakfast",
+      "difficulty": "easy",
+      "cuisine": "домашняя",
+      "total_minutes": 15,
+      "active_minutes": 10,
+      "servings": 2,
+      "description": "Пышный омлет на сковороде за 15 минут.",
+      "ingredients": [
+        {
+          "ingredient_id": "egg",
+          "amount": 4,
+          "unit": "pcs",
+          "is_optional": false
+        },
+        {
+          "ingredient_id": "milk",
+          "amount": 100,
+          "unit": "ml",
+          "is_optional": false
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste",
+          "is_optional": false
+        },
+        {
+          "ingredient_id": "sunflower_oil",
+          "amount": 1,
+          "unit": "tbsp",
+          "is_optional": false
+        }
+      ],
+      "steps": [
+        {
+          "text": "Взбейте яйца с молоком и солью вилкой до однородности.",
+          "timer_seconds": null
+        },
+        {
+          "text": "Разогрейте масло на сковороде на среднем огне.",
+          "timer_seconds": 60
+        },
+        {
+          "text": "Вылейте смесь, накройте крышкой и готовьте на слабом огне до схватывания.",
+          "timer_seconds": 420,
+          "tip": "Не открывайте крышку первые 5 минут — омлет не опадёт."
+        }
+      ]
+    },
+    {
+      "id": "chicken_soup_noodles",
+      "title": "Куриный суп с картошкой",
+      "dish_type": "soup",
+      "difficulty": "easy",
+      "cuisine": "русская",
+      "total_minutes": 60,
+      "active_minutes": 20,
+      "servings": 4,
+      "description": "Простой домашний суп на курином бульоне.",
+      "ingredients": [
+        {
+          "ingredient_id": "chicken",
+          "amount": 500,
+          "unit": "g",
+          "is_optional": false
+        },
+        {
+          "ingredient_id": "potato",
+          "amount": 3,
+          "unit": "pcs",
+          "is_optional": false
+        },
+        {
+          "ingredient_id": "carrot",
+          "amount": 1,
+          "unit": "pcs",
+          "is_optional": false
+        },
+        {
+          "ingredient_id": "onion",
+          "amount": 1,
+          "unit": "pcs",
+          "is_optional": false
+        },
+        {
+          "ingredient_id": "water",
+          "amount": 2,
+          "unit": "l",
+          "is_optional": false
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste",
+          "is_optional": false
+        }
+      ],
+      "steps": [
+        {
+          "text": "Залейте курицу холодной водой, доведите до кипения и снимите пену.",
+          "timer_seconds": 600
+        },
+        {
+          "text": "Варите курицу на слабом огне.",
+          "timer_seconds": 1800,
+          "tip": "Курица готова, когда мясо легко отходит от кости."
+        },
+        {
+          "text": "Нарежьте картофель кубиками, морковь и лук мелко, добавьте в бульон.",
+          "timer_seconds": null
+        },
+        {
+          "text": "Варите до мягкости картофеля, посолите.",
+          "timer_seconds": 1200
+        }
+      ]
+    }
+  ]
+}
