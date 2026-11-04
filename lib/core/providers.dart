@@ -9,9 +9,10 @@ import 'ai/lm_studio_provider.dart';
 import 'ai/pc_discovery.dart';
 import 'ai/recipe_validator.dart';
 import 'db/app_database.dart';
-import 'db/daos/ingredient_dao.dart';
 import 'db/daos/history_dao.dart';
+import 'db/daos/ingredient_dao.dart';
 import 'db/daos/pantry_dao.dart';
+import 'db/daos/plan_dao.dart';
 import 'db/daos/recipe_dao.dart';
 import 'matching/diversity_reorderer.dart';
 import 'matching/recipe_matcher.dart';
@@ -37,6 +38,15 @@ final pantryDaoProvider = Provider<PantryDao>((ref) {
 final recipeDaoProvider = Provider<RecipeDao>((ref) {
   return RecipeDao(ref.watch(databaseProvider));
 });
+
+final planDaoProvider = Provider<PlanDao>((ref) {
+  return PlanDao(ref.watch(databaseProvider));
+});
+
+final calendarPlanEntriesProvider =
+    FutureProvider<List<MealPlanEntryWithRecipe>>((ref) async {
+      return ref.watch(planDaoProvider).allWithRecipes();
+    });
 
 /// Ingredient ids currently marked as available at home.
 final pantryProvider = AsyncNotifierProvider<PantryNotifier, Set<String>>(

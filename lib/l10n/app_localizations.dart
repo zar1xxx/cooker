@@ -1521,6 +1521,120 @@ abstract class AppLocalizations {
   /// In ru, this message translates to:
   /// **'Пожалуйста, вставьте текст резервной копии'**
   String get backupEmptyInputError;
+
+  /// Кнопка составления плана на месяц
+  ///
+  /// In ru, this message translates to:
+  /// **'Составить план на месяц'**
+  String get calendarMakeMonthPlan;
+
+  /// Кнопка замены блюда в календаре
+  ///
+  /// In ru, this message translates to:
+  /// **'Заменить'**
+  String get calendarReplaceDish;
+
+  /// Кнопка закрепления блюда на день
+  ///
+  /// In ru, this message translates to:
+  /// **'Закрепить'**
+  String get calendarLockDish;
+
+  /// Кнопка снятия закрепления блюда
+  ///
+  /// In ru, this message translates to:
+  /// **'Открепить'**
+  String get calendarUnlockDish;
+
+  /// Бейдж закреплённого блюда
+  ///
+  /// In ru, this message translates to:
+  /// **'Закреплено'**
+  String get calendarLockedBadge;
+
+  /// Статус запланированного блюда
+  ///
+  /// In ru, this message translates to:
+  /// **'Запланировано'**
+  String get calendarStatusPlanned;
+
+  /// Статус приготовленного блюда
+  ///
+  /// In ru, this message translates to:
+  /// **'Приготовлено'**
+  String get calendarStatusCooked;
+
+  /// Статус пропущенного блюда
+  ///
+  /// In ru, this message translates to:
+  /// **'Пропущено'**
+  String get calendarStatusSkipped;
+
+  /// Текст в пустой день календаря
+  ///
+  /// In ru, this message translates to:
+  /// **'На этот день ничего не запланировано'**
+  String get calendarEmptyDay;
+
+  /// Кнопка выбора блюда в календарь
+  ///
+  /// In ru, this message translates to:
+  /// **'Выбрать блюдо'**
+  String get calendarChooseDish;
+
+  /// Кнопка перехода к рецепту из календаря
+  ///
+  /// In ru, this message translates to:
+  /// **'Посмотреть рецепт'**
+  String get calendarViewRecipe;
+
+  /// Кнопка начала готовки из календаря
+  ///
+  /// In ru, this message translates to:
+  /// **'Готовить'**
+  String get calendarStartCooking;
+
+  /// Кнопка отметки о приготовлении блюда
+  ///
+  /// In ru, this message translates to:
+  /// **'Отметить приготовленным'**
+  String get calendarMarkCooked;
+
+  /// Отметка о наличии всех ингредиентов
+  ///
+  /// In ru, this message translates to:
+  /// **'Все продукты есть дома'**
+  String get calendarAllIngredientsAvailable;
+
+  /// Список недостающих ингредиентов
+  ///
+  /// In ru, this message translates to:
+  /// **'Не хватает: {items}'**
+  String calendarMissingIngredients(String items);
+
+  /// Кнопка замены на доступное из запасов блюдо
+  ///
+  /// In ru, this message translates to:
+  /// **'Заменить на то, что можно из имеющегося'**
+  String get calendarReplaceWithAvailable;
+
+  /// Префикс даты для сегодняшнего дня
+  ///
+  /// In ru, this message translates to:
+  /// **'Сегодня, {date}'**
+  String calendarTodayPrefix(String date);
+
+  /// Префикс даты для завтрашнего дня
+  ///
+  /// In ru, this message translates to:
+  /// **'Завтра, {date}'**
+  String calendarTomorrowPrefix(String date);
+
+  /// Префикс даты для вчерашнего дня
+  ///
+  /// In ru, this message translates to:
+  /// **'Вчера, {date}'**
+  String calendarYesterdayPrefix(String date);
 }
 
 class _AppLocalizationsDelegate

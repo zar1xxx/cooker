@@ -1089,5 +1089,101 @@
   "backupEmptyInputError": "Пожалуйста, вставьте текст резервной копии",
   "@backupEmptyInputError": {
     "description": "Ошибка при пустом поле ввода копии"
+  },
+  "calendarMakeMonthPlan": "Составить план на месяц",
+  "@calendarMakeMonthPlan": {
+    "description": "Кнопка составления плана на месяц"
+  },
+  "calendarReplaceDish": "Заменить",
+  "@calendarReplaceDish": {
+    "description": "Кнопка замены блюда в календаре"
+  },
+  "calendarLockDish": "Закрепить",
+  "@calendarLockDish": {
+    "description": "Кнопка закрепления блюда на день"
+  },
+  "calendarUnlockDish": "Открепить",
+  "@calendarUnlockDish": {
+    "description": "Кнопка снятия закрепления блюда"
+  },
+  "calendarLockedBadge": "Закреплено",
+  "@calendarLockedBadge": {
+    "description": "Бейдж закреплённого блюда"
+  },
+  "calendarStatusPlanned": "Запланировано",
+  "@calendarStatusPlanned": {
+    "description": "Статус запланированного блюда"
+  },
+  "calendarStatusCooked": "Приготовлено",
+  "@calendarStatusCooked": {
+    "description": "Статус приготовленного блюда"
+  },
+  "calendarStatusSkipped": "Пропущено",
+  "@calendarStatusSkipped": {
+    "description": "Статус пропущенного блюда"
+  },
+  "calendarEmptyDay": "На этот день ничего не запланировано",
+  "@calendarEmptyDay": {
+    "description": "Текст в пустой день календаря"
+  },
+  "calendarChooseDish": "Выбрать блюдо",
+  "@calendarChooseDish": {
+    "description": "Кнопка выбора блюда в календарь"
+  },
+  "calendarViewRecipe": "Посмотреть рецепт",
+  "@calendarViewRecipe": {
+    "description": "Кнопка перехода к рецепту из календаря"
+  },
+  "calendarStartCooking": "Готовить",
+  "@calendarStartCooking": {
+    "description": "Кнопка начала готовки из календаря"
+  },
+  "calendarMarkCooked": "Отметить приготовленным",
+  "@calendarMarkCooked": {
+    "description": "Кнопка отметки о приготовлении блюда"
+  },
+  "calendarAllIngredientsAvailable": "Все продукты есть дома",
+  "@calendarAllIngredientsAvailable": {
+    "description": "Отметка о наличии всех ингредиентов"
+  },
+  "calendarMissingIngredients": "Не хватает: {items}",
+  "@calendarMissingIngredients": {
+    "description": "Список недостающих ингредиентов",
+    "placeholders": {
+      "items": {
+        "type": "String"
+      }
+    }
+  },
+  "calendarReplaceWithAvailable": "Заменить на то, что можно из имеющегося",
+  "@calendarReplaceWithAvailable": {
+    "description": "Кнопка замены на доступное из запасов блюдо"
+  },
+  "calendarTodayPrefix": "Сегодня, {date}",
+  "@calendarTodayPrefix": {
+    "description": "Префикс даты для сегодняшнего дня",
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "calendarTomorrowPrefix": "Завтра, {date}",
+  "@calendarTomorrowPrefix": {
+    "description": "Префикс даты для завтрашнего дня",
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "calendarYesterdayPrefix": "Вчера, {date}",
+  "@calendarYesterdayPrefix": {
+    "description": "Префикс даты для вчерашнего дня",
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
   }
 }

@@ -793,4 +793,70 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get backupEmptyInputError =>
       'Пожалуйста, вставьте текст резервной копии';
+
+  @override
+  String get calendarMakeMonthPlan => 'Составить план на месяц';
+
+  @override
+  String get calendarReplaceDish => 'Заменить';
+
+  @override
+  String get calendarLockDish => 'Закрепить';
+
+  @override
+  String get calendarUnlockDish => 'Открепить';
+
+  @override
+  String get calendarLockedBadge => 'Закреплено';
+
+  @override
+  String get calendarStatusPlanned => 'Запланировано';
+
+  @override
+  String get calendarStatusCooked => 'Приготовлено';
+
+  @override
+  String get calendarStatusSkipped => 'Пропущено';
+
+  @override
+  String get calendarEmptyDay => 'На этот день ничего не запланировано';
+
+  @override
+  String get calendarChooseDish => 'Выбрать блюдо';
+
+  @override
+  String get calendarViewRecipe => 'Посмотреть рецепт';
+
+  @override
+  String get calendarStartCooking => 'Готовить';
+
+  @override
+  String get calendarMarkCooked => 'Отметить приготовленным';
+
+  @override
+  String get calendarAllIngredientsAvailable => 'Все продукты есть дома';
+
+  @override
+  String calendarMissingIngredients(String items) {
+    return 'Не хватает: $items';
+  }
+
+  @override
+  String get calendarReplaceWithAvailable =>
+      'Заменить на то, что можно из имеющегося';
+
+  @override
+  String calendarTodayPrefix(String date) {
+    return 'Сегодня, $date';
+  }
+
+  @override
+  String calendarTomorrowPrefix(String date) {
+    return 'Завтра, $date';
+  }
+
+  @override
+  String calendarYesterdayPrefix(String date) {
+    return 'Вчера, $date';
+  }
 }
