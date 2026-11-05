@@ -96,6 +96,7 @@ class MealPlanner {
 
     final allRecipes = await recipeDao.allWithIngredients();
     if (allRecipes.isEmpty) return const [];
+    final recipeById = {for (final r in allRecipes) r.recipe.id: r};
 
     final profile = await preferenceService.getProfile();
     final compressedProfile = await preferenceService.getCompressedProfile();
@@ -170,6 +171,24 @@ class MealPlanner {
     final existingByDate = {
       for (final item in existingPlanEntries) item.entry.date: item,
     };
+    final preLockedDays = <ScheduledDay>[];
+    for (final item in existingPlanEntries) {
+      if (item.entry.locked) {
+        final r =
+            recipeById[item.entry.recipeId] ??
+            candidateRecipes.firstWhere(
+              (cr) => cr.recipe.id == item.entry.recipeId,
+              orElse: () => candidateRecipes.first,
+            );
+        preLockedDays.add(
+          ScheduledDay(
+            date: DateTime.parse(item.entry.date),
+            recipe: r,
+            locked: true,
+          ),
+        );
+      }
+    }
 
     // Helper for main ingredient resolution to root ancestor
     String rootAncestor(String id) {
@@ -197,7 +216,6 @@ class MealPlanner {
     );
 
     // Build the daily schedule
-    final recipeById = {for (final r in allRecipes) r.recipe.id: r};
     final schedule = <ScheduledDay>[];
 
     // Split [start..end] into calendar week slices (ending on Sunday, max 7 days each)
@@ -343,6 +361,7 @@ class MealPlanner {
               lastCookedDates: lastCookedDates,
               soupDisliked: soupDisliked,
               rootAncestorLookup: rootAncestor,
+              lockedDays: preLockedDays,
             );
 
             if (isAiValid) {
@@ -366,6 +385,7 @@ class MealPlanner {
             lastCookedDates: lastCookedDates,
             soupDisliked: soupDisliked,
             rootAncestorLookup: rootAncestor,
+            lockedDays: preLockedDays,
           );
           schedule.add(
             ScheduledDay(date: dayDate, recipe: localChoice, locked: false),
@@ -379,24 +399,37 @@ class MealPlanner {
       schedule,
       profile: profile,
       hierarchy: hierarchy,
+      ratings: ratings,
     );
     if (!validation.isValid) {
       for (final violation in validation.violations) {
-        final idx = schedule.indexWhere(
+        var idx = schedule.indexWhere(
           (s) => PlanDao.formatDate(s.date) == violation.date,
         );
+        if (idx != -1 && schedule[idx].locked && violation.recipeId != null) {
+          final conflictIdx = schedule.indexWhere(
+            (s) => !s.locked && s.recipe.recipe.id == violation.recipeId,
+          );
+          if (conflictIdx != -1) {
+            idx = conflictIdx;
+          }
+        }
         if (idx != -1 && !schedule[idx].locked) {
           final dayDate = schedule[idx].date;
-          final subSchedule = schedule.sublist(0, idx);
+          final otherSchedule = [
+            for (var i = 0; i < schedule.length; i++)
+              if (i != idx) schedule[i],
+          ];
           final fixedRecipe = _pickBestRecipeForDay(
             date: dayDate,
-            schedule: subSchedule,
+            schedule: otherSchedule,
             candidates: candidateRecipes,
             scorer: scorer,
             ratings: ratings,
             lastCookedDates: lastCookedDates,
             soupDisliked: soupDisliked,
             rootAncestorLookup: rootAncestor,
+            lockedDays: preLockedDays,
           );
           schedule[idx] = ScheduledDay(
             date: dayDate,
@@ -538,10 +571,11 @@ class MealPlanner {
     required Map<String, DateTime> lastCookedDates,
     required bool soupDisliked,
     required String Function(String) rootAncestorLookup,
+    List<ScheduledDay> lockedDays = const [],
   }) {
     final candidateId = candidate.recipe.id;
     final rating = ratings[candidateId] ?? 0;
-    final minGap = rating >= 5 ? 10 : 14;
+    final minGap = (rating >= 5 || candidate.recipe.isFavorite) ? 10 : 14;
 
     // Rule 1: Check against cooked history
     final lastCooked = lastCookedDates[candidateId];
@@ -554,6 +588,14 @@ class MealPlanner {
     for (final prev in schedule) {
       if (prev.recipe.recipe.id == candidateId) {
         final daysDiff = date.difference(prev.date).inDays.abs();
+        if (daysDiff < minGap) return false;
+      }
+    }
+
+    // Rule 1: Check against future/other locked days
+    for (final locked in lockedDays) {
+      if (locked.date != date && locked.recipe.recipe.id == candidateId) {
+        final daysDiff = date.difference(locked.date).inDays.abs();
         if (daysDiff < minGap) return false;
       }
     }
@@ -594,6 +636,12 @@ class MealPlanner {
         final prev = schedule.last;
         if (date.difference(prev.date).inDays == 1 &&
             prev.recipe.recipe.difficulty == Difficulty.hard) {
+          return false;
+        }
+      }
+      for (final locked in lockedDays) {
+        if (locked.date.difference(date).inDays.abs() == 1 &&
+            locked.recipe.recipe.difficulty == Difficulty.hard) {
           return false;
         }
       }
@@ -647,6 +695,7 @@ class MealPlanner {
     required Map<String, DateTime> lastCookedDates,
     required bool soupDisliked,
     required String Function(String) rootAncestorLookup,
+    List<ScheduledDay> lockedDays = const [],
   }) {
     // Determine context from previous days
     final prevDay1 = schedule.isNotEmpty ? schedule.last : null;
@@ -701,10 +750,16 @@ class MealPlanner {
       final r = c.recipe;
 
       // Rule 1: No repeat within 14 days (10 days if rated 5)
-      final minGap = (ratings[r.id] == 5) ? 10 : 14;
+      final minGap = (ratings[r.id] == 5 || r.isFavorite) ? 10 : 14;
       for (final past in schedule) {
         if (past.recipe.recipe.id == r.id) {
           final diff = date.difference(past.date).inDays.abs();
+          if (diff < minGap) return false;
+        }
+      }
+      for (final locked in lockedDays) {
+        if (locked.date != date && locked.recipe.recipe.id == r.id) {
+          final diff = date.difference(locked.date).inDays.abs();
           if (diff < minGap) return false;
         }
       }
@@ -724,8 +779,14 @@ class MealPlanner {
       }
 
       // Rule 4: Hard dishes at most 2 per week and never consecutive
-      if (cannotBeHard && r.difficulty == Difficulty.hard) {
-        return false;
+      if (r.difficulty == Difficulty.hard) {
+        if (cannotBeHard) return false;
+        for (final locked in lockedDays) {
+          if (locked.date.difference(date).inDays.abs() == 1 &&
+              locked.recipe.recipe.difficulty == Difficulty.hard) {
+            return false;
+          }
+        }
       }
 
       // Rule 3: Soup quota enforcement
@@ -773,6 +834,7 @@ class MealPlanner {
     List<ScheduledDay> schedule, {
     TasteProfile? profile,
     Map<String, List<String>>? hierarchy,
+    Map<String, int>? ratings,
   }) {
     final violations = <PlanViolation>[];
     final soupDisliked = (profile?.dishTypeWeights['soup'] ?? 0.0) < -0.3;
@@ -789,7 +851,11 @@ class MealPlanner {
     // Rule 1: No repeat within 14 days (10 days if rated 5)
     for (var i = 0; i < sorted.length; i++) {
       final current = sorted[i];
-      final minGap = 14; // Base gap for validation
+      final rId = current.recipe.recipe.id;
+      final isFiveStar =
+          (ratings != null && (ratings[rId] ?? 0) >= 5) ||
+          current.recipe.recipe.isFavorite;
+      final minGap = isFiveStar ? 10 : 14;
 
       for (var j = i + 1; j < sorted.length; j++) {
         final other = sorted[j];
@@ -801,7 +867,7 @@ class MealPlanner {
                 ruleNumber: 1,
                 date: PlanDao.formatDate(other.date),
                 message:
-                    'Блюдо "${current.recipe.recipe.title}" повторяется через $diff дней (минимум 14 дней)',
+                    'Блюдо "${current.recipe.recipe.title}" повторяется через $diff дней (минимум $minGap дней)',
                 recipeId: current.recipe.recipe.id,
               ),
             );
