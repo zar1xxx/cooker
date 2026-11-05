@@ -85,6 +85,7 @@ class CalendarScreen extends ConsumerStatefulWidget {
 class _CalendarScreenState extends ConsumerState<CalendarScreen> {
   late DateTime _focusedDay;
   late DateTime _selectedDay;
+  bool _isGenerating = false;
 
   @override
   void initState() {
@@ -274,8 +275,19 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: FilledButton.icon(
                     key: const Key('calendar_make_month_plan_button'),
-                    onPressed: () => _handleMakeMonthPlan(context),
-                    icon: const Icon(Icons.auto_awesome, size: 28),
+                    onPressed: _isGenerating
+                        ? null
+                        : () => _handleMakeMonthPlan(context),
+                    icon: _isGenerating
+                        ? const SizedBox(
+                            width: 24,
+                            height: 24,
+                            child: CircularProgressIndicator(
+                              strokeWidth: 2,
+                              color: Colors.white,
+                            ),
+                          )
+                        : const Icon(Icons.auto_awesome, size: 28),
                     label: Text(
                       l10n.calendarMakeMonthPlan,
                       style: theme.textTheme.titleMedium?.copyWith(
@@ -329,20 +341,27 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
   }
 
   Future<void> _handleMakeMonthPlan(BuildContext context) async {
-    final planner = ref.read(mealPlannerProvider);
-    final planned = await planner.generateMonthPlan(fromDate: _focusedDay);
-    ref.invalidate(calendarPlanEntriesProvider);
+    setState(() => _isGenerating = true);
+    try {
+      final planner = ref.read(mealPlannerProvider);
+      final planned = await planner.generateMonthPlan(fromDate: _focusedDay);
+      ref.invalidate(calendarPlanEntriesProvider);
 
-    if (context.mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            'План составлен: ${planned.length} дней',
-            style: const TextStyle(fontSize: 16),
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              'План составлен: ${planned.length} дней',
+              style: const TextStyle(fontSize: 16),
+            ),
+            duration: const Duration(seconds: 2),
           ),
-          duration: const Duration(seconds: 2),
-        ),
-      );
+        );
+      }
+    } finally {
+      if (mounted) {
+        setState(() => _isGenerating = false);
+      }
     }
   }
 

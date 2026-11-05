@@ -700,4 +700,99 @@ void main() {
       expect(result, isA<Valid>());
     });
   });
+
+  group('Month plan validation (TZ 8.1 & month_plan.schema.json)', () {
+    test('month_plan_week_ok.json fixture is Valid', () {
+      final raw = File('test/fixtures/ai/month_plan_week_ok.json')
+          .readAsStringSync();
+      final result = _validator().validateRawMonthPlanJson(
+        raw,
+        resolveIngredientId: _fakeResolver,
+      );
+      expect(result, isA<Valid>());
+    });
+
+    test('plan with more than 7 days returns Retryable on attempt 1 and Rejected on attempt 2', () {
+      final days = List.generate(
+        8,
+        (i) => {
+          'date': '2026-12-0${i + 1}',
+          'title': 'Блюдо $i',
+          'dish_type': 'main',
+          'difficulty': 'easy',
+          'main_ingredients': ['картофель'],
+        },
+      );
+      final json = {'days': days};
+      final res1 = _validator().validateMonthPlan(json, attempt: 1);
+      expect(res1, isA<Retryable>());
+      final res2 = _validator().validateMonthPlan(json, attempt: 2);
+      expect(res2, isA<Rejected>());
+    });
+
+    test('invalid date format returns Retryable on attempt 1', () {
+      final json = {
+        'days': [
+          {
+            'date': '01-12-2026', // Bad format
+            'title': 'Суп',
+            'dish_type': 'soup',
+            'difficulty': 'easy',
+            'main_ingredients': ['картофель'],
+          },
+        ],
+      };
+      final res = _validator().validateMonthPlan(json, attempt: 1);
+      expect(res, isA<Retryable>());
+    });
+
+    test('stop-list item in plan is Rejected immediately', () {
+      final json = {
+        'days': [
+          {
+            'date': '2026-12-01',
+            'title': 'Опасный суп',
+            'dish_type': 'soup',
+            'difficulty': 'easy',
+            'main_ingredients': ['бледная поганка'],
+          },
+        ],
+      };
+      final res = _validator().validateMonthPlan(json, attempt: 1);
+      expect(res, isA<Rejected>());
+      expect((res as Rejected).reason, contains('Содержит опасные вещества'));
+    });
+
+    test('allergen item in plan is Rejected immediately', () {
+      final json = {
+        'days': [
+          {
+            'date': '2026-12-01',
+            'title': 'Ореховый пирог',
+            'dish_type': 'baking',
+            'difficulty': 'medium',
+            'main_ingredients': ['грецкие орехи'],
+          },
+        ],
+      };
+      final res = _validator().validateMonthPlan(
+        json,
+        profile: {
+          'allergies': ['walnut'],
+        },
+        resolveIngredientId: _fakeResolver,
+        attempt: 1,
+      );
+      expect(res, isA<Rejected>());
+      expect((res as Rejected).reason, contains('исключённый продукт'));
+    });
+
+    test('broken json in validateRawMonthPlanJson is Retryable on attempt 1, Rejected on attempt 2', () {
+      const broken = '{"days": [{"date": "2026-12-01", "title": ...';
+      final res1 = _validator().validateRawMonthPlanJson(broken, attempt: 1);
+      expect(res1, isA<Retryable>());
+      final res2 = _validator().validateRawMonthPlanJson(broken, attempt: 2);
+      expect(res2, isA<Rejected>());
+    });
+  });
 }

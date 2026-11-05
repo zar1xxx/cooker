@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/services.dart' show rootBundle;
 
@@ -70,9 +71,21 @@ class RecipeValidator {
   const RecipeValidator({required this.safetyMinimums});
 
   static Future<RecipeValidator> fromAsset({String? jsonString}) async {
-    final content =
-        jsonString ??
-        await rootBundle.loadString('assets/ai/safety_minimums.json');
+    String content;
+    if (jsonString != null) {
+      content = jsonString;
+    } else {
+      try {
+        content = await rootBundle.loadString('assets/ai/safety_minimums.json');
+      } catch (_) {
+        final f = File('assets/ai/safety_minimums.json');
+        if (f.existsSync()) {
+          content = f.readAsStringSync();
+        } else {
+          content = File('spec/ai/safety_minimums.json').readAsStringSync();
+        }
+      }
+    }
     final decoded = jsonDecode(content) as Map<String, dynamic>;
     return RecipeValidator(safetyMinimums: decoded);
   }
@@ -696,6 +709,159 @@ class RecipeValidator {
             : const Retryable('Ответ ИИ должен содержать JSON-объект.');
       }
       return validateDishes(
+        decoded,
+        profile: profile,
+        ingredientHierarchy: ingredientHierarchy,
+        resolveIngredientId: resolveIngredientId,
+        forbiddenTerms: forbiddenTerms,
+        attempt: attempt,
+      );
+    } catch (e) {
+      return attempt >= 2
+          ? Rejected('Некорректный JSON в ответе ИИ: $e')
+          : Retryable('Некорректный JSON в ответе ИИ: $e');
+    }
+  }
+
+  /// Validates the `month_plan` response (`spec/ai/schemas/month_plan.schema.json`).
+  ValidationResult validateMonthPlan(
+    Map<String, dynamic> data, {
+    Map<String, dynamic>? profile,
+    Map<String, List<String>>? ingredientHierarchy,
+    String? Function(String name)? resolveIngredientId,
+    Map<String, List<String>>? forbiddenTerms,
+    int attempt = 1,
+  }) {
+    ValidationResult fail(String reason) =>
+        attempt >= 2 ? Rejected(reason) : Retryable(reason);
+
+    final days = data['days'];
+    if (days is! List || days.isEmpty || days.length > 7) {
+      return fail('План должен содержать от 1 до 7 дней.');
+    }
+
+    final stopList =
+        (safetyMinimums['stop_list'] as List?)?.cast<String>() ?? const [];
+
+    final allergies =
+        (profile?['allergies'] as List?)?.cast<String>() ?? const [];
+    final exclusions =
+        (profile?['excluded_ingredients'] as List?)?.cast<String>() ?? const [];
+    final forbidden = {...allergies, ...exclusions};
+
+    for (int i = 0; i < days.length; i++) {
+      final day = days[i];
+      if (day is! Map<String, dynamic>) {
+        return fail('Элемент $i в плане должен быть объектом.');
+      }
+
+      final date = day['date']?.toString();
+      if (date == null || !RegExp(r'^\d{4}-\d{2}-\d{2}$').hasMatch(date)) {
+        return fail('День ${i + 1}: дата должна быть в формате YYYY-MM-DD.');
+      }
+
+      final title = day['title'];
+      if (title is! String ||
+          title.trim().length < 2 ||
+          title.trim().length > 80) {
+        return fail('День ${i + 1}: название должно быть от 2 до 80 символов.');
+      }
+
+      final dishType = day['dish_type']?.toString();
+      if (dishType == null || !allowedDishTypes.contains(dishType)) {
+        return fail(
+          'День ${i + 1}: недопустимый тип $dishType. Допустимые: ${allowedDishTypes.join(', ')}.',
+        );
+      }
+
+      final difficulty = day['difficulty']?.toString();
+      if (difficulty == null || !allowedDifficulties.contains(difficulty)) {
+        return fail(
+          'День ${i + 1}: недопустимая сложность $difficulty. Допустимые: easy, medium, hard.',
+        );
+      }
+
+      final mainIngredients = day['main_ingredients'];
+      if (mainIngredients is! List ||
+          mainIngredients.isEmpty ||
+          mainIngredients.length > 4) {
+        return fail(
+          'День ${i + 1}: основных ингредиентов должно быть от 1 до 4.',
+        );
+      }
+
+      // Check stop-list & allergens for this day
+      final rawDayText = StringBuffer()..write('$title ');
+      final dayIngredientIds = <String>{};
+
+      for (final ing in mainIngredients) {
+        final ingStr = ing.toString();
+        rawDayText.write('$ingStr ');
+        var id = ingStr;
+        if (resolveIngredientId != null) {
+          id = resolveIngredientId(ingStr) ?? ingStr;
+        }
+        dayIngredientIds.add(id);
+      }
+
+      final textLower = rawDayText.toString().toLowerCase();
+
+      // Stop-list check
+      for (final stopItem in stopList) {
+        if (textLower.contains(stopItem.toLowerCase())) {
+          return Rejected('Содержит опасные вещества: $stopItem');
+        }
+      }
+
+      // Allergen & exclusion check
+      for (final bad in forbidden) {
+        final badLower = bad.toLowerCase().trim();
+        if (dayIngredientIds.contains(badLower)) {
+          return Rejected('Блюдо "$title" содержит исключённый продукт: $bad');
+        }
+
+        if (ingredientHierarchy != null) {
+          for (final ingId in dayIngredientIds) {
+            final ancestors = ingredientHierarchy[ingId] ?? const [];
+            if (ancestors.contains(badLower)) {
+              return Rejected('Блюдо "$title" содержит $ingId (потомок $bad)');
+            }
+          }
+        }
+
+        final terms = forbiddenTerms?[badLower] ?? [badLower];
+        for (final term in terms) {
+          final t = term.toLowerCase().trim();
+          if (t.isNotEmpty && textLower.contains(t)) {
+            return Rejected(
+              'Блюдо "$title" упоминает исключённый продукт: $bad ($t)',
+            );
+          }
+        }
+      }
+    }
+
+    return const Valid();
+  }
+
+  /// Parses raw AI text (extracting JSON and stripping code fences), then validates as month plan.
+  ValidationResult validateRawMonthPlanJson(
+    String rawText, {
+    Map<String, dynamic>? profile,
+    Map<String, List<String>>? ingredientHierarchy,
+    String? Function(String name)? resolveIngredientId,
+    Map<String, List<String>>? forbiddenTerms,
+    int attempt = 1,
+  }) {
+    final payload = extractJsonPayload(rawText);
+    try {
+      final decoded = jsonDecode(payload);
+      if (decoded is! Map<String, dynamic>) {
+        return attempt >= 2
+            ? const Rejected('Ответ ИИ должен содержать JSON-объект.')
+            : const Retryable('Ответ ИИ должен содержать JSON-объект.');
+      }
+      return validateMonthPlan(
         decoded,
         profile: profile,
         ingredientHierarchy: ingredientHierarchy,

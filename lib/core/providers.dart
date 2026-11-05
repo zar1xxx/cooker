@@ -50,12 +50,15 @@ final calendarPlanEntriesProvider =
     });
 
 final mealPlannerProvider = Provider<MealPlanner>((ref) {
+  final aiService = ref.watch(aiServiceProvider).value;
   return MealPlanner(
     recipeDao: ref.watch(recipeDaoProvider),
     planDao: ref.watch(planDaoProvider),
     ingredientDao: ref.watch(ingredientDaoProvider),
     preferenceService: ref.watch(preferenceServiceProvider),
     historyDao: ref.watch(historyDaoProvider),
+    db: ref.watch(databaseProvider),
+    aiService: aiService,
   );
 });
 

@@ -263,6 +263,7 @@ class PromptTemplates {
 class AiSchemas {
   static Map<String, dynamic>? _cachedSuggestDishes;
   static Map<String, dynamic>? _cachedFullRecipe;
+  static Map<String, dynamic>? _cachedMonthPlan;
 
   static Future<Map<String, dynamic>> loadSuggestDishesSchema() async {
     if (_cachedSuggestDishes != null) return _cachedSuggestDishes!;
@@ -280,6 +281,15 @@ class AiSchemas {
     );
     _cachedFullRecipe = jsonDecode(str) as Map<String, dynamic>;
     return _cachedFullRecipe!;
+  }
+
+  static Future<Map<String, dynamic>> loadMonthPlanSchema() async {
+    if (_cachedMonthPlan != null) return _cachedMonthPlan!;
+    final str = await _loadSchemaAsset(
+      'assets/ai/schemas/month_plan.schema.json',
+    );
+    _cachedMonthPlan = jsonDecode(str) as Map<String, dynamic>;
+    return _cachedMonthPlan!;
   }
 
   static Future<String> _loadSchemaAsset(String path) async {

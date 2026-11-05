@@ -58,6 +58,43 @@ class AiDishSuggestion {
       'AiDishSuggestion($title, $dishType, $difficulty, $totalMinutes min)';
 }
 
+/// Structured day in a meal plan returned by `month_plan` query.
+class AiPlanDay {
+  final String date;
+  final String title;
+  final String dishType;
+  final String difficulty;
+  final List<String> mainIngredients;
+  final Map<String, dynamic> raw;
+
+  const AiPlanDay({
+    required this.date,
+    required this.title,
+    required this.dishType,
+    required this.difficulty,
+    required this.mainIngredients,
+    required this.raw,
+  });
+
+  factory AiPlanDay.fromJson(Map<String, dynamic> json) {
+    return AiPlanDay(
+      date: json['date'] as String? ?? '',
+      title: json['title'] as String? ?? '',
+      dishType: json['dish_type'] as String? ?? 'main',
+      difficulty: json['difficulty'] as String? ?? 'easy',
+      mainIngredients: ((json['main_ingredients'] as List?) ?? const [])
+          .map((e) => e.toString())
+          .toList(),
+      raw: json,
+    );
+  }
+
+  Map<String, dynamic> toJson() => raw;
+
+  @override
+  String toString() => 'AiPlanDay($date: $title, $dishType, $difficulty)';
+}
+
 /// Orchestrates AI dish suggestions and full recipe generations with routing,
 /// schema validation, automatic retry on invalid JSON, and request journaling.
 class AiService {
@@ -449,6 +486,287 @@ class AiService {
     } catch (_) {
       return null;
     }
+  }
+
+  /// Requests a plan for a week (up to 7 days) adhering to TZ 8.1 and
+  /// `spec/ai/schemas/month_plan.schema.json`.
+  /// Performs 1 retry if the model returns invalid JSON.
+  /// If offline or on failure, returns null without throwing errors.
+  Future<List<AiPlanDay>?> generatePlanWeek({
+    required String dateFrom,
+    required String dateTo,
+    List<String> lockedDays = const [],
+    List<String> history30d = const [],
+    List<String> forbiddenIngredients = const [],
+    List<String> likes = const [],
+    List<String> dislikes = const [],
+    Map<String, double>? dishTypeShares,
+    bool soupsDisliked = false,
+    Map<String, dynamic>? profile,
+    Map<String, List<String>>? ingredientHierarchy,
+    String? Function(String name)? resolveIngredientId,
+    Map<String, List<String>>? forbiddenTerms,
+  }) async {
+    final activeProvider = await router.getActiveProvider();
+    if (activeProvider == null) {
+      return null;
+    }
+
+    final schema = await AiSchemas.loadMonthPlanSchema();
+    final schemaInPrompt = activeProvider.name == 'gigachat';
+
+    final systemPrompt = promptTemplates.buildSystem(
+      schemaJson: jsonEncode(schema),
+      schemaInPrompt: schemaInPrompt,
+    );
+
+    final userPrompt = promptTemplates.buildMonthPlan(
+      dateFrom: dateFrom,
+      dateTo: dateTo,
+      lockedDays: lockedDays,
+      history30d: history30d,
+      forbiddenIngredients: forbiddenIngredients,
+      likes: likes,
+      dislikes: dislikes,
+      dishTypeShares: dishTypeShares,
+      soupsDisliked: soupsDisliked,
+    );
+
+    final request = AiChatRequest(
+      messages: [
+        AiChatMessage.system(systemPrompt),
+        AiChatMessage.user(userPrompt),
+      ],
+      jsonSchema: schema,
+      schemaName: 'month_plan',
+      timeout: const Duration(seconds: 90),
+    );
+
+    AiCompletionResponse? response;
+    try {
+      response = await router.executeChatWithFallback(request);
+    } catch (e) {
+      await _logRequest(
+        kind: 'month_plan',
+        prompt: userPrompt,
+        responseJson: '',
+        model: activeProvider.name,
+        status: 'error',
+      );
+      return null;
+    }
+
+    if (response == null) {
+      await _logRequest(
+        kind: 'month_plan',
+        prompt: userPrompt,
+        responseJson: '',
+        model: activeProvider.name,
+        status: 'error',
+      );
+      return null;
+    }
+
+    var validation = validator.validateRawMonthPlanJson(
+      response.rawContent,
+      profile: profile,
+      ingredientHierarchy: ingredientHierarchy,
+      resolveIngredientId: resolveIngredientId,
+      forbiddenTerms: forbiddenTerms,
+      attempt: 1,
+    );
+
+    if (validation is Retryable) {
+      final retryRequest = AiChatRequest(
+        messages: [
+          AiChatMessage.system(systemPrompt),
+          AiChatMessage.user(userPrompt),
+          AiChatMessage.assistant(response.rawContent),
+          AiChatMessage.user(
+            'План отклонён: ${validation.reasonForModel}. Пожалуйста, исправь ошибки и верни строго валидный JSON по схеме month_plan.',
+          ),
+        ],
+        jsonSchema: schema,
+        schemaName: 'month_plan',
+        timeout: const Duration(seconds: 90),
+      );
+
+      try {
+        final retryResponse = await router.executeChatWithFallback(
+          retryRequest,
+        );
+        if (retryResponse == null) {
+          await _logRequest(
+            kind: 'month_plan',
+            prompt: userPrompt,
+            responseJson: '',
+            model: activeProvider.name,
+            status: 'error',
+          );
+          return null;
+        }
+        response = retryResponse;
+        validation = validator.validateRawMonthPlanJson(
+          response.rawContent,
+          profile: profile,
+          ingredientHierarchy: ingredientHierarchy,
+          resolveIngredientId: resolveIngredientId,
+          forbiddenTerms: forbiddenTerms,
+          attempt: 2,
+        );
+      } catch (e) {
+        await _logRequest(
+          kind: 'month_plan',
+          prompt: userPrompt,
+          responseJson: '',
+          model: response?.model ?? activeProvider.name,
+          tokensIn: response?.promptTokens,
+          tokensOut: response?.completionTokens,
+          status: 'error',
+        );
+        return null;
+      }
+    }
+
+    if (validation is! Valid) {
+      await _logRequest(
+        kind: 'month_plan',
+        prompt: userPrompt,
+        responseJson: response.rawContent,
+        model: response.model,
+        tokensIn: response.promptTokens,
+        tokensOut: response.completionTokens,
+        status: 'rejected',
+      );
+      return null;
+    }
+
+    await _logRequest(
+      kind: 'month_plan',
+      prompt: userPrompt,
+      responseJson: response.rawContent,
+      model: response.model,
+      tokensIn: response.promptTokens,
+      tokensOut: response.completionTokens,
+      status: 'ok',
+    );
+
+    try {
+      final decoded = jsonDecode(
+        extractJsonPayload(response.rawContent),
+      ) as Map<String, dynamic>;
+      final daysRaw = (decoded['days'] as List?) ?? const [];
+      return daysRaw
+          .whereType<Map<String, dynamic>>()
+          .map(AiPlanDay.fromJson)
+          .toList();
+    } catch (_) {
+      return null;
+    }
+  }
+
+  /// Saves or resolves a recipe for an AI-generated plan day.
+  /// If a duplicate/existing recipe is found, reuses it.
+  /// Otherwise inserts a stub recipe (with source = ai) and its main ingredients.
+  Future<Recipe?> savePlanDayRecipe(
+    AiPlanDay day, {
+    String? aiModel,
+    String? Function(String name)? resolveIngredientId,
+  }) async {
+    final database = db;
+    if (database == null) return null;
+
+    final title = day.title;
+    final normalizedTitle = title.toLowerCase().trim();
+    final dishTypeStr = day.dishType;
+    final difficultyStr = day.difficulty;
+
+    final dishType = DishType.values.byName(dishTypeStr);
+    final difficulty = Difficulty.values.byName(difficultyStr);
+
+    final sortedIngIds = <String>[];
+    for (final name in day.mainIngredients) {
+      var id = '';
+      if (resolveIngredientId != null) {
+        id = resolveIngredientId(name) ?? '';
+      }
+      if (id.isEmpty && name.isNotEmpty) {
+        id = name.toLowerCase().replaceAll(' ', '_');
+      }
+      if (id.isNotEmpty) sortedIngIds.add(id);
+    }
+    sortedIngIds.sort();
+    final fingerprint = '$dishTypeStr:${sortedIngIds.take(4).join(',')}';
+
+    final duplicate = await AntiRepeat.findDuplicate(
+      database,
+      title: title,
+      dishType: dishTypeStr,
+      ingredientIds: sortedIngIds,
+    );
+    if (duplicate != null) {
+      return duplicate;
+    }
+
+    final recipeId = const Uuid().v4();
+    final nowMs = clock.now().toUtc().millisecondsSinceEpoch;
+
+    return database.transaction(() async {
+      await database
+          .into(database.recipes)
+          .insert(
+            RecipesCompanion(
+              id: Value(recipeId),
+              title: Value(title),
+              normalizedTitle: Value(normalizedTitle),
+              dishType: Value(dishType),
+              difficulty: Value(difficulty),
+              cuisine: const Value('домашняя'),
+              totalMinutes: const Value(30),
+              activeMinutes: const Value(15),
+              servings: const Value(2),
+              description: const Value(
+                'Рецепт для плана на месяц от помощника',
+              ),
+              source: const Value(RecipeSource.ai),
+              fingerprint: Value(fingerprint),
+              aiModel: Value(aiModel),
+              isFavorite: const Value(false),
+              createdAt: Value(nowMs),
+              updatedAt: Value(nowMs),
+            ),
+          );
+
+      for (final name in day.mainIngredients) {
+        var id = '';
+        if (resolveIngredientId != null) {
+          id = resolveIngredientId(name) ?? '';
+        }
+        if (id.isEmpty && name.isNotEmpty) {
+          id = name.toLowerCase().replaceAll(' ', '_');
+        }
+        if (id.isNotEmpty) {
+          await database
+              .into(database.recipeIngredients)
+              .insert(
+                RecipeIngredientsCompanion(
+                  id: Value(const Uuid().v4()),
+                  recipeId: Value(recipeId),
+                  ingredientId: Value(id),
+                  amount: const Value(1.0),
+                  unit: const Value('to_taste'),
+                  isOptional: const Value(false),
+                  createdAt: Value(nowMs),
+                  updatedAt: Value(nowMs),
+                ),
+              );
+        }
+      }
+
+      return (database.select(
+        database.recipes,
+      )..where((tbl) => tbl.id.equals(recipeId))).getSingle();
+    });
   }
 
   /// Saves an AI-generated recipe to the database (`recipes`, `recipe_ingredients`, `recipe_steps`).
