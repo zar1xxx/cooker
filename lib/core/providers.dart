@@ -1,4 +1,5 @@
 import 'package:clock/clock.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'ai/ai_router.dart';
@@ -362,16 +363,23 @@ final aiSettingsProvider = FutureProvider<AiSettings>((ref) async {
   return service.loadSettings();
 });
 
+final connectivityProvider = Provider<Connectivity>((ref) {
+  return Connectivity();
+});
+
 final pcDiscoveryProvider = Provider<PcDiscovery>((ref) {
-  return PcDiscovery();
+  final connectivity = ref.watch(connectivityProvider);
+  return PcDiscovery(connectivity: connectivity);
 });
 
 final aiRouterProvider = Provider<AiRouter>((ref) {
-  final router = AiRouter();
+  final connectivity = ref.watch(connectivityProvider);
+  final router = AiRouter(connectivity: connectivity);
   final settingsService = ref.watch(aiSettingsServiceProvider);
-  settingsService.loadSettings().then((settings) {
+  final initFuture = settingsService.loadSettings().then((settings) {
     settingsService.applyToRouter(router, settings);
   });
+  router.setReadyFuture(initFuture);
   return router;
 });
 
@@ -420,6 +428,7 @@ final recipeValidatorProvider = FutureProvider<RecipeValidator>((ref) async {
 
 final aiServiceProvider = FutureProvider<AiService>((ref) async {
   final router = ref.watch(aiRouterProvider);
+  await router.ready;
   final validator = await ref.watch(recipeValidatorProvider.future);
   final db = ref.watch(databaseProvider);
   return AiService(router: router, validator: validator, db: db);

@@ -4,13 +4,29 @@ import 'package:chto_prigotovit/core/ai/ai_router.dart';
 import 'package:chto_prigotovit/core/ai/ai_service.dart';
 import 'package:chto_prigotovit/core/ai/ai_settings_service.dart';
 import 'package:chto_prigotovit/core/ai/gigachat_cert.dart';
+import 'package:chto_prigotovit/core/ai/gigachat_provider.dart';
 import 'package:chto_prigotovit/core/ai/recipe_validator.dart';
 import 'package:chto_prigotovit/core/db/app_database.dart';
+import 'package:chto_prigotovit/core/providers.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/io.dart';
 import 'package:drift/drift.dart' hide isNull, isNotNull;
 import 'package:drift/native.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_test/flutter_test.dart';
+
+class FakeConnectivity implements Connectivity {
+  FakeConnectivity(this.current);
+  List<ConnectivityResult> current;
+
+  @override
+  Future<List<ConnectivityResult>> checkConnectivity() async => current;
+
+  @override
+  Stream<List<ConnectivityResult>> get onConnectivityChanged =>
+      Stream.value(current);
+}
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -99,6 +115,75 @@ void main() {
         router.gigaChatProvider!.dio.httpClientAdapter,
         isA<IOHttpClientAdapter>(),
       );
+    });
+
+    test('aiRouterProvider awaits settings so immediate request goes to configured provider rather than offline (R1-02)', () async {
+      const storage = FlutterSecureStorage();
+      await AiSettingsService(storage: storage).saveSettings(
+        const AiSettings(
+          gigaChatAuthKey: 'configured-key-xyz',
+          gigaChatModel: 'GigaChat-2',
+        ),
+      );
+
+      final memDb = AppDatabase(NativeDatabase.memory(), seed: false);
+      addTearDown(memDb.close);
+
+      final container = ProviderContainer(
+        overrides: [
+          connectivityProvider.overrideWithValue(
+            FakeConnectivity([ConnectivityResult.wifi]),
+          ),
+          databaseProvider.overrideWithValue(memDb),
+        ],
+      );
+      addTearDown(container.dispose);
+
+      // Read router immediately upon creation
+      final router = container.read(aiRouterProvider);
+
+      // Even though loadSettings is asynchronous, getActiveProvider waits for router.ready
+      final activeProvider = await router.getActiveProvider();
+      expect(activeProvider, isNotNull);
+      expect(activeProvider, isA<GigaChatProvider>());
+      expect(
+        (activeProvider as GigaChatProvider).authKey,
+        equals('configured-key-xyz'),
+      );
+
+      final mode = await router.getMode();
+      expect(mode, equals(AiMode.gigaChat));
+    });
+
+    test('aiServiceProvider immediately resolves with configured router and active provider (R1-02)', () async {
+      const storage = FlutterSecureStorage();
+      await AiSettingsService(storage: storage).saveSettings(
+        const AiSettings(
+          gigaChatAuthKey: 'configured-key-xyz',
+          gigaChatModel: 'GigaChat-2',
+        ),
+      );
+
+      final memDb = AppDatabase(NativeDatabase.memory(), seed: false);
+      addTearDown(memDb.close);
+
+      final container = ProviderContainer(
+        overrides: [
+          connectivityProvider.overrideWithValue(
+            FakeConnectivity([ConnectivityResult.wifi]),
+          ),
+          databaseProvider.overrideWithValue(memDb),
+        ],
+      );
+      addTearDown(container.dispose);
+
+      final aiService = await container.read(aiServiceProvider.future);
+      final activeProvider = await aiService.router.getActiveProvider();
+      expect(activeProvider, isNotNull);
+      expect(activeProvider, isA<GigaChatProvider>());
+
+      final activeMode = await container.read(aiModeProvider.future);
+      expect(activeMode, equals(AiMode.gigaChat));
     });
   });
 

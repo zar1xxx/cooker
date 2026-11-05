@@ -20,11 +20,22 @@ class AiRouter {
     this.lmStudioProvider,
     this.gigaChatProvider,
     Connectivity? connectivity,
-  }) : _connectivity = connectivity ?? Connectivity();
+    Future<void>? ready,
+  }) : _connectivity = connectivity ?? Connectivity(),
+       _readyFuture = ready;
 
   LmStudioProvider? lmStudioProvider;
   GigaChatProvider? gigaChatProvider;
   final Connectivity _connectivity;
+
+  Future<void>? _readyFuture;
+
+  /// Future that completes when initial settings have been applied to the router.
+  Future<void> get ready => _readyFuture ?? Future.value();
+
+  void setReadyFuture(Future<void> future) {
+    _readyFuture = future;
+  }
 
   DateTime? _lastPcSuccess;
   DateTime? _lastPcFailure;
@@ -55,6 +66,7 @@ class AiRouter {
   Future<AiProvider?> getActiveProvider({
     Duration healthCheckTimeout = const Duration(milliseconds: 1500),
   }) async {
+    await ready;
     final now = clock.now();
     final onWifi = await isWifiConnected();
 
@@ -102,6 +114,7 @@ class AiRouter {
 
   /// Returns current operational mode for UI indicator
   Future<AiMode> getMode() async {
+    await ready;
     final provider = await getActiveProvider();
     if (provider is LmStudioProvider) return AiMode.localPc;
     if (provider is GigaChatProvider) return AiMode.gigaChat;
