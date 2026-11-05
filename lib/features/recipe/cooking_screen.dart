@@ -495,20 +495,22 @@ class _CookingScreenState extends ConsumerState<CookingScreen> {
                   ),
                   child: Row(
                     children: [
-                      Text(
-                        l10n.cookingStepProgress(
-                          _currentStepIndex + 1,
-                          totalSteps,
-                        ),
-                        style: theme.textTheme.titleMedium?.copyWith(
-                          fontWeight: FontWeight.bold,
-                          color: theme.colorScheme.primary,
+                      Expanded(
+                        child: Text(
+                          l10n.cookingStepProgress(
+                            _currentStepIndex + 1,
+                            totalSteps,
+                          ),
+                          style: theme.textTheme.titleMedium?.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: theme.colorScheme.primary,
+                          ),
                         ),
                       ),
-                      const Spacer(),
+                      const SizedBox(width: 12),
                       // Linear visual progress bar
                       SizedBox(
-                        width: 120,
+                        width: 100,
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(8),
                           child: LinearProgressIndicator(
@@ -641,72 +643,84 @@ class _CookingScreenState extends ConsumerState<CookingScreen> {
                       ),
                     ],
                   ),
-                  child: Row(
-                    children: [
-                      // «Назад» button
-                      Expanded(
-                        child: SizedBox(
-                          height: 60,
-                          child: OutlinedButton.icon(
-                            style: OutlinedButton.styleFrom(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(16),
-                              ),
-                            ),
-                            icon: const Icon(
-                              Icons.arrow_back_rounded,
-                              size: 26,
-                            ),
-                            label: Text(
-                              l10n.cookingButtonPrevious,
-                              style: theme.textTheme.titleMedium?.copyWith(
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            onPressed: isFirst
-                                ? () => Navigator.of(context).pop()
-                                : () => _goToStep(_currentStepIndex - 1, steps),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(width: 12),
+                  child: LayoutBuilder(
+                    builder: (context, constraints) {
+                      final isNarrowOrLargeFont =
+                          constraints.maxWidth < 340 ||
+                          MediaQuery.textScalerOf(context).scale(1) > 1.25;
 
-                      // «Дальше» or «Готово!» button
-                      Expanded(
-                        flex: isLast ? 1 : 1,
-                        child: SizedBox(
-                          height: 60,
-                          child: FilledButton.icon(
-                            style: FilledButton.styleFrom(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(16),
-                              ),
-                              backgroundColor: isLast
-                                  ? const Color(0xFF2E7D32)
-                                  : theme.colorScheme.primary,
+                      final prevButton = ConstrainedBox(
+                        constraints: const BoxConstraints(minHeight: 56),
+                        child: OutlinedButton.icon(
+                          style: OutlinedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(16),
                             ),
-                            icon: Icon(
-                              isLast
-                                  ? Icons.check_circle_rounded
-                                  : Icons.arrow_forward_rounded,
-                              size: 26,
-                            ),
-                            label: Text(
-                              isLast
-                                  ? l10n.cookingButtonFinish
-                                  : l10n.cookingButtonNext,
-                              style: theme.textTheme.titleMedium?.copyWith(
-                                color: theme.colorScheme.onPrimary,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            onPressed: isLast
-                                ? () => _onFinishCooking(detail.recipe, l10n)
-                                : () => _goToStep(_currentStepIndex + 1, steps),
                           ),
+                          icon: const Icon(Icons.arrow_back_rounded, size: 26),
+                          label: Text(
+                            l10n.cookingButtonPrevious,
+                            style: theme.textTheme.titleMedium?.copyWith(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          onPressed: isFirst
+                              ? () => Navigator.of(context).pop()
+                              : () => _goToStep(_currentStepIndex - 1, steps),
                         ),
-                      ),
-                    ],
+                      );
+
+                      final nextButton = ConstrainedBox(
+                        constraints: const BoxConstraints(minHeight: 56),
+                        child: FilledButton.icon(
+                          style: FilledButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                            backgroundColor: isLast
+                                ? const Color(0xFF2E7D32)
+                                : theme.colorScheme.primary,
+                          ),
+                          icon: Icon(
+                            isLast
+                                ? Icons.check_circle_rounded
+                                : Icons.arrow_forward_rounded,
+                            size: 26,
+                          ),
+                          label: Text(
+                            isLast
+                                ? l10n.cookingButtonFinish
+                                : l10n.cookingButtonNext,
+                            style: theme.textTheme.titleMedium?.copyWith(
+                              color: theme.colorScheme.onPrimary,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          onPressed: isLast
+                              ? () => _onFinishCooking(detail.recipe, l10n)
+                              : () => _goToStep(_currentStepIndex + 1, steps),
+                        ),
+                      );
+
+                      if (isNarrowOrLargeFont) {
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            nextButton,
+                            const SizedBox(height: 8),
+                            prevButton,
+                          ],
+                        );
+                      }
+
+                      return Row(
+                        children: [
+                          Expanded(child: prevButton),
+                          const SizedBox(width: 12),
+                          Expanded(child: nextButton),
+                        ],
+                      );
+                    },
                   ),
                 ),
               ],

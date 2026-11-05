@@ -411,11 +411,12 @@ class _PantryScreenState extends ConsumerState<PantryScreen> {
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           itemCount: categories.length,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
             mainAxisSpacing: 12,
             crossAxisSpacing: 12,
-            childAspectRatio: 1.35,
+            childAspectRatio: (1.35 / MediaQuery.textScalerOf(context).scale(1))
+                .clamp(0.8, 1.35),
           ),
           itemBuilder: (context, index) {
             final category = categories[index];
@@ -541,15 +542,21 @@ class _CategoryTile extends ConsumerWidget {
                       ),
                   ],
                 ),
-                Text(
-                  category.name,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: theme.textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: hasSelected
-                        ? theme.colorScheme.onPrimaryContainer
-                        : theme.colorScheme.onSurface,
+                const SizedBox(height: 6),
+                Expanded(
+                  child: Align(
+                    alignment: Alignment.bottomLeft,
+                    child: Text(
+                      category.name,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: theme.textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: hasSelected
+                            ? theme.colorScheme.onPrimaryContainer
+                            : theme.colorScheme.onSurface,
+                      ),
+                    ),
                   ),
                 ),
               ],

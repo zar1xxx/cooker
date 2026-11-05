@@ -168,8 +168,8 @@ class _RecipeScreenState extends ConsumerState<RecipeScreen> {
                 const SizedBox(height: 24),
 
                 // Main action: «Начать готовить»
-                SizedBox(
-                  height: 60,
+                ConstrainedBox(
+                  constraints: const BoxConstraints(minHeight: 56),
                   child: FilledButton.icon(
                     style: FilledButton.styleFrom(
                       padding: const EdgeInsets.symmetric(
@@ -194,42 +194,61 @@ class _RecipeScreenState extends ConsumerState<RecipeScreen> {
                 const SizedBox(height: 12),
 
                 // Secondary actions: Favorite & Calendar
-                Row(
-                  children: [
-                    Expanded(
-                      child: SizedBox(
-                        height: 56,
-                        child: OutlinedButton.icon(
-                          icon: Icon(
-                            isFav ? Icons.favorite : Icons.favorite_border,
-                            color: isFav ? _favoriteRed : null,
-                            size: 24,
-                          ),
-                          label: Text(
-                            isFav
-                                ? l10n.recipeFavoriteIn
-                                : l10n.recipeFavoriteAdd,
-                            style: theme.textTheme.bodyLarge,
-                          ),
-                          onPressed: () => _toggleFavorite(recipe, l10n),
+                LayoutBuilder(
+                  builder: (context, constraints) {
+                    final isNarrowOrLargeFont =
+                        constraints.maxWidth < 340 ||
+                        MediaQuery.textScalerOf(context).scale(1) > 1.25;
+
+                    final favButton = ConstrainedBox(
+                      constraints: const BoxConstraints(minHeight: 56),
+                      child: OutlinedButton.icon(
+                        icon: Icon(
+                          isFav ? Icons.favorite : Icons.favorite_border,
+                          color: isFav ? _favoriteRed : null,
+                          size: 24,
                         ),
-                      ),
-                    ),
-                    const SizedBox(width: 8),
-                    Expanded(
-                      child: SizedBox(
-                        height: 56,
-                        child: OutlinedButton.icon(
-                          icon: const Icon(Icons.calendar_month, size: 24),
-                          label: Text(
-                            l10n.recipeAddToCalendar,
-                            style: theme.textTheme.bodyLarge,
-                          ),
-                          onPressed: () => _addToCalendar(recipe, l10n),
+                        label: Text(
+                          isFav
+                              ? l10n.recipeFavoriteIn
+                              : l10n.recipeFavoriteAdd,
+                          style: theme.textTheme.bodyLarge,
                         ),
+                        onPressed: () => _toggleFavorite(recipe, l10n),
                       ),
-                    ),
-                  ],
+                    );
+
+                    final calendarButton = ConstrainedBox(
+                      constraints: const BoxConstraints(minHeight: 56),
+                      child: OutlinedButton.icon(
+                        icon: const Icon(Icons.calendar_month, size: 24),
+                        label: Text(
+                          l10n.recipeAddToCalendar,
+                          style: theme.textTheme.bodyLarge,
+                        ),
+                        onPressed: () => _addToCalendar(recipe, l10n),
+                      ),
+                    );
+
+                    if (isNarrowOrLargeFont) {
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          favButton,
+                          const SizedBox(height: 8),
+                          calendarButton,
+                        ],
+                      );
+                    }
+
+                    return Row(
+                      children: [
+                        Expanded(child: favButton),
+                        const SizedBox(width: 8),
+                        Expanded(child: calendarButton),
+                      ],
+                    );
+                  },
                 ),
                 const SizedBox(height: 32),
               ],
@@ -488,6 +507,7 @@ class _RecipeScreenState extends ConsumerState<RecipeScreen> {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
         child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Icon(
               isAvailable
@@ -515,14 +535,18 @@ class _RecipeScreenState extends ConsumerState<RecipeScreen> {
                           : theme.colorScheme.onSurfaceVariant,
                     ),
                   ),
+                  if (quantityText.isNotEmpty)
+                    Padding(
+                      padding: const EdgeInsets.only(top: 2),
+                      child: Text(
+                        quantityText,
+                        style: theme.textTheme.titleMedium?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: theme.colorScheme.primary,
+                        ),
+                      ),
+                    ),
                 ],
-              ),
-            ),
-            Text(
-              quantityText,
-              style: theme.textTheme.titleMedium?.copyWith(
-                fontWeight: FontWeight.bold,
-                color: theme.colorScheme.primary,
               ),
             ),
           ],
@@ -580,27 +604,35 @@ class _RecipeScreenState extends ConsumerState<RecipeScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
+            Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              alignment: WrapAlignment.spaceBetween,
+              crossAxisAlignment: WrapCrossAlignment.center,
               children: [
-                CircleAvatar(
-                  radius: 16,
-                  backgroundColor: theme.colorScheme.primary,
-                  child: Text(
-                    '$number',
-                    style: theme.textTheme.bodyLarge?.copyWith(
-                      color: theme.colorScheme.onPrimary,
-                      fontWeight: FontWeight.bold,
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    CircleAvatar(
+                      radius: 16,
+                      backgroundColor: theme.colorScheme.primary,
+                      child: Text(
+                        '$number',
+                        style: theme.textTheme.bodyLarge?.copyWith(
+                          color: theme.colorScheme.onPrimary,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
-                  ),
+                    const SizedBox(width: 12),
+                    Text(
+                      l10n.recipeStepNumber(number),
+                      style: theme.textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
                 ),
-                const SizedBox(width: 12),
-                Text(
-                  l10n.recipeStepNumber(number),
-                  style: theme.textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const Spacer(),
                 if (timerMinutes != null && timerMinutes > 0)
                   Chip(
                     avatar: const Icon(Icons.timer_outlined, size: 18),

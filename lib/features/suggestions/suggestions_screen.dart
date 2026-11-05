@@ -757,51 +757,68 @@ class _RecipeCard extends StatelessWidget {
                 const SizedBox(height: 16),
 
                 // Actions: «Не хочу» + «Открыть рецепт»
-                Row(
-                  children: [
-                    Expanded(
-                      flex: 2,
-                      child: SizedBox(
-                        height: 56,
-                        child: OutlinedButton.icon(
-                          onPressed: onReject,
-                          icon: const Icon(Icons.close, size: 24),
-                          label: Text(
-                            l10n.dishesActionReject,
-                            style: theme.textTheme.bodyLarge,
-                          ),
-                          style: OutlinedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
+                LayoutBuilder(
+                  builder: (context, constraints) {
+                    final isNarrowOrLargeFont =
+                        constraints.maxWidth < 360 ||
+                        MediaQuery.textScalerOf(context).scale(1) > 1.25;
+
+                    final rejectBtn = ConstrainedBox(
+                      constraints: const BoxConstraints(minHeight: 56),
+                      child: OutlinedButton.icon(
+                        onPressed: onReject,
+                        icon: const Icon(Icons.close, size: 24),
+                        label: Text(
+                          l10n.dishesActionReject,
+                          style: theme.textTheme.bodyLarge,
+                        ),
+                        style: OutlinedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
                           ),
                         ),
                       ),
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      flex: 3,
-                      child: SizedBox(
-                        height: 56,
-                        child: FilledButton.icon(
-                          onPressed: onOpen,
-                          icon: const Icon(Icons.menu_book, size: 24),
-                          label: Text(
-                            l10n.dishesActionOpen,
-                            style: theme.textTheme.bodyLarge?.copyWith(
-                              color: theme.colorScheme.onPrimary,
-                              fontWeight: FontWeight.bold,
-                            ),
+                    );
+
+                    final openBtn = ConstrainedBox(
+                      constraints: const BoxConstraints(minHeight: 56),
+                      child: FilledButton.icon(
+                        onPressed: onOpen,
+                        icon: const Icon(Icons.menu_book, size: 24),
+                        label: Text(
+                          l10n.dishesActionOpen,
+                          style: theme.textTheme.bodyLarge?.copyWith(
+                            color: theme.colorScheme.onPrimary,
+                            fontWeight: FontWeight.bold,
                           ),
-                          style: FilledButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
+                        ),
+                        style: FilledButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                    );
+
+                    if (isNarrowOrLargeFont) {
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          openBtn,
+                          const SizedBox(height: 8),
+                          rejectBtn,
+                        ],
+                      );
+                    }
+
+                    return Row(
+                      children: [
+                        Expanded(flex: 2, child: rejectBtn),
+                        const SizedBox(width: 12),
+                        Expanded(flex: 3, child: openBtn),
+                      ],
+                    );
+                  },
                 ),
               ],
             ),
@@ -973,41 +990,58 @@ class _AiDishCard extends StatelessWidget {
                 const SizedBox(height: 16),
 
                 // Action buttons
-                Row(
-                  children: [
-                    Expanded(
-                      flex: 2,
-                      child: SizedBox(
-                        height: 56,
-                        child: OutlinedButton.icon(
-                          onPressed: onReject,
-                          icon: const Icon(Icons.close, size: 24),
-                          label: Text(
-                            l10n.dishesActionReject,
-                            style: theme.textTheme.bodyLarge,
+                LayoutBuilder(
+                  builder: (context, constraints) {
+                    final isNarrowOrLargeFont =
+                        constraints.maxWidth < 360 ||
+                        MediaQuery.textScalerOf(context).scale(1) > 1.25;
+
+                    final rejectBtn = ConstrainedBox(
+                      constraints: const BoxConstraints(minHeight: 56),
+                      child: OutlinedButton.icon(
+                        onPressed: onReject,
+                        icon: const Icon(Icons.close, size: 24),
+                        label: Text(
+                          l10n.dishesActionReject,
+                          style: theme.textTheme.bodyLarge,
+                        ),
+                      ),
+                    );
+
+                    final openBtn = ConstrainedBox(
+                      constraints: const BoxConstraints(minHeight: 56),
+                      child: FilledButton.icon(
+                        onPressed: onOpen,
+                        icon: const Icon(Icons.auto_awesome, size: 24),
+                        label: Text(
+                          l10n.dishesActionOpen,
+                          style: theme.textTheme.bodyLarge?.copyWith(
+                            color: theme.colorScheme.onPrimary,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ),
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      flex: 3,
-                      child: SizedBox(
-                        height: 56,
-                        child: FilledButton.icon(
-                          onPressed: onOpen,
-                          icon: const Icon(Icons.auto_awesome, size: 24),
-                          label: Text(
-                            l10n.dishesActionOpen,
-                            style: theme.textTheme.bodyLarge?.copyWith(
-                              color: theme.colorScheme.onPrimary,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
+                    );
+
+                    if (isNarrowOrLargeFont) {
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          openBtn,
+                          const SizedBox(height: 8),
+                          rejectBtn,
+                        ],
+                      );
+                    }
+
+                    return Row(
+                      children: [
+                        Expanded(flex: 2, child: rejectBtn),
+                        const SizedBox(width: 12),
+                        Expanded(flex: 3, child: openBtn),
+                      ],
+                    );
+                  },
                 ),
               ],
             ),

@@ -144,7 +144,12 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                       availableCalendarFormats: const {
                         CalendarFormat.month: 'Месяц',
                       },
-                      rowHeight: 64,
+                      rowHeight:
+                          (64 * MediaQuery.textScalerOf(context).scale(1))
+                              .clamp(64.0, 96.0),
+                      daysOfWeekHeight:
+                          (32 * MediaQuery.textScalerOf(context).scale(1))
+                              .clamp(32.0, 48.0),
                       selectedDayPredicate: (day) =>
                           isSameDay(_selectedDay, day),
                       eventLoader: (day) {
@@ -615,11 +620,13 @@ class _SelectedDayMealCard extends ConsumerWidget {
                             onPressed:
                                 onReplaceWithAvailable ?? onReplaceRecipe,
                             style: OutlinedButton.styleFrom(
-                              minimumSize: const Size(double.infinity, 44),
+                              minimumSize: const Size(double.infinity, 56),
                             ),
                             child: Text(
                               l10n.calendarReplaceWithAvailable,
-                              style: const TextStyle(fontSize: 14),
+                              style: theme.textTheme.bodyMedium?.copyWith(
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                         ],
@@ -652,43 +659,62 @@ class _SelectedDayMealCard extends ConsumerWidget {
 
               const SizedBox(height: 8),
 
-              Row(
-                children: [
-                  Expanded(
-                    child: OutlinedButton.icon(
-                      onPressed: () => onLockToggle(entry),
-                      icon: Icon(
-                        entry.locked ? Icons.lock_open : Icons.lock,
-                        size: 20,
-                      ),
-                      label: Text(
-                        entry.locked
-                            ? l10n.calendarUnlockDish
-                            : l10n.calendarLockDish,
-                      ),
-                      style: OutlinedButton.styleFrom(
-                        minimumSize: const Size(0, 52),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
+              LayoutBuilder(
+                builder: (context, constraints) {
+                  final isNarrowOrLargeFont =
+                      constraints.maxWidth < 340 ||
+                      MediaQuery.textScalerOf(context).scale(1) > 1.25;
+
+                  final lockButton = OutlinedButton.icon(
+                    onPressed: () => onLockToggle(entry),
+                    icon: Icon(
+                      entry.locked ? Icons.lock_open : Icons.lock,
+                      size: 20,
+                    ),
+                    label: Text(
+                      entry.locked
+                          ? l10n.calendarUnlockDish
+                          : l10n.calendarLockDish,
+                    ),
+                    style: OutlinedButton.styleFrom(
+                      minimumSize: const Size(0, 56),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
                       ),
                     ),
-                  ),
-                  const SizedBox(width: 8),
-                  Expanded(
-                    child: OutlinedButton.icon(
-                      onPressed: onReplaceRecipe,
-                      icon: const Icon(Icons.swap_horiz, size: 20),
-                      label: Text(l10n.calendarReplaceDish),
-                      style: OutlinedButton.styleFrom(
-                        minimumSize: const Size(0, 52),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
+                  );
+
+                  final replaceButton = OutlinedButton.icon(
+                    onPressed: onReplaceRecipe,
+                    icon: const Icon(Icons.swap_horiz, size: 20),
+                    label: Text(l10n.calendarReplaceDish),
+                    style: OutlinedButton.styleFrom(
+                      minimumSize: const Size(0, 56),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
                       ),
                     ),
-                  ),
-                ],
+                  );
+
+                  if (isNarrowOrLargeFont) {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        lockButton,
+                        const SizedBox(height: 8),
+                        replaceButton,
+                      ],
+                    );
+                  }
+
+                  return Row(
+                    children: [
+                      Expanded(child: lockButton),
+                      const SizedBox(width: 8),
+                      Expanded(child: replaceButton),
+                    ],
+                  );
+                },
               ),
 
               if (entry.status == MealPlanStatus.planned) ...[
@@ -705,7 +731,7 @@ class _SelectedDayMealCard extends ConsumerWidget {
                     style: const TextStyle(color: Colors.green),
                   ),
                   style: OutlinedButton.styleFrom(
-                    minimumSize: const Size(double.infinity, 52),
+                    minimumSize: const Size(double.infinity, 56),
                     side: const BorderSide(color: Colors.green),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),

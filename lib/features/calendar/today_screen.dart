@@ -229,8 +229,11 @@ class _TodayScreenState extends ConsumerState<TodayScreen> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 // Section Header Badge
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                Wrap(
+                  spacing: 8,
+                  runSpacing: 8,
+                  alignment: WrapAlignment.spaceBetween,
+                  crossAxisAlignment: WrapCrossAlignment.center,
                   children: [
                     Container(
                       padding: const EdgeInsets.symmetric(
@@ -372,11 +375,13 @@ class _TodayScreenState extends ConsumerState<TodayScreen> {
                             onPressed: () =>
                                 _showRecipePicker(context, onlyAvailable: true),
                             style: OutlinedButton.styleFrom(
-                              minimumSize: const Size(double.infinity, 44),
+                              minimumSize: const Size(double.infinity, 56),
                             ),
                             child: Text(
                               l10n.calendarReplaceWithAvailable,
-                              style: const TextStyle(fontSize: 14),
+                              style: theme.textTheme.bodyMedium?.copyWith(
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                         ],
@@ -407,36 +412,55 @@ class _TodayScreenState extends ConsumerState<TodayScreen> {
                 const SizedBox(height: 10),
 
                 // Action 2: "Другое блюдо" and "Посмотреть рецепт"
-                Row(
-                  children: [
-                    Expanded(
-                      child: OutlinedButton.icon(
-                        onPressed: () => _showRecipePicker(context),
-                        icon: const Icon(Icons.swap_horiz, size: 20),
-                        label: Text(l10n.todayAnotherDish),
-                        style: OutlinedButton.styleFrom(
-                          minimumSize: const Size(0, 52),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
+                LayoutBuilder(
+                  builder: (context, constraints) {
+                    final isNarrowOrLargeFont =
+                        constraints.maxWidth < 340 ||
+                        MediaQuery.textScalerOf(context).scale(1) > 1.25;
+
+                    final anotherDishButton = OutlinedButton.icon(
+                      onPressed: () => _showRecipePicker(context),
+                      icon: const Icon(Icons.swap_horiz, size: 20),
+                      label: Text(l10n.todayAnotherDish),
+                      style: OutlinedButton.styleFrom(
+                        minimumSize: const Size(0, 56),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
                         ),
                       ),
-                    ),
-                    const SizedBox(width: 8),
-                    Expanded(
-                      child: OutlinedButton.icon(
-                        onPressed: () => context.push('/recipe/${recipe.id}'),
-                        icon: const Icon(Icons.menu_book, size: 20),
-                        label: Text(l10n.todayViewRecipe),
-                        style: OutlinedButton.styleFrom(
-                          minimumSize: const Size(0, 52),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
+                    );
+
+                    final viewRecipeButton = OutlinedButton.icon(
+                      onPressed: () => context.push('/recipe/${recipe.id}'),
+                      icon: const Icon(Icons.menu_book, size: 20),
+                      label: Text(l10n.todayViewRecipe),
+                      style: OutlinedButton.styleFrom(
+                        minimumSize: const Size(0, 56),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
                         ),
                       ),
-                    ),
-                  ],
+                    );
+
+                    if (isNarrowOrLargeFont) {
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          anotherDishButton,
+                          const SizedBox(height: 8),
+                          viewRecipeButton,
+                        ],
+                      );
+                    }
+
+                    return Row(
+                      children: [
+                        Expanded(child: anotherDishButton),
+                        const SizedBox(width: 8),
+                        Expanded(child: viewRecipeButton),
+                      ],
+                    );
+                  },
                 ),
 
                 const SizedBox(height: 16),
