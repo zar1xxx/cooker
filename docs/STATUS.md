@@ -5,14 +5,15 @@
 ## Сейчас
 
 - Этап: **этап 6 — Полировка и релиз**
-- Последняя закрытая задача: **S6-02** (Иконка, splash, название «Что приготовить?»)
-- Следующая задача: **S6-03** (Подписанный release-APK)
-- Последний прогон `tool/check.ps1`: зелёный, 323 теста (2026-11-05 16:10)
+- Последняя закрытая задача: **S6-03** (Подписанный release-APK)
+- Следующая задача: **S6-04** (Дописать docs/INSTALL.md)
+- Последний прогон `tool/check.ps1`: зелёный, 323 теста (2026-11-05 16:14)
 
 ## Журнал (новые сверху)
 
 | Дата | Задача | Результат | Комментарий |
 | --- | --- | --- | --- |
+| 2026-11-05 | S6-03 | Выполнено | Подписанный release-APK (ТЗ 10): 1) `android/key.properties` в `.gitignore` (секреты вне git); 2) Keystore `upload-keystore.jks` сгенерирован и сохранён вне репозитория (`C:\dev\cooker_keystore\upload-keystore.jks`); 3) `android/app/build.gradle.kts` настроен на чтение `key.properties` для `signingConfigs.release` (с безопасным fallback на debug); 4) Создан шаблон `android/key.properties.example`; 5) Собрана релизная сборка `app-release.apk` (66.5 МБ), подпись v2 проверена через `apksigner` (сертификат: CN=Chto Prigotovit, OU=Mobile, O=Cooker, L=Moscow, C=RU) |
 | 2026-11-05 | S6-02 | Выполнено | Иконка, splash, название «Что приготовить?» (ТЗ 7.1, 10): 1) Имя приложения в `AndroidManifest.xml` и `res/values/strings.xml` установлено как «Что приготовить?»; 2) Сгенерированы все плотности растровых иконок (mdpi, hdpi, xhdpi, xxhdpi, xxxhdpi) для `ic_launcher` (на базе `icon_1024.png`), `ic_launcher_foreground.png` и `ic_launcher_monochrome.png`; 3) Настроена адаптивная иконка `mipmap-anydpi-v26/ic_launcher.xml` с фоновым цветом `ic_launcher_background` `#226440` и поддержкой монохромных иконок Android 13+; 4) Настроен splash screen (`launch_background.xml`, `drawable-night/launch_background.xml` и `styles.xml` с `windowSplashScreenBackground` и `windowSplashScreenAnimatedIcon`) на базе `splash_icon.png` во всех плотностях drawable; 5) Создан генератор `tool/generate_icons.ps1`; 6) 7 новых тестов в `test/branding_test.dart` (всего 323) |
 | 2026-11-05 | S6-01 | Выполнено | Доступность: шрифт 200%, TalkBack, контраст >= 4.5:1 (ТЗ 7.1, 7.2): 1) Коэффициенты цветового контраста текста и фона во всех темах проверены математически и программно, превышают WCAG AA (>= 4.5:1, светлая тема: primary 8.05:1, surface/bg 17.2:1; тёмная: primary 6.74:1, surface/bg 12.5:1); 2) Динамическое масштабирование шрифта 200% (TextScaler.linear(2.0)) адаптировано во всех 10 экранах без переполнений RenderFlex: LayoutBuilder с авто-стекированием кнопок при textScale > 1.25 на TodayScreen, CalendarScreen, CookingScreen, RecipeScreen, SuggestionsScreen; замена фиксированных Row на Wrap в заголовках и шагах рецепта; динамический childAspectRatio в категориях PantryScreen; динамическая высота строк TableCalendar; 3) Интерактивные элементы удовлетворяют стандарту >= 56x56 dp; 4) 13 новых тестов в test/accessibility_test.dart (всего 316 тестов) |
 | 2026-11-05 | Этап 5 | Закрыт | Все 6 задач этапа 5 (S5-01…S5-06) закрыты, 303 теста зелёные, `check.ps1 -Apk` успешен, собран `app-debug.apk`, составлен отчёт `docs/reports/STAGE_5.md` |
