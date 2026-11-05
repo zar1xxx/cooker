@@ -149,6 +149,14 @@ class AiRouter {
           return _attemptWithRetry(gigaChatProvider!, request, validateContent);
         }
         rethrow;
+      } on FormatException catch (_) {
+        // TZ 6.1.1 p.4: invalid JSON twice on LM Studio -> GigaChat.
+        // The PC itself is reachable, so it is not marked as failed.
+        if (gigaChatProvider != null &&
+            gigaChatProvider!.authKey.trim().isNotEmpty) {
+          return _attemptWithRetry(gigaChatProvider!, request, validateContent);
+        }
+        rethrow;
       }
     } else {
       return _attemptWithRetry(primary, request, validateContent);

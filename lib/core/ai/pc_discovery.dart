@@ -36,7 +36,14 @@ class PcDiscovery {
     try {
       final response = await _dio.get<Map<String, dynamic>>(
         url,
-        options: Options(sendTimeout: timeout, receiveTimeout: timeout),
+        // connectTimeout is essential: without it a probe to an absent LAN host
+        // waits for the OS TCP timeout (tens of seconds) and the /24 scan
+        // takes minutes instead of seconds.
+        options: Options(
+          connectTimeout: timeout,
+          sendTimeout: timeout,
+          receiveTimeout: timeout,
+        ),
       );
       final data = response.data?['data'];
       return data is List;

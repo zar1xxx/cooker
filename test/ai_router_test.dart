@@ -135,6 +135,43 @@ void main() {
         expect(result, '192.168.1.15');
       },
     );
+
+    test(
+      'probeHost configures connectTimeout on Dio options (R1-01)',
+      () async {
+        Duration? capturedConnectTimeout;
+        final dio = Dio();
+        dio.interceptors.add(
+          InterceptorsWrapper(
+            onRequest: (options, handler) {
+              capturedConnectTimeout = options.connectTimeout;
+              return handler.reject(
+                DioException(
+                  requestOptions: options,
+                  type: DioExceptionType.connectionTimeout,
+                ),
+              );
+            },
+          ),
+        );
+        final discovery = PcDiscovery(
+          connectivity: FakeConnectivity([ConnectivityResult.wifi]),
+          networkInfo: FakeNetworkInfo('192.168.1.55'),
+          dio: dio,
+        );
+
+        final result = await discovery.probeHost(
+          '192.168.1.100',
+          1234,
+          timeout: const Duration(milliseconds: 350),
+        );
+        expect(result, isFalse);
+        expect(
+          capturedConnectTimeout,
+          equals(const Duration(milliseconds: 350)),
+        );
+      },
+    );
   });
 
   group('AiRouter (S3-04 / TZ 6.1.1)', () {
@@ -320,5 +357,58 @@ void main() {
         expect(response!.rawContent, '{"valid": true}');
       },
     );
+
+    test('executeChatWithFallback switches to GigaChat after LM Studio returns invalid JSON twice and does not mark PC failed (R1-01 / TZ 6.1.1 p.4)', () async {
+      int lmCalls = 0;
+      lmDio.httpClientAdapter = MockHttpClientAdapter((options) async {
+        if (options.path.contains('/models')) {
+          return _createJsonResponse({
+            'data': [
+              {'id': 'llama-3'},
+            ],
+          });
+        }
+        lmCalls++;
+        return _createJsonResponse({
+          'choices': [
+            {
+              'message': {'content': 'Not valid JSON attempt $lmCalls'},
+            },
+          ],
+        });
+      });
+
+      gigaDio.httpClientAdapter = MockHttpClientAdapter((options) async {
+        if (options.path.contains('/oauth')) {
+          return _createJsonResponse({
+            'access_token': 'giga-token',
+            'expires_at': DateTime.now()
+                .add(const Duration(minutes: 30))
+                .millisecondsSinceEpoch,
+          });
+        }
+        return _createJsonResponse({
+          'choices': [
+            {
+              'message': {'content': '{"dish": "Борщ из GigaChat"}'},
+            },
+          ],
+        });
+      });
+
+      final response = await router.executeChatWithFallback(
+        const AiChatRequest(messages: [AiChatMessage.user('Dinner')]),
+        validateContent: (raw) => raw.contains('dish') ? null : 'Missing dish',
+      );
+
+      expect(response, isNotNull);
+      expect(response!.providerName, 'gigachat');
+      expect(response.rawContent, contains('Борщ из GigaChat'));
+      expect(lmCalls, 2); // 1 initial + 1 retry before fallback
+      expect(
+        router.lastPcFailure,
+        isNull,
+      ); // PC is reachable, format was invalid
+    });
   });
 }

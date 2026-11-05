@@ -5,6 +5,7 @@ import 'ai/ai_router.dart';
 import 'ai/ai_service.dart';
 import 'ai/ai_settings_service.dart';
 import 'ai/anti_repeat.dart';
+import 'ai/gigachat_cert.dart';
 import 'ai/gigachat_provider.dart';
 import 'ai/lm_studio_provider.dart';
 import 'ai/pc_discovery.dart';
@@ -400,6 +401,7 @@ class AiConnectionChecker {
         baseUrl: baseUrl.trim().isNotEmpty
             ? baseUrl.trim()
             : 'https://gigachat.devices.sberbank.ru',
+        dio: GigaChatProvider.createDioWithCert(certBytes: GigaChatCert.bytes),
       );
       return await giga.isAvailable();
     } catch (_) {

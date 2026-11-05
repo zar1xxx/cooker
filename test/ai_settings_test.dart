@@ -1,8 +1,12 @@
+import 'dart:convert';
+
 import 'package:chto_prigotovit/core/ai/ai_router.dart';
 import 'package:chto_prigotovit/core/ai/ai_service.dart';
 import 'package:chto_prigotovit/core/ai/ai_settings_service.dart';
+import 'package:chto_prigotovit/core/ai/gigachat_cert.dart';
 import 'package:chto_prigotovit/core/ai/recipe_validator.dart';
 import 'package:chto_prigotovit/core/db/app_database.dart';
+import 'package:dio/io.dart';
 import 'package:drift/drift.dart' hide isNull, isNotNull;
 import 'package:drift/native.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -71,6 +75,30 @@ void main() {
 
       expect(router.gigaChatProvider, isNotNull);
       expect(router.gigaChatProvider!.authKey, equals('token_abc'));
+    });
+
+    test('GigaChatCert.load() loads valid Russian Trusted Root CA certificate asset (R1-01)', () async {
+      await GigaChatCert.load();
+      expect(GigaChatCert.bytes, isNotNull);
+      final pem = utf8.decode(GigaChatCert.bytes!);
+      expect(pem, startsWith('-----BEGIN CERTIFICATE-----'));
+      expect(pem, contains('-----END CERTIFICATE-----'));
+    });
+
+    test('applyToRouter without certBytes uses GigaChatCert.bytes to configure IOHttpClientAdapter (R1-01)', () async {
+      await GigaChatCert.load();
+      final service = AiSettingsService(storage: const FlutterSecureStorage());
+      final router = AiRouter();
+
+      const settings = AiSettings(gigaChatAuthKey: 'test_token');
+
+      service.applyToRouter(router, settings);
+
+      expect(router.gigaChatProvider, isNotNull);
+      expect(
+        router.gigaChatProvider!.dio.httpClientAdapter,
+        isA<IOHttpClientAdapter>(),
+      );
     });
   });
 

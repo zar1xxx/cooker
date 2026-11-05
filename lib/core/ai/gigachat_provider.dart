@@ -38,7 +38,8 @@ class GigaChatProvider implements AiProvider {
   @override
   String get name => 'gigachat';
 
-  /// Exposed for testing token caching and invalidation
+  /// Exposed for testing and inspection
+  Dio get dio => _dio;
   String? get cachedToken => _cachedToken;
   int? get tokenExpiresAtMs => _tokenExpiresAtMs;
 

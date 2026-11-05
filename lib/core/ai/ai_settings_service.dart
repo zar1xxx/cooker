@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import 'ai_router.dart';
+import 'gigachat_cert.dart';
 import 'gigachat_provider.dart';
 import 'lm_studio_provider.dart';
 
@@ -156,7 +157,9 @@ class AiSettingsService {
     }
 
     if (settings.gigaChatAuthKey.trim().isNotEmpty) {
-      final dio = GigaChatProvider.createDioWithCert(certBytes: certBytes);
+      final dio = GigaChatProvider.createDioWithCert(
+        certBytes: certBytes ?? GigaChatCert.bytes,
+      );
       router.gigaChatProvider = GigaChatProvider(
         authKey: settings.gigaChatAuthKey.trim(),
         model: settings.gigaChatModel.trim().isNotEmpty
