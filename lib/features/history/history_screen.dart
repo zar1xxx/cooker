@@ -4,35 +4,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
+import '../../app/app_images.dart';
 import '../../core/db/daos/history_dao.dart';
 import '../../core/db/enums.dart';
 import '../../core/providers.dart';
 import '../../l10n/app_localizations.dart';
-
-IconData _dishTypeIcon(DishType type) {
-  switch (type) {
-    case DishType.soup:
-      return Icons.soup_kitchen;
-    case DishType.main:
-      return Icons.dinner_dining;
-    case DishType.side:
-      return Icons.rice_bowl;
-    case DishType.salad:
-      return Icons.eco;
-    case DishType.breakfast:
-      return Icons.egg;
-    case DishType.snack:
-      return Icons.lunch_dining;
-    case DishType.baking:
-      return Icons.bakery_dining;
-    case DishType.dessert:
-      return Icons.cake;
-    case DishType.drink:
-      return Icons.local_drink;
-    case DishType.preserve:
-      return Icons.inventory_2;
-  }
-}
 
 String _dishTypeName(DishType type, AppLocalizations l10n) {
   switch (type) {
@@ -752,7 +728,7 @@ class _HistoryFiltersRow extends StatelessWidget {
           const SizedBox(width: 8),
           for (final type in DishType.values) ...[
             FilterChip(
-              avatar: Icon(_dishTypeIcon(type), size: 18),
+              avatar: AppDishTypeIcon(dishType: type, size: 18),
               label: Text(_dishTypeName(type, l10n)),
               selected: selectedDishType == type,
               onSelected: (val) => onSelectDishType(val ? type : null),
@@ -904,11 +880,7 @@ class _HistoryEntryCard extends StatelessWidget {
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Icon(
-                          _dishTypeIcon(recipe.dishType),
-                          size: 18,
-                          color: theme.colorScheme.onSecondaryContainer,
-                        ),
+                        AppDishTypeIcon(dishType: recipe.dishType, size: 18),
                         const SizedBox(width: 6),
                         Text(
                           _dishTypeName(recipe.dishType, l10n),
@@ -1360,7 +1332,7 @@ class _AddCookedDishSheetState extends State<_AddCookedDishSheet> {
                 children: [
                   for (final type in DishType.values) ...[
                     ChoiceChip(
-                      avatar: Icon(_dishTypeIcon(type), size: 18),
+                      avatar: AppDishTypeIcon(dishType: type, size: 18),
                       label: Text(_dishTypeName(type, l10n)),
                       selected: _selectedDishType == type,
                       onSelected: (val) {

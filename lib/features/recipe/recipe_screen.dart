@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../app/app_images.dart';
 import '../../core/db/app_database.dart';
 import '../../core/db/daos/recipe_dao.dart';
 import '../../core/db/enums.dart';
@@ -266,67 +267,77 @@ class _RecipeScreenState extends ConsumerState<RecipeScreen> {
   ) {
     return Card(
       elevation: 0,
+      clipBehavior: Clip.antiAlias,
       color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              recipe.title,
-              style: theme.textTheme.headlineMedium?.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 12),
-            Wrap(
-              spacing: 8,
-              runSpacing: 8,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          AppRecipePlaceholder(dishType: recipe.dishType, height: 160),
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Chip(
-                  avatar: Icon(_dishTypeIcon(recipe.dishType), size: 20),
-                  label: Text(_dishTypeName(l10n, recipe.dishType)),
-                ),
-                Chip(
-                  label: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      for (int i = 0; i < 3; i++)
-                        Icon(
-                          Icons.cookie_outlined,
-                          size: 18,
-                          color: i < _difficultyCaps(recipe.difficulty)
-                              ? theme.colorScheme.primary
-                              : theme.colorScheme.outlineVariant,
-                        ),
-                      const SizedBox(width: 4),
-                      Text(_difficultyName(l10n, recipe.difficulty)),
-                    ],
+                Text(
+                  recipe.title,
+                  style: theme.textTheme.headlineMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-                Chip(
-                  avatar: const Icon(Icons.timer_outlined, size: 20),
-                  label: Text(l10n.dishesMinutes(recipe.totalMinutes)),
+                const SizedBox(height: 12),
+                Wrap(
+                  spacing: 8,
+                  runSpacing: 8,
+                  children: [
+                    Chip(
+                      avatar: AppDishTypeIcon(
+                        dishType: recipe.dishType,
+                        size: 20,
+                      ),
+                      label: Text(_dishTypeName(l10n, recipe.dishType)),
+                    ),
+                    Chip(
+                      label: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          for (int i = 0; i < 3; i++)
+                            Icon(
+                              Icons.cookie_outlined,
+                              size: 18,
+                              color: i < _difficultyCaps(recipe.difficulty)
+                                  ? theme.colorScheme.primary
+                                  : theme.colorScheme.outlineVariant,
+                            ),
+                          const SizedBox(width: 4),
+                          Text(_difficultyName(l10n, recipe.difficulty)),
+                        ],
+                      ),
+                    ),
+                    Chip(
+                      avatar: const Icon(Icons.timer_outlined, size: 20),
+                      label: Text(l10n.dishesMinutes(recipe.totalMinutes)),
+                    ),
+                    if (recipe.cuisine.isNotEmpty)
+                      Chip(
+                        avatar: const Icon(Icons.public, size: 20),
+                        label: Text(recipe.cuisine),
+                      ),
+                  ],
                 ),
-                if (recipe.cuisine.isNotEmpty)
-                  Chip(
-                    avatar: const Icon(Icons.public, size: 20),
-                    label: Text(recipe.cuisine),
+                if (recipe.description.isNotEmpty) ...[
+                  const SizedBox(height: 12),
+                  Text(
+                    recipe.description,
+                    style: theme.textTheme.bodyLarge?.copyWith(
+                      color: theme.colorScheme.onSurfaceVariant,
+                    ),
                   ),
+                ],
               ],
             ),
-            if (recipe.description.isNotEmpty) ...[
-              const SizedBox(height: 12),
-              Text(
-                recipe.description,
-                style: theme.textTheme.bodyLarge?.copyWith(
-                  color: theme.colorScheme.onSurfaceVariant,
-                ),
-              ),
-            ],
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -716,31 +727,6 @@ class _RecipeScreenState extends ConsumerState<RecipeScreen> {
         return l10n.recipeUnitClove;
       default:
         return unit ?? '';
-    }
-  }
-
-  IconData _dishTypeIcon(DishType type) {
-    switch (type) {
-      case DishType.soup:
-        return Icons.soup_kitchen;
-      case DishType.main:
-        return Icons.restaurant;
-      case DishType.side:
-        return Icons.rice_bowl;
-      case DishType.salad:
-        return Icons.eco;
-      case DishType.breakfast:
-        return Icons.free_breakfast;
-      case DishType.snack:
-        return Icons.tapas;
-      case DishType.baking:
-        return Icons.bakery_dining;
-      case DishType.dessert:
-        return Icons.cake;
-      case DishType.drink:
-        return Icons.local_cafe;
-      case DishType.preserve:
-        return Icons.kitchen;
     }
   }
 

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import '../../app/app_images.dart';
+
 import '../../core/db/daos/recipe_dao.dart';
 import '../../core/db/enums.dart';
 import '../../l10n/app_localizations.dart';
@@ -243,7 +245,10 @@ class _RecipePickerSheetState extends State<RecipePickerSheet> {
                       final item = filtered[index];
                       final recipe = item.recipe;
                       return ListTile(
-                        leading: Icon(dishTypeIcon(recipe.dishType), size: 28),
+                        leading: AppDishTypeIcon(
+                          dishType: recipe.dishType,
+                          size: 28,
+                        ),
                         title: Text(
                           recipe.title,
                           style: theme.textTheme.bodyLarge?.copyWith(

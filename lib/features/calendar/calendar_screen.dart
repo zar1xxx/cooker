@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 
+import '../../app/app_images.dart';
 import '../../core/db/app_database.dart';
 import '../../core/db/daos/plan_dao.dart';
 import '../../core/db/daos/recipe_dao.dart';
@@ -12,31 +13,6 @@ import '../../core/db/enums.dart';
 import '../../core/providers.dart';
 import '../../l10n/app_localizations.dart';
 import 'recipe_picker_sheet.dart';
-
-IconData _dishTypeIcon(DishType type) {
-  switch (type) {
-    case DishType.soup:
-      return Icons.soup_kitchen;
-    case DishType.main:
-      return Icons.dinner_dining;
-    case DishType.side:
-      return Icons.rice_bowl;
-    case DishType.salad:
-      return Icons.eco;
-    case DishType.breakfast:
-      return Icons.breakfast_dining;
-    case DishType.snack:
-      return Icons.cookie;
-    case DishType.baking:
-      return Icons.bakery_dining;
-    case DishType.dessert:
-      return Icons.cake;
-    case DishType.drink:
-      return Icons.local_cafe;
-    case DishType.preserve:
-      return Icons.takeout_dining;
-  }
-}
 
 String _dishTypeName(DishType type, AppLocalizations l10n) {
   switch (type) {
@@ -223,10 +199,9 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   if (recipe != null)
-                                    Icon(
-                                      _dishTypeIcon(recipe.dishType),
+                                    AppDishTypeIcon(
+                                      dishType: recipe.dishType,
                                       size: 16,
-                                      color: theme.colorScheme.primary,
                                     ),
                                   const SizedBox(width: 3),
                                   _buildStatusBadge(status),
@@ -506,7 +481,10 @@ class _SelectedDayMealCard extends ConsumerWidget {
                 runSpacing: 6,
                 children: [
                   Chip(
-                    avatar: Icon(_dishTypeIcon(recipe.dishType), size: 18),
+                    avatar: AppDishTypeIcon(
+                      dishType: recipe.dishType,
+                      size: 18,
+                    ),
                     label: Text(_dishTypeName(recipe.dishType, l10n)),
                   ),
                   Chip(

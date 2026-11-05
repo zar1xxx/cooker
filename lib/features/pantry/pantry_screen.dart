@@ -3,49 +3,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 
+import '../../app/app_images.dart';
 import '../../core/db/app_database.dart';
 import '../../core/providers.dart';
 import '../../l10n/app_localizations.dart';
 
 extension _StringCapitalize on String {
   String capitalize() => isEmpty ? this : this[0].toUpperCase() + substring(1);
-}
-
-IconData _categoryIconData(String icon) {
-  switch (icon) {
-    case 'carrot':
-      return Icons.eco;
-    case 'apple':
-      return Icons.apple;
-    case 'meat':
-      return Icons.kebab_dining;
-    case 'chicken':
-      return Icons.egg;
-    case 'fish':
-      return Icons.set_meal;
-    case 'milk':
-      return Icons.local_drink;
-    case 'grain':
-      return Icons.grain;
-    case 'bread':
-      return Icons.bakery_dining;
-    case 'bean':
-      return Icons.circle;
-    case 'mushroom':
-      return Icons.forest;
-    case 'can':
-      return Icons.inventory_2;
-    case 'spice':
-      return Icons.soup_kitchen;
-    case 'nut':
-      return Icons.grain;
-    case 'candy':
-      return Icons.cake;
-    case 'leaf':
-      return Icons.grass;
-    default:
-      return Icons.restaurant;
-  }
 }
 
 class PantryScreen extends ConsumerStatefulWidget {
@@ -515,12 +479,10 @@ class _CategoryTile extends ConsumerWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Icon(
-                      _categoryIconData(category.icon),
-                      size: 32,
-                      color: hasSelected
-                          ? theme.colorScheme.primary
-                          : theme.colorScheme.onSurfaceVariant,
+                    AppCategoryIcon(
+                      categoryId: category.id,
+                      size: 40,
+                      semanticLabel: category.name,
                     ),
                     if (hasSelected)
                       Container(
@@ -662,10 +624,10 @@ class _CategoryIngredientsSheet extends ConsumerWidget {
               padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
               child: Row(
                 children: [
-                  Icon(
-                    _categoryIconData(category.icon),
-                    size: 32,
-                    color: theme.colorScheme.primary,
+                  AppCategoryIcon(
+                    categoryId: category.id,
+                    size: 40,
+                    semanticLabel: category.name,
                   ),
                   const SizedBox(width: 12),
                   Expanded(

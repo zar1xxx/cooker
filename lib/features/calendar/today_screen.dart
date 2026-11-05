@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
+import '../../app/app_images.dart';
 import '../../core/db/app_database.dart';
 import '../../core/db/daos/plan_dao.dart';
 import '../../core/db/daos/recipe_dao.dart';
@@ -262,19 +263,7 @@ class _TodayScreenState extends ConsumerState<TodayScreen> {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Container(
-                      width: 52,
-                      height: 52,
-                      decoration: BoxDecoration(
-                        color: theme.colorScheme.primary.withValues(alpha: 0.1),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Icon(
-                        dishTypeIcon(recipe.dishType),
-                        size: 32,
-                        color: theme.colorScheme.primary,
-                      ),
-                    ),
+                    AppDishTypeIcon(dishType: recipe.dishType, size: 52),
                     const SizedBox(width: 14),
                     Expanded(
                       child: Column(
@@ -508,10 +497,9 @@ class _TodayScreenState extends ConsumerState<TodayScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 32),
         child: Column(
           children: [
-            Icon(
-              Icons.soup_kitchen_outlined,
-              size: 64,
-              color: theme.colorScheme.primary.withValues(alpha: 0.7),
+            const AppStateIllustration(
+              assetPath: AppImages.stateNoDishes,
+              height: 140,
             ),
             const SizedBox(height: 16),
             Text(

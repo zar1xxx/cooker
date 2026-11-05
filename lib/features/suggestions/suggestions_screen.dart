@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../app/app_images.dart';
 import '../../core/ai/ai_router.dart';
 import '../../core/ai/ai_service.dart';
 import '../../core/ai/anti_repeat.dart';
@@ -12,31 +13,6 @@ import '../../core/db/enums.dart';
 import '../../core/matching/recipe_scorer.dart';
 import '../../core/providers.dart';
 import '../../l10n/app_localizations.dart';
-
-IconData _dishTypeIcon(DishType type) {
-  switch (type) {
-    case DishType.soup:
-      return Icons.soup_kitchen;
-    case DishType.main:
-      return Icons.dinner_dining;
-    case DishType.side:
-      return Icons.rice_bowl;
-    case DishType.salad:
-      return Icons.eco;
-    case DishType.breakfast:
-      return Icons.egg;
-    case DishType.snack:
-      return Icons.lunch_dining;
-    case DishType.baking:
-      return Icons.bakery_dining;
-    case DishType.dessert:
-      return Icons.cake;
-    case DishType.drink:
-      return Icons.local_drink;
-    case DishType.preserve:
-      return Icons.inventory_2;
-  }
-}
 
 String _dishTypeName(AppLocalizations l10n, DishType type) {
   switch (type) {
@@ -276,7 +252,20 @@ class _SuggestionsScreenState extends ConsumerState<SuggestionsScreen> {
             child: suggestionsAsync.when(
               loading: () => const Center(child: CircularProgressIndicator()),
               error: (e, _) => Center(
-                child: Text(e.toString(), style: theme.textTheme.bodyLarge),
+                child: Padding(
+                  padding: const EdgeInsets.all(24),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const AppStateIllustration(
+                        assetPath: AppImages.stateErrorGeneric,
+                        height: 140,
+                      ),
+                      const SizedBox(height: 16),
+                      Text(e.toString(), style: theme.textTheme.bodyLarge),
+                    ],
+                  ),
+                ),
               ),
               data: (data) {
                 final filteredReady = data.ready.where((s) {
@@ -339,10 +328,9 @@ class _SuggestionsScreenState extends ConsumerState<SuggestionsScreen> {
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Icon(
-                            Icons.restaurant_outlined,
-                            size: 64,
-                            color: theme.colorScheme.onSurfaceVariant,
+                          const AppStateIllustration(
+                            assetPath: AppImages.stateNoDishes,
+                            height: 160,
                           ),
                           const SizedBox(height: 16),
                           Text(
@@ -515,7 +503,7 @@ class _SuggestionsScreenState extends ConsumerState<SuggestionsScreen> {
                         _selectedDishType = selected ? type : null;
                       });
                     },
-                    avatar: Icon(_dishTypeIcon(type), size: 20),
+                    avatar: AppDishTypeIcon(dishType: type, size: 20),
                     label: Text(
                       _dishTypeName(l10n, type),
                       style: theme.textTheme.bodyLarge?.copyWith(
@@ -665,11 +653,7 @@ class _RecipeCard extends StatelessWidget {
                     Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Icon(
-                          _dishTypeIcon(recipe.dishType),
-                          size: 20,
-                          color: theme.colorScheme.primary,
-                        ),
+                        AppDishTypeIcon(dishType: recipe.dishType, size: 24),
                         const SizedBox(width: 6),
                         Text(
                           _dishTypeName(l10n, recipe.dishType),
@@ -943,11 +927,7 @@ class _AiDishCard extends StatelessWidget {
                     Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Icon(
-                          _dishTypeIcon(dishTypeEnum),
-                          size: 20,
-                          color: theme.colorScheme.primary,
-                        ),
+                        AppDishTypeIcon(dishType: dishTypeEnum, size: 24),
                         const SizedBox(width: 6),
                         Text(
                           _dishTypeName(l10n, dishTypeEnum),

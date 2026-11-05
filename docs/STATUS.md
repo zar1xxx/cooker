@@ -6,8 +6,8 @@
 
 - Этап: **исправления после ревью этапов 1–6 (R1-01…R1-07)** — см. `docs/reports/REVIEW_STAGES_1_6.md`
 - Ревью: этапы 1–6 приняты с условием. S3-10 и S6-05 сняты (не выполнены по сути), A-01 не сделан
-- Следующая задача: **R1-04** (выполнить A-01: графические ассеты в UI)
-- Последний прогон `tool/check.ps1`: зелёный (2026-11-05 18:02:47), 340 тестов
+- Следующая задача: **R1-05** (Честность: исправление отчётов S3-10 и S6-05)
+- Последний прогон `tool/check.ps1`: зелёный (2026-11-05 19:01:16), 350 тестов
 
 ## Проверить владельцу на устройстве
 
@@ -19,6 +19,7 @@
 
 | Дата | Задача | Результат | Комментарий |
 | --- | --- | --- | --- |
+| 2026-11-05 | R1-04 | Выполнено | Выполнена задача A-01 (графика): добавлены каталоги иконок и картинок в `pubspec.yaml`, создан `AppImages` (`lib/app/app_images.dart`) с компонентами `AppCategoryIcon`, `AppDishTypeIcon`, `AppRecipePlaceholder`, `AppStateIllustration`; графика интегрирована в PantryScreen, SuggestionsScreen, RecipeScreen, TodayScreen, CalendarScreen, HistoryScreen, CookingScreen; написаны `test/app_images_test.dart` (6 тестов) и `test/screenshots_test.dart` (4 теста), сгенерированы скриншоты в `docs/reports/img/`; check.ps1 зелёный (350 тестов) |
 | 2026-11-05 | R1-03 | Выполнено | Полный качественный пересмотр стартовых рецептов seed: написан `test/seed_quality_test.dart` (5 строгих кулинарных правил); переписаны все рецепты в `tool/seed_data/` с настоящими бабушкиными шагами, кулинарными признаками готовности, временами и правильной грамматикой; перегенерирован `assets/seed/recipes.json` (125 рецептов); `seed_quality_test` зелёный, `seed_recipes_valid_test` зелёный, `tool/check.ps1` зелёный (340 тестов) |
 | 2026-11-05 | R1-02 | Выполнено | Устранена гонка в `aiRouterProvider`: добавлен `AiRouter.ready` (`Future<void>`), методы `getActiveProvider`, `getMode` и провайдер `aiServiceProvider` дожидаются `router.ready`. Добавлен `connectivityProvider`. Написаны 2 теста в `test/ai_settings_test.dart`. check.ps1 зелёный (335 тестов) |
 | 2026-11-05 | R1-01 | Выполнено | Проверены правки ревьюера (F1, F2, F3): загрузка корневого сертификата Минцифры GigaChat, connectTimeout при поиске ПК, fallback на GigaChat после 2 невалидных JSON LM Studio без маркировки ПК как сбойного. Добавлены 4 теста в test/ai_router_test.dart и test/ai_settings_test.dart. check.ps1 зелёный (333 теста) |

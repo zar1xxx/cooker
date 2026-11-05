@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
+import '../../app/app_images.dart';
 import '../../app/theme.dart';
 import '../../core/db/app_database.dart';
 import '../../core/providers.dart';
@@ -41,7 +42,7 @@ class _CookingScreenState extends ConsumerState<CookingScreen> {
 
   void _enableWakelock() {
     try {
-      WakelockPlus.enable();
+      WakelockPlus.enable().catchError((_) {});
     } catch (_) {
       // Ignored in test environment
     }
@@ -49,7 +50,7 @@ class _CookingScreenState extends ConsumerState<CookingScreen> {
 
   void _disableWakelock() {
     try {
-      WakelockPlus.disable();
+      WakelockPlus.disable().catchError((_) {});
     } catch (_) {
       // Ignored in test environment
     }
@@ -58,8 +59,8 @@ class _CookingScreenState extends ConsumerState<CookingScreen> {
   void _initTts() {
     _flutterTts = FlutterTts();
     try {
-      _flutterTts.setLanguage('ru-RU');
-      _flutterTts.setSpeechRate(0.45);
+      _flutterTts.setLanguage('ru-RU').catchError((_) {});
+      _flutterTts.setSpeechRate(0.45).catchError((_) {});
       _flutterTts.setStartHandler(() {
         if (mounted) setState(() => _isSpeaking = true);
       });
@@ -535,6 +536,15 @@ class _CookingScreenState extends ConsumerState<CookingScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
+                        if (isFirst) ...[
+                          const Center(
+                            child: AppStateIllustration(
+                              assetPath: AppImages.cookingStepStart,
+                              height: 140,
+                            ),
+                          ),
+                          const SizedBox(height: 20),
+                        ],
                         // Giant step text 28 sp
                         Text(
                           currentStep.textContent,
@@ -775,6 +785,13 @@ class _CookingScreenState extends ConsumerState<CookingScreen> {
               ),
             ),
             if (isDone) ...[
+              const SizedBox(height: 12),
+              const Center(
+                child: AppStateIllustration(
+                  assetPath: AppImages.cookingTimerRing,
+                  height: 120,
+                ),
+              ),
               const SizedBox(height: 6),
               Text(
                 l10n.cookingTimerDone,
