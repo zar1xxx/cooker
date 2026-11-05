@@ -264,6 +264,8 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                       ref.invalidate(calendarPlanEntriesProvider);
                     },
                     onReplaceRecipe: () => _showRecipePicker(context),
+                    onReplaceWithAvailable: () =>
+                        _showRecipePicker(context, onlyAvailable: true),
                     onChooseRecipe: () => _showRecipePicker(context),
                   ),
                 ),
@@ -365,8 +367,20 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
     }
   }
 
-  Future<void> _showRecipePicker(BuildContext context) async {
-    final allRecipes = await ref.read(recipeDaoProvider).all();
+  Future<void> _showRecipePicker(
+    BuildContext context, {
+    bool onlyFavorites = false,
+    bool onlyAvailable = false,
+  }) async {
+    final allRecipes = await ref.read(recipeDaoProvider).allWithIngredients();
+    final pantry = await ref
+        .read(pantryProvider.future)
+        .catchError((_) => <String>{});
+    final existingEntry =
+        (await ref
+                .read(planDaoProvider)
+                .getEntryForDate(PlanDao.formatDate(_selectedDay)))
+            ?.entry;
 
     if (!context.mounted) return;
 
@@ -381,15 +395,19 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
         return _RecipePickerSheet(
           recipes: allRecipes,
           selectedDate: _selectedDay,
-          onSelected: (recipe) async {
+          pantry: pantry,
+          initialOnlyFavorites: onlyFavorites,
+          initialOnlyAvailable: onlyAvailable,
+          onSelected: (recipeWithIng) async {
             final dateStr = PlanDao.formatDate(_selectedDay);
+            final isLocked = existingEntry?.locked ?? false;
             await ref
                 .read(planDaoProvider)
                 .upsertEntry(
                   date: dateStr,
-                  recipeId: recipe.id,
+                  recipeId: recipeWithIng.recipe.id,
                   status: MealPlanStatus.planned,
-                  locked: false,
+                  locked: isLocked,
                 );
             ref.invalidate(calendarPlanEntriesProvider);
             if (sheetContext.mounted) {
@@ -411,6 +429,7 @@ class _SelectedDayMealCard extends ConsumerWidget {
     required this.onStatusChange,
     required this.onReplaceRecipe,
     required this.onChooseRecipe,
+    this.onReplaceWithAvailable,
   });
 
   final DateTime date;
@@ -420,6 +439,7 @@ class _SelectedDayMealCard extends ConsumerWidget {
   final void Function(MealPlanEntry, MealPlanStatus) onStatusChange;
   final VoidCallback onReplaceRecipe;
   final VoidCallback onChooseRecipe;
+  final VoidCallback? onReplaceWithAvailable;
 
   String _formatDateHeader(DateTime date, AppLocalizations l10n) {
     final now = clock.now();
@@ -591,7 +611,8 @@ class _SelectedDayMealCard extends ConsumerWidget {
                           ),
                           const SizedBox(height: 6),
                           OutlinedButton(
-                            onPressed: onReplaceRecipe,
+                            onPressed:
+                                onReplaceWithAvailable ?? onReplaceRecipe,
                             style: OutlinedButton.styleFrom(
                               minimumSize: const Size(double.infinity, 44),
                             ),
@@ -759,11 +780,17 @@ class _RecipePickerSheet extends StatefulWidget {
     required this.recipes,
     required this.selectedDate,
     required this.onSelected,
+    this.pantry = const {},
+    this.initialOnlyFavorites = false,
+    this.initialOnlyAvailable = false,
   });
 
-  final List<Recipe> recipes;
+  final List<RecipeWithIngredients> recipes;
   final DateTime selectedDate;
-  final ValueChanged<Recipe> onSelected;
+  final ValueChanged<RecipeWithIngredients> onSelected;
+  final Set<String> pantry;
+  final bool initialOnlyFavorites;
+  final bool initialOnlyAvailable;
 
   @override
   State<_RecipePickerSheet> createState() => _RecipePickerSheetState();
@@ -772,11 +799,30 @@ class _RecipePickerSheet extends StatefulWidget {
 class _RecipePickerSheetState extends State<_RecipePickerSheet> {
   final TextEditingController _searchController = TextEditingController();
   String _query = '';
+  late bool _filterFavorites;
+  late bool _filterAvailable;
+
+  @override
+  void initState() {
+    super.initState();
+    _filterFavorites = widget.initialOnlyFavorites;
+    _filterAvailable = widget.initialOnlyAvailable;
+  }
 
   @override
   void dispose() {
     _searchController.dispose();
     super.dispose();
+  }
+
+  bool _isRecipeAvailable(RecipeWithIngredients r) {
+    if (widget.pantry.isEmpty) return false;
+    for (final line in r.ingredients) {
+      if (line.recipeIngredient.isOptional) continue;
+      final ingId = line.recipeIngredient.ingredientId;
+      if (!widget.pantry.contains(ingId)) return false;
+    }
+    return true;
   }
 
   @override
@@ -785,9 +831,12 @@ class _RecipePickerSheetState extends State<_RecipePickerSheet> {
     final theme = Theme.of(context);
 
     final filtered = widget.recipes.where((r) {
+      if (_filterFavorites && !r.recipe.isFavorite) return false;
+      if (_filterAvailable && !_isRecipeAvailable(r)) return false;
       if (_query.isEmpty) return true;
-      return r.title.toLowerCase().contains(_query.toLowerCase()) ||
-          r.description.toLowerCase().contains(_query.toLowerCase());
+      final q = _query.toLowerCase();
+      return r.recipe.title.toLowerCase().contains(q) ||
+          r.recipe.description.toLowerCase().contains(q);
     }).toList();
 
     return Padding(
@@ -829,32 +878,98 @@ class _RecipePickerSheetState extends State<_RecipePickerSheet> {
             ),
             onChanged: (val) => setState(() => _query = val.trim()),
           ),
+          const SizedBox(height: 8),
+          // Quick filter chips
+          Wrap(
+            spacing: 8,
+            children: [
+              FilterChip(
+                label: const Text('Все'),
+                selected: !_filterFavorites && !_filterAvailable,
+                onSelected: (val) {
+                  if (val) {
+                    setState(() {
+                      _filterFavorites = false;
+                      _filterAvailable = false;
+                    });
+                  }
+                },
+              ),
+              FilterChip(
+                avatar: const Icon(Icons.star, size: 16, color: Colors.amber),
+                label: const Text('Избранные'),
+                selected: _filterFavorites,
+                onSelected: (val) {
+                  setState(() {
+                    _filterFavorites = val;
+                    if (val) _filterAvailable = false;
+                  });
+                },
+              ),
+              if (widget.pantry.isNotEmpty)
+                FilterChip(
+                  avatar: const Icon(
+                    Icons.check_circle_outline,
+                    size: 16,
+                    color: Colors.green,
+                  ),
+                  label: const Text('Есть дома'),
+                  selected: _filterAvailable,
+                  onSelected: (val) {
+                    setState(() {
+                      _filterAvailable = val;
+                      if (val) _filterFavorites = false;
+                    });
+                  },
+                ),
+            ],
+          ),
           const SizedBox(height: 12),
           ConstrainedBox(
             constraints: BoxConstraints(
-              maxHeight: MediaQuery.of(context).size.height * 0.5,
+              maxHeight: MediaQuery.of(context).size.height * 0.45,
             ),
-            child: ListView.separated(
-              shrinkWrap: true,
-              itemCount: filtered.length,
-              separatorBuilder: (_, _) => const Divider(height: 1),
-              itemBuilder: (context, index) {
-                final recipe = filtered[index];
-                return ListTile(
-                  leading: Icon(_dishTypeIcon(recipe.dishType), size: 28),
-                  title: Text(
-                    recipe.title,
-                    style: theme.textTheme.bodyLarge?.copyWith(
-                      fontWeight: FontWeight.bold,
+            child: filtered.isEmpty
+                ? Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(24),
+                      child: Text(
+                        'Ничего не найдено',
+                        style: theme.textTheme.bodyMedium?.copyWith(
+                          color: theme.colorScheme.onSurfaceVariant,
+                        ),
+                      ),
                     ),
+                  )
+                : ListView.separated(
+                    shrinkWrap: true,
+                    itemCount: filtered.length,
+                    separatorBuilder: (_, _) => const Divider(height: 1),
+                    itemBuilder: (context, index) {
+                      final item = filtered[index];
+                      final recipe = item.recipe;
+                      return ListTile(
+                        leading: Icon(_dishTypeIcon(recipe.dishType), size: 28),
+                        title: Text(
+                          recipe.title,
+                          style: theme.textTheme.bodyLarge?.copyWith(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        subtitle: Text(
+                          '${_dishTypeName(recipe.dishType, l10n)} · ${recipe.totalMinutes} мин · ${_difficultyName(l10n, recipe.difficulty)}',
+                        ),
+                        trailing: recipe.isFavorite
+                            ? const Icon(
+                                Icons.star,
+                                color: Colors.amber,
+                                size: 22,
+                              )
+                            : null,
+                        onTap: () => widget.onSelected(item),
+                      );
+                    },
                   ),
-                  subtitle: Text(
-                    '${_dishTypeName(recipe.dishType, l10n)} · ${recipe.totalMinutes} мин · ${_difficultyName(l10n, recipe.difficulty)}',
-                  ),
-                  onTap: () => widget.onSelected(recipe),
-                );
-              },
-            ),
           ),
           const SizedBox(height: 16),
         ],
