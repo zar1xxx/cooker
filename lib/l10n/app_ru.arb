@@ -1185,5 +1185,57 @@
         "type": "String"
       }
     }
+  },
+  "todayDishOfTheDay": "Блюдо дня",
+  "@todayDishOfTheDay": {
+    "description": "Заголовок карточки сегодняшнего блюда"
+  },
+  "todayNoDishPlanned": "На сегодня блюдо не выбрано",
+  "@todayNoDishPlanned": {
+    "description": "Заголовок пустого состояния на экране Сегодня"
+  },
+  "todayNoDishPlannedSubtitle": "Выберите блюдо из каталога или подберите из того, что есть дома",
+  "@todayNoDishPlannedSubtitle": {
+    "description": "Подзаголовок пустого состояния на экране Сегодня"
+  },
+  "todayPickFromPantry": "Подобрать из того, что есть",
+  "@todayPickFromPantry": {
+    "description": "Кнопка перехода к подбору из запасов на экране Сегодня"
+  },
+  "todayChooseDish": "Выбрать блюдо",
+  "@todayChooseDish": {
+    "description": "Кнопка выбора блюда из каталога на экране Сегодня"
+  },
+  "todayStartCooking": "Готовить",
+  "@todayStartCooking": {
+    "description": "Кнопка запуска режима готовки для блюда дня"
+  },
+  "todayAnotherDish": "Другое блюдо",
+  "@todayAnotherDish": {
+    "description": "Кнопка замены блюда дня на экране Сегодня"
+  },
+  "todayViewRecipe": "Посмотреть рецепт",
+  "@todayViewRecipe": {
+    "description": "Кнопка просмотра рецепта блюда дня"
+  },
+  "todayOpenCalendar": "Открыть календарь",
+  "@todayOpenCalendar": {
+    "description": "Кнопка перехода в календарь с экрана Сегодня"
+  },
+  "dailyNotificationSection": "Уведомление о блюде дня",
+  "@dailyNotificationSection": {
+    "description": "Заголовок секции ежедневного уведомления в настройках"
+  },
+  "dailyNotificationSwitch": "Ежедневное напоминание",
+  "@dailyNotificationSwitch": {
+    "description": "Переключатель ежедневного уведомления"
+  },
+  "dailyNotificationSubtitle": "Напоминать о запланированном на сегодня блюде",
+  "@dailyNotificationSubtitle": {
+    "description": "Подзаголовок ежедневного уведомления"
+  },
+  "dailyNotificationTime": "Время напоминания",
+  "@dailyNotificationTime": {
+    "description": "Время ежедневного уведомления"
   }
 }

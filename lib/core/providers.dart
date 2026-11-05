@@ -1,3 +1,4 @@
+import 'package:clock/clock.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'ai/ai_router.dart';
@@ -20,6 +21,7 @@ import 'matching/recipe_scorer.dart';
 import 'preferences/preference_service.dart';
 import 'backup/backup_service.dart';
 import 'calendar/meal_planner.dart';
+import 'services/daily_notification_service.dart';
 
 /// One database instance per application.
 final databaseProvider = Provider<AppDatabase>((ref) {
@@ -48,6 +50,23 @@ final calendarPlanEntriesProvider =
     FutureProvider<List<MealPlanEntryWithRecipe>>((ref) async {
       return ref.watch(planDaoProvider).allWithRecipes();
     });
+
+final todayPlanEntryProvider = FutureProvider<MealPlanEntryWithRecipe?>((
+  ref,
+) async {
+  final planDao = ref.watch(planDaoProvider);
+  await planDao.autoSkipPastPlannedEntries();
+  final todayKey = PlanDao.formatDate(clock.now());
+  return planDao.getEntryForDate(todayKey);
+});
+
+final dailyNotificationServiceProvider = Provider<DailyNotificationService>((
+  ref,
+) {
+  final service = DailyNotificationService();
+  service.init();
+  return service;
+});
 
 final mealPlannerProvider = Provider<MealPlanner>((ref) {
   final aiService = ref.watch(aiServiceProvider).value;

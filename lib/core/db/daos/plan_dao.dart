@@ -4,6 +4,7 @@ import 'package:uuid/uuid.dart';
 
 import '../app_database.dart';
 import '../enums.dart';
+import '../../preferences/preference_service.dart';
 
 class MealPlanEntryWithRecipe {
   const MealPlanEntryWithRecipe({required this.entry, required this.recipe});
@@ -266,5 +267,64 @@ class PlanDao {
             ))
             .get();
     return entries.map((e) => e.date).toSet();
+  }
+
+  /// Transitions all active entries before [currentDateKey] (or today) with
+  /// status [MealPlanStatus.planned] to [MealPlanStatus.skipped].
+  ///
+  /// For each skipped entry, records a [FeedbackKind.skipped] event in feedback_events
+  /// with signal -0.2 (per ТЗ 8.1, 6.4) and recalculates the taste profile.
+  /// Returns the list of skipped entries.
+  Future<List<MealPlanEntry>> autoSkipPastPlannedEntries({
+    String? todayKey,
+    DateTime? now,
+  }) async {
+    final currentNow = now ?? clock.now();
+    final today = todayKey ?? formatDate(currentNow);
+    final nowMs = currentNow.toUtc().millisecondsSinceEpoch;
+
+    final pastPlannedEntries =
+        await (_db.select(_db.mealPlanEntries)..where(
+              (tbl) =>
+                  tbl.deletedAt.isNull() &
+                  tbl.date.isSmallerThanValue(today) &
+                  tbl.status.equalsValue(MealPlanStatus.planned),
+            ))
+            .get();
+
+    if (pastPlannedEntries.isEmpty) return const [];
+
+    for (final entry in pastPlannedEntries) {
+      await (_db.update(
+        _db.mealPlanEntries,
+      )..where((tbl) => tbl.id.equals(entry.id))).write(
+        MealPlanEntriesCompanion(
+          status: const Value(MealPlanStatus.skipped),
+          updatedAt: Value(nowMs),
+        ),
+      );
+
+      final eventId = _uuid.v4();
+      await _db
+          .into(_db.feedbackEvents)
+          .insert(
+            FeedbackEventsCompanion.insert(
+              id: Value(eventId),
+              recipeId: Value(entry.recipeId),
+              kind: FeedbackKind.skipped,
+              reason: const Value('auto_skip_past_date'),
+              at: Value(nowMs),
+              createdAt: Value(nowMs),
+              updatedAt: Value(nowMs),
+            ),
+          );
+    }
+
+    try {
+      final prefService = PreferenceService(_db);
+      await prefService.recalculateProfile();
+    } catch (_) {}
+
+    return pastPlannedEntries;
   }
 }

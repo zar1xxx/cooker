@@ -6,6 +6,7 @@ import '../../core/ai/ai_router.dart';
 import '../../core/ai/ai_settings_service.dart';
 import '../../core/ai/lm_studio_provider.dart';
 import '../../core/providers.dart';
+import '../../core/services/daily_notification_service.dart';
 import '../../l10n/app_localizations.dart';
 
 /// Screen allowing configuration and diagnostics of AI providers (LM Studio & GigaChat).
@@ -38,6 +39,8 @@ class _AiSettingsScreenState extends ConsumerState<AiSettingsScreen> {
   AiMode? _activeMode;
   int? _monthlyTokens;
   bool _initialized = false;
+  bool _dailyNotificationEnabled = false;
+  TimeOfDay _dailyNotificationTime = const TimeOfDay(hour: 10, minute: 0);
 
   @override
   void initState() {
@@ -49,6 +52,55 @@ class _AiSettingsScreenState extends ConsumerState<AiSettingsScreen> {
     _gigaChatBaseUrlController = TextEditingController(
       text: 'https://gigachat.devices.sberbank.ru',
     );
+    _loadNotificationConfig();
+  }
+
+  Future<void> _loadNotificationConfig() async {
+    try {
+      final notifService = ref.read(dailyNotificationServiceProvider);
+      final config = await notifService.getConfig();
+      if (mounted) {
+        setState(() {
+          _dailyNotificationEnabled = config.enabled;
+          _dailyNotificationTime = TimeOfDay(
+            hour: config.hour,
+            minute: config.minute,
+          );
+        });
+      }
+    } catch (_) {}
+  }
+
+  Future<void> _updateDailyNotificationConfig({
+    bool? enabled,
+    TimeOfDay? time,
+  }) async {
+    final newEnabled = enabled ?? _dailyNotificationEnabled;
+    final newTime = time ?? _dailyNotificationTime;
+
+    setState(() {
+      _dailyNotificationEnabled = newEnabled;
+      _dailyNotificationTime = newTime;
+    });
+
+    final notifService = ref.read(dailyNotificationServiceProvider);
+    final config = DailyNotificationConfig(
+      enabled: newEnabled,
+      hour: newTime.hour,
+      minute: newTime.minute,
+    );
+    await notifService.setConfig(config);
+
+    if (newEnabled) {
+      final todayEntry = await ref.read(todayPlanEntryProvider.future);
+      await notifService.scheduleDaily(
+        config: config,
+        todayDishTitle: todayEntry?.recipe?.title,
+        recipeId: todayEntry?.recipe?.id,
+      );
+    } else {
+      await notifService.cancelDaily();
+    }
   }
 
   @override
@@ -333,6 +385,66 @@ class _AiSettingsScreenState extends ConsumerState<AiSettingsScreen> {
                 ),
                 trailing: const Icon(Icons.chevron_right),
                 onTap: () => context.push('/settings/backup'),
+              ),
+            ),
+            const SizedBox(height: 12),
+
+            // Section: Daily Notification (ТЗ 7.3)
+            Card(
+              elevation: 0,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+                side: BorderSide(
+                  color: theme.colorScheme.outlineVariant.withValues(
+                    alpha: 0.5,
+                  ),
+                ),
+              ),
+              child: Column(
+                children: [
+                  SwitchListTile(
+                    title: Text(
+                      l10n.dailyNotificationSwitch,
+                      style: theme.textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    subtitle: Text(
+                      l10n.dailyNotificationSubtitle,
+                      style: theme.textTheme.bodySmall,
+                    ),
+                    secondary: Icon(
+                      Icons.notifications_active_outlined,
+                      color: theme.colorScheme.primary,
+                    ),
+                    value: _dailyNotificationEnabled,
+                    onChanged: (val) =>
+                        _updateDailyNotificationConfig(enabled: val),
+                  ),
+                  if (_dailyNotificationEnabled) ...[
+                    const Divider(height: 1),
+                    ListTile(
+                      leading: const Icon(Icons.access_time),
+                      title: Text(l10n.dailyNotificationTime),
+                      trailing: Text(
+                        '${_dailyNotificationTime.hour.toString().padLeft(2, '0')}:${_dailyNotificationTime.minute.toString().padLeft(2, '0')}',
+                        style: theme.textTheme.titleMedium?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: theme.colorScheme.primary,
+                        ),
+                      ),
+                      onTap: () async {
+                        final picked = await showTimePicker(
+                          context: context,
+                          initialTime: _dailyNotificationTime,
+                        );
+                        if (picked != null) {
+                          await _updateDailyNotificationConfig(time: picked);
+                        }
+                      },
+                    ),
+                  ],
+                ],
               ),
             ),
             const SizedBox(height: 12),

@@ -1635,6 +1635,84 @@ abstract class AppLocalizations {
   /// In ru, this message translates to:
   /// **'Вчера, {date}'**
   String calendarYesterdayPrefix(String date);
+
+  /// Заголовок карточки сегодняшнего блюда
+  ///
+  /// In ru, this message translates to:
+  /// **'Блюдо дня'**
+  String get todayDishOfTheDay;
+
+  /// Заголовок пустого состояния на экране Сегодня
+  ///
+  /// In ru, this message translates to:
+  /// **'На сегодня блюдо не выбрано'**
+  String get todayNoDishPlanned;
+
+  /// Подзаголовок пустого состояния на экране Сегодня
+  ///
+  /// In ru, this message translates to:
+  /// **'Выберите блюдо из каталога или подберите из того, что есть дома'**
+  String get todayNoDishPlannedSubtitle;
+
+  /// Кнопка перехода к подбору из запасов на экране Сегодня
+  ///
+  /// In ru, this message translates to:
+  /// **'Подобрать из того, что есть'**
+  String get todayPickFromPantry;
+
+  /// Кнопка выбора блюда из каталога на экране Сегодня
+  ///
+  /// In ru, this message translates to:
+  /// **'Выбрать блюдо'**
+  String get todayChooseDish;
+
+  /// Кнопка запуска режима готовки для блюда дня
+  ///
+  /// In ru, this message translates to:
+  /// **'Готовить'**
+  String get todayStartCooking;
+
+  /// Кнопка замены блюда дня на экране Сегодня
+  ///
+  /// In ru, this message translates to:
+  /// **'Другое блюдо'**
+  String get todayAnotherDish;
+
+  /// Кнопка просмотра рецепта блюда дня
+  ///
+  /// In ru, this message translates to:
+  /// **'Посмотреть рецепт'**
+  String get todayViewRecipe;
+
+  /// Кнопка перехода в календарь с экрана Сегодня
+  ///
+  /// In ru, this message translates to:
+  /// **'Открыть календарь'**
+  String get todayOpenCalendar;
+
+  /// Заголовок секции ежедневного уведомления в настройках
+  ///
+  /// In ru, this message translates to:
+  /// **'Уведомление о блюде дня'**
+  String get dailyNotificationSection;
+
+  /// Переключатель ежедневного уведомления
+  ///
+  /// In ru, this message translates to:
+  /// **'Ежедневное напоминание'**
+  String get dailyNotificationSwitch;
+
+  /// Подзаголовок ежедневного уведомления
+  ///
+  /// In ru, this message translates to:
+  /// **'Напоминать о запланированном на сегодня блюде'**
+  String get dailyNotificationSubtitle;
+
+  /// Время ежедневного уведомления
+  ///
+  /// In ru, this message translates to:
+  /// **'Время напоминания'**
+  String get dailyNotificationTime;
 }
 
 class _AppLocalizationsDelegate

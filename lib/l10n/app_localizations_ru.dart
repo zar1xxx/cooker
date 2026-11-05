@@ -859,4 +859,45 @@ class AppLocalizationsRu extends AppLocalizations {
   String calendarYesterdayPrefix(String date) {
     return 'Вчера, $date';
   }
+
+  @override
+  String get todayDishOfTheDay => 'Блюдо дня';
+
+  @override
+  String get todayNoDishPlanned => 'На сегодня блюдо не выбрано';
+
+  @override
+  String get todayNoDishPlannedSubtitle =>
+      'Выберите блюдо из каталога или подберите из того, что есть дома';
+
+  @override
+  String get todayPickFromPantry => 'Подобрать из того, что есть';
+
+  @override
+  String get todayChooseDish => 'Выбрать блюдо';
+
+  @override
+  String get todayStartCooking => 'Готовить';
+
+  @override
+  String get todayAnotherDish => 'Другое блюдо';
+
+  @override
+  String get todayViewRecipe => 'Посмотреть рецепт';
+
+  @override
+  String get todayOpenCalendar => 'Открыть календарь';
+
+  @override
+  String get dailyNotificationSection => 'Уведомление о блюде дня';
+
+  @override
+  String get dailyNotificationSwitch => 'Ежедневное напоминание';
+
+  @override
+  String get dailyNotificationSubtitle =>
+      'Напоминать о запланированном на сегодня блюде';
+
+  @override
+  String get dailyNotificationTime => 'Время напоминания';
 }
