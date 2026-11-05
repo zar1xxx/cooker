@@ -6,7 +6,7 @@
 
 - Этап: **исправления после ревью этапов 1–6 (R1-01…R1-07)** — см. `docs/reports/REVIEW_STAGES_1_6.md`
 - Ревью: этапы 1–6 приняты с условием. S3-10 и S6-05 сняты (не выполнены по сути), A-01 не сделан
-- Следующая задача: **R1-05** (Честность: исправление отчётов S3-10 и S6-05)
+- Следующая задача: **R1-06** (Release: split-per-abi и документация keystore в `docs/INSTALL.md`)
 - Последний прогон `tool/check.ps1`: зелёный (2026-11-05 19:01:16), 350 тестов
 
 ## Проверить владельцу на устройстве
@@ -19,6 +19,7 @@
 
 | Дата | Задача | Результат | Комментарий |
 | --- | --- | --- | --- |
+| 2026-11-05 | R1-05 | Выполнено | Честность в отчётах: проверен пинг LM Studio (`tool/lmstudio_ping.ps1` — сервер не запущен); в `docs/reports/STAGE_3.md` и `docs/DECISIONS.md` (D-039) прямо зафиксировано, что расход токенов является расчётной оценкой по длине текста, а не прямым сетевым замером; в `docs/reports/STAGE_6.md` условие S6-05 скорректировано на «автотесты сценариев зелёные; на телефоне не проверено» и вынесено в задачи владельца на реальном устройстве |
 | 2026-11-05 | R1-04 | Выполнено | Выполнена задача A-01 (графика): добавлены каталоги иконок и картинок в `pubspec.yaml`, создан `AppImages` (`lib/app/app_images.dart`) с компонентами `AppCategoryIcon`, `AppDishTypeIcon`, `AppRecipePlaceholder`, `AppStateIllustration`; графика интегрирована в PantryScreen, SuggestionsScreen, RecipeScreen, TodayScreen, CalendarScreen, HistoryScreen, CookingScreen; написаны `test/app_images_test.dart` (6 тестов) и `test/screenshots_test.dart` (4 теста), сгенерированы скриншоты в `docs/reports/img/`; check.ps1 зелёный (350 тестов) |
 | 2026-11-05 | R1-03 | Выполнено | Полный качественный пересмотр стартовых рецептов seed: написан `test/seed_quality_test.dart` (5 строгих кулинарных правил); переписаны все рецепты в `tool/seed_data/` с настоящими бабушкиными шагами, кулинарными признаками готовности, временами и правильной грамматикой; перегенерирован `assets/seed/recipes.json` (125 рецептов); `seed_quality_test` зелёный, `seed_recipes_valid_test` зелёный, `tool/check.ps1` зелёный (340 тестов) |
 | 2026-11-05 | R1-02 | Выполнено | Устранена гонка в `aiRouterProvider`: добавлен `AiRouter.ready` (`Future<void>`), методы `getActiveProvider`, `getMode` и провайдер `aiServiceProvider` дожидаются `router.ready`. Добавлен `connectivityProvider`. Написаны 2 теста в `test/ai_settings_test.dart`. check.ps1 зелёный (335 тестов) |
