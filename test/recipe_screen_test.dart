@@ -60,7 +60,7 @@ void main() {
       expect(find.text('Куриный суп с картошкой'), findsOneWidget);
       expect(find.text('Суп'), findsOneWidget);
       expect(find.text('Легко'), findsOneWidget);
-      expect(find.text('40 мин'), findsOneWidget);
+      expect(find.text('65 мин'), findsOneWidget);
 
       // Servings
       expect(find.text('Порции: 4'), findsOneWidget);

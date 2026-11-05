@@ -96,8 +96,8 @@ void main() {
         // Recipe title in AppBar
         expect(find.text('Куриный суп с картошкой'), findsOneWidget);
 
-        // Progress indicator: 4 steps in chicken_soup_potato
-        expect(find.text('Шаг 1 из 4'), findsOneWidget);
+        // Progress indicator: 5 steps in chicken_soup_potato
+        expect(find.text('Шаг 1 из 5'), findsOneWidget);
 
         // Next button is present
         expect(find.text('Дальше'), findsOneWidget);
@@ -121,34 +121,39 @@ void main() {
       );
       await tester.pumpAndSettle();
 
-      expect(find.text('Шаг 1 из 4'), findsOneWidget);
+      expect(find.text('Шаг 1 из 5'), findsOneWidget);
 
       // Step 1 -> Step 2
       await tester.tap(find.text('Дальше'));
       await tester.pumpAndSettle();
-      expect(find.text('Шаг 2 из 4'), findsOneWidget);
+      expect(find.text('Шаг 2 из 5'), findsOneWidget);
 
-      // Step 2 has a 600s (10 min) timer
-      expect(find.text('10:00'), findsOneWidget);
+      // Step 2 has a 1500s (25 min) timer
+      expect(find.text('25:00'), findsOneWidget);
       expect(find.text('Запустить таймер'), findsOneWidget);
 
       // Step 2 -> Step 3
       await tester.tap(find.text('Дальше'));
       await tester.pumpAndSettle();
-      expect(find.text('Шаг 3 из 4'), findsOneWidget);
+      expect(find.text('Шаг 3 из 5'), findsOneWidget);
 
-      // Step 3 -> Step 4 (last step)
+      // Step 3 -> Step 4
       await tester.tap(find.text('Дальше'));
       await tester.pumpAndSettle();
-      expect(find.text('Шаг 4 из 4'), findsOneWidget);
+      expect(find.text('Шаг 4 из 5'), findsOneWidget);
+
+      // Step 4 -> Step 5 (last step)
+      await tester.tap(find.text('Дальше'));
+      await tester.pumpAndSettle();
+      expect(find.text('Шаг 5 из 5'), findsOneWidget);
 
       // On last step, button is «Готово!»
       expect(find.text('Готово!'), findsOneWidget);
 
-      // Can go back to step 3
+      // Can go back to step 4
       await tester.tap(find.text('Назад'));
       await tester.pumpAndSettle();
-      expect(find.text('Шаг 3 из 4'), findsOneWidget);
+      expect(find.text('Шаг 4 из 5'), findsOneWidget);
     });
 
     testWidgets('starts and pauses the step timer on tap', (tester) async {
@@ -162,11 +167,11 @@ void main() {
       );
       await tester.pumpAndSettle();
 
-      // Advance to step 2 which has a 10 min timer
+      // Advance to step 2 which has a 25 min timer
       await tester.tap(find.text('Дальше'));
       await tester.pumpAndSettle();
 
-      expect(find.text('10:00'), findsOneWidget);
+      expect(find.text('25:00'), findsOneWidget);
       final startTimerButton = find.text('Запустить таймер');
       expect(startTimerButton, findsOneWidget);
 
@@ -176,7 +181,7 @@ void main() {
 
       // Ticks 1 second
       await tester.pump(const Duration(seconds: 1));
-      expect(find.text('09:59'), findsOneWidget);
+      expect(find.text('24:59'), findsOneWidget);
       expect(find.text('Пауза'), findsOneWidget);
 
       // Pause timer
@@ -235,8 +240,8 @@ void main() {
         );
         await tester.pumpAndSettle();
 
-        // Advance to last step (step 4)
-        for (int i = 0; i < 3; i++) {
+        // Advance to last step (step 5)
+        for (int i = 0; i < 4; i++) {
           await tester.tap(find.text('Дальше'));
           await tester.pumpAndSettle();
         }
