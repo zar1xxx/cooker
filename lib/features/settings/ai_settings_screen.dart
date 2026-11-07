@@ -148,6 +148,9 @@ class _AiSettingsScreenState extends ConsumerState<AiSettingsScreen> {
 
       if (found != null && found.isNotEmpty) {
         _hostController.text = found;
+        if (discovery.lastDiscoveredPort != null) {
+          _portController.text = discovery.lastDiscoveredPort.toString();
+        }
         ScaffoldMessenger.of(
           context,
         ).showSnackBar(SnackBar(content: Text(l10n.aiSettingsPcFound(found))));

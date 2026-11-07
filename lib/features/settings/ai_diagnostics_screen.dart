@@ -128,7 +128,7 @@ class _AiDiagnosticsScreenState extends ConsumerState<AiDiagnosticsScreen> {
     bool wifiOk = false;
     String? phoneIp;
     String? pcHost;
-    final pcPort = settings.lmStudioPort != 0 ? settings.lmStudioPort : 1234;
+    int pcPort = settings.lmStudioPort != 0 ? settings.lmStudioPort : 1234;
     bool lmStudioOk = false;
     String? activeModel;
     bool gigaKeyOk = false;
@@ -208,15 +208,20 @@ class _AiDiagnosticsScreenState extends ConsumerState<AiDiagnosticsScreen> {
     );
     try {
       final configuredHost = settings.lmStudioHost.trim();
+      final candidatePorts = <int>{pcPort, 1234, 1235}.toList();
       bool found = false;
       if (configuredHost.isNotEmpty) {
-        found = await discovery.probeHost(
-          configuredHost,
-          pcPort,
-          timeout: const Duration(milliseconds: 600),
-        );
-        if (found) {
-          pcHost = configuredHost;
+        for (final p in candidatePorts) {
+          found = await discovery.probeHost(
+            configuredHost,
+            p,
+            timeout: const Duration(milliseconds: 600),
+          );
+          if (found) {
+            pcHost = configuredHost;
+            pcPort = p;
+            break;
+          }
         }
       }
 
@@ -228,6 +233,7 @@ class _AiDiagnosticsScreenState extends ConsumerState<AiDiagnosticsScreen> {
         );
         if (discovered != null && discovered.isNotEmpty) {
           pcHost = discovered;
+          pcPort = discovery.lastDiscoveredPort ?? pcPort;
           found = true;
         }
       }

@@ -45,19 +45,30 @@ class PcAutoDiscoveryService {
       final settings = await settingsService.loadSettings();
       final savedHost = settings.lmStudioHost.trim();
       final port = settings.lmStudioPort != 0 ? settings.lmStudioPort : 1234;
+      final candidatePorts = <int>{
+        if (settings.lmStudioPort != 0) settings.lmStudioPort,
+        1234,
+        1235,
+      }.toList();
 
-      // 1. If savedHost is set, check if it answers
+      // 1. If savedHost is set, check if it answers (trying candidate ports)
       if (savedHost.isNotEmpty) {
-        final ok = await discovery.probeHost(
-          savedHost,
-          port,
-          timeout: const Duration(milliseconds: 500),
-        );
-        if (ok) {
-          if (router.lmStudioProvider == null) {
-            settingsService.applyToRouter(router, settings);
+        for (final p in candidatePorts) {
+          final ok = await discovery.probeHost(
+            savedHost,
+            p,
+            timeout: const Duration(milliseconds: 500),
+          );
+          if (ok) {
+            final updated = settings.copyWith(lmStudioPort: p);
+            if (p != settings.lmStudioPort) {
+              await settingsService.saveSettings(updated);
+            }
+            if (router.lmStudioProvider == null || p != settings.lmStudioPort) {
+              settingsService.applyToRouter(router, updated);
+            }
+            return savedHost;
           }
-          return savedHost;
         }
       }
 
@@ -69,7 +80,11 @@ class PcAutoDiscoveryService {
       );
 
       if (found != null && found.isNotEmpty) {
-        final updated = settings.copyWith(lmStudioHost: found);
+        final foundPort = discovery.lastDiscoveredPort ?? port;
+        final updated = settings.copyWith(
+          lmStudioHost: found,
+          lmStudioPort: foundPort,
+        );
         await settingsService.saveSettings(updated);
         settingsService.applyToRouter(router, updated);
         return found;

@@ -200,5 +200,69 @@ void main() {
         expect(router.lmStudioProvider, isNotNull);
       },
     );
+
+    test(
+      'R4-09: server on port 1235 on subnet -> found and port 1235 saved',
+      () async {
+        // Mock server only on port 1235
+        dio.httpClientAdapter = _MockHttpClientAdapter((options) async {
+          if (options.path.contains('192.168.1.99:1235/v1/models')) {
+            return _createJsonResponse({
+              'data': [
+                {'id': 'google/gemma-4-12b-qat'},
+              ],
+            });
+          }
+          throw DioException(
+            requestOptions: options,
+            type: DioExceptionType.connectionTimeout,
+          );
+        });
+
+        final found = await autoDiscovery.checkAndDiscover(force: true);
+        expect(found, equals('192.168.1.99'));
+
+        final settings = await settingsService.loadSettings();
+        expect(settings.lmStudioHost, equals('192.168.1.99'));
+        expect(settings.lmStudioPort, equals(1235));
+        expect(
+          router.lmStudioProvider?.baseUrl,
+          equals('http://192.168.1.99:1235'),
+        );
+      },
+    );
+
+    test('R4-09: saved host answered on 1235 when settings had 1234 -> port 1235 updated', () async {
+      FlutterSecureStorage.setMockInitialValues({
+        'ai_lm_studio_host': '192.168.1.55',
+        'ai_lm_studio_port': '1234',
+      });
+
+      // Port 1234 fails, port 1235 succeeds
+      dio.httpClientAdapter = _MockHttpClientAdapter((options) async {
+        if (options.path.contains('192.168.1.55:1235/v1/models')) {
+          return _createJsonResponse({
+            'data': [
+              {'id': 'google/gemma-4-12b-qat'},
+            ],
+          });
+        }
+        throw DioException(
+          requestOptions: options,
+          type: DioExceptionType.connectionTimeout,
+        );
+      });
+
+      final found = await autoDiscovery.checkAndDiscover(force: false);
+      expect(found, equals('192.168.1.55'));
+
+      final settings = await settingsService.loadSettings();
+      expect(settings.lmStudioHost, equals('192.168.1.55'));
+      expect(settings.lmStudioPort, equals(1235));
+      expect(
+        router.lmStudioProvider?.baseUrl,
+        equals('http://192.168.1.55:1235'),
+      );
+    });
   });
 }

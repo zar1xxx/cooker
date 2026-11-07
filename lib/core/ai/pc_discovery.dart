@@ -18,6 +18,7 @@ class PcDiscovery {
   final Dio _dio;
 
   DateTime? _lastBackgroundScan;
+  int? lastDiscoveredPort;
 
   DateTime? get lastBackgroundScan => _lastBackgroundScan;
 
@@ -55,34 +56,52 @@ class PcDiscovery {
   Future<String?> discover({
     String? savedHost,
     int port = 1234,
+    List<int>? candidatePorts,
     bool force = false,
   }) async {
     final onWifi = await isWifiConnected();
     if (!onWifi) return null;
 
+    final ports = <int>{
+      if (candidatePorts != null)
+        ...candidatePorts
+      else ...[
+        if (port > 0) port,
+        1234,
+        1235,
+      ],
+    }.toList();
+
     final now = clock.now();
     if (!force &&
         _lastBackgroundScan != null &&
         now.difference(_lastBackgroundScan!) < const Duration(hours: 1)) {
-      if (savedHost != null &&
-          await probeHost(
-            savedHost,
-            port,
+      if (savedHost != null && savedHost.trim().isNotEmpty) {
+        for (final p in ports) {
+          if (await probeHost(
+            savedHost.trim(),
+            p,
             timeout: const Duration(milliseconds: 500),
           )) {
-        return savedHost;
+            lastDiscoveredPort = p;
+            return savedHost.trim();
+          }
+        }
       }
       return null;
     }
 
     // 1. Try savedHost first
     if (savedHost != null && savedHost.trim().isNotEmpty) {
-      if (await probeHost(
-        savedHost.trim(),
-        port,
-        timeout: const Duration(milliseconds: 500),
-      )) {
-        return savedHost.trim();
+      for (final p in ports) {
+        if (await probeHost(
+          savedHost.trim(),
+          p,
+          timeout: const Duration(milliseconds: 500),
+        )) {
+          lastDiscoveredPort = p;
+          return savedHost.trim();
+        }
       }
     }
 
@@ -104,21 +123,43 @@ class PcDiscovery {
       final end = (i + poolSize < ips.length) ? i + poolSize : ips.length;
       final chunk = ips.sublist(i, end);
       final futures = chunk.map((ip) async {
-        final ok = await probeHost(
-          ip,
-          port,
-          timeout: const Duration(milliseconds: 300),
-        );
-        return ok ? ip : null;
+        for (final p in ports) {
+          final ok = await probeHost(
+            ip,
+            p,
+            timeout: const Duration(milliseconds: 300),
+          );
+          if (ok) {
+            return (ip: ip, port: p);
+          }
+        }
+        return null;
       });
 
       final results = await Future.wait(futures);
-      final found = results.whereType<String>().firstOrNull;
+      final found = results.whereType<({String ip, int port})>().firstOrNull;
       if (found != null) {
-        return found;
+        lastDiscoveredPort = found.port;
+        return found.ip;
       }
     }
 
     return null;
+  }
+
+  Future<({String host, int port})?> discoverHostAndPort({
+    String? savedHost,
+    int port = 1234,
+    List<int>? candidatePorts,
+    bool force = false,
+  }) async {
+    final host = await discover(
+      savedHost: savedHost,
+      port: port,
+      candidatePorts: candidatePorts,
+      force: force,
+    );
+    if (host == null || lastDiscoveredPort == null) return null;
+    return (host: host, port: lastDiscoveredPort!);
   }
 }

@@ -7,10 +7,22 @@ import 'package:chto_prigotovit/core/ai/lm_studio_provider.dart';
 import 'package:chto_prigotovit/core/ai/prompts.dart';
 import 'package:chto_prigotovit/core/ai/recipe_validator.dart';
 
-Future<void> main() async {
+Future<void> main(List<String> args) async {
   stdout.writeln('========================================');
   stdout.writeln('  AI Smoke Test: LM Studio & GigaChat   ');
   stdout.writeln('========================================\n');
+
+  int? portOverride;
+  for (int i = 0; i < args.length; i++) {
+    if (args[i] == '--port' && i + 1 < args.length) {
+      portOverride = int.tryParse(args[i + 1]);
+    } else if (args[i].startsWith('--port=')) {
+      portOverride = int.tryParse(args[i].substring('--port='.length));
+    }
+  }
+  portOverride ??= int.tryParse(Platform.environment['LMSTUDIO_PORT'] ?? '');
+
+  final candidatePorts = portOverride != null ? [portOverride] : [1234, 1235];
 
   final templates = await PromptTemplates.load();
   final validator = await RecipeValidator.fromAsset();
@@ -22,6 +34,7 @@ Future<void> main() async {
     validator: validator,
     suggestSchema: suggestSchema,
     fullRecipeSchema: fullRecipeSchema,
+    candidatePorts: candidatePorts,
   );
 
   stdout.writeln();
@@ -43,23 +56,48 @@ Future<void> _testLmStudio({
   required RecipeValidator validator,
   required Map<String, dynamic> suggestSchema,
   required Map<String, dynamic> fullRecipeSchema,
+  List<int> candidatePorts = const [1234, 1235],
 }) async {
-  stdout.writeln('[LM Studio] Checking server at http://127.0.0.1:1234 ...');
+  stdout.writeln(
+    '[LM Studio] Checking server at candidate ports: ${candidatePorts.join(', ')} ...',
+  );
 
-  final provider = LmStudioProvider(baseUrl: 'http://127.0.0.1:1234');
+  LmStudioProvider? connectedProvider;
+  String? connectedModelId;
+  int? connectedPort;
 
-  String? modelId;
-  try {
-    modelId = await provider.resolveModel();
-  } catch (e) {
-    stdout.writeln('[LM Studio] NOT RUNNING / NOT REACHABLE: $e');
+  for (final port in candidatePorts) {
+    stdout.writeln('[LM Studio] Probing http://127.0.0.1:$port ...');
+    final provider = LmStudioProvider(baseUrl: 'http://127.0.0.1:$port');
+    try {
+      final modelId = await provider.resolveModel();
+      connectedProvider = provider;
+      connectedModelId = modelId;
+      connectedPort = port;
+      stdout.writeln(
+        '[LM Studio] Server reachable on port $port! Using model: $modelId',
+      );
+      break;
+    } catch (e) {
+      stdout.writeln('[LM Studio] Port $port not answering / error: $e');
+    }
+  }
+
+  if (connectedProvider == null || connectedModelId == null) {
     stdout.writeln(
-      '[LM Studio] (Start LM Studio on this PC, load a model, and start the local server)',
+      '[LM Studio] NOT RUNNING / NOT REACHABLE on candidate ports: ${candidatePorts.join(', ')}',
+    );
+    stdout.writeln(
+      '[LM Studio] (Start LM Studio on this PC, load a model, and start the local server via tool\\start_lmstudio_server.bat)',
     );
     return;
   }
 
-  stdout.writeln('[LM Studio] Server reachable! Using model: $modelId');
+  final provider = connectedProvider;
+  final modelId = connectedModelId;
+  stdout.writeln(
+    '[LM Studio] Selected port $connectedPort with model: $connectedModelId',
+  );
 
   // 1. suggest_dishes
   stdout.writeln('\n[LM Studio] 1/2: Testing suggest_dishes ...');

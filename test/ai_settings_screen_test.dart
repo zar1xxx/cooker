@@ -29,6 +29,7 @@ class _FakePcDiscovery extends PcDiscovery {
   Future<String?> discover({
     String? savedHost,
     int port = 1234,
+    List<int>? candidatePorts,
     bool force = false,
   }) async {
     return fakeFoundHost;
