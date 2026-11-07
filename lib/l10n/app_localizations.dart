@@ -1162,6 +1162,36 @@ abstract class AppLocalizations {
   /// **'Авторизационные данные (Client Secret)'**
   String get aiSettingsGigaChatKey;
 
+  /// Кнопка вставки ключа GigaChat из буфера обмена
+  ///
+  /// In ru, this message translates to:
+  /// **'Вставить из буфера'**
+  String get aiSettingsPasteKey;
+
+  /// Сообщение об успешной проверке ключа GigaChat
+  ///
+  /// In ru, this message translates to:
+  /// **'Настройки сохранены. Ключ GigaChat проверен'**
+  String get aiSettingsGigaChatKeyValid;
+
+  /// Сообщение о неверном ключе GigaChat (401/403)
+  ///
+  /// In ru, this message translates to:
+  /// **'Ключ не подходит'**
+  String get aiSettingsGigaChatKeyBad;
+
+  /// Сообщение о проблеме с сертификатом Минцифры
+  ///
+  /// In ru, this message translates to:
+  /// **'Проблема с сертификатом'**
+  String get aiSettingsGigaChatCertError;
+
+  /// Сообщение об отсутствии интернета при проверке GigaChat
+  ///
+  /// In ru, this message translates to:
+  /// **'Нет интернета'**
+  String get aiSettingsGigaChatNoInternet;
+
   /// Кнопка проверки связи с провайдерами
   ///
   /// In ru, this message translates to:

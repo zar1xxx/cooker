@@ -812,6 +812,26 @@
   "@aiSettingsGigaChatKey": {
     "description": "Поле ввода ключа GigaChat"
   },
+  "aiSettingsPasteKey": "Вставить из буфера",
+  "@aiSettingsPasteKey": {
+    "description": "Кнопка вставки ключа GigaChat из буфера обмена"
+  },
+  "aiSettingsGigaChatKeyValid": "Настройки сохранены. Ключ GigaChat проверен",
+  "@aiSettingsGigaChatKeyValid": {
+    "description": "Сообщение об успешной проверке ключа GigaChat"
+  },
+  "aiSettingsGigaChatKeyBad": "Ключ не подходит",
+  "@aiSettingsGigaChatKeyBad": {
+    "description": "Сообщение о неверном ключе GigaChat (401/403)"
+  },
+  "aiSettingsGigaChatCertError": "Проблема с сертификатом",
+  "@aiSettingsGigaChatCertError": {
+    "description": "Сообщение о проблеме с сертификатом Минцифры"
+  },
+  "aiSettingsGigaChatNoInternet": "Нет интернета",
+  "@aiSettingsGigaChatNoInternet": {
+    "description": "Сообщение об отсутствии интернета при проверке GigaChat"
+  },
   "aiSettingsCheckConnection": "Проверить связь",
   "@aiSettingsCheckConnection": {
     "description": "Кнопка проверки связи с провайдерами"

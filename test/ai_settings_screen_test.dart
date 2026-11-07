@@ -160,6 +160,41 @@ void main() {
       expect(find.text('Настройки успешно сохранены'), findsOneWidget);
     });
 
+    testWidgets(
+      'paste button is present and saving cleans GigaChat key (R3-06)',
+      (tester) async {
+        tester.view.physicalSize = const Size(1080, 2400);
+        tester.view.devicePixelRatio = 1.0;
+        addTearDown(() {
+          tester.view.resetPhysicalSize();
+          tester.view.resetDevicePixelRatio();
+        });
+
+        await tester.pumpWidget(buildTestScreen());
+        await tester.pumpAndSettle();
+
+        final pasteBtn = find.byKey(const Key('btn_paste_gigachat_key'));
+        expect(pasteBtn, findsOneWidget);
+
+        // Enter dirty key
+        final keyField = find.widgetWithText(
+          TextFormField,
+          'Авторизационные данные (Client Secret)',
+        );
+        expect(keyField, findsOneWidget);
+        await tester.enterText(keyField, '  "Basic MDE5YzAw...=="\n');
+        await tester.pumpAndSettle();
+
+        await tester.tap(find.text('Сохранить настройки'));
+        await tester.pumpAndSettle();
+
+        // Check that the storage received the sanitized key without quotes, Basic prefix, or spaces
+        final storage = const FlutterSecureStorage();
+        final savedKey = await storage.read(key: 'ai_gigachat_auth_key');
+        expect(savedKey, equals('MDE5YzAw...=='));
+      },
+    );
+
     testWidgets('TodayScreen title long-press navigates to /settings/ai', (
       tester,
     ) async {

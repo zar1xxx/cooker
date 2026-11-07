@@ -258,5 +258,41 @@ void main() {
       );
       expect(lmTokens, equals(200));
     });
+
+    test('sanitizeGigaChatKey cleans spaces, newlines, quotes, and Basic prefix (R3-06)', () {
+      expect(
+        AiSettingsService.sanitizeGigaChatKey('   MDE5YzAw...==   \t'),
+        equals('MDE5YzAw...=='),
+      );
+      expect(
+        AiSettingsService.sanitizeGigaChatKey('"MDE5YzAw...=="'),
+        equals('MDE5YzAw...=='),
+      );
+      expect(
+        AiSettingsService.sanitizeGigaChatKey("'MDE5YzAw...=='"),
+        equals('MDE5YzAw...=='),
+      );
+      expect(
+        AiSettingsService.sanitizeGigaChatKey('`MDE5YzAw...==`'),
+        equals('MDE5YzAw...=='),
+      );
+      expect(
+        AiSettingsService.sanitizeGigaChatKey('Basic MDE5YzAw...=='),
+        equals('MDE5YzAw...=='),
+      );
+      expect(
+        AiSettingsService.sanitizeGigaChatKey('basic   MDE5YzAw...=='),
+        equals('MDE5YzAw...=='),
+      );
+      expect(
+        AiSettingsService.sanitizeGigaChatKey('MDE5\n\rYzAw\n...=='),
+        equals('MDE5YzAw...=='),
+      );
+      expect(
+        AiSettingsService.sanitizeGigaChatKey('  "Basic MDE5\n YzAw...==" '),
+        equals('MDE5YzAw...=='),
+      );
+      expect(AiSettingsService.sanitizeGigaChatKey('   \n  '), isEmpty);
+    });
   });
 }

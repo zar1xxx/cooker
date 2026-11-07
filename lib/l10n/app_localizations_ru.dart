@@ -590,6 +590,22 @@ class AppLocalizationsRu extends AppLocalizations {
   String get aiSettingsGigaChatKey => 'Авторизационные данные (Client Secret)';
 
   @override
+  String get aiSettingsPasteKey => 'Вставить из буфера';
+
+  @override
+  String get aiSettingsGigaChatKeyValid =>
+      'Настройки сохранены. Ключ GigaChat проверен';
+
+  @override
+  String get aiSettingsGigaChatKeyBad => 'Ключ не подходит';
+
+  @override
+  String get aiSettingsGigaChatCertError => 'Проблема с сертификатом';
+
+  @override
+  String get aiSettingsGigaChatNoInternet => 'Нет интернета';
+
+  @override
   String get aiSettingsCheckConnection => 'Проверить связь';
 
   @override

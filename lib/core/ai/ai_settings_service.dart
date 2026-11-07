@@ -70,6 +70,24 @@ class AiSettingsService {
   static const _kGigaChatBaseUrl = 'ai_gigachat_base_url';
   static const _kGigaChatOauthUrl = 'ai_gigachat_oauth_url';
 
+  /// Sanitizes GigaChat key by removing whitespace, newlines, surrounding/internal quotes,
+  /// and the "Basic " prefix (case-insensitive) per R3-06.
+  static String sanitizeGigaChatKey(String raw) {
+    var s = raw.trim();
+    while (s.startsWith('"') || s.startsWith("'") || s.startsWith('`')) {
+      s = s.substring(1).trim();
+    }
+    while (s.endsWith('"') || s.endsWith("'") || s.endsWith('`')) {
+      s = s.substring(0, s.length - 1).trim();
+    }
+    if (s.toLowerCase().startsWith('basic ')) {
+      s = s.substring(6).trim();
+    }
+    s = s.replaceAll(RegExp(r'\s+'), '');
+    s = s.replaceAll('"', '').replaceAll("'", '').replaceAll('`', '');
+    return s;
+  }
+
   Future<AiSettings> loadSettings() async {
     try {
       final host = await _storage.read(key: _kLmStudioHost) ?? '';
@@ -103,6 +121,7 @@ class AiSettingsService {
   }
 
   Future<void> saveSettings(AiSettings settings) async {
+    final cleanGigaKey = sanitizeGigaChatKey(settings.gigaChatAuthKey);
     await _storage.write(key: _kLmStudioHost, value: settings.lmStudioHost);
     await _storage.write(
       key: _kLmStudioPort,
@@ -110,10 +129,7 @@ class AiSettingsService {
     );
     await _storage.write(key: _kLmStudioModel, value: settings.lmStudioModel);
     await _storage.write(key: _kLmStudioApiKey, value: settings.lmStudioApiKey);
-    await _storage.write(
-      key: _kGigaChatAuthKey,
-      value: settings.gigaChatAuthKey,
-    );
+    await _storage.write(key: _kGigaChatAuthKey, value: cleanGigaKey);
     await _storage.write(key: _kGigaChatModel, value: settings.gigaChatModel);
     await _storage.write(
       key: _kGigaChatBaseUrl,
@@ -156,12 +172,13 @@ class AiSettingsService {
       router.lmStudioProvider = null;
     }
 
-    if (settings.gigaChatAuthKey.trim().isNotEmpty) {
+    final cleanGigaKey = sanitizeGigaChatKey(settings.gigaChatAuthKey);
+    if (cleanGigaKey.isNotEmpty) {
       final dio = GigaChatProvider.createDioWithCert(
         certBytes: certBytes ?? GigaChatCert.bytes,
       );
       router.gigaChatProvider = GigaChatProvider(
-        authKey: settings.gigaChatAuthKey.trim(),
+        authKey: cleanGigaKey,
         model: settings.gigaChatModel.trim().isNotEmpty
             ? settings.gigaChatModel.trim()
             : 'GigaChat-2',

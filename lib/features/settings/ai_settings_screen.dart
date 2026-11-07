@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../core/ai/ai_failure.dart';
 import '../../core/ai/ai_router.dart';
 import '../../core/ai/ai_settings_service.dart';
+import '../../core/ai/gigachat_cert.dart';
+import '../../core/ai/gigachat_provider.dart';
 import '../../core/ai/lm_studio_provider.dart';
 import '../../core/providers.dart';
 import '../../core/services/daily_notification_service.dart';
@@ -263,14 +267,20 @@ class _AiSettingsScreenState extends ConsumerState<AiSettingsScreen> {
 
   Future<void> _saveSettings() async {
     final l10n = AppLocalizations.of(context)!;
+    final theme = Theme.of(context);
     final settingsService = ref.read(aiSettingsServiceProvider);
     final router = ref.read(aiRouterProvider);
+
+    final cleanGigaKey = AiSettingsService.sanitizeGigaChatKey(
+      _gigaChatKeyController.text,
+    );
+    _gigaChatKeyController.text = cleanGigaKey;
 
     final updated = AiSettings(
       lmStudioHost: _hostController.text.trim(),
       lmStudioPort: int.tryParse(_portController.text.trim()) ?? 1234,
       lmStudioModel: _modelController.text.trim(),
-      gigaChatAuthKey: _gigaChatKeyController.text.trim(),
+      gigaChatAuthKey: cleanGigaKey,
       gigaChatBaseUrl: _gigaChatBaseUrlController.text.trim().isNotEmpty
           ? _gigaChatBaseUrlController.text.trim()
           : 'https://gigachat.devices.sberbank.ru',
@@ -285,8 +295,48 @@ class _AiSettingsScreenState extends ConsumerState<AiSettingsScreen> {
     ref.invalidate(monthlyGigaChatTokensProvider);
 
     if (!mounted) return;
-    ScaffoldMessenger.of(context)
-        .showSnackBar(SnackBar(content: Text(l10n.aiSettingsSaved)));
+
+    if (cleanGigaKey.isNotEmpty) {
+      try {
+        final giga = GigaChatProvider(
+          authKey: cleanGigaKey,
+          baseUrl: updated.gigaChatBaseUrl,
+          oauthUrl: updated.gigaChatOauthUrl,
+          dio: GigaChatProvider.createDioWithCert(
+            certBytes: GigaChatCert.bytes,
+          ),
+        );
+        await giga.getToken(forceRefresh: true);
+        if (!mounted) return;
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(l10n.aiSettingsGigaChatKeyValid)),
+        );
+      } catch (e) {
+        if (!mounted) return;
+        final failure = e is AiException
+            ? e.failure
+            : mapExceptionToFailure(e, isGigaChat: true);
+        String errorMsg;
+        if (failure is AiFailureGigaChatBadKey) {
+          errorMsg = l10n.aiSettingsGigaChatKeyBad;
+        } else if (failure is AiFailureGigaChatCert) {
+          errorMsg = l10n.aiSettingsGigaChatCertError;
+        } else if (failure is AiFailureNoInternet) {
+          errorMsg = l10n.aiSettingsGigaChatNoInternet;
+        } else {
+          errorMsg = failure.message;
+        }
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: theme.colorScheme.error,
+            content: Text('GigaChat: $errorMsg'),
+          ),
+        );
+      }
+    } else {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(l10n.aiSettingsSaved)));
+    }
   }
 
   @override
@@ -679,6 +729,23 @@ class _AiSettingsScreenState extends ConsumerState<AiSettingsScreen> {
                     });
                   },
                 ),
+              ),
+            ),
+            const SizedBox(height: 8),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: OutlinedButton.icon(
+                key: const Key('btn_paste_gigachat_key'),
+                onPressed: () async {
+                  final data = await Clipboard.getData(Clipboard.kTextPlain);
+                  if (data?.text != null && data!.text!.isNotEmpty) {
+                    setState(() {
+                      _gigaChatKeyController.text = data.text!;
+                    });
+                  }
+                },
+                icon: const Icon(Icons.content_paste),
+                label: Text(l10n.aiSettingsPasteKey),
               ),
             ),
             const SizedBox(height: 24),
