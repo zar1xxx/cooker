@@ -276,6 +276,7 @@ class _AiDiagnosticsScreenState extends ConsumerState<AiDiagnosticsScreen> {
           apiKey: settings.lmStudioApiKey.isNotEmpty
               ? settings.lmStudioApiKey
               : null,
+          dio: ref.read(lmStudioDioProvider),
         );
         loadedModels = await lm.getModels(timeout: const Duration(seconds: 3));
         lmStudioOk = true;
@@ -446,6 +447,7 @@ class _AiDiagnosticsScreenState extends ConsumerState<AiDiagnosticsScreen> {
           apiKey: settings.lmStudioApiKey.isNotEmpty
               ? settings.lmStudioApiKey
               : null,
+          dio: ref.read(lmStudioDioProvider),
         );
         await lm.chat(
           const AiChatRequest(

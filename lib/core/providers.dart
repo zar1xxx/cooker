@@ -4,6 +4,7 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter/widgets.dart';
 import 'package:clock/clock.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:dio/dio.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:network_info_plus/network_info_plus.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -386,6 +387,8 @@ final pcDiscoveryProvider = Provider<PcDiscovery>((ref) {
   final networkInfo = ref.watch(networkInfoProvider);
   return PcDiscovery(connectivity: connectivity, networkInfo: networkInfo);
 });
+
+final lmStudioDioProvider = Provider<Dio?>((ref) => null);
 
 final pcAutoDiscoveryServiceProvider = Provider<PcAutoDiscoveryService?>((ref) {
   return ref.watch(aiRouterProvider).autoDiscovery;

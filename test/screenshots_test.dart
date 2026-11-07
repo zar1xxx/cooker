@@ -1,9 +1,12 @@
+import 'dart:convert';
 import 'dart:io';
 import 'dart:ui' as ui;
 
 import 'package:chto_prigotovit/app/theme.dart';
 import 'package:chto_prigotovit/core/ai/ai_failure.dart';
 import 'package:chto_prigotovit/core/ai/ai_service.dart';
+import 'package:chto_prigotovit/core/ai/ai_settings_service.dart';
+import 'package:chto_prigotovit/core/ai/pc_discovery.dart';
 import 'package:chto_prigotovit/core/db/app_database.dart';
 import 'package:chto_prigotovit/core/db/daos/pantry_dao.dart';
 import 'package:chto_prigotovit/core/providers.dart';
@@ -16,14 +19,143 @@ import 'package:chto_prigotovit/features/recipe/recipe_screen.dart';
 import 'package:chto_prigotovit/features/settings/ai_diagnostics_screen.dart';
 import 'package:chto_prigotovit/features/suggestions/suggestions_screen.dart';
 import 'package:chto_prigotovit/l10n/app_localizations.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:dio/dio.dart';
+import 'package:drift/drift.dart' as drift;
 import 'package:drift/native.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:network_info_plus/network_info_plus.dart';
+
+class _MockLmStudioAdapter implements HttpClientAdapter {
+  @override
+  Future<ResponseBody> fetch(
+    RequestOptions options,
+    Stream<Uint8List>? requestStream,
+    Future<void>? cancelFuture,
+  ) async {
+    if (options.path.endsWith('/v1/models')) {
+      final json = jsonEncode({
+        'data': [
+          {'id': 'google/gemma-4-12b-qat'},
+        ],
+      });
+      return ResponseBody.fromString(
+        json,
+        200,
+        headers: {
+          Headers.contentTypeHeader: [Headers.jsonContentType],
+        },
+      );
+    }
+    if (options.path.endsWith('/v1/chat/completions')) {
+      final json = jsonEncode({
+        'choices': [
+          {
+            'message': {'role': 'assistant', 'content': 'готов'},
+          },
+        ],
+        'usage': {
+          'prompt_tokens': 12,
+          'completion_tokens': 2,
+          'total_tokens': 14,
+        },
+      });
+      return ResponseBody.fromString(
+        json,
+        200,
+        headers: {
+          Headers.contentTypeHeader: [Headers.jsonContentType],
+        },
+      );
+    }
+    return ResponseBody.fromString('Not found', 404);
+  }
+
+  @override
+  void close({bool force = false}) {}
+}
+
+class _FakeConnectivity extends Fake implements Connectivity {
+  @override
+  Future<List<ConnectivityResult>> checkConnectivity() async => [
+    ConnectivityResult.wifi,
+  ];
+}
+
+class _FakeNetworkInfo extends Fake implements NetworkInfo {
+  @override
+  Future<String?> getWifiIP() async => '192.168.1.105';
+}
+
+class _FakePcDiscovery extends PcDiscovery {
+  @override
+  Future<bool> probeHost(
+    String host,
+    int port, {
+    Duration timeout = const Duration(milliseconds: 300),
+  }) async => true;
+
+  @override
+  Future<String?> discover({
+    String? savedHost,
+    int port = 1234,
+    List<int>? candidatePorts,
+    bool force = false,
+  }) async => '192.168.1.5';
+
+  @override
+  int? get lastDiscoveredPort => 1235;
+}
+
+class _FakeSecureStorage extends Fake implements FlutterSecureStorage {
+  final Map<String, String> _data = {};
+
+  @override
+  Future<String?> read({
+    required String key,
+    AppleOptions? iOptions,
+    AndroidOptions? aOptions,
+    LinuxOptions? lOptions,
+    WebOptions? webOptions,
+    AppleOptions? mOptions,
+    WindowsOptions? wOptions,
+  }) async => _data[key];
+
+  @override
+  Future<void> write({
+    required String key,
+    required String? value,
+    AppleOptions? iOptions,
+    AndroidOptions? aOptions,
+    LinuxOptions? lOptions,
+    WebOptions? webOptions,
+    AppleOptions? mOptions,
+    WindowsOptions? wOptions,
+  }) async {
+    if (value != null) {
+      _data[key] = value;
+    } else {
+      _data.remove(key);
+    }
+  }
+
+  @override
+  Future<Map<String, String>> readAll({
+    AppleOptions? iOptions,
+    AndroidOptions? aOptions,
+    LinuxOptions? lOptions,
+    WebOptions? webOptions,
+    AppleOptions? mOptions,
+    WindowsOptions? wOptions,
+  }) async => Map.unmodifiable(_data);
+}
 
 // R2-03: screenshots for reports. Widget tests render text with the Ahem
 // test font (boxes instead of letters) and do not wait for asset images, so
@@ -207,10 +339,70 @@ void main() {
       addTearDown(tester.view.resetPhysicalSize);
       addTearDown(tester.view.resetDevicePixelRatio);
 
+      final now = DateTime.now().millisecondsSinceEpoch;
+      await db
+          .into(db.aiRequests)
+          .insert(
+            AiRequestsCompanion.insert(
+              kind: 'suggest_dishes',
+              promptHash: 'h1',
+              responseJson: jsonEncode({'dishes': []}),
+              model: 'google/gemma-4-12b-qat',
+              status: 'ok',
+              at: drift.Value(now - 120000),
+            ),
+          );
+      await db
+          .into(db.aiRequests)
+          .insert(
+            AiRequestsCompanion.insert(
+              kind: 'full_recipe',
+              promptHash: 'h2',
+              responseJson: jsonEncode({'title': 'Борщ'}),
+              model: 'google/gemma-4-12b-qat',
+              status: 'ok',
+              at: drift.Value(now - 60000),
+            ),
+          );
+      await db
+          .into(db.aiRequests)
+          .insert(
+            AiRequestsCompanion.insert(
+              kind: 'suggest_dishes',
+              promptHash: 'h3',
+              responseJson: jsonEncode({
+                'error': 'timeout',
+                'message': 'Нет связи с ПК',
+              }),
+              model: 'google/gemma-4-12b-qat',
+              status: 'error',
+              at: drift.Value(now),
+            ),
+          );
+
+      final fakeStorage = _FakeSecureStorage();
+      await fakeStorage.write(key: 'ai_lm_studio_host', value: '192.168.1.5');
+      await fakeStorage.write(key: 'ai_lm_studio_port', value: '1235');
+      await fakeStorage.write(
+        key: 'ai_lm_studio_model',
+        value: 'google/gemma-4-12b-qat',
+      );
+      await fakeStorage.write(key: 'ai_gigachat_auth_key', value: '');
+
+      final aiSettingsService = AiSettingsService(storage: fakeStorage);
+      final mockDio = Dio()..httpClientAdapter = _MockLmStudioAdapter();
+
       const key = ValueKey('ai_diagnostics.png');
       await tester.pumpWidget(
         ProviderScope(
-          overrides: [databaseProvider.overrideWithValue(db)],
+          overrides: [
+            databaseProvider.overrideWithValue(db),
+            connectivityProvider.overrideWithValue(_FakeConnectivity()),
+            networkInfoProvider.overrideWithValue(_FakeNetworkInfo()),
+            pcDiscoveryProvider.overrideWithValue(_FakePcDiscovery()),
+            aiSettingsServiceProvider.overrideWithValue(aiSettingsService),
+            lmStudioDioProvider.overrideWithValue(mockDio),
+          ],
           child: MaterialApp(
             debugShowCheckedModeBanner: false,
             theme: AppTheme.light,
@@ -227,7 +419,7 @@ void main() {
         ),
       );
       await tester.pump();
-      await tester.pump(const Duration(seconds: 1));
+      await tester.pumpAndSettle();
       await _capture(tester, key, 'ai_diagnostics.png', precache: false);
       expect(File('docs/reports/img/ai_diagnostics.png').existsSync(), isTrue);
     });
