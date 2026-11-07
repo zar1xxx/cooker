@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:flutter/services.dart' show rootBundle;
+typedef AssetStringLoader = Future<String> Function(String path);
 
 /// Simple template renderer for AI prompts supporting `{{#if key}}...{{/if}}`
 /// conditional blocks and `{{key}}` variable interpolation without external dependencies.
@@ -56,6 +56,8 @@ String _formatVariableValue(dynamic val) {
 
 /// Prompt templates for AI generation loaded from assets or default constants.
 class PromptTemplates {
+  static AssetStringLoader? assetLoader;
+
   final String systemTemplate;
   final String suggestDishesTemplate;
   final String fullRecipeTemplate;
@@ -145,15 +147,16 @@ class PromptTemplates {
   }
 
   static Future<String> _loadAssetOrFile(String path) async {
-    try {
-      return await rootBundle.loadString(path);
-    } catch (_) {
-      final f = File(path);
-      if (f.existsSync()) return f.readAsStringSync();
-      final specFile = File(path.replaceAll('assets/ai/', 'spec/ai/'));
-      if (specFile.existsSync()) return specFile.readAsStringSync();
-      rethrow;
+    if (assetLoader != null) {
+      try {
+        return await assetLoader!(path);
+      } catch (_) {}
     }
+    final f = File(path);
+    if (f.existsSync()) return f.readAsStringSync();
+    final specFile = File(path.replaceAll('assets/ai/', 'spec/ai/'));
+    if (specFile.existsSync()) return specFile.readAsStringSync();
+    throw FileSystemException('Cannot find prompt asset or file', path);
   }
 
   /// Builds the system prompt. If [schemaInPrompt] is true (e.g. for GigaChat),
@@ -261,6 +264,8 @@ class PromptTemplates {
 
 /// Helper to load JSON schemas for AI queries.
 class AiSchemas {
+  static AssetStringLoader? assetLoader;
+
   static Map<String, dynamic>? _cachedSuggestDishes;
   static Map<String, dynamic>? _cachedFullRecipe;
   static Map<String, dynamic>? _cachedMonthPlan;
@@ -293,14 +298,15 @@ class AiSchemas {
   }
 
   static Future<String> _loadSchemaAsset(String path) async {
-    try {
-      return await rootBundle.loadString(path);
-    } catch (_) {
-      final f = File(path);
-      if (f.existsSync()) return f.readAsStringSync();
-      final specFile = File(path.replaceAll('assets/ai/', 'spec/ai/'));
-      if (specFile.existsSync()) return specFile.readAsStringSync();
-      rethrow;
+    if (assetLoader != null) {
+      try {
+        return await assetLoader!(path);
+      } catch (_) {}
     }
+    final f = File(path);
+    if (f.existsSync()) return f.readAsStringSync();
+    final specFile = File(path.replaceAll('assets/ai/', 'spec/ai/'));
+    if (specFile.existsSync()) return specFile.readAsStringSync();
+    throw FileSystemException('Cannot find schema asset or file', path);
   }
 }

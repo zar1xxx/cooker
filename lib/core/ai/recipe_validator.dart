@@ -1,8 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:flutter/services.dart' show rootBundle;
-
 import 'ai_provider.dart';
 
 sealed class ValidationResult {
@@ -70,20 +68,25 @@ class RecipeValidator {
 
   const RecipeValidator({required this.safetyMinimums});
 
-  static Future<RecipeValidator> fromAsset({String? jsonString}) async {
+  static Future<RecipeValidator> fromAsset({
+    String? jsonString,
+    Future<String> Function(String path)? assetLoader,
+  }) async {
     String content;
     if (jsonString != null) {
       content = jsonString;
-    } else {
+    } else if (assetLoader != null) {
       try {
-        content = await rootBundle.loadString('assets/ai/safety_minimums.json');
+        content = await assetLoader('assets/ai/safety_minimums.json');
       } catch (_) {
-        final f = File('assets/ai/safety_minimums.json');
-        if (f.existsSync()) {
-          content = f.readAsStringSync();
-        } else {
-          content = File('spec/ai/safety_minimums.json').readAsStringSync();
-        }
+        content = await assetLoader('spec/ai/safety_minimums.json');
+      }
+    } else {
+      final f = File('assets/ai/safety_minimums.json');
+      if (f.existsSync()) {
+        content = f.readAsStringSync();
+      } else {
+        content = File('spec/ai/safety_minimums.json').readAsStringSync();
       }
     }
     final decoded = jsonDecode(content) as Map<String, dynamic>;

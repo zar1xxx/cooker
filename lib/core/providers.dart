@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/services.dart' show rootBundle;
 import 'package:clock/clock.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:network_info_plus/network_info_plus.dart';
@@ -15,6 +16,7 @@ import 'ai/gigachat_provider.dart';
 import 'ai/lm_studio_provider.dart';
 import 'ai/pc_auto_discovery_service.dart';
 import 'ai/pc_discovery.dart';
+import 'ai/prompts.dart';
 import 'ai/recipe_validator.dart';
 import 'db/app_database.dart';
 import 'db/daos/history_dao.dart';
@@ -452,10 +454,14 @@ final aiConnectionCheckerProvider = Provider<AiConnectionChecker>((ref) {
 });
 
 final recipeValidatorProvider = FutureProvider<RecipeValidator>((ref) async {
-  return RecipeValidator.fromAsset();
+  return RecipeValidator.fromAsset(
+    assetLoader: (p) => rootBundle.loadString(p),
+  );
 });
 
 final aiServiceProvider = FutureProvider<AiService>((ref) async {
+  PromptTemplates.assetLoader = (p) => rootBundle.loadString(p);
+  AiSchemas.assetLoader = (p) => rootBundle.loadString(p);
   final router = ref.watch(aiRouterProvider);
   await router.ready;
   final validator = await ref.watch(recipeValidatorProvider.future);
