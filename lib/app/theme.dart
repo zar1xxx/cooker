@@ -30,6 +30,15 @@ class AppTheme {
     const colorScheme = ColorScheme.light(
       primary: primaryLight,
       onPrimary: onPrimaryLight,
+      // Without these Flutter falls back to its default teal (#03DAC6) for
+      // selected chips, switches and FABs, and primaryContainer equals
+      // primary (dark text on dark green in selected pantry tiles).
+      primaryContainer: Color(0xFFCDEBD6),
+      onPrimaryContainer: Color(0xFF00210E),
+      secondary: Color(0xFF8A4B2A),
+      onSecondary: Colors.white,
+      secondaryContainer: Color(0xFFF5DCCB),
+      onSecondaryContainer: Color(0xFF3A1A08),
       surface: surfaceLight,
       onSurface: onSurfaceLight,
       surfaceContainerHighest: Color(0xFFE2E4DE),
@@ -43,6 +52,12 @@ class AppTheme {
     const colorScheme = ColorScheme.dark(
       primary: primaryDark,
       onPrimary: onPrimaryDark,
+      primaryContainer: Color(0xFF00522D),
+      onPrimaryContainer: Color(0xFF85F5B2),
+      secondary: Color(0xFFFFB590),
+      onSecondary: Color(0xFF552100),
+      secondaryContainer: Color(0xFF6F3A1E),
+      onSecondaryContainer: Color(0xFFFFDBCB),
       surface: surfaceDark,
       onSurface: onSurfaceDark,
       surfaceContainerHighest: Color(0xFF333834),

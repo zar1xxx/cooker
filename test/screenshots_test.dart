@@ -3,9 +3,10 @@ import 'dart:ui' as ui;
 
 import 'package:chto_prigotovit/app/theme.dart';
 import 'package:chto_prigotovit/core/db/app_database.dart';
-import 'package:chto_prigotovit/core/db/daos/pantry_dao.dart';
-import 'package:chto_prigotovit/core/db/daos/recipe_dao.dart';
 import 'package:chto_prigotovit/core/providers.dart';
+import 'package:chto_prigotovit/features/calendar/calendar_screen.dart';
+import 'package:chto_prigotovit/features/calendar/today_screen.dart';
+import 'package:chto_prigotovit/features/history/history_screen.dart';
 import 'package:chto_prigotovit/features/pantry/pantry_screen.dart';
 import 'package:chto_prigotovit/features/recipe/cooking_screen.dart';
 import 'package:chto_prigotovit/features/recipe/recipe_screen.dart';
@@ -14,30 +15,72 @@ import 'package:chto_prigotovit/l10n/app_localizations.dart';
 import 'package:drift/native.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
-Future<void> _captureToPng(
-  WidgetTester tester,
-  Finder finder,
-  String filename,
-) async {
-  await tester.runAsync(() async {
-    final boundary = tester.renderObject<RenderRepaintBoundary>(finder);
-    final image = await boundary.toImage(pixelRatio: 1.0);
-    final byteData = await image.toByteData(format: ui.ImageByteFormat.png);
-    if (byteData != null) {
-      final bytes = byteData.buffer.asUint8List();
-      final file = File('docs/reports/img/$filename');
-      await file.parent.create(recursive: true);
-      await file.writeAsBytes(bytes);
+// R2-03: screenshots for reports. Widget tests render text with the Ahem
+// test font (boxes instead of letters) and do not wait for asset images, so
+// this file loads real fonts from the Flutter SDK and precaches every image
+// before capturing. Fonts are loaded only here, so other tests keep Ahem.
+
+Future<void> _loadFont(String family, List<String> files) async {
+  final root = Platform.environment['FLUTTER_ROOT'];
+  if (root == null) return;
+  final dir = '$root/bin/cache/artifacts/material_fonts';
+  final loader = FontLoader(family);
+  var added = false;
+  for (final name in files) {
+    final file = File('$dir/$name');
+    if (file.existsSync()) {
+      final bytes = file.readAsBytesSync();
+      loader.addFont(Future.value(ByteData.view(bytes.buffer)));
+      added = true;
     }
+  }
+  if (added) await loader.load();
+}
+
+Future<void> _precacheImages(WidgetTester tester) async {
+  await tester.runAsync(() async {
+    for (final element in find.byType(Image).evaluate()) {
+      final image = element.widget as Image;
+      await precacheImage(image.image, element);
+    }
+  });
+  await tester.pumpAndSettle();
+}
+
+Future<void> _capture(WidgetTester tester, Key key, String filename) async {
+  await _precacheImages(tester);
+  await tester.runAsync(() async {
+    final boundary = tester.renderObject<RenderRepaintBoundary>(
+      find.byKey(key),
+    );
+    final image = await boundary.toImage(pixelRatio: 2.0);
+    final data = await image.toByteData(format: ui.ImageByteFormat.png);
+    if (data == null) return;
+    final file = File('docs/reports/img/$filename');
+    await file.parent.create(recursive: true);
+    await file.writeAsBytes(data.buffer.asUint8List());
   });
 }
 
 void main() {
   late AppDatabase db;
+
+  setUpAll(() async {
+    TestWidgetsFlutterBinding.ensureInitialized();
+    await initializeDateFormatting('ru', null);
+    await _loadFont('Roboto', const [
+      'Roboto-Regular.ttf',
+      'Roboto-Medium.ttf',
+      'Roboto-Bold.ttf',
+    ]);
+    await _loadFont('MaterialIcons', const ['MaterialIcons-Regular.otf']);
+  });
 
   setUp(() async {
     db = AppDatabase(NativeDatabase.memory(), seed: true);
@@ -48,17 +91,11 @@ void main() {
     await db.close();
   });
 
-  Widget wrapWithRepaintBoundary({
-    required Widget child,
-    required Key boundaryKey,
-  }) {
+  Widget app(Widget screen, Key key) {
     return ProviderScope(
-      overrides: [
-        databaseProvider.overrideWithValue(db),
-        recipeDaoProvider.overrideWithValue(RecipeDao(db)),
-        pantryDaoProvider.overrideWithValue(PantryDao(db)),
-      ],
+      overrides: [databaseProvider.overrideWithValue(db)],
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         theme: AppTheme.light,
         localizationsDelegates: const [
           AppLocalizations.delegate,
@@ -68,105 +105,36 @@ void main() {
         ],
         supportedLocales: const [Locale('ru')],
         locale: const Locale('ru'),
-        home: RepaintBoundary(
-          key: boundaryKey,
-          child: Scaffold(body: child),
-        ),
+        home: RepaintBoundary(key: key, child: screen),
       ),
     );
   }
 
-  group('A-01 / R1-04 Screenshot Generation into docs/reports/img/', () {
-    testWidgets('captures pantry categories screen with assets', (
-      tester,
-    ) async {
-      tester.view.physicalSize = const Size(800, 1400);
-      tester.view.devicePixelRatio = 1.0;
-      addTearDown(tester.view.resetPhysicalSize);
-      addTearDown(tester.view.resetDevicePixelRatio);
+  final screens = <String, Widget>{
+    'today_screen.png': const TodayScreen(),
+    'pantry_screen.png': const PantryScreen(),
+    'suggestions_empty.png': const SuggestionsScreen(),
+    'recipe_screen.png': const RecipeScreen(recipeId: 'chicken_soup_potato'),
+    'cooking_step1.png': const CookingScreen(recipeId: 'chicken_soup_potato'),
+    'calendar_screen.png': const CalendarScreen(),
+    'history_screen.png': const HistoryScreen(),
+  };
 
-      const boundaryKey = ValueKey('pantry_boundary');
-      await tester.pumpWidget(
-        wrapWithRepaintBoundary(
-          boundaryKey: boundaryKey,
-          child: const PantryScreen(),
-        ),
-      );
-      await tester.pumpAndSettle();
-
-      await _captureToPng(tester, find.byKey(boundaryKey), 'pantry_screen.png');
-      expect(File('docs/reports/img/pantry_screen.png').existsSync(), isTrue);
-    });
-
-    testWidgets('captures recipe details with placeholder header', (
-      tester,
-    ) async {
-      tester.view.physicalSize = const Size(800, 1400);
-      tester.view.devicePixelRatio = 1.0;
-      addTearDown(tester.view.resetPhysicalSize);
-      addTearDown(tester.view.resetDevicePixelRatio);
-
-      const boundaryKey = ValueKey('recipe_boundary');
-      await tester.pumpWidget(
-        wrapWithRepaintBoundary(
-          boundaryKey: boundaryKey,
-          child: const RecipeScreen(recipeId: 'chicken_soup_potato'),
-        ),
-      );
-      await tester.pumpAndSettle();
-
-      await _captureToPng(tester, find.byKey(boundaryKey), 'recipe_screen.png');
-      expect(File('docs/reports/img/recipe_screen.png').existsSync(), isTrue);
-    });
-
-    testWidgets('captures cooking screen step 1 with step_start illustration', (
-      tester,
-    ) async {
-      tester.view.physicalSize = const Size(800, 1400);
-      tester.view.devicePixelRatio = 1.0;
-      addTearDown(tester.view.resetPhysicalSize);
-      addTearDown(tester.view.resetDevicePixelRatio);
-
-      const boundaryKey = ValueKey('cooking_boundary');
-      await tester.pumpWidget(
-        wrapWithRepaintBoundary(
-          boundaryKey: boundaryKey,
-          child: const CookingScreen(recipeId: 'chicken_soup_potato'),
-        ),
-      );
-      await tester.pumpAndSettle();
-
-      await _captureToPng(tester, find.byKey(boundaryKey), 'cooking_step1.png');
-      expect(File('docs/reports/img/cooking_step1.png').existsSync(), isTrue);
-    });
-
-    testWidgets(
-      'captures empty suggestions screen with no_dishes illustration',
-      (tester) async {
-        tester.view.physicalSize = const Size(800, 1400);
-        tester.view.devicePixelRatio = 1.0;
+  group('R2-03 readable screenshots in docs/reports/img/', () {
+    for (final entry in screens.entries) {
+      testWidgets('captures ${entry.key}', (tester) async {
+        tester.view.physicalSize = const Size(412 * 2, 915 * 2);
+        tester.view.devicePixelRatio = 2.0;
         addTearDown(tester.view.resetPhysicalSize);
         addTearDown(tester.view.resetDevicePixelRatio);
 
-        const boundaryKey = ValueKey('suggestions_boundary');
-        await tester.pumpWidget(
-          wrapWithRepaintBoundary(
-            boundaryKey: boundaryKey,
-            child: const SuggestionsScreen(),
-          ),
-        );
+        final key = ValueKey(entry.key);
+        await tester.pumpWidget(app(entry.value, key));
         await tester.pumpAndSettle();
+        await _capture(tester, key, entry.key);
 
-        await _captureToPng(
-          tester,
-          find.byKey(boundaryKey),
-          'suggestions_empty.png',
-        );
-        expect(
-          File('docs/reports/img/suggestions_empty.png').existsSync(),
-          isTrue,
-        );
-      },
-    );
+        expect(File('docs/reports/img/${entry.key}').existsSync(), isTrue);
+      });
+    }
   });
 }

@@ -481,7 +481,9 @@ class _CategoryTile extends ConsumerWidget {
                   children: [
                     AppCategoryIcon(
                       categoryId: category.id,
-                      size: 40,
+                      // R2-04: the picture is the main element of the tile
+                      // (asset is 180 px, so not larger than 60 dp).
+                      size: 60,
                       semanticLabel: category.name,
                     ),
                     if (hasSelected)

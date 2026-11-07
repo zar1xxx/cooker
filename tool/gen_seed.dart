@@ -32,7 +32,66 @@ const _heatKeywords = [
   'томит',
   'пассер',
   'гриль',
+  'духовк',
+  'выпек',
 ];
+
+/// Words that mark where a heat-treated product enters the recipe text
+/// (same lists as `mention_words` in spec/ai/safety_minimums.json).
+const _mentionWords = <String, List<String>>{
+  'poultry': [
+    'кур',
+    'филе',
+    'бедр',
+    'окорок',
+    'голен',
+    'крыл',
+    'грудк',
+    'индей',
+    'утк',
+    'гус',
+    'птиц',
+    'котлет',
+  ],
+  'minced_meat': [
+    'фарш',
+    'котлет',
+    'фрикадел',
+    'тефтел',
+    'биточ',
+    'голубц',
+    'пельмен',
+    'зраз',
+    'пирожк',
+  ],
+  'pork': ['свинин', 'мяс', 'корейк', 'шейк', 'ребр', 'рёбр', 'отбивн'],
+  'beef': ['говядин', 'мяс', 'телятин', 'бефстроганов', 'гуляш'],
+  'fish': [
+    'рыб',
+    'минта',
+    'лосос',
+    'треск',
+    'хек',
+    'скумбр',
+    'горбуш',
+    'судак',
+    'сельд',
+    'филе',
+  ],
+  'eggs': ['яйц', 'яиц', 'омлет', 'яичниц', 'белк', 'желтк'],
+  'dry_beans': ['фасол', 'нут', 'горох', 'чечевиц'],
+  'mushrooms_wild': ['гриб'],
+};
+
+/// Already cooked products: no heat check (same list as `ready_to_eat_ids`
+/// in spec/ai/safety_minimums.json).
+const _readyToEat = {
+  'ham',
+  'beef_stew',
+  'tuna_canned',
+  'saury_canned',
+  'sardines_canned',
+};
 
 class _HeatRule {
   const _HeatRule(this.ids, this.minutes, this.category);
@@ -54,16 +113,16 @@ const _heatRules = [
       'duck',
       'goose',
     ],
-    20,
+    12,
     'poultry',
   ),
   _HeatRule(
     ['minced_meat', 'minced_pork', 'minced_beef', 'minced_chicken'],
-    15,
+    12,
     'minced_meat',
   ),
-  _HeatRule(['pork'], 20, 'pork'),
-  _HeatRule(['beef', 'veal'], 10, 'beef'),
+  _HeatRule(['pork'], 15, 'pork'),
+  _HeatRule(['beef', 'veal'], 8, 'beef'),
   _HeatRule(
     [
       'fish',
@@ -79,7 +138,7 @@ const _heatRules = [
       'carp',
       'catfish',
     ],
-    10,
+    8,
     'fish',
   ),
   _HeatRule(['egg'], 3, 'eggs'),
@@ -466,136 +525,59 @@ List<SeedStep> _templateSteps(
   }
 }
 
+/// Checks heat treatment like RecipeValidator does (cumulative time from the
+/// first step that mentions the product). The generator must never invent
+/// cooking steps: a recipe that does not cook its meat long enough is an
+/// authoring error, so generation fails with the recipe id (D-R2).
 List<SeedStep> _injectHeatSteps(
   RecipeSpec spec,
   List<RecipeIngredient> ingredients,
   List<SeedStep> steps,
   Map<String, SeedIngredient> byId,
 ) {
-  final result = List<SeedStep>.from(steps);
-  final rules = [..._heatRules]
-    ..sort((left, right) => right.minutes.compareTo(left.minutes));
-  final requireName = {'salad', 'snack', 'drink', 'cold'}.contains(spec.kind);
-
-  for (final rule in rules) {
+  for (final rule in _heatRules) {
     final matched = ingredients.where((ingredient) {
+      if (_readyToEat.contains(ingredient.id)) return false;
       final ids = [ingredient.id, ..._ancestors(ingredient.id, byId)];
       return ids.any(rule.ids.contains);
     }).toList();
     if (matched.isEmpty) continue;
-    if (result.any(
-      (step) => _stepCovers(step, rule, matched, byId, requireName),
-    )) {
-      continue;
-    }
-    final minutes = _heatMinutes(spec.kind, rule);
-    final step = SeedStep(
-      _heatText(spec.kind, rule, matched, byId, minutes),
-      minutes * 60,
-    );
-    result.insert(_insertIndex(spec.kind, result.length), step);
-  }
-  return result;
-}
 
-int _heatMinutes(String kind, _HeatRule rule) {
-  if (rule.category == 'eggs') {
-    return kind == 'breakfast' || kind == 'fry' ? 5 : 10;
-  }
-  if (kind == 'bake' || kind == 'bake_dough' || kind == 'dessert') {
-    return max(rule.minutes + 10, 25);
-  }
-  return rule.minutes + 5;
-}
-
-String _heatText(
-  String kind,
-  _HeatRule rule,
-  List<RecipeIngredient> matched,
-  Map<String, SeedIngredient> byId,
-  int minutes,
-) {
-  final String verb;
-  switch (kind) {
-    case 'bake':
-    case 'bake_dough':
-    case 'dessert':
-      verb = 'Запекайте в духовке';
-    case 'fry':
-    case 'side':
-      verb = 'Жарьте на среднем огне';
-    case 'breakfast':
-      verb = rule.category == 'eggs'
-          ? 'Жарьте на среднем огне'
-          : 'Варите на слабом огне';
-    case 'salad':
-    case 'snack':
-    case 'cold':
-    case 'drink':
-      verb = 'Варите на слабом огне';
-    default:
-      verb = 'Варите на слабом огне';
-  }
-  final names = matched
-      .map((ingredient) => byId[ingredient.id]!.name)
-      .join(', ');
-  return '$verb $minutes минут: $names.';
-}
-
-int _insertIndex(String kind, int length) {
-  switch (kind) {
-    case 'salad':
-    case 'snack':
-    case 'drink':
-    case 'cold':
-      return 0;
-    case 'soup':
-    case 'boil':
-    case 'porridge':
-    case 'side':
-      return min(1, length);
-    case 'fry':
-    case 'stew':
-    case 'egg':
-      return min(2, length);
-    case 'bake':
-    case 'bake_dough':
-    case 'dessert':
-      return max(0, length - 1);
-    default:
-      return min(1, length);
-  }
-}
-
-bool _stepCovers(
-  SeedStep step,
-  _HeatRule rule,
-  List<RecipeIngredient> matched,
-  Map<String, SeedIngredient> byId,
-  bool requireName,
-) {
-  final text = _normalize(step.text);
-  if (!_heatKeywords.any(text.contains)) return false;
-
-  var enough = (step.timerSeconds ?? 0) >= rule.minutes * 60;
-  if (!enough) {
-    for (final match in RegExp(r'(\d+)\s*(?:мин|минут)').allMatches(text)) {
-      final minutes = int.tryParse(match.group(1) ?? '') ?? 0;
-      if (minutes >= rule.minutes) {
-        enough = true;
-        break;
+    final words = <String>{...?_mentionWords[rule.category]};
+    for (final ingredient in matched) {
+      final seed = byId[ingredient.id]!;
+      for (final name in [seed.name, ...seed.synonyms]) {
+        final first = _normalize(name).split(' ').first;
+        if (first.isEmpty) continue;
+        words.add(first.length <= 4 ? first : first.substring(0, 4));
       }
     }
-  }
-  if (!enough) return false;
-  if (!requireName) return true;
 
-  return matched.any((ingredient) {
-    final name = _normalize(byId[ingredient.id]!.name);
-    final firstWord = name.split(' ').first;
-    final stem = firstWord.length <= 4 ? firstWord : firstWord.substring(0, 4);
-    return text.contains(stem);
-  });
+    var start = steps.indexWhere(
+      (step) => words.any(_normalize(step.text).contains),
+    );
+    if (start < 0) start = 0;
+
+    var total = 0;
+    for (final step in steps.skip(start)) {
+      final text = _normalize(step.text);
+      if (!_heatKeywords.any(text.contains)) continue;
+      var minutes = (step.timerSeconds ?? 0) ~/ 60;
+      for (final match in RegExp(r'(\d+)\s*(?:мин|минут)').allMatches(text)) {
+        minutes = max(minutes, int.tryParse(match.group(1) ?? '') ?? 0);
+      }
+      total += minutes;
+    }
+
+    if (total < rule.minutes) {
+      throw StateError(
+        'Recipe ${spec.id}: ${rule.category} is heated $total min, '
+        'needs at least ${rule.minutes} min. Fix the recipe steps; the '
+        'generator does not add cooking steps.',
+      );
+    }
+  }
+  return steps;
 }
 
 List<String> _ancestors(String id, Map<String, SeedIngredient> byId) {

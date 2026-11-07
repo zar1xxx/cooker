@@ -105,6 +105,9 @@ class RecipeValidator {
     // Forbidden id -> words to search in recipe text: name, synonyms and the
     // names of all descendants (e.g. nuts -> орехи, грецкие орехи, фундук).
     Map<String, List<String>>? forbiddenTerms,
+    // Catalog id -> words naming it in step text (name, synonyms). Used to
+    // find where a heat-treated product enters the recipe.
+    Map<String, List<String>>? ingredientTerms,
     int attempt = 1,
     bool strictSchema = false,
   }) {
@@ -341,6 +344,15 @@ class RecipeValidator {
     }
 
     // 4. Heat treatment checks (poultry, minced meat, pork, beef, fish, eggs, dry beans, mushrooms)
+    // Ready-to-eat products (ham, canned fish, tushonka) are already cooked:
+    // they stay in the hierarchy for allergies, but need no heat treatment.
+    final readyToEat =
+        (safetyMinimums['ready_to_eat_ids'] as List?)?.cast<String>().toSet() ??
+        const <String>{};
+    final heatIngredientIds = ingredientIds
+        .where((id) => !readyToEat.contains(id))
+        .toSet();
+
     final heatRules =
         (safetyMinimums['heat_treatment'] as List?)
             ?.cast<Map<String, dynamic>>() ??
@@ -355,7 +367,7 @@ class RecipeValidator {
 
       final targetIds =
           (rule['ingredient_ids'] as List?)?.cast<String>() ?? const [];
-      final hasTargetIngredient = ingredientIds.any(
+      final hasTargetIngredient = heatIngredientIds.any(
         (id) =>
             targetIds.contains(id) ||
             (ingredientHierarchy?[id] ?? const <String>[]).any(
@@ -369,53 +381,40 @@ class RecipeValidator {
         final keywords =
             (rule['keywords'] as List?)?.cast<String>() ?? const [];
 
-        // Check if at least one step contains keyword with sufficient duration
-        bool hasSufficientStep = false;
+        // Cumulative heat time (D-R2): sum the heating steps from the first
+        // step that mentions the product to the end of the recipe. Real
+        // recipes split heating (fry 10 + bake 15); time spent before the
+        // product is added does not count.
+        final mentionWords =
+            <String>[
+                  ...((rule['mention_words'] as List?)?.cast<String>() ??
+                      const <String>[]),
+                  for (final id in heatIngredientIds)
+                    if (targetIds.contains(id) ||
+                        (ingredientHierarchy?[id] ?? const <String>[]).any(
+                          targetIds.contains,
+                        ))
+                      ...(ingredientTerms?[id] ?? const <String>[]),
+                ]
+                .map((w) => w.toLowerCase().trim())
+                .where((w) => w.isNotEmpty)
+                .toList();
 
-        for (final s in steps) {
-          if (s is! Map<String, dynamic>) continue;
+        final stepMaps = steps.whereType<Map<String, dynamic>>().toList();
+        var startIndex = stepMaps.indexWhere((s) {
+          final t = (s['text']?.toString() ?? '').toLowerCase();
+          return mentionWords.any(t.contains);
+        });
+        if (startIndex < 0) startIndex = 0;
+
+        var heatMinutes = 0.0;
+        for (final s in stepMaps.skip(startIndex)) {
           final stepText = (s['text']?.toString() ?? '').toLowerCase();
-          final containsKeyword = keywords.any((k) => stepText.contains(k));
-          if (!containsKeyword) continue;
-
-          // Check timer_seconds
-          final stepTimerSec = (s['timer_seconds'] as num?)?.toInt() ?? 0;
-          if (stepTimerSec >= minMinutes * 60) {
-            hasSufficientStep = true;
-            break;
-          }
-
-          // Check explicit minutes mention in text like "20 минут", "25 мин", "22 минуты"
-          final minutesRegex = RegExp(r'(\d+)\s*(?:мин|минут|минуты)');
-          final matches = minutesRegex.allMatches(stepText);
-          for (final m in matches) {
-            final mins = int.tryParse(m.group(1) ?? '0') ?? 0;
-            if (mins >= minMinutes) {
-              hasSufficientStep = true;
-              break;
-            }
-          }
-          if (hasSufficientStep) break;
-
-          // Check explicit hours mention in text like "1 час", "1.5 часа", "2 часа"
-          final hoursRegex = RegExp(
-            r'(\d+(?:[.,]\d+)?)\s*(?:ч|час|часа|часов)',
-          );
-          final hourMatches = hoursRegex.allMatches(stepText);
-          for (final m in hourMatches) {
-            final hStr = (m.group(1) ?? '0').replaceAll(',', '.');
-            final hours = double.tryParse(hStr) ?? 0.0;
-            if (hours * 60 >= minMinutes) {
-              hasSufficientStep = true;
-              break;
-            }
-          }
-          if (hasSufficientStep) break;
+          if (!keywords.any(stepText.contains)) continue;
+          heatMinutes += _heatStepMinutes(s, stepText);
         }
 
-        // A long total time does not prove the meat itself was cooked long
-        // enough: require a cooking step with a sufficient duration.
-        if (!hasSufficientStep) {
+        if (heatMinutes < minMinutes) {
           return fail(
             'Для $category требуется тепловая обработка не менее $minMinutes минут.',
           );
@@ -932,4 +931,22 @@ class _IngredientEntry {
   final String id;
   final double? amount;
   final String? unit;
+}
+
+/// Duration of one heating step in minutes: the larger of its timer and any
+/// minutes or hours written in its text.
+double _heatStepMinutes(Map<String, dynamic> step, String text) {
+  var minutes = ((step['timer_seconds'] as num?)?.toDouble() ?? 0) / 60;
+  for (final m in RegExp(r'(\d+)\s*(?:мин|минут|минуты)').allMatches(text)) {
+    final value = double.tryParse(m.group(1) ?? '') ?? 0;
+    if (value > minutes) minutes = value;
+  }
+  for (final m in RegExp(
+    r'(\d+(?:[.,]\d+)?)\s*(?:ч|час|часа|часов)',
+  ).allMatches(text)) {
+    final hours =
+        double.tryParse((m.group(1) ?? '0').replaceAll(',', '.')) ?? 0;
+    if (hours * 60 > minutes) minutes = hours * 60;
+  }
+  return minutes;
 }

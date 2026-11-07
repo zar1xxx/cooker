@@ -144,6 +144,26 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                           _focusedDay = focusedDay;
                         });
                       },
+                      // Without calendarStyle table_calendar uses its own
+                      // blue for today and the selected day.
+                      calendarStyle: CalendarStyle(
+                        todayDecoration: BoxDecoration(
+                          color: theme.colorScheme.primaryContainer,
+                          shape: BoxShape.circle,
+                        ),
+                        todayTextStyle: TextStyle(
+                          color: theme.colorScheme.onPrimaryContainer,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        selectedDecoration: BoxDecoration(
+                          color: theme.colorScheme.primary,
+                          shape: BoxShape.circle,
+                        ),
+                        selectedTextStyle: TextStyle(
+                          color: theme.colorScheme.onPrimary,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                       headerStyle: HeaderStyle(
                         formatButtonVisible: false,
                         titleCentered: true,
