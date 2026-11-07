@@ -7,6 +7,7 @@ import 'ai_failure.dart';
 import 'ai_provider.dart';
 import 'gigachat_provider.dart';
 import 'lm_studio_provider.dart';
+import 'pc_auto_discovery_service.dart';
 
 enum AiMode {
   localPc, // Домашний ПК (LM Studio)
@@ -18,6 +19,7 @@ class AiRouter {
   AiRouter({
     this.lmStudioProvider,
     this.gigaChatProvider,
+    this.autoDiscovery,
     Connectivity? connectivity,
     Future<void>? ready,
   }) : _connectivity = connectivity ?? Connectivity(),
@@ -25,6 +27,7 @@ class AiRouter {
 
   LmStudioProvider? lmStudioProvider;
   GigaChatProvider? gigaChatProvider;
+  PcAutoDiscoveryService? autoDiscovery;
   final Connectivity _connectivity;
 
   Future<void>? _readyFuture;

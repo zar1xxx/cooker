@@ -11,6 +11,7 @@ import 'ai/anti_repeat.dart';
 import 'ai/gigachat_cert.dart';
 import 'ai/gigachat_provider.dart';
 import 'ai/lm_studio_provider.dart';
+import 'ai/pc_auto_discovery_service.dart';
 import 'ai/pc_discovery.dart';
 import 'ai/recipe_validator.dart';
 import 'db/app_database.dart';
@@ -379,13 +380,32 @@ final pcDiscoveryProvider = Provider<PcDiscovery>((ref) {
   return PcDiscovery(connectivity: connectivity, networkInfo: networkInfo);
 });
 
+final pcAutoDiscoveryServiceProvider = Provider<PcAutoDiscoveryService?>((ref) {
+  return ref.watch(aiRouterProvider).autoDiscovery;
+});
+
 final aiRouterProvider = Provider<AiRouter>((ref) {
   final connectivity = ref.watch(connectivityProvider);
   final router = AiRouter(connectivity: connectivity);
   final settingsService = ref.watch(aiSettingsServiceProvider);
-  final initFuture = settingsService.loadSettings().then((settings) {
+  final discovery = ref.watch(pcDiscoveryProvider);
+
+  final autoDiscovery = PcAutoDiscoveryService(
+    discovery: discovery,
+    settingsService: settingsService,
+    router: router,
+    connectivity: connectivity,
+  );
+  router.autoDiscovery = autoDiscovery;
+  autoDiscovery.startListening();
+  ref.onDispose(autoDiscovery.dispose);
+
+  final initFuture = () async {
+    final settings = await settingsService.loadSettings();
     settingsService.applyToRouter(router, settings);
-  });
+    await autoDiscovery.checkAndDiscover(force: false);
+  }();
+
   router.setReadyFuture(initFuture);
   return router;
 });
