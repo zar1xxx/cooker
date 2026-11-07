@@ -923,9 +923,7 @@ class _RecipeCard extends StatelessWidget {
                       vertical: 8,
                     ),
                     decoration: BoxDecoration(
-                      color: theme.colorScheme.errorContainer.withValues(
-                        alpha: 0.3,
-                      ),
+                      color: theme.colorScheme.errorContainer,
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Row(
@@ -933,7 +931,7 @@ class _RecipeCard extends StatelessWidget {
                         Icon(
                           Icons.shopping_cart_outlined,
                           size: 20,
-                          color: theme.colorScheme.error,
+                          color: theme.colorScheme.onErrorContainer,
                         ),
                         const SizedBox(width: 8),
                         Expanded(

@@ -39,10 +39,25 @@ class AppTheme {
       onSecondary: Colors.white,
       secondaryContainer: Color(0xFFF5DCCB),
       onSecondaryContainer: Color(0xFF3A1A08),
+      tertiary: Color(0xFF3E6373),
+      onTertiary: Colors.white,
+      tertiaryContainer: Color(0xFFC2E8FB),
+      onTertiaryContainer: Color(0xFF001F2A),
+      error: Color(0xFFBA1A1A),
+      onError: Colors.white,
+      // R4-04: explicitly configured errorContainer & onErrorContainer
+      errorContainer: Color(0xFFFFDAD6),
+      onErrorContainer: Color(0xFF410002),
       surface: surfaceLight,
       onSurface: onSurfaceLight,
+      onSurfaceVariant: Color(0xFF424940),
+      surfaceContainerLowest: Colors.white,
+      surfaceContainerLow: Color(0xFFF3F5EF),
+      surfaceContainer: Color(0xFFEDF0E9),
+      surfaceContainerHigh: Color(0xFFE7EAE3),
       surfaceContainerHighest: Color(0xFFE2E4DE),
       outline: Color(0xFF727972),
+      outlineVariant: Color(0xFFC2C9BD),
     );
 
     return _buildTheme(colorScheme: colorScheme, isDark: false);
@@ -58,10 +73,25 @@ class AppTheme {
       onSecondary: Color(0xFF552100),
       secondaryContainer: Color(0xFF6F3A1E),
       onSecondaryContainer: Color(0xFFFFDBCB),
+      tertiary: Color(0xFFA6CCDE),
+      onTertiary: Color(0xFF073543),
+      tertiaryContainer: Color(0xFF254B5B),
+      onTertiaryContainer: Color(0xFFC2E8FB),
+      error: Color(0xFFFFB4AB),
+      onError: Color(0xFF690005),
+      // R4-04: explicitly configured errorContainer & onErrorContainer
+      errorContainer: Color(0xFF93000A),
+      onErrorContainer: Color(0xFFFFDAD6),
       surface: surfaceDark,
       onSurface: onSurfaceDark,
+      onSurfaceVariant: Color(0xFFC2C9BD),
+      surfaceContainerLowest: Color(0xFF0D0F0E),
+      surfaceContainerLow: Color(0xFF191C1A),
+      surfaceContainer: Color(0xFF1D201E),
+      surfaceContainerHigh: Color(0xFF282B28),
       surfaceContainerHighest: Color(0xFF333834),
       outline: Color(0xFF8C938C),
+      outlineVariant: Color(0xFF424940),
     );
 
     return _buildTheme(colorScheme: colorScheme, isDark: true);
