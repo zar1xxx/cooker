@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
+import 'package:chto_prigotovit/core/ai/ai_failure.dart';
 import 'package:chto_prigotovit/core/ai/ai_provider.dart';
 import 'package:chto_prigotovit/core/ai/lm_studio_provider.dart';
 import 'package:dio/dio.dart';
@@ -208,5 +209,167 @@ void main() {
         expect(response.decodeJson()['dishes'], isNotEmpty);
       },
     );
+
+    group('R3-05: Auto-select LM Studio model', () {
+      test('automatically selects first non-embed model when model is not configured and caches it', () async {
+        final dio = Dio();
+        int modelsCallCount = 0;
+        RequestOptions? capturedChatOptions;
+
+        dio.httpClientAdapter = MockHttpClientAdapter((options) async {
+          if (options.path.endsWith('/v1/models')) {
+            modelsCallCount++;
+            return _createJsonResponse({
+              'data': [
+                {'id': 'text-embedding-nomic-embed-text-v1.5'},
+                {'id': 'qwen2.5-7b-instruct'},
+                {'id': 'meta-llama-3-8b'},
+              ],
+            });
+          } else if (options.path.endsWith('/v1/chat/completions')) {
+            capturedChatOptions = options;
+            return _createJsonResponse({
+              'choices': [
+                {
+                  'index': 0,
+                  'message': {'role': 'assistant', 'content': 'Готово'},
+                },
+              ],
+            });
+          }
+          throw DioException(requestOptions: options);
+        });
+
+        final provider = LmStudioProvider(
+          baseUrl: 'http://192.168.1.100:1234',
+          dio: dio,
+        );
+
+        expect(provider.model, isNull);
+        expect(provider.cachedAutoModel, isNull);
+
+        // 1. First chat query resolves model via /v1/models
+        final resp1 = await provider.chat(
+          const AiChatRequest(messages: [AiChatMessage.user('Привет')]),
+        );
+
+        expect(modelsCallCount, equals(1));
+        expect(provider.cachedAutoModel, equals('qwen2.5-7b-instruct'));
+        expect(capturedChatOptions, isNotNull);
+        final body1 = capturedChatOptions!.data as Map<String, dynamic>;
+        expect(body1['model'], equals('qwen2.5-7b-instruct'));
+        expect(resp1.model, equals('qwen2.5-7b-instruct'));
+
+        // 2. Second chat query reuses cached model without calling /v1/models again
+        await provider.chat(
+          const AiChatRequest(messages: [AiChatMessage.user('Ещё раз')]),
+        );
+
+        expect(modelsCallCount, equals(1)); // Still 1, didn't re-fetch
+      });
+
+      test(
+        'throws AiFailure.pcNoModel when /v1/models returns empty list',
+        () async {
+          final dio = Dio();
+          dio.httpClientAdapter = MockHttpClientAdapter((options) async {
+            if (options.path.endsWith('/v1/models')) {
+              return _createJsonResponse({'data': []});
+            }
+            throw DioException(requestOptions: options);
+          });
+
+          final provider = LmStudioProvider(
+            baseUrl: 'http://192.168.1.100:1234',
+            dio: dio,
+          );
+
+          try {
+            await provider.chat(
+              const AiChatRequest(messages: [AiChatMessage.user('Привет')]),
+            );
+            fail('Expected AiException');
+          } on AiException catch (e) {
+            expect(e.failure, isA<AiFailurePcNoModel>());
+            expect(e.failure.code, equals('pc_no_model'));
+            expect(
+              e.failure.message,
+              equals('На компьютере не загружена модель'),
+            );
+          }
+
+          expect(await provider.isAvailable(), isFalse);
+        },
+      );
+
+      test(
+        'falls back to first model if all models contain embed keyword',
+        () async {
+          final dio = Dio();
+          dio.httpClientAdapter = MockHttpClientAdapter((options) async {
+            if (options.path.endsWith('/v1/models')) {
+              return _createJsonResponse({
+                'data': [
+                  {'id': 'all-embed-model-1'},
+                  {'id': 'another-embed-model-2'},
+                ],
+              });
+            }
+            throw DioException(requestOptions: options);
+          });
+
+          final provider = LmStudioProvider(
+            baseUrl: 'http://192.168.1.100:1234',
+            dio: dio,
+          );
+
+          final resolved = await provider.resolveModel();
+          expect(resolved, equals('all-embed-model-1'));
+          expect(provider.cachedAutoModel, equals('all-embed-model-1'));
+        },
+      );
+
+      test(
+        'does not call /v1/models when model is configured in constructor',
+        () async {
+          final dio = Dio();
+          int modelsCallCount = 0;
+          RequestOptions? capturedChatOptions;
+
+          dio.httpClientAdapter = MockHttpClientAdapter((options) async {
+            if (options.path.endsWith('/v1/models')) {
+              modelsCallCount++;
+              return _createJsonResponse({'data': []});
+            } else if (options.path.endsWith('/v1/chat/completions')) {
+              capturedChatOptions = options;
+              return _createJsonResponse({
+                'choices': [
+                  {
+                    'index': 0,
+                    'message': {'role': 'assistant', 'content': 'Готово'},
+                  },
+                ],
+              });
+            }
+            throw DioException(requestOptions: options);
+          });
+
+          final provider = LmStudioProvider(
+            baseUrl: 'http://192.168.1.100:1234',
+            model: 'my-custom-model',
+            dio: dio,
+          );
+
+          await provider.chat(
+            const AiChatRequest(messages: [AiChatMessage.user('Привет')]),
+          );
+
+          expect(modelsCallCount, equals(0));
+          expect(capturedChatOptions, isNotNull);
+          final body = capturedChatOptions!.data as Map<String, dynamic>;
+          expect(body['model'], equals('my-custom-model'));
+        },
+      );
+    });
   });
 }

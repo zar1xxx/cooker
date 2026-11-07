@@ -47,6 +47,11 @@ class LmStudioProvider implements AiProvider {
   final String? apiKey;
   final Dio _dio;
 
+  String? _cachedAutoModel;
+
+  /// The automatically discovered model id if [model] was not specified.
+  String? get cachedAutoModel => _cachedAutoModel;
+
   @override
   String get name => 'lm_studio';
 
@@ -84,11 +89,46 @@ class LmStudioProvider implements AiProvider {
     );
   }
 
-  Map<String, dynamic> _buildChatBody(AiChatRequest request) {
-    final selectedModel = request.model ?? model ?? 'default';
+  /// Resolves the model to use:
+  /// 1. [requestedModel] if provided in request.
+  /// 2. [model] configured in constructor.
+  /// 3. [_cachedAutoModel] if previously auto-selected.
+  /// 4. Queries `GET /v1/models` and picks the first model without 'embed'.
+  /// Throws [AiException] with [AiFailure.pcNoModel] if no models are loaded.
+  Future<String> resolveModel({
+    String? requestedModel,
+    Duration timeout = const Duration(seconds: 3),
+  }) async {
+    if (requestedModel != null && requestedModel.trim().isNotEmpty) {
+      return requestedModel.trim();
+    }
+    if (model != null && model!.trim().isNotEmpty) {
+      return model!.trim();
+    }
+    if (_cachedAutoModel != null && _cachedAutoModel!.trim().isNotEmpty) {
+      return _cachedAutoModel!;
+    }
+
+    final models = await getModels(timeout: timeout);
+    if (models.isEmpty) {
+      throw const AiException(
+        AiFailure.pcNoModel('На компьютере не загружена модель'),
+      );
+    }
+
+    final nonEmbed = models.where((m) => !m.toLowerCase().contains('embed'));
+    final selected = nonEmbed.isNotEmpty ? nonEmbed.first : models.first;
+    _cachedAutoModel = selected;
+    return selected;
+  }
+
+  Map<String, dynamic> _buildChatBody(
+    AiChatRequest request,
+    String resolvedModel,
+  ) {
     final messages = request.messages.map((m) => m.toJson()).toList();
     final body = <String, dynamic>{
-      'model': selectedModel,
+      'model': resolvedModel,
       'messages': messages,
       'temperature': request.temperature,
       'stream': false,
@@ -138,10 +178,10 @@ class LmStudioProvider implements AiProvider {
   @override
   Future<bool> isAvailable() async {
     try {
-      final models = await getModels(
+      final resolved = await resolveModel(
         timeout: const Duration(milliseconds: 1500),
       );
-      return models.isNotEmpty;
+      return resolved.isNotEmpty;
     } catch (_) {
       return false;
     }
@@ -151,8 +191,14 @@ class LmStudioProvider implements AiProvider {
   Future<AiCompletionResponse> chat(AiChatRequest request) async {
     final cleanBase = sanitizeBaseUrl(baseUrl);
     _validateUrl(cleanBase);
+
+    final selectedModel = await resolveModel(
+      requestedModel: request.model,
+      timeout: request.timeout ?? const Duration(seconds: 5),
+    );
+
     final url = '$cleanBase/v1/chat/completions';
-    final body = _buildChatBody(request);
+    final body = _buildChatBody(request, selectedModel);
 
     final stopwatch = Stopwatch()..start();
     try {
@@ -177,7 +223,7 @@ class LmStudioProvider implements AiProvider {
       final message = firstChoice['message'] as Map<String, dynamic>?;
       final content = message?['content'] as String? ?? '';
       final responseModel =
-          (data['model'] as String?) ?? request.model ?? model ?? 'lm_studio';
+          (data['model'] as String?) ?? request.model ?? selectedModel;
 
       int promptTokens = 0;
       int completionTokens = 0;
