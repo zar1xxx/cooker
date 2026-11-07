@@ -28,6 +28,7 @@ import 'package:chto_prigotovit/l10n/app_localizations.dart';
 import 'package:drift/drift.dart' as drift;
 import 'package:drift/native.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -271,6 +272,56 @@ void main() {
       );
     }
 
+    void assertNoClippedText(WidgetTester tester, String screenName) {
+      final renderObjects = tester.renderObjectList<RenderParagraph>(
+        find.byType(RichText),
+      );
+      for (final ro in renderObjects) {
+        if (ro.maxLines != null) continue; // intentional truncation (cards)
+        if (!ro.hasSize || ro.size.isEmpty) continue;
+        // Skip icon glyphs (e.g. MaterialIcons)
+        if (ro.text.style?.fontFamily?.contains('Icons') == true) continue;
+
+        // 1. Check intrinsic text height vs actual rendered height:
+        final intrinsicHeight = ro.getMaxIntrinsicHeight(ro.size.width);
+        if (intrinsicHeight > ro.size.height + 1.0) {
+          fail(
+            '[$screenName] Text is vertically clipped: intrinsicHeight=$intrinsicHeight > size.height=${ro.size.height} for text "${ro.text.toPlainText()}"',
+          );
+        }
+
+        // 2. Check if RenderParagraph extends beyond bounds of closest non-viewport RenderClip* ancestor:
+        final viewport = RenderAbstractViewport.maybeOf(ro);
+        RenderObject? node = ro.parent;
+        while (node != null) {
+          if (node is RenderBox &&
+              node.runtimeType.toString().startsWith('RenderClip')) {
+            final isViewportClip =
+                viewport != null &&
+                (identical(node, viewport) ||
+                    node.depth <= (viewport as RenderObject).depth);
+            if (!isViewportClip && node.hasSize) {
+              final roTopLeftInClip = ro.localToGlobal(
+                Offset.zero,
+                ancestor: node,
+              );
+              final roBottomInClip = roTopLeftInClip.dy + ro.size.height;
+              final clipHeight = node.size.height;
+              if (roTopLeftInClip.dy < -1.0 ||
+                  roBottomInClip > clipHeight + 1.0) {
+                fail(
+                  '[$screenName] Text "${ro.text.toPlainText()}" extends outside ${node.runtimeType}: '
+                  'text top=${roTopLeftInClip.dy}, bottom=$roBottomInClip vs clipHeight=$clipHeight',
+                );
+              }
+            }
+            break;
+          }
+          node = node.parent;
+        }
+      }
+    }
+
     final widths = [320.0, 360.0];
     final scales = [1.0, 1.5, 2.0];
 
@@ -286,6 +337,7 @@ void main() {
           await tester.pump();
           await tester.pump(const Duration(milliseconds: 300));
           expect(tester.takeException(), isNull);
+          assertNoClippedText(tester, 'TodayScreen');
         });
 
         testWidgets('2. PantryScreen at ${w}dp font ${s}x', (tester) async {
@@ -298,6 +350,7 @@ void main() {
           await tester.pump();
           await tester.pump(const Duration(milliseconds: 300));
           expect(tester.takeException(), isNull);
+          assertNoClippedText(tester, 'PantryScreen');
         });
 
         testWidgets('3. SuggestionsScreen at ${w}dp font ${s}x', (
@@ -316,6 +369,7 @@ void main() {
           await tester.pump();
           await tester.pump(const Duration(milliseconds: 300));
           expect(tester.takeException(), isNull);
+          assertNoClippedText(tester, 'SuggestionsScreen');
         });
 
         testWidgets('4. RecipeScreen at ${w}dp font ${s}x', (tester) async {
@@ -332,6 +386,7 @@ void main() {
           await tester.pump();
           await tester.pump(const Duration(milliseconds: 300));
           expect(tester.takeException(), isNull);
+          assertNoClippedText(tester, 'RecipeScreen');
         });
 
         testWidgets('5. CookingScreen at ${w}dp font ${s}x', (tester) async {
@@ -348,6 +403,7 @@ void main() {
           await tester.pump();
           await tester.pump(const Duration(milliseconds: 300));
           expect(tester.takeException(), isNull);
+          assertNoClippedText(tester, 'CookingScreen');
         });
 
         testWidgets('6. CalendarScreen at ${w}dp font ${s}x', (tester) async {
@@ -360,6 +416,7 @@ void main() {
           await tester.pump();
           await tester.pump(const Duration(milliseconds: 300));
           expect(tester.takeException(), isNull);
+          assertNoClippedText(tester, 'CalendarScreen');
         });
 
         testWidgets('7. HistoryScreen at ${w}dp font ${s}x', (tester) async {
@@ -372,6 +429,7 @@ void main() {
           await tester.pump();
           await tester.pump(const Duration(milliseconds: 300));
           expect(tester.takeException(), isNull);
+          assertNoClippedText(tester, 'HistoryScreen');
         });
 
         testWidgets('8. AiSettingsScreen at ${w}dp font ${s}x', (tester) async {
@@ -388,6 +446,7 @@ void main() {
           await tester.pump();
           await tester.pump(const Duration(milliseconds: 300));
           expect(tester.takeException(), isNull);
+          assertNoClippedText(tester, 'AiSettingsScreen');
         });
 
         testWidgets('9. AiDiagnosticsScreen at ${w}dp font ${s}x', (
@@ -406,6 +465,7 @@ void main() {
           await tester.pump();
           await tester.pump(const Duration(milliseconds: 300));
           expect(tester.takeException(), isNull);
+          assertNoClippedText(tester, 'AiDiagnosticsScreen');
         });
 
         testWidgets('10. TastePreferencesScreen at ${w}dp font ${s}x', (
@@ -424,6 +484,7 @@ void main() {
           await tester.pump();
           await tester.pump(const Duration(milliseconds: 300));
           expect(tester.takeException(), isNull);
+          assertNoClippedText(tester, 'TastePreferencesScreen');
         });
       }
     }

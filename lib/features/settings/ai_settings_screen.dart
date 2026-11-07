@@ -639,9 +639,12 @@ class _AiSettingsScreenState extends ConsumerState<AiSettingsScreen> {
             const SizedBox(height: 12),
 
             // Button: Find PC
-            SizedBox(
-              height: 56,
+            ConstrainedBox(
+              constraints: const BoxConstraints(minHeight: 56),
               child: OutlinedButton.icon(
+                style: OutlinedButton.styleFrom(
+                  minimumSize: const Size.fromHeight(56),
+                ),
                 onPressed: _isScanning ? null : _findPc,
                 icon: _isScanning
                     ? const SizedBox(
@@ -661,9 +664,12 @@ class _AiSettingsScreenState extends ConsumerState<AiSettingsScreen> {
             const SizedBox(height: 12),
 
             // Button: Connect via QR
-            SizedBox(
-              height: 56,
+            ConstrainedBox(
+              constraints: const BoxConstraints(minHeight: 56),
               child: ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(
+                  minimumSize: const Size.fromHeight(56),
+                ),
                 onPressed: () async {
                   await context.push('/settings/ai/qr-scanner');
                   await _reloadSettings();
@@ -848,9 +854,12 @@ class _AiSettingsScreenState extends ConsumerState<AiSettingsScreen> {
               const SizedBox(height: 12),
             ],
 
-            SizedBox(
-              height: 56,
+            ConstrainedBox(
+              constraints: const BoxConstraints(minHeight: 56),
               child: FilledButton.tonal(
+                style: FilledButton.styleFrom(
+                  minimumSize: const Size.fromHeight(56),
+                ),
                 onPressed: _isChecking ? null : _checkConnection,
                 child: _isChecking
                     ? const SizedBox(
@@ -867,9 +876,12 @@ class _AiSettingsScreenState extends ConsumerState<AiSettingsScreen> {
             const SizedBox(height: 16),
 
             // Main Action: Save Settings
-            SizedBox(
-              height: 56,
+            ConstrainedBox(
+              constraints: const BoxConstraints(minHeight: 56),
               child: FilledButton(
+                style: FilledButton.styleFrom(
+                  minimumSize: const Size.fromHeight(56),
+                ),
                 onPressed: _saveSettings,
                 child: Text(
                   l10n.aiSettingsSave,

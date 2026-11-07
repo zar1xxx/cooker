@@ -421,9 +421,12 @@ class _TastePreferencesScreenState
           const SizedBox(height: 16),
 
           // Reset Taste Profile Button
-          SizedBox(
-            height: 56,
+          ConstrainedBox(
+            constraints: const BoxConstraints(minHeight: 56),
             child: OutlinedButton.icon(
+              style: OutlinedButton.styleFrom(
+                minimumSize: const Size.fromHeight(56),
+              ),
               onPressed: _resetTasteProfile,
               icon: const Icon(Icons.restart_alt),
               label: Text(
@@ -482,9 +485,12 @@ class _TastePreferencesScreenState
               }).toList(),
             ),
           const SizedBox(height: 12),
-          SizedBox(
-            height: 56,
+          ConstrainedBox(
+            constraints: const BoxConstraints(minHeight: 56),
             child: FilledButton.tonalIcon(
+              style: FilledButton.styleFrom(
+                minimumSize: const Size.fromHeight(56),
+              ),
               onPressed: () {
                 _openIngredientPicker(
                   title: l10n.tasteAddAllergyButton,
@@ -542,9 +548,12 @@ class _TastePreferencesScreenState
               }).toList(),
             ),
           const SizedBox(height: 12),
-          SizedBox(
-            height: 56,
+          ConstrainedBox(
+            constraints: const BoxConstraints(minHeight: 56),
             child: FilledButton.tonalIcon(
+              style: FilledButton.styleFrom(
+                minimumSize: const Size.fromHeight(56),
+              ),
               onPressed: () {
                 _openIngredientPicker(
                   title: l10n.tasteAddExclusionButton,

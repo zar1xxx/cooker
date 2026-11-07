@@ -347,10 +347,11 @@ class _CookingScreenState extends ConsumerState<CookingScreen> {
                     const SizedBox(height: 20),
 
                     // Save button
-                    SizedBox(
-                      height: 56,
+                    ConstrainedBox(
+                      constraints: const BoxConstraints(minHeight: 56),
                       child: FilledButton(
                         style: FilledButton.styleFrom(
+                          minimumSize: const Size.fromHeight(56),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(14),
                           ),
@@ -368,9 +369,12 @@ class _CookingScreenState extends ConsumerState<CookingScreen> {
                     const SizedBox(height: 8),
 
                     // Skip button
-                    SizedBox(
-                      height: 48,
+                    ConstrainedBox(
+                      constraints: const BoxConstraints(minHeight: 48),
                       child: TextButton(
+                        style: TextButton.styleFrom(
+                          minimumSize: const Size.fromHeight(48),
+                        ),
                         onPressed: () {
                           selectedRating = null;
                           Navigator.of(sheetContext).pop(true);
@@ -807,10 +811,11 @@ class _CookingScreenState extends ConsumerState<CookingScreen> {
             Row(
               children: [
                 Expanded(
-                  child: SizedBox(
-                    height: 56,
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(minHeight: 56),
                     child: FilledButton.icon(
                       style: FilledButton.styleFrom(
+                        minimumSize: const Size(0, 56),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(14),
                         ),
@@ -842,10 +847,11 @@ class _CookingScreenState extends ConsumerState<CookingScreen> {
                 ),
                 if (remainingSeconds < totalSeconds) ...[
                   const SizedBox(width: 8),
-                  SizedBox(
-                    height: 56,
+                  ConstrainedBox(
+                    constraints: const BoxConstraints(minHeight: 56),
                     child: OutlinedButton(
                       style: OutlinedButton.styleFrom(
+                        minimumSize: const Size(0, 56),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(14),
                         ),

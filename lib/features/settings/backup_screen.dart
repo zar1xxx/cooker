@@ -196,9 +196,12 @@ class _BackupScreenState extends ConsumerState<BackupScreen> {
             ),
           ),
           const SizedBox(height: 12),
-          SizedBox(
-            height: 56,
+          ConstrainedBox(
+            constraints: const BoxConstraints(minHeight: 56),
             child: FilledButton.icon(
+              style: FilledButton.styleFrom(
+                minimumSize: const Size.fromHeight(56),
+              ),
               onPressed: _isExporting ? null : _exportBackup,
               icon: _isExporting
                   ? const SizedBox(
@@ -264,9 +267,10 @@ class _BackupScreenState extends ConsumerState<BackupScreen> {
           // Paste Button
           Align(
             alignment: Alignment.centerLeft,
-            child: SizedBox(
-              height: 48,
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(minHeight: 48),
               child: OutlinedButton.icon(
+                style: OutlinedButton.styleFrom(minimumSize: const Size(0, 48)),
                 onPressed: _pasteFromClipboard,
                 icon: const Icon(Icons.paste),
                 label: Text(l10n.backupPasteButton),
@@ -288,9 +292,12 @@ class _BackupScreenState extends ConsumerState<BackupScreen> {
           const SizedBox(height: 16),
 
           // Import Button
-          SizedBox(
-            height: 56,
+          ConstrainedBox(
+            constraints: const BoxConstraints(minHeight: 56),
             child: FilledButton.tonalIcon(
+              style: FilledButton.styleFrom(
+                minimumSize: const Size.fromHeight(56),
+              ),
               onPressed: _isImporting ? null : _importBackup,
               icon: _isImporting
                   ? const SizedBox(

@@ -426,9 +426,12 @@ class _HistoryScreenState extends ConsumerState<HistoryScreen> {
                           textAlign: TextAlign.center,
                         ),
                         const SizedBox(height: 16),
-                        SizedBox(
-                          height: 56,
+                        ConstrainedBox(
+                          constraints: const BoxConstraints(minHeight: 56),
                           child: OutlinedButton(
+                            style: OutlinedButton.styleFrom(
+                              minimumSize: const Size.fromHeight(56),
+                            ),
                             onPressed: () {
                               _searchController.clear();
                               setState(() {
@@ -478,9 +481,12 @@ class _HistoryScreenState extends ConsumerState<HistoryScreen> {
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 16),
-                SizedBox(
-                  height: 56,
+                ConstrainedBox(
+                  constraints: const BoxConstraints(minHeight: 56),
                   child: FilledButton(
+                    style: FilledButton.styleFrom(
+                      minimumSize: const Size.fromHeight(56),
+                    ),
                     onPressed: () => ref.invalidate(historyEntriesProvider),
                     child: const Text('Повторить'),
                   ),
@@ -1056,10 +1062,11 @@ class _HistoryEntryCard extends StatelessWidget {
             Row(
               children: [
                 Expanded(
-                  child: SizedBox(
-                    height: 56,
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(minHeight: 56),
                     child: OutlinedButton.icon(
                       style: OutlinedButton.styleFrom(
+                        minimumSize: const Size.fromHeight(56),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),
@@ -1147,10 +1154,15 @@ class _EmptyHistoryView extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 32),
-            SizedBox(
-              height: 56,
-              width: double.infinity,
+            ConstrainedBox(
+              constraints: const BoxConstraints(
+                minHeight: 56,
+                minWidth: double.infinity,
+              ),
               child: FilledButton.icon(
+                style: FilledButton.styleFrom(
+                  minimumSize: const Size.fromHeight(56),
+                ),
                 icon: const Icon(Icons.search),
                 label: Text(
                   l10n.historyEmptyAction,
@@ -1163,10 +1175,15 @@ class _EmptyHistoryView extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 12),
-            SizedBox(
-              height: 56,
-              width: double.infinity,
+            ConstrainedBox(
+              constraints: const BoxConstraints(
+                minHeight: 56,
+                minWidth: double.infinity,
+              ),
               child: OutlinedButton.icon(
+                style: OutlinedButton.styleFrom(
+                  minimumSize: const Size.fromHeight(56),
+                ),
                 icon: const Icon(Icons.add),
                 label: Text(
                   l10n.historyAddButton,
@@ -1498,10 +1515,15 @@ class _AddCookedDishSheetState extends State<_AddCookedDishSheet> {
             const SizedBox(height: 24),
 
             // Save button
-            SizedBox(
-              height: 56,
-              width: double.infinity,
+            ConstrainedBox(
+              constraints: const BoxConstraints(
+                minHeight: 56,
+                minWidth: double.infinity,
+              ),
               child: FilledButton(
+                style: FilledButton.styleFrom(
+                  minimumSize: const Size.fromHeight(56),
+                ),
                 onPressed: _titleController.text.trim().isNotEmpty && !_isSaving
                     ? _submit
                     : null,

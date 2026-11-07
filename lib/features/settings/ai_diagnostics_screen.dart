@@ -744,10 +744,13 @@ class _AiDiagnosticsScreenState extends ConsumerState<AiDiagnosticsScreen> {
           const SizedBox(height: 16),
 
           // Re-run Button
-          SizedBox(
-            height: 52,
+          ConstrainedBox(
+            constraints: const BoxConstraints(minHeight: 56),
             child: FilledButton.tonalIcon(
               key: const Key('btn_run_diagnostics'),
+              style: FilledButton.styleFrom(
+                minimumSize: const Size.fromHeight(56),
+              ),
               onPressed: _isRunning ? null : _runDiagnostics,
               icon: _isRunning
                   ? const SizedBox(

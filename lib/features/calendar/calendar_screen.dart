@@ -124,8 +124,8 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                           (64 * MediaQuery.textScalerOf(context).scale(1))
                               .clamp(64.0, 96.0),
                       daysOfWeekHeight:
-                          (32 * MediaQuery.textScalerOf(context).scale(1))
-                              .clamp(32.0, 48.0),
+                          (40 * MediaQuery.textScalerOf(context).scale(1))
+                              .clamp(36.0, 80.0),
                       selectedDayPredicate: (day) =>
                           isSameDay(_selectedDay, day),
                       eventLoader: (day) {
@@ -147,11 +147,25 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                       // Without calendarStyle table_calendar uses its own
                       // blue for today and the selected day.
                       calendarStyle: CalendarStyle(
+                        cellMargin: const EdgeInsets.all(2),
+                        defaultTextStyle: TextStyle(
+                          fontSize: 14,
+                          color: theme.colorScheme.onSurface,
+                        ),
+                        weekendTextStyle: TextStyle(
+                          fontSize: 14,
+                          color: theme.colorScheme.primary,
+                        ),
+                        outsideTextStyle: TextStyle(
+                          fontSize: 14,
+                          color: theme.colorScheme.outlineVariant,
+                        ),
                         todayDecoration: BoxDecoration(
                           color: theme.colorScheme.primaryContainer,
                           shape: BoxShape.circle,
                         ),
                         todayTextStyle: TextStyle(
+                          fontSize: 14,
                           color: theme.colorScheme.onPrimaryContainer,
                           fontWeight: FontWeight.bold,
                         ),
@@ -160,6 +174,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                           shape: BoxShape.circle,
                         ),
                         selectedTextStyle: TextStyle(
+                          fontSize: 14,
                           color: theme.colorScheme.onPrimary,
                           fontWeight: FontWeight.bold,
                         ),
@@ -187,20 +202,16 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                         rightChevronPadding: const EdgeInsets.all(12),
                       ),
                       daysOfWeekStyle: DaysOfWeekStyle(
-                        weekdayStyle:
-                            theme.textTheme.bodyMedium?.copyWith(
-                              fontWeight: FontWeight.bold,
-                            ) ??
-                            const TextStyle(fontWeight: FontWeight.bold),
-                        weekendStyle:
-                            theme.textTheme.bodyMedium?.copyWith(
-                              fontWeight: FontWeight.bold,
-                              color: theme.colorScheme.primary,
-                            ) ??
-                            TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: theme.colorScheme.primary,
-                            ),
+                        weekdayStyle: TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.bold,
+                          color: theme.colorScheme.onSurface,
+                        ),
+                        weekendStyle: TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.bold,
+                          color: theme.colorScheme.primary,
+                        ),
                       ),
                       calendarBuilders: CalendarBuilders(
                         markerBuilder: (context, day, events) {

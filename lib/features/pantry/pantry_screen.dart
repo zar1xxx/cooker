@@ -173,9 +173,16 @@ class _PantryScreenState extends ConsumerState<PantryScreen> {
                 Semantics(
                   button: true,
                   label: l10n.pantryVoiceSearch,
-                  child: SizedBox(
-                    height: 56,
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(minHeight: 56),
                     child: FilledButton.tonalIcon(
+                      style: FilledButton.styleFrom(
+                        minimumSize: const Size(0, 56),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        padding: const EdgeInsets.symmetric(horizontal: 12),
+                      ),
                       onPressed: _toggleVoiceInput,
                       icon: Icon(
                         _isListening ? Icons.mic : Icons.mic_none,
@@ -189,12 +196,6 @@ class _PantryScreenState extends ConsumerState<PantryScreen> {
                         style: theme.textTheme.bodyLarge?.copyWith(
                           fontWeight: FontWeight.bold,
                         ),
-                      ),
-                      style: FilledButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                        padding: const EdgeInsets.symmetric(horizontal: 12),
                       ),
                     ),
                   ),
@@ -225,10 +226,18 @@ class _PantryScreenState extends ConsumerState<PantryScreen> {
             ),
             child: SafeArea(
               top: false,
-              child: SizedBox(
-                width: double.infinity,
-                height: 56,
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(
+                  minHeight: 56,
+                  minWidth: double.infinity,
+                ),
                 child: FilledButton.icon(
+                  style: FilledButton.styleFrom(
+                    minimumSize: const Size.fromHeight(56),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                  ),
                   onPressed: () => context.push('/suggestions'),
                   icon: const Icon(Icons.restaurant_menu, size: 28),
                   label: Text(
@@ -236,11 +245,6 @@ class _PantryScreenState extends ConsumerState<PantryScreen> {
                     style: theme.textTheme.titleMedium?.copyWith(
                       color: theme.colorScheme.onPrimary,
                       fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  style: FilledButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16),
                     ),
                   ),
                 ),
@@ -276,8 +280,8 @@ class _PantryScreenState extends ConsumerState<PantryScreen> {
                     style: theme.textTheme.titleMedium,
                   ),
                   const SizedBox(height: 16),
-                  SizedBox(
-                    height: 56,
+                  ConstrainedBox(
+                    constraints: const BoxConstraints(minHeight: 56),
                     child: OutlinedButton.icon(
                       onPressed: () => _addCustomIngredient(_searchQuery),
                       icon: const Icon(Icons.add, size: 28),
