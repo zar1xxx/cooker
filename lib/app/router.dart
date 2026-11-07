@@ -10,6 +10,7 @@ import '../features/recipe/recipe_screen.dart';
 import '../features/settings/ai_diagnostics_screen.dart';
 import '../features/settings/ai_settings_screen.dart';
 import '../features/settings/backup_screen.dart';
+import '../features/settings/qr_scanner_screen.dart';
 import '../features/settings/taste_preferences_screen.dart';
 import '../features/suggestions/suggestions_screen.dart';
 import 'scaffold_with_nav_bar.dart';
@@ -36,6 +37,11 @@ final GoRouter appRouter = GoRouter(
       path: '/settings/ai/diagnostics',
       parentNavigatorKey: rootNavigatorKey,
       builder: (context, state) => const AiDiagnosticsScreen(),
+    ),
+    GoRoute(
+      path: '/settings/ai/qr-scanner',
+      parentNavigatorKey: rootNavigatorKey,
+      builder: (context, state) => const QrScannerScreen(),
     ),
     GoRoute(
       path: '/settings/preferences',

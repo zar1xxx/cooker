@@ -980,4 +980,36 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get dailyNotificationTime => 'Время напоминания';
+
+  @override
+  String get aiSettingsConnectQr => 'Подключить по QR-коду';
+
+  @override
+  String get aiQrScannerTitle => 'Подключение по QR-коду';
+
+  @override
+  String get aiQrScannerHint =>
+      'Наведите камеру на QR-код на экране компьютера';
+
+  @override
+  String get aiQrScannerPermissionError =>
+      'Для сканирования QR-кода нужен доступ к камере';
+
+  @override
+  String get aiQrScannerOpenSettings => 'Открыть настройки';
+
+  @override
+  String get aiQrScannerNotAppQr => 'Это не QR-код приложения';
+
+  @override
+  String get aiQrScannerConnecting => 'Подключение к компьютеру...';
+
+  @override
+  String aiQrScannerConnected(String host) {
+    return 'ПК найден: $host';
+  }
+
+  @override
+  String get aiQrScannerSavedNotResponding =>
+      'ПК не отвечает по указанным адресам';
 }

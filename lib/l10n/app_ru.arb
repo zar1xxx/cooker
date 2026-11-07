@@ -1343,5 +1343,46 @@
   "dailyNotificationTime": "Время напоминания",
   "@dailyNotificationTime": {
     "description": "Время ежедневного уведомления"
+  },
+  "aiSettingsConnectQr": "Подключить по QR-коду",
+  "@aiSettingsConnectQr": {
+    "description": "Кнопка подключения ПК по QR-коду"
+  },
+  "aiQrScannerTitle": "Подключение по QR-коду",
+  "@aiQrScannerTitle": {
+    "description": "Заголовок экрана сканирования QR-кода"
+  },
+  "aiQrScannerHint": "Наведите камеру на QR-код на экране компьютера",
+  "@aiQrScannerHint": {
+    "description": "Подсказка на экране сканера QR-кода"
+  },
+  "aiQrScannerPermissionError": "Для сканирования QR-кода нужен доступ к камере",
+  "@aiQrScannerPermissionError": {
+    "description": "Сообщение об отсутствии доступа к камере"
+  },
+  "aiQrScannerOpenSettings": "Открыть настройки",
+  "@aiQrScannerOpenSettings": {
+    "description": "Кнопка перехода в настройки разрешений"
+  },
+  "aiQrScannerNotAppQr": "Это не QR-код приложения",
+  "@aiQrScannerNotAppQr": {
+    "description": "Ошибка при сканировании чужого QR-кода"
+  },
+  "aiQrScannerConnecting": "Подключение к компьютеру...",
+  "@aiQrScannerConnecting": {
+    "description": "Индикатор процесса подключения по QR"
+  },
+  "aiQrScannerConnected": "ПК найден: {host}",
+  "@aiQrScannerConnected": {
+    "description": "Успешное подключение компьютера по QR",
+    "placeholders": {
+      "host": {
+        "type": "String"
+      }
+    }
+  },
+  "aiQrScannerSavedNotResponding": "ПК не отвечает по указанным адресам",
+  "@aiQrScannerSavedNotResponding": {
+    "description": "Предупреждение, если компьютер записан из QR, но не отвечает по сети"
   }
 }

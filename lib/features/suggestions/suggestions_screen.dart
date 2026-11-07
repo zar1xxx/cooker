@@ -531,19 +531,41 @@ class _SuggestionsScreenState extends ConsumerState<SuggestionsScreen> {
                                     ),
                                     const SizedBox(height: 12),
                                     if (isNotConfigured)
-                                      FilledButton.tonal(
-                                        key: const Key('btn_configure_ai'),
-                                        style: FilledButton.styleFrom(
-                                          minimumSize: const Size.fromHeight(
-                                            56,
+                                      Wrap(
+                                        spacing: 8,
+                                        runSpacing: 8,
+                                        children: [
+                                          ElevatedButton.icon(
+                                            key: const Key('btn_connect_qr_ai'),
+                                            style: ElevatedButton.styleFrom(
+                                              minimumSize: const Size(160, 56),
+                                            ),
+                                            icon: const Icon(
+                                              Icons.qr_code_scanner,
+                                            ),
+                                            label: Text(
+                                              l10n.aiSettingsConnectQr,
+                                              style:
+                                                  theme.textTheme.titleMedium,
+                                            ),
+                                            onPressed: () => context.push(
+                                              '/settings/ai/qr-scanner',
+                                            ),
                                           ),
-                                        ),
-                                        onPressed: () =>
-                                            context.push('/settings/ai'),
-                                        child: Text(
-                                          l10n.aiConfigureButton,
-                                          style: theme.textTheme.titleMedium,
-                                        ),
+                                          FilledButton.tonal(
+                                            key: const Key('btn_configure_ai'),
+                                            style: FilledButton.styleFrom(
+                                              minimumSize: const Size(120, 56),
+                                            ),
+                                            onPressed: () =>
+                                                context.push('/settings/ai'),
+                                            child: Text(
+                                              l10n.aiConfigureButton,
+                                              style:
+                                                  theme.textTheme.titleMedium,
+                                            ),
+                                          ),
+                                        ],
                                       )
                                     else
                                       Row(

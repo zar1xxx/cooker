@@ -4,6 +4,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:drift/drift.dart' as drift;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
 import '../../core/ai/ai_failure.dart';
@@ -716,6 +717,19 @@ class _AiDiagnosticsScreenState extends ConsumerState<AiDiagnosticsScreen> {
                                     ? theme.colorScheme.error
                                     : theme.colorScheme.onSurfaceVariant,
                               ),
+                            ),
+                          ],
+                          if (step.id == 'pc_found' &&
+                              step.status == DiagnosticStepStatus.failure) ...[
+                            const SizedBox(height: 8),
+                            OutlinedButton.icon(
+                              key: const Key('btn_diagnostics_connect_qr'),
+                              onPressed: () async {
+                                await context.push('/settings/ai/qr-scanner');
+                                await _runDiagnostics();
+                              },
+                              icon: const Icon(Icons.qr_code_scanner, size: 20),
+                              label: Text(l10n.aiSettingsConnectQr),
                             ),
                           ],
                         ],

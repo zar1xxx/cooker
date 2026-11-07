@@ -129,6 +129,21 @@ class _AiSettingsScreenState extends ConsumerState<AiSettingsScreen> {
     }
   }
 
+  Future<void> _reloadSettings() async {
+    final settingsService = ref.read(aiSettingsServiceProvider);
+    final settings = await settingsService.loadSettings();
+    if (!mounted) return;
+    setState(() {
+      _hostController.text = settings.lmStudioHost;
+      _portController.text = settings.lmStudioPort.toString();
+      _modelController.text = settings.lmStudioModel;
+      if (settings.gigaChatAuthKey.isNotEmpty) {
+        _gigaChatKeyController.text = settings.gigaChatAuthKey;
+      }
+    });
+    ref.invalidate(aiSettingsProvider);
+  }
+
   Future<void> _findPc() async {
     setState(() {
       _isScanning = true;
@@ -640,6 +655,25 @@ class _AiSettingsScreenState extends ConsumerState<AiSettingsScreen> {
                       ? l10n.aiSettingsFindingPc
                       : l10n.aiSettingsFindPc,
                   style: theme.textTheme.bodyLarge,
+                ),
+              ),
+            ),
+            const SizedBox(height: 12),
+
+            // Button: Connect via QR
+            SizedBox(
+              height: 56,
+              child: ElevatedButton.icon(
+                onPressed: () async {
+                  await context.push('/settings/ai/qr-scanner');
+                  await _reloadSettings();
+                },
+                icon: const Icon(Icons.qr_code_scanner),
+                label: Text(
+                  l10n.aiSettingsConnectQr,
+                  style: theme.textTheme.bodyLarge?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),

@@ -1,8 +1,10 @@
 import 'dart:io';
 
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:flutter/widgets.dart';
 import 'package:clock/clock.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:network_info_plus/network_info_plus.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -17,6 +19,7 @@ import 'ai/lm_studio_provider.dart';
 import 'ai/pc_auto_discovery_service.dart';
 import 'ai/pc_discovery.dart';
 import 'ai/prompts.dart';
+import 'ai/qr_pairing_service.dart';
 import 'ai/recipe_validator.dart';
 import 'db/app_database.dart';
 import 'db/daos/history_dao.dart';
@@ -412,6 +415,37 @@ final aiRouterProvider = Provider<AiRouter>((ref) {
 
   router.setReadyFuture(initFuture);
   return router;
+});
+
+final qrPairingServiceProvider = Provider<QrPairingService>((ref) {
+  final discovery = ref.watch(pcDiscoveryProvider);
+  final settingsService = ref.watch(aiSettingsServiceProvider);
+  final router = ref.watch(aiRouterProvider);
+  return QrPairingService(
+    discovery: discovery,
+    settingsService: settingsService,
+    router: router,
+  );
+});
+
+typedef QrScannerWidgetBuilder = Widget Function(
+  BuildContext context,
+  MobileScannerController controller,
+  void Function(BarcodeCapture capture) onDetect,
+  Widget Function(BuildContext context, MobileScannerException error)?
+  errorBuilder,
+);
+
+final qrScannerWidgetBuilderProvider = Provider<QrScannerWidgetBuilder>((ref) {
+  return (context, controller, onDetect, errorBuilder) {
+    return MobileScanner(
+      controller: controller,
+      onDetect: onDetect,
+      errorBuilder: errorBuilder != null
+          ? (ctx, err) => errorBuilder(ctx, err)
+          : null,
+    );
+  };
 });
 
 final monthlyGigaChatTokensProvider = FutureProvider<int>((ref) async {

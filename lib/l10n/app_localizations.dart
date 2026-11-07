@@ -1857,6 +1857,60 @@ abstract class AppLocalizations {
   /// In ru, this message translates to:
   /// **'Время напоминания'**
   String get dailyNotificationTime;
+
+  /// Кнопка подключения ПК по QR-коду
+  ///
+  /// In ru, this message translates to:
+  /// **'Подключить по QR-коду'**
+  String get aiSettingsConnectQr;
+
+  /// Заголовок экрана сканирования QR-кода
+  ///
+  /// In ru, this message translates to:
+  /// **'Подключение по QR-коду'**
+  String get aiQrScannerTitle;
+
+  /// Подсказка на экране сканера QR-кода
+  ///
+  /// In ru, this message translates to:
+  /// **'Наведите камеру на QR-код на экране компьютера'**
+  String get aiQrScannerHint;
+
+  /// Сообщение об отсутствии доступа к камере
+  ///
+  /// In ru, this message translates to:
+  /// **'Для сканирования QR-кода нужен доступ к камере'**
+  String get aiQrScannerPermissionError;
+
+  /// Кнопка перехода в настройки разрешений
+  ///
+  /// In ru, this message translates to:
+  /// **'Открыть настройки'**
+  String get aiQrScannerOpenSettings;
+
+  /// Ошибка при сканировании чужого QR-кода
+  ///
+  /// In ru, this message translates to:
+  /// **'Это не QR-код приложения'**
+  String get aiQrScannerNotAppQr;
+
+  /// Индикатор процесса подключения по QR
+  ///
+  /// In ru, this message translates to:
+  /// **'Подключение к компьютеру...'**
+  String get aiQrScannerConnecting;
+
+  /// Успешное подключение компьютера по QR
+  ///
+  /// In ru, this message translates to:
+  /// **'ПК найден: {host}'**
+  String aiQrScannerConnected(String host);
+
+  /// Предупреждение, если компьютер записан из QR, но не отвечает по сети
+  ///
+  /// In ru, this message translates to:
+  /// **'ПК не отвечает по указанным адресам'**
+  String get aiQrScannerSavedNotResponding;
 }
 
 class _AppLocalizationsDelegate

@@ -1,41 +1,10 @@
+import 'package:chto_prigotovit/core/ai/qr_pairing_parser.dart';
 import 'package:qr/qr.dart';
 
 class PcNetworkInfo {
   const PcNetworkInfo({required this.name, required this.addresses});
   final String name;
   final List<String> addresses;
-}
-
-/// Returns true if [ip] is an IPv4 address within RFC 1918 private ranges:
-/// - 10.0.0.0/8
-/// - 172.16.0.0/12
-/// - 192.168.0.0/16
-///
-/// Explicitly excludes loopback (127.x), link-local (169.254.x), and TUN/benchmark (198.18.x / 198.19.x).
-bool isPrivateIpv4(String ip) {
-  final parts = ip.split('.');
-  if (parts.length != 4) return false;
-  final octets = parts.map(int.tryParse).toList();
-  if (octets.any((o) => o == null || o < 0 || o > 255)) return false;
-
-  final o0 = octets[0]!;
-  final o1 = octets[1]!;
-
-  // 127.x.x.x
-  if (o0 == 127) return false;
-  // 169.254.x.x
-  if (o0 == 169 && o1 == 254) return false;
-  // 198.18.x.x / 198.19.x.x (FlClashX / Clash TUN)
-  if (o0 == 198 && (o1 == 18 || o1 == 19)) return false;
-
-  // 10.0.0.0/8
-  if (o0 == 10) return true;
-  // 172.16.0.0/12
-  if (o0 == 172 && o1 >= 16 && o1 <= 31) return true;
-  // 192.168.0.0/16
-  if (o0 == 192 && o1 == 168) return true;
-
-  return false;
 }
 
 /// Returns true if the network interface name indicates a virtual, container, or tunnel adapter.
