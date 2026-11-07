@@ -445,5 +445,208 @@ void main() {
         expect(logs.last.responseJson, contains('бледная поганка'));
       },
     );
+
+    test('11. R5-03: LM Studio timeout -> repeats via GigaChat and records both attempts in ai_requests', () async {
+      final lmDio = Dio();
+      lmDio.httpClientAdapter = _MockAdapter((options) {
+        if (options.path.endsWith('/v1/models')) {
+          return ResponseBody.fromString(
+            jsonEncode({
+              'data': [
+                {'id': 'qwen2.5-7b'},
+              ],
+            }),
+            200,
+            headers: {
+              Headers.contentTypeHeader: [Headers.jsonContentType],
+            },
+          );
+        }
+        throw DioException(
+          requestOptions: options,
+          type: DioExceptionType.receiveTimeout,
+          message: 'Receive timeout after 45000ms',
+        );
+      });
+
+      final gigaDio = Dio();
+      gigaDio.httpClientAdapter = _MockAdapter((options) {
+        if (options.path.contains('/oauth')) {
+          return ResponseBody.fromString(
+            jsonEncode({
+              'access_token': 'giga-token-xyz',
+              'expires_at': DateTime.now()
+                  .add(const Duration(hours: 1))
+                  .millisecondsSinceEpoch,
+            }),
+            200,
+            headers: {
+              Headers.contentTypeHeader: [Headers.jsonContentType],
+            },
+          );
+        }
+        return ResponseBody.fromString(
+          jsonEncode({
+            'choices': [
+              {
+                'message': {
+                  'content': jsonEncode({
+                    'dishes': [
+                      {
+                        'title': 'Плов с курицей',
+                        'dish_type': 'main',
+                        'difficulty': 'medium',
+                        'total_minutes': 45,
+                        'main_ingredients': ['рис', 'курица'],
+                        'missing': [],
+                        'why': 'Из GigaChat',
+                      },
+                    ],
+                  }),
+                },
+                'finish_reason': 'stop',
+              },
+            ],
+            'model': 'GigaChat-Pro',
+            'usage': {'prompt_tokens': 100, 'completion_tokens': 150},
+          }),
+          200,
+          headers: {
+            Headers.contentTypeHeader: [Headers.jsonContentType],
+          },
+        );
+      });
+
+      final router = AiRouter(
+        connectivity: _FakeConnectivity([ConnectivityResult.wifi]),
+        lmStudioProvider: LmStudioProvider(
+          baseUrl: 'http://192.168.1.100:1235',
+          dio: lmDio,
+        ),
+        gigaChatProvider: GigaChatProvider(
+          authKey: 'test-gigachat-auth-key',
+          dio: gigaDio,
+        ),
+      );
+      final service = AiService(router: router, validator: validator, db: db);
+
+      final dishesResult = await service.suggestDishes(
+        availableIngredients: ['рис', 'курица'],
+      );
+
+      expect(dishesResult.isSuccess, isTrue);
+      expect(dishesResult.data.first.title, equals('Плов с курицей'));
+
+      final logs = await db.select(db.aiRequests).get();
+      expect(logs.length, equals(2));
+      expect(logs[0].status, equals('error'));
+      expect(logs[0].model, equals('lm_studio'));
+      expect(logs[0].responseJson, contains('Компьютер долго отвечает'));
+
+      expect(logs[1].status, equals('ok'));
+      expect(logs[1].model, equals('GigaChat-Pro'));
+      expect(logs[1].responseJson, contains('Плов с курицей'));
+    });
+
+    test('12. R5-03: LM Studio connectionError -> repeats via GigaChat and records both attempts in ai_requests', () async {
+      final lmDio = Dio();
+      lmDio.httpClientAdapter = _MockAdapter((options) {
+        if (options.path.endsWith('/v1/models')) {
+          return ResponseBody.fromString(
+            jsonEncode({
+              'data': [
+                {'id': 'qwen2.5-7b'},
+              ],
+            }),
+            200,
+            headers: {
+              Headers.contentTypeHeader: [Headers.jsonContentType],
+            },
+          );
+        }
+        throw DioException.connectionError(
+          requestOptions: options,
+          reason: 'Connection refused',
+          error: const SocketException('Connection refused'),
+        );
+      });
+
+      final gigaDio = Dio();
+      gigaDio.httpClientAdapter = _MockAdapter((options) {
+        if (options.path.contains('/oauth')) {
+          return ResponseBody.fromString(
+            jsonEncode({
+              'access_token': 'giga-token-xyz',
+              'expires_at': DateTime.now()
+                  .add(const Duration(hours: 1))
+                  .millisecondsSinceEpoch,
+            }),
+            200,
+            headers: {
+              Headers.contentTypeHeader: [Headers.jsonContentType],
+            },
+          );
+        }
+        return ResponseBody.fromString(
+          jsonEncode({
+            'choices': [
+              {
+                'message': {
+                  'content': jsonEncode({
+                    'dishes': [
+                      {
+                        'title': 'Гречневая каша',
+                        'dish_type': 'main',
+                        'difficulty': 'easy',
+                        'total_minutes': 25,
+                        'main_ingredients': ['гречка'],
+                        'missing': [],
+                        'why': 'Быстро и вкусно',
+                      },
+                    ],
+                  }),
+                },
+                'finish_reason': 'stop',
+              },
+            ],
+            'model': 'GigaChat-Pro',
+            'usage': {'prompt_tokens': 100, 'completion_tokens': 120},
+          }),
+          200,
+          headers: {
+            Headers.contentTypeHeader: [Headers.jsonContentType],
+          },
+        );
+      });
+
+      final router = AiRouter(
+        connectivity: _FakeConnectivity([ConnectivityResult.wifi]),
+        lmStudioProvider: LmStudioProvider(
+          baseUrl: 'http://192.168.1.100:1235',
+          dio: lmDio,
+        ),
+        gigaChatProvider: GigaChatProvider(
+          authKey: 'test-gigachat-auth-key',
+          dio: gigaDio,
+        ),
+      );
+      final service = AiService(router: router, validator: validator, db: db);
+
+      final dishesResult = await service.suggestDishes(
+        availableIngredients: ['гречка'],
+      );
+
+      expect(dishesResult.isSuccess, isTrue);
+      expect(dishesResult.data.first.title, equals('Гречневая каша'));
+
+      final logs = await db.select(db.aiRequests).get();
+      expect(logs.length, equals(2));
+      expect(logs[0].status, equals('error'));
+      expect(logs[0].model, equals('lm_studio'));
+
+      expect(logs[1].status, equals('ok'));
+      expect(logs[1].model, equals('GigaChat-Pro'));
+      expect(logs[1].responseJson, contains('Гречневая каша'));
+    });
   });
 }

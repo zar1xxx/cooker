@@ -200,17 +200,17 @@ class AiRouter {
             ? e.failure
             : mapExceptionToFailure(e, isGigaChat: false);
 
-        if (onAttempt != null) {
-          await onAttempt(
-            provider: primary.name,
-            status: 'error',
-            responseJson: failure.message,
-          );
-        }
-
-        // Fallback to GigaChat
+        // Fallback to GigaChat per R5-03 / TZ 6.1.1
         if (gigaChatProvider != null &&
             gigaChatProvider!.authKey.trim().isNotEmpty) {
+          if (onAttempt != null) {
+            await onAttempt(
+              provider: primary.name,
+              status: 'error',
+              responseJson: failure.message,
+            );
+          }
+
           try {
             return await _attemptWithRetry(
               gigaChatProvider!,
@@ -218,13 +218,21 @@ class AiRouter {
               validateContent,
             );
           } catch (gigaErr) {
-            if (gigaErr is AiException) rethrow;
-            throw AiException(mapExceptionToFailure(gigaErr, isGigaChat: true));
+            if (gigaErr is AiException) {
+              throw AiException(
+                gigaErr.failure,
+                gigaErr.providerName ?? gigaChatProvider!.name,
+              );
+            }
+            throw AiException(
+              mapExceptionToFailure(gigaErr, isGigaChat: true),
+              gigaChatProvider!.name,
+            );
           }
         }
 
         if (e is AiException) rethrow;
-        throw AiException(failure);
+        throw AiException(failure, primary.name);
       }
     } else {
       try {
@@ -233,6 +241,7 @@ class AiRouter {
         if (err is AiException) rethrow;
         throw AiException(
           mapExceptionToFailure(err, isGigaChat: primary is GigaChatProvider),
+          primary.name,
         );
       }
     }

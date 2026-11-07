@@ -80,7 +80,7 @@ class LmStudioProvider implements AiProvider {
       if (apiKey != null && apiKey!.trim().isNotEmpty)
         'Authorization': 'Bearer ${apiKey!.trim()}',
     };
-    final effectiveTimeout = timeout ?? const Duration(seconds: 60);
+    final effectiveTimeout = timeout ?? const Duration(seconds: 45);
     return Options(
       headers: headers,
       connectTimeout: effectiveTimeout,

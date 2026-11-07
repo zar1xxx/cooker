@@ -443,7 +443,10 @@ class _SuggestionsScreenState extends ConsumerState<SuggestionsScreen> {
                                               Text(
                                                 isNotConfigured
                                                     ? l10n.aiNotConfiguredTitle
-                                                    : l10n.aiNotRespondingTitle,
+                                                    : (failure
+                                                              is AiFailureTimeout
+                                                          ? l10n.aiTimeoutTitle
+                                                          : l10n.aiNotRespondingTitle),
                                                 style: theme
                                                     .textTheme
                                                     .titleMedium

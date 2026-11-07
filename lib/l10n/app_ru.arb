@@ -894,6 +894,10 @@
   "@aiNotRespondingTitle": {
     "description": "Заголовок плашки когда помощник недоступен"
   },
+  "aiTimeoutTitle": "Компьютер долго отвечает",
+  "@aiTimeoutTitle": {
+    "description": "Заголовок плашки когда превышено время ожидания компьютера"
+  },
   "aiNotRespondingSubtitle": "{reason}",
   "@aiNotRespondingSubtitle": {
     "description": "Пояснение почему помощник не отвечает",

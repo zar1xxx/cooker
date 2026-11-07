@@ -1270,6 +1270,12 @@ abstract class AppLocalizations {
   /// **'Помощник сейчас не отвечает'**
   String get aiNotRespondingTitle;
 
+  /// Заголовок плашки когда превышено время ожидания компьютера
+  ///
+  /// In ru, this message translates to:
+  /// **'Компьютер долго отвечает'**
+  String get aiTimeoutTitle;
+
   /// Пояснение почему помощник не отвечает
   ///
   /// In ru, this message translates to:

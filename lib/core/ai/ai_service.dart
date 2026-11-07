@@ -229,11 +229,14 @@ class AiService {
               e,
               isGigaChat: activeProvider.name == 'gigachat',
             );
+      final modelName = (e is AiException && e.providerName != null)
+          ? e.providerName!
+          : activeProvider.name;
       await _logRequest(
         kind: 'suggest_dishes',
         prompt: userPrompt,
         responseJson: failure.message,
-        model: activeProvider.name,
+        model: modelName,
         status: 'error',
       );
       return AiResult.failure(failure);
@@ -445,11 +448,14 @@ class AiService {
               e,
               isGigaChat: activeProvider.name == 'gigachat',
             );
+      final modelName = (e is AiException && e.providerName != null)
+          ? e.providerName!
+          : activeProvider.name;
       await _logRequest(
         kind: 'full_recipe',
         prompt: userPrompt,
         responseJson: failure.message,
-        model: activeProvider.name,
+        model: modelName,
         status: 'error',
       );
       return AiResult.failure(failure);
@@ -655,11 +661,14 @@ class AiService {
               e,
               isGigaChat: activeProvider.name == 'gigachat',
             );
+      final modelName = (e is AiException && e.providerName != null)
+          ? e.providerName!
+          : activeProvider.name;
       await _logRequest(
         kind: 'month_plan',
         prompt: userPrompt,
         responseJson: failure.message,
-        model: activeProvider.name,
+        model: modelName,
         status: 'error',
       );
       return null;

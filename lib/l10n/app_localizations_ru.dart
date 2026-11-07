@@ -650,6 +650,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get aiNotRespondingTitle => 'Помощник сейчас не отвечает';
 
   @override
+  String get aiTimeoutTitle => 'Компьютер долго отвечает';
+
+  @override
   String aiNotRespondingSubtitle(String reason) {
     return '$reason';
   }

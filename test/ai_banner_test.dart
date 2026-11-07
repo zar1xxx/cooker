@@ -156,6 +156,51 @@ void main() {
       },
     );
 
+    testWidgets(
+      'R5-03: shows "Компьютер долго отвечает" banner with retry button on timeout',
+      (tester) async {
+        tester.view.physicalSize = const Size(800, 1400);
+        tester.view.devicePixelRatio = 1.0;
+        addTearDown(tester.view.resetPhysicalSize);
+        addTearDown(tester.view.resetDevicePixelRatio);
+
+        final ready = [_dummyScored('soup_1', 'Борщ')];
+
+        await tester.pumpWidget(
+          ProviderScope(
+            overrides: [
+              suggestionsProvider.overrideWith(
+                (ref) => SuggestionsState(ready: ready, almostReady: const []),
+              ),
+              aiDishesProvider.overrideWith(
+                () => _FakeAiDishesNotifier(
+                  const AiResult.failure(AiFailure.timeout()),
+                ),
+              ),
+            ],
+            child: MaterialApp(
+              theme: AppTheme.light,
+              localizationsDelegates: const [
+                AppLocalizations.delegate,
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
+              ],
+              supportedLocales: AppLocalizations.supportedLocales,
+              locale: const Locale('ru'),
+              home: const SuggestionsScreen(),
+            ),
+          ),
+        );
+        await tester.pumpAndSettle();
+
+        expect(find.byKey(const Key('ai_error_banner')), findsOneWidget);
+        expect(find.text('Компьютер долго отвечает'), findsOneWidget);
+        expect(find.byKey(const Key('btn_retry_ai')), findsOneWidget);
+        expect(find.text('Повторить'), findsOneWidget);
+      },
+    );
+
     testWidgets('tapping AI dish opens error dialog when fullRecipe fails', (
       tester,
     ) async {

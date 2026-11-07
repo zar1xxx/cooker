@@ -335,10 +335,12 @@ class AiError<T> extends AiResult<T> {
 /// Exception wrapping [AiFailure] for propagation inside router/providers.
 class AiException implements Exception {
   final AiFailure failure;
-  const AiException(this.failure);
+  final String? providerName;
+  const AiException(this.failure, [this.providerName]);
 
   @override
-  String toString() => 'AiException(${failure.code}: ${failure.message})';
+  String toString() =>
+      'AiException(${failure.code}: ${failure.message}${providerName != null ? ' [$providerName]' : ''})';
 }
 
 /// Maps arbitrary network and protocol exceptions to a concrete [AiFailure].
