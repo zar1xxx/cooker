@@ -118,6 +118,12 @@ class _TodayScreenState extends ConsumerState<TodayScreen> {
         ),
         actions: [
           IconButton(
+            key: const Key('btn_ai_settings_today_appbar'),
+            icon: const Icon(Icons.settings),
+            tooltip: l10n.aiSettingsTooltip,
+            onPressed: () => context.push('/settings/ai'),
+          ),
+          IconButton(
             icon: const Icon(Icons.calendar_month),
             tooltip: l10n.tabCalendar,
             onPressed: () => context.go('/calendar'),

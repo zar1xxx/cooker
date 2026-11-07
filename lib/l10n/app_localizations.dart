@@ -1234,6 +1234,72 @@ abstract class AppLocalizations {
   /// **'Настройки успешно сохранены'**
   String get aiSettingsSaved;
 
+  /// Заголовок плашки когда помощник недоступен
+  ///
+  /// In ru, this message translates to:
+  /// **'Помощник сейчас не отвечает'**
+  String get aiNotRespondingTitle;
+
+  /// Пояснение почему помощник не отвечает
+  ///
+  /// In ru, this message translates to:
+  /// **'{reason}'**
+  String aiNotRespondingSubtitle(String reason);
+
+  /// Заголовок плашки когда ИИ не настроен
+  ///
+  /// In ru, this message translates to:
+  /// **'Помощник не настроен'**
+  String get aiNotConfiguredTitle;
+
+  /// Пояснение что нужно настроить ИИ
+  ///
+  /// In ru, this message translates to:
+  /// **'Подключите компьютер или укажите ключ GigaChat, чтобы получать новые рецепты'**
+  String get aiNotConfiguredSubtitle;
+
+  /// Кнопка перехода в настройки помощника
+  ///
+  /// In ru, this message translates to:
+  /// **'Настроить'**
+  String get aiConfigureButton;
+
+  /// Кнопка повторной попытки запроса к ИИ
+  ///
+  /// In ru, this message translates to:
+  /// **'Повторить'**
+  String get aiRetryButton;
+
+  /// Заголовок диалога ошибки загрузки рецепта от ИИ
+  ///
+  /// In ru, this message translates to:
+  /// **'Не удалось загрузить рецепт'**
+  String get aiErrorDialogTitle;
+
+  /// Текст диалога ошибки загрузки рецепта
+  ///
+  /// In ru, this message translates to:
+  /// **'Помощник не смог подготовить рецепт: {reason}. Вы можете выбрать похожее блюдо из каталога.'**
+  String aiErrorDialogMessage(String reason);
+
+  /// Кнопка закрытия диалога ошибки
+  ///
+  /// In ru, this message translates to:
+  /// **'Понятно'**
+  String get aiErrorDialogClose;
+
+  /// Кнопка перехода к каталогу при ошибке ИИ
+  ///
+  /// In ru, this message translates to:
+  /// **'Похожие из каталога'**
+  String get aiErrorDialogShowCatalog;
+
+  /// Подсказка для кнопки настроек помощника в AppBar
+  ///
+  /// In ru, this message translates to:
+  /// **'Настройки помощника'**
+  String get aiSettingsTooltip;
+
   /// Заголовок экрана вкусов и предпочтений
   ///
   /// In ru, this message translates to:

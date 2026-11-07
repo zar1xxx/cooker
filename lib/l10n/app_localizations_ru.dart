@@ -631,6 +631,44 @@ class AppLocalizationsRu extends AppLocalizations {
   String get aiSettingsSaved => 'Настройки успешно сохранены';
 
   @override
+  String get aiNotRespondingTitle => 'Помощник сейчас не отвечает';
+
+  @override
+  String aiNotRespondingSubtitle(String reason) {
+    return '$reason';
+  }
+
+  @override
+  String get aiNotConfiguredTitle => 'Помощник не настроен';
+
+  @override
+  String get aiNotConfiguredSubtitle =>
+      'Подключите компьютер или укажите ключ GigaChat, чтобы получать новые рецепты';
+
+  @override
+  String get aiConfigureButton => 'Настроить';
+
+  @override
+  String get aiRetryButton => 'Повторить';
+
+  @override
+  String get aiErrorDialogTitle => 'Не удалось загрузить рецепт';
+
+  @override
+  String aiErrorDialogMessage(String reason) {
+    return 'Помощник не смог подготовить рецепт: $reason. Вы можете выбрать похожее блюдо из каталога.';
+  }
+
+  @override
+  String get aiErrorDialogClose => 'Понятно';
+
+  @override
+  String get aiErrorDialogShowCatalog => 'Похожие из каталога';
+
+  @override
+  String get aiSettingsTooltip => 'Настройки помощника';
+
+  @override
   String get tasteScreenTitle => 'Что приложение знает о ваших вкусах';
 
   @override

@@ -870,6 +870,60 @@
   "@aiSettingsSaved": {
     "description": "Уведомление об успешном сохранении"
   },
+  "aiNotRespondingTitle": "Помощник сейчас не отвечает",
+  "@aiNotRespondingTitle": {
+    "description": "Заголовок плашки когда помощник недоступен"
+  },
+  "aiNotRespondingSubtitle": "{reason}",
+  "@aiNotRespondingSubtitle": {
+    "description": "Пояснение почему помощник не отвечает",
+    "placeholders": {
+      "reason": {
+        "type": "String"
+      }
+    }
+  },
+  "aiNotConfiguredTitle": "Помощник не настроен",
+  "@aiNotConfiguredTitle": {
+    "description": "Заголовок плашки когда ИИ не настроен"
+  },
+  "aiNotConfiguredSubtitle": "Подключите компьютер или укажите ключ GigaChat, чтобы получать новые рецепты",
+  "@aiNotConfiguredSubtitle": {
+    "description": "Пояснение что нужно настроить ИИ"
+  },
+  "aiConfigureButton": "Настроить",
+  "@aiConfigureButton": {
+    "description": "Кнопка перехода в настройки помощника"
+  },
+  "aiRetryButton": "Повторить",
+  "@aiRetryButton": {
+    "description": "Кнопка повторной попытки запроса к ИИ"
+  },
+  "aiErrorDialogTitle": "Не удалось загрузить рецепт",
+  "@aiErrorDialogTitle": {
+    "description": "Заголовок диалога ошибки загрузки рецепта от ИИ"
+  },
+  "aiErrorDialogMessage": "Помощник не смог подготовить рецепт: {reason}. Вы можете выбрать похожее блюдо из каталога.",
+  "@aiErrorDialogMessage": {
+    "description": "Текст диалога ошибки загрузки рецепта",
+    "placeholders": {
+      "reason": {
+        "type": "String"
+      }
+    }
+  },
+  "aiErrorDialogClose": "Понятно",
+  "@aiErrorDialogClose": {
+    "description": "Кнопка закрытия диалога ошибки"
+  },
+  "aiErrorDialogShowCatalog": "Похожие из каталога",
+  "@aiErrorDialogShowCatalog": {
+    "description": "Кнопка перехода к каталогу при ошибке ИИ"
+  },
+  "aiSettingsTooltip": "Настройки помощника",
+  "@aiSettingsTooltip": {
+    "description": "Подсказка для кнопки настроек помощника в AppBar"
+  },
   "tasteScreenTitle": "Что приложение знает о ваших вкусах",
   "@tasteScreenTitle": {
     "description": "Заголовок экрана вкусов и предпочтений"
