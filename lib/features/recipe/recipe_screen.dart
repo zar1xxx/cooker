@@ -290,15 +290,44 @@ class _RecipeScreenState extends ConsumerState<RecipeScreen> {
                   spacing: 8,
                   runSpacing: 8,
                   children: [
-                    Chip(
-                      avatar: AppDishTypeIcon(
-                        dishType: recipe.dishType,
-                        size: 20,
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 6,
                       ),
-                      label: Text(_dishTypeName(l10n, recipe.dishType)),
+                      decoration: BoxDecoration(
+                        color: theme.colorScheme.secondaryContainer.withValues(
+                          alpha: 0.5,
+                        ),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          AppDishTypeIcon(dishType: recipe.dishType, size: 20),
+                          const SizedBox(width: 6),
+                          Flexible(
+                            child: Text(
+                              _dishTypeName(l10n, recipe.dishType),
+                              style: theme.textTheme.bodyMedium?.copyWith(
+                                color: theme.colorScheme.onSecondaryContainer,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                    Chip(
-                      label: Row(
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 6,
+                      ),
+                      decoration: BoxDecoration(
+                        color: theme.colorScheme.surfaceContainerHighest,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           for (int i = 0; i < 3; i++)
@@ -310,18 +339,67 @@ class _RecipeScreenState extends ConsumerState<RecipeScreen> {
                                   : theme.colorScheme.outlineVariant,
                             ),
                           const SizedBox(width: 4),
-                          Text(_difficultyName(l10n, recipe.difficulty)),
+                          Flexible(
+                            child: Text(
+                              _difficultyName(l10n, recipe.difficulty),
+                              style: theme.textTheme.bodyMedium?.copyWith(
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     ),
-                    Chip(
-                      avatar: const Icon(Icons.timer_outlined, size: 20),
-                      label: Text(l10n.dishesMinutes(recipe.totalMinutes)),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 6,
+                      ),
+                      decoration: BoxDecoration(
+                        color: theme.colorScheme.surfaceContainerHighest,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Icon(Icons.timer_outlined, size: 20),
+                          const SizedBox(width: 6),
+                          Flexible(
+                            child: Text(
+                              l10n.dishesMinutes(recipe.totalMinutes),
+                              style: theme.textTheme.bodyMedium?.copyWith(
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                     if (recipe.cuisine.isNotEmpty)
-                      Chip(
-                        avatar: const Icon(Icons.public, size: 20),
-                        label: Text(recipe.cuisine),
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 6,
+                        ),
+                        decoration: BoxDecoration(
+                          color: theme.colorScheme.surfaceContainerHighest,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Icon(Icons.public, size: 20),
+                            const SizedBox(width: 6),
+                            Flexible(
+                              child: Text(
+                                recipe.cuisine,
+                                style: theme.textTheme.bodyMedium?.copyWith(
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                   ],
                 ),
@@ -636,18 +714,39 @@ class _RecipeScreenState extends ConsumerState<RecipeScreen> {
                       ),
                     ),
                     const SizedBox(width: 12),
-                    Text(
-                      l10n.recipeStepNumber(number),
-                      style: theme.textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.bold,
+                    Flexible(
+                      child: Text(
+                        l10n.recipeStepNumber(number),
+                        style: theme.textTheme.titleMedium?.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ],
                 ),
                 if (timerMinutes != null && timerMinutes > 0)
-                  Chip(
-                    avatar: const Icon(Icons.timer_outlined, size: 18),
-                    label: Text(l10n.recipeStepTimer(timerMinutes)),
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 4,
+                    ),
+                    decoration: BoxDecoration(
+                      color: theme.colorScheme.surfaceContainerHighest,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const Icon(Icons.timer_outlined, size: 18),
+                        const SizedBox(width: 4),
+                        Flexible(
+                          child: Text(
+                            l10n.recipeStepTimer(timerMinutes),
+                            style: theme.textTheme.bodyMedium,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
               ],
             ),

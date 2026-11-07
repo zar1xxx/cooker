@@ -866,7 +866,11 @@ class _HistoryEntryCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Top row: Dish type & cooking time
-            Row(
+            Wrap(
+              alignment: WrapAlignment.spaceBetween,
+              crossAxisAlignment: WrapCrossAlignment.center,
+              spacing: 8,
+              runSpacing: 6,
               children: [
                 if (recipe != null) ...[
                   Container(
@@ -885,18 +889,19 @@ class _HistoryEntryCard extends StatelessWidget {
                       children: [
                         AppDishTypeIcon(dishType: recipe.dishType, size: 18),
                         const SizedBox(width: 6),
-                        Text(
-                          _dishTypeName(recipe.dishType, l10n),
-                          style: theme.textTheme.bodyMedium?.copyWith(
-                            color: theme.colorScheme.onSecondaryContainer,
-                            fontWeight: FontWeight.w600,
+                        Flexible(
+                          child: Text(
+                            _dishTypeName(recipe.dishType, l10n),
+                            style: theme.textTheme.bodyMedium?.copyWith(
+                              color: theme.colorScheme.onSecondaryContainer,
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
                         ),
                       ],
                     ),
                   ),
                 ],
-                const Spacer(),
                 if (recipe != null) ...[
                   Row(
                     mainAxisSize: MainAxisSize.min,
@@ -907,10 +912,12 @@ class _HistoryEntryCard extends StatelessWidget {
                         color: theme.colorScheme.onSurfaceVariant,
                       ),
                       const SizedBox(width: 4),
-                      Text(
-                        l10n.historyCookingTime(recipe.totalMinutes),
-                        style: theme.textTheme.bodyMedium?.copyWith(
-                          color: theme.colorScheme.onSurfaceVariant,
+                      Flexible(
+                        child: Text(
+                          l10n.historyCookingTime(recipe.totalMinutes),
+                          style: theme.textTheme.bodyMedium?.copyWith(
+                            color: theme.colorScheme.onSurfaceVariant,
+                          ),
                         ),
                       ),
                     ],
@@ -936,28 +943,39 @@ class _HistoryEntryCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(8),
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 4),
-                child: Row(
+                child: Wrap(
+                  alignment: WrapAlignment.spaceBetween,
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  spacing: 8,
+                  runSpacing: 6,
                   children: [
                     if (rating != null) ...[
                       Row(
                         mainAxisSize: MainAxisSize.min,
-                        children: List.generate(5, (starIdx) {
-                          final filled = starIdx < rating;
-                          return Icon(
-                            filled ? Icons.star : Icons.star_border,
-                            size: 24,
-                            color: filled
-                                ? Colors.amber[700]
-                                : Colors.grey[400],
-                          );
-                        }),
-                      ),
-                      const SizedBox(width: 8),
-                      Text(
-                        l10n.historyRatingStars(rating),
-                        style: theme.textTheme.bodyLarge?.copyWith(
-                          fontWeight: FontWeight.w600,
-                        ),
+                        children: [
+                          Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: List.generate(5, (starIdx) {
+                              final filled = starIdx < rating;
+                              return Icon(
+                                filled ? Icons.star : Icons.star_border,
+                                size: 24,
+                                color: filled
+                                    ? Colors.amber[700]
+                                    : Colors.grey[400],
+                              );
+                            }),
+                          ),
+                          const SizedBox(width: 8),
+                          Flexible(
+                            child: Text(
+                              l10n.historyRatingStars(rating),
+                              style: theme.textTheme.bodyLarge?.copyWith(
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ] else ...[
                       Text(
@@ -967,7 +985,6 @@ class _HistoryEntryCard extends StatelessWidget {
                         ),
                       ),
                     ],
-                    const Spacer(),
                     if (wouldRepeat == true) ...[
                       Container(
                         padding: const EdgeInsets.symmetric(
@@ -989,11 +1006,13 @@ class _HistoryEntryCard extends StatelessWidget {
                               color: theme.colorScheme.primary,
                             ),
                             const SizedBox(width: 4),
-                            Text(
-                              l10n.historyWouldRepeat,
-                              style: theme.textTheme.bodySmall?.copyWith(
-                                color: theme.colorScheme.primary,
-                                fontWeight: FontWeight.bold,
+                            Flexible(
+                              child: Text(
+                                l10n.historyWouldRepeat,
+                                style: theme.textTheme.bodySmall?.copyWith(
+                                  color: theme.colorScheme.primary,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
                           ],

@@ -396,11 +396,13 @@ class _SuggestionsScreenState extends ConsumerState<SuggestionsScreen> {
                               color: theme.colorScheme.primary,
                             ),
                             const SizedBox(width: 8),
-                            Text(
-                              l10n.dishesFromAssistant,
-                              style: theme.textTheme.titleMedium?.copyWith(
-                                fontWeight: FontWeight.bold,
-                                color: theme.colorScheme.primary,
+                            Expanded(
+                              child: Text(
+                                l10n.dishesFromAssistant,
+                                style: theme.textTheme.titleMedium?.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  color: theme.colorScheme.primary,
+                                ),
                               ),
                             ),
                           ],
@@ -819,9 +821,12 @@ class _RecipeCard extends StatelessWidget {
                       children: [
                         AppDishTypeIcon(dishType: recipe.dishType, size: 24),
                         const SizedBox(width: 6),
-                        Text(
-                          _dishTypeName(l10n, recipe.dishType),
-                          style: theme.textTheme.bodyLarge,
+                        Flexible(
+                          child: Text(
+                            _dishTypeName(l10n, recipe.dishType),
+                            style: theme.textTheme.bodyLarge,
+                            overflow: TextOverflow.ellipsis,
+                          ),
                         ),
                       ],
                     ),
@@ -840,9 +845,12 @@ class _RecipeCard extends StatelessWidget {
                             ),
                           ),
                         const SizedBox(width: 4),
-                        Text(
-                          _difficultyName(l10n, recipe.difficulty),
-                          style: theme.textTheme.bodyLarge,
+                        Flexible(
+                          child: Text(
+                            _difficultyName(l10n, recipe.difficulty),
+                            style: theme.textTheme.bodyLarge,
+                            overflow: TextOverflow.ellipsis,
+                          ),
                         ),
                       ],
                     ),
@@ -857,9 +865,12 @@ class _RecipeCard extends StatelessWidget {
                           color: theme.colorScheme.onSurfaceVariant,
                         ),
                         const SizedBox(width: 6),
-                        Text(
-                          l10n.dishesMinutes(recipe.totalMinutes),
-                          style: theme.textTheme.bodyLarge,
+                        Flexible(
+                          child: Text(
+                            l10n.dishesMinutes(recipe.totalMinutes),
+                            style: theme.textTheme.bodyLarge,
+                            overflow: TextOverflow.ellipsis,
+                          ),
                         ),
                       ],
                     ),
@@ -1093,9 +1104,12 @@ class _AiDishCard extends StatelessWidget {
                       children: [
                         AppDishTypeIcon(dishType: dishTypeEnum, size: 24),
                         const SizedBox(width: 6),
-                        Text(
-                          _dishTypeName(l10n, dishTypeEnum),
-                          style: theme.textTheme.bodyLarge,
+                        Flexible(
+                          child: Text(
+                            _dishTypeName(l10n, dishTypeEnum),
+                            style: theme.textTheme.bodyLarge,
+                            overflow: TextOverflow.ellipsis,
+                          ),
                         ),
                       ],
                     ),
@@ -1112,9 +1126,12 @@ class _AiDishCard extends StatelessWidget {
                           color: theme.colorScheme.onSurfaceVariant,
                         ),
                         const SizedBox(width: 6),
-                        Text(
-                          l10n.dishesMinutes(suggestion.totalMinutes),
-                          style: theme.textTheme.bodyLarge,
+                        Flexible(
+                          child: Text(
+                            l10n.dishesMinutes(suggestion.totalMinutes),
+                            style: theme.textTheme.bodyLarge,
+                            overflow: TextOverflow.ellipsis,
+                          ),
                         ),
                       ],
                     ),
