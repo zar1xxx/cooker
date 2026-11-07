@@ -97,11 +97,15 @@ Future<void> _testLmStudio({
     sw1.stop();
   } catch (e) {
     sw1.stop();
-    stdout.writeln('[LM Studio] suggest_dishes query FAILED in ${sw1.elapsed.inSeconds}s: $e');
+    stdout.writeln(
+      '[LM Studio] suggest_dishes query FAILED in ${sw1.elapsed.inSeconds}s: $e',
+    );
     return;
   }
 
-  stdout.writeln('[LM Studio] suggest_dishes completed in ${sw1.elapsed.inMilliseconds} ms');
+  stdout.writeln(
+    '[LM Studio] suggest_dishes completed in ${sw1.elapsed.inMilliseconds} ms',
+  );
   stdout.writeln(
     '[LM Studio] Usage: prompt_tokens=${resp1.promptTokens}, completion_tokens=${resp1.completionTokens}',
   );
@@ -119,12 +123,16 @@ Future<void> _testLmStudio({
       }
     }
   } catch (e) {
-    stdout.writeln('[LM Studio] Error parsing/validating suggest_dishes response: $e');
+    stdout.writeln(
+      '[LM Studio] Error parsing/validating suggest_dishes response: $e',
+    );
     stdout.writeln('Raw response:\n${resp1.rawContent}');
   }
 
   // 2. full_recipe
-  stdout.writeln('\n[LM Studio] 2/2: Testing full_recipe for "$firstDishTitle" ...');
+  stdout.writeln(
+    '\n[LM Studio] 2/2: Testing full_recipe for "$firstDishTitle" ...',
+  );
   final recipeSystem = templates.buildSystem(
     schemaJson: jsonEncode(fullRecipeSchema),
     schemaInPrompt: false,
@@ -163,11 +171,15 @@ Future<void> _testLmStudio({
     sw2.stop();
   } catch (e) {
     sw2.stop();
-    stdout.writeln('[LM Studio] full_recipe query FAILED in ${sw2.elapsed.inSeconds}s: $e');
+    stdout.writeln(
+      '[LM Studio] full_recipe query FAILED in ${sw2.elapsed.inSeconds}s: $e',
+    );
     return;
   }
 
-  stdout.writeln('[LM Studio] full_recipe completed in ${sw2.elapsed.inMilliseconds} ms');
+  stdout.writeln(
+    '[LM Studio] full_recipe completed in ${sw2.elapsed.inMilliseconds} ms',
+  );
   stdout.writeln(
     '[LM Studio] Usage: prompt_tokens=${resp2.promptTokens}, completion_tokens=${resp2.completionTokens}',
   );
@@ -177,7 +189,9 @@ Future<void> _testLmStudio({
     final valResult = validator.validate(parsedRecipe);
     stdout.writeln('[LM Studio] full_recipe validation: $valResult');
   } catch (e) {
-    stdout.writeln('[LM Studio] Error parsing/validating full_recipe response: $e');
+    stdout.writeln(
+      '[LM Studio] Error parsing/validating full_recipe response: $e',
+    );
     stdout.writeln('Raw response:\n${resp2.rawContent}');
   }
 }
@@ -193,25 +207,28 @@ Future<void> _testGigaChat({
       Platform.environment['GIGACHAT_AUTH_KEY'];
 
   if (rawKey == null || rawKey.trim().isEmpty) {
-    stdout.writeln('[GigaChat] GIGACHAT_KEY environment variable is not set. Skipped.');
+    stdout.writeln(
+      '[GigaChat] GIGACHAT_KEY environment variable is not set. Skipped.',
+    );
     stdout.writeln(
       '[GigaChat] (To test GigaChat: set GIGACHAT_KEY=<auth_key> and rerun)',
     );
     return;
   }
 
-  stdout.writeln('[GigaChat] GIGACHAT_KEY detected (key hidden). Initializing provider ...');
+  stdout.writeln(
+    '[GigaChat] GIGACHAT_KEY detected (key hidden). Initializing provider ...',
+  );
 
   final certFile = File('assets/certs/russian_trusted_root_ca.cer');
   final certBytes = certFile.existsSync() ? certFile.readAsBytesSync() : null;
   final dio = GigaChatProvider.createDioWithCert(certBytes: certBytes);
 
   // Clean key in case user provided with prefix or whitespace
-  final cleanKey = rawKey.replaceAll(RegExp(r'^Basic\s+', caseSensitive: false), '').trim();
-  final provider = GigaChatProvider(
-    authKey: cleanKey,
-    dio: dio,
-  );
+  final cleanKey = rawKey
+      .replaceAll(RegExp(r'^Basic\s+', caseSensitive: false), '')
+      .trim();
+  final provider = GigaChatProvider(authKey: cleanKey, dio: dio);
 
   stdout.writeln('[GigaChat] 1/2: Testing suggest_dishes ...');
   final suggestSystem = templates.buildSystem(
@@ -247,11 +264,15 @@ Future<void> _testGigaChat({
     sw1.stop();
   } catch (e) {
     sw1.stop();
-    stdout.writeln('[GigaChat] suggest_dishes query FAILED in ${sw1.elapsed.inSeconds}s: $e');
+    stdout.writeln(
+      '[GigaChat] suggest_dishes query FAILED in ${sw1.elapsed.inSeconds}s: $e',
+    );
     return;
   }
 
-  stdout.writeln('[GigaChat] suggest_dishes completed in ${sw1.elapsed.inMilliseconds} ms');
+  stdout.writeln(
+    '[GigaChat] suggest_dishes completed in ${sw1.elapsed.inMilliseconds} ms',
+  );
   stdout.writeln(
     '[GigaChat] Usage: prompt_tokens=${resp1.promptTokens}, completion_tokens=${resp1.completionTokens}',
   );
@@ -269,10 +290,14 @@ Future<void> _testGigaChat({
       }
     }
   } catch (e) {
-    stdout.writeln('[GigaChat] Error parsing/validating suggest_dishes response: $e');
+    stdout.writeln(
+      '[GigaChat] Error parsing/validating suggest_dishes response: $e',
+    );
   }
 
-  stdout.writeln('\n[GigaChat] 2/2: Testing full_recipe for "$firstDishTitle" ...');
+  stdout.writeln(
+    '\n[GigaChat] 2/2: Testing full_recipe for "$firstDishTitle" ...',
+  );
   final recipeSystem = templates.buildSystem(
     schemaJson: jsonEncode(fullRecipeSchema),
     schemaInPrompt: true,
@@ -310,11 +335,15 @@ Future<void> _testGigaChat({
     sw2.stop();
   } catch (e) {
     sw2.stop();
-    stdout.writeln('[GigaChat] full_recipe query FAILED in ${sw2.elapsed.inSeconds}s: $e');
+    stdout.writeln(
+      '[GigaChat] full_recipe query FAILED in ${sw2.elapsed.inSeconds}s: $e',
+    );
     return;
   }
 
-  stdout.writeln('[GigaChat] full_recipe completed in ${sw2.elapsed.inMilliseconds} ms');
+  stdout.writeln(
+    '[GigaChat] full_recipe completed in ${sw2.elapsed.inMilliseconds} ms',
+  );
   stdout.writeln(
     '[GigaChat] Usage: prompt_tokens=${resp2.promptTokens}, completion_tokens=${resp2.completionTokens}',
   );
@@ -324,6 +353,8 @@ Future<void> _testGigaChat({
     final valResult = validator.validate(parsedRecipe);
     stdout.writeln('[GigaChat] full_recipe validation: $valResult');
   } catch (e) {
-    stdout.writeln('[GigaChat] Error parsing/validating full_recipe response: $e');
+    stdout.writeln(
+      '[GigaChat] Error parsing/validating full_recipe response: $e',
+    );
   }
 }

@@ -2,7 +2,10 @@ import 'dart:io';
 import 'dart:ui' as ui;
 
 import 'package:chto_prigotovit/app/theme.dart';
+import 'package:chto_prigotovit/core/ai/ai_failure.dart';
+import 'package:chto_prigotovit/core/ai/ai_service.dart';
 import 'package:chto_prigotovit/core/db/app_database.dart';
+import 'package:chto_prigotovit/core/db/daos/pantry_dao.dart';
 import 'package:chto_prigotovit/core/providers.dart';
 import 'package:chto_prigotovit/features/calendar/calendar_screen.dart';
 import 'package:chto_prigotovit/features/calendar/today_screen.dart';
@@ -10,6 +13,7 @@ import 'package:chto_prigotovit/features/history/history_screen.dart';
 import 'package:chto_prigotovit/features/pantry/pantry_screen.dart';
 import 'package:chto_prigotovit/features/recipe/cooking_screen.dart';
 import 'package:chto_prigotovit/features/recipe/recipe_screen.dart';
+import 'package:chto_prigotovit/features/settings/ai_diagnostics_screen.dart';
 import 'package:chto_prigotovit/features/suggestions/suggestions_screen.dart';
 import 'package:chto_prigotovit/l10n/app_localizations.dart';
 import 'package:drift/native.dart';
@@ -53,8 +57,15 @@ Future<void> _precacheImages(WidgetTester tester) async {
   await tester.pumpAndSettle();
 }
 
-Future<void> _capture(WidgetTester tester, Key key, String filename) async {
-  await _precacheImages(tester);
+Future<void> _capture(
+  WidgetTester tester,
+  Key key,
+  String filename, {
+  bool precache = true,
+}) async {
+  if (precache) {
+    await _precacheImages(tester);
+  }
   await tester.runAsync(() async {
     final boundary = tester.renderObject<RenderRepaintBoundary>(
       find.byKey(key),
@@ -66,6 +77,14 @@ Future<void> _capture(WidgetTester tester, Key key, String filename) async {
     await file.parent.create(recursive: true);
     await file.writeAsBytes(data.buffer.asUint8List());
   });
+}
+
+class _FakeAiDishesNotifier extends AiDishesNotifier {
+  _FakeAiDishesNotifier(this._initialResult);
+  final AiResult<List<AiDishSuggestion>> _initialResult;
+
+  @override
+  Future<AiResult<List<AiDishSuggestion>>> build() async => _initialResult;
 }
 
 void main() {
@@ -136,5 +155,81 @@ void main() {
         expect(File('docs/reports/img/${entry.key}').existsSync(), isTrue);
       });
     }
+
+    testWidgets('captures suggestions_error_banner.png', (tester) async {
+      tester.view.physicalSize = const Size(412 * 2, 915 * 2);
+      tester.view.devicePixelRatio = 2.0;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+
+      final pantryDao = PantryDao(db);
+      await pantryDao.setAvailable('chicken_breast', true);
+      await pantryDao.setAvailable('potato', true);
+
+      const key = ValueKey('suggestions_error_banner.png');
+      await tester.pumpWidget(
+        ProviderScope(
+          overrides: [
+            databaseProvider.overrideWithValue(db),
+            pantryDaoProvider.overrideWithValue(pantryDao),
+            aiDishesProvider.overrideWith(
+              () => _FakeAiDishesNotifier(
+                const AiResult.failure(AiFailure.timeout()),
+              ),
+            ),
+          ],
+          child: MaterialApp(
+            debugShowCheckedModeBanner: false,
+            theme: AppTheme.light,
+            localizationsDelegates: const [
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: const [Locale('ru')],
+            locale: const Locale('ru'),
+            home: const RepaintBoundary(key: key, child: SuggestionsScreen()),
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+      await _capture(tester, key, 'suggestions_error_banner.png');
+      expect(
+        File('docs/reports/img/suggestions_error_banner.png').existsSync(),
+        isTrue,
+      );
+    });
+
+    testWidgets('captures ai_diagnostics.png', (tester) async {
+      tester.view.physicalSize = const Size(412 * 2, 915 * 2);
+      tester.view.devicePixelRatio = 2.0;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+
+      const key = ValueKey('ai_diagnostics.png');
+      await tester.pumpWidget(
+        ProviderScope(
+          overrides: [databaseProvider.overrideWithValue(db)],
+          child: MaterialApp(
+            debugShowCheckedModeBanner: false,
+            theme: AppTheme.light,
+            localizationsDelegates: const [
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: const [Locale('ru')],
+            locale: const Locale('ru'),
+            home: const RepaintBoundary(key: key, child: AiDiagnosticsScreen()),
+          ),
+        ),
+      );
+      await tester.pump();
+      await tester.pump(const Duration(seconds: 1));
+      await _capture(tester, key, 'ai_diagnostics.png', precache: false);
+      expect(File('docs/reports/img/ai_diagnostics.png').existsSync(), isTrue);
+    });
   });
 }
