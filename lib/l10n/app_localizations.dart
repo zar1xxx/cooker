@@ -1051,7 +1051,7 @@ abstract class AppLocalizations {
   /// Индикатор активного режима ИИ: LM Studio на ПК
   ///
   /// In ru, this message translates to:
-  /// **'Помощник: домашний ПК'**
+  /// **'Помощник: компьютер'**
   String get aiAssistantPc;
 
   /// Индикатор активного режима ИИ: GigaChat
@@ -1063,7 +1063,7 @@ abstract class AppLocalizations {
   /// Индикатор активного режима ИИ: офлайн
   ///
   /// In ru, this message translates to:
-  /// **'Без помощника'**
+  /// **'Помощник: не подключён'**
   String get aiAssistantOffline;
 
   /// Заголовок блока предложений от ИИ

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:clock/clock.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:network_info_plus/network_info_plus.dart';
@@ -461,7 +463,20 @@ final aiServiceProvider = FutureProvider<AiService>((ref) async {
   return AiService(router: router, validator: validator, db: db);
 });
 
+final connectivityStreamProvider = StreamProvider<List<ConnectivityResult>>((
+  ref,
+) {
+  final connectivity = ref.watch(connectivityProvider);
+  if (Platform.environment.containsKey('FLUTTER_TEST') &&
+      connectivity.runtimeType.toString() == 'Connectivity') {
+    return const Stream.empty();
+  }
+  return connectivity.onConnectivityChanged;
+});
+
 final aiModeProvider = FutureProvider<AiMode>((ref) async {
+  ref.watch(connectivityStreamProvider);
+  ref.watch(aiSettingsProvider);
   final router = ref.watch(aiRouterProvider);
   return router.getMode();
 });

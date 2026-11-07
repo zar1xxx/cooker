@@ -528,13 +528,13 @@ class AppLocalizationsRu extends AppLocalizations {
   String get dishesOtherVariants => 'Другие варианты';
 
   @override
-  String get aiAssistantPc => 'Помощник: домашний ПК';
+  String get aiAssistantPc => 'Помощник: компьютер';
 
   @override
   String get aiAssistantGigaChat => 'Помощник: GigaChat';
 
   @override
-  String get aiAssistantOffline => 'Без помощника';
+  String get aiAssistantOffline => 'Помощник: не подключён';
 
   @override
   String get dishesFromAssistant => 'Предложения от помощника';

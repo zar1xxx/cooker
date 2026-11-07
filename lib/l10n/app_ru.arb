@@ -731,7 +731,7 @@
   "@dishesOtherVariants": {
     "description": "Кнопка запроса новых вариантов от ИИ"
   },
-  "aiAssistantPc": "Помощник: домашний ПК",
+  "aiAssistantPc": "Помощник: компьютер",
   "@aiAssistantPc": {
     "description": "Индикатор активного режима ИИ: LM Studio на ПК"
   },
@@ -739,7 +739,7 @@
   "@aiAssistantGigaChat": {
     "description": "Индикатор активного режима ИИ: GigaChat"
   },
-  "aiAssistantOffline": "Без помощника",
+  "aiAssistantOffline": "Помощник: не подключён",
   "@aiAssistantOffline": {
     "description": "Индикатор активного режима ИИ: офлайн"
   },
