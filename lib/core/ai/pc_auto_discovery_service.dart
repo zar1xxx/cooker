@@ -19,12 +19,14 @@ class PcAutoDiscoveryService {
     required this.settingsService,
     required this.router,
     required this.connectivity,
+    this.onDiscovered,
   });
 
   final PcDiscovery discovery;
   final AiSettingsService settingsService;
   final AiRouter router;
   final Connectivity connectivity;
+  final void Function(String host, int port)? onDiscovered;
 
   StreamSubscription<List<ConnectivityResult>>? _subscription;
   bool _isScanning = false;
@@ -66,6 +68,7 @@ class PcAutoDiscoveryService {
             }
             if (router.lmStudioProvider == null || p != settings.lmStudioPort) {
               settingsService.applyToRouter(router, updated);
+              onDiscovered?.call(savedHost, p);
             }
             return savedHost;
           }
@@ -87,6 +90,7 @@ class PcAutoDiscoveryService {
         );
         await settingsService.saveSettings(updated);
         settingsService.applyToRouter(router, updated);
+        onDiscovered?.call(found, foundPort);
         return found;
       }
 

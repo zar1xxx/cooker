@@ -391,7 +391,7 @@ final pcAutoDiscoveryServiceProvider = Provider<PcAutoDiscoveryService?>((ref) {
   return ref.watch(aiRouterProvider).autoDiscovery;
 });
 
-final aiRouterProvider = Provider<AiRouter>((ref) {
+final Provider<AiRouter> aiRouterProvider = Provider<AiRouter>((ref) {
   final connectivity = ref.watch(connectivityProvider);
   final router = AiRouter(connectivity: connectivity);
   final settingsService = ref.watch(aiSettingsServiceProvider);
@@ -402,18 +402,29 @@ final aiRouterProvider = Provider<AiRouter>((ref) {
     settingsService: settingsService,
     router: router,
     connectivity: connectivity,
+    onDiscovered: (host, port) {
+      ref.invalidate(aiModeProvider);
+      ref.invalidate(aiSettingsProvider);
+    },
   );
   router.autoDiscovery = autoDiscovery;
   autoDiscovery.startListening();
   ref.onDispose(autoDiscovery.dispose);
 
+  // R4-02: ready only waits for loading and applying settings, not network scan.
   final initFuture = () async {
     final settings = await settingsService.loadSettings();
     settingsService.applyToRouter(router, settings);
-    await autoDiscovery.checkAndDiscover(force: false);
   }();
 
   router.setReadyFuture(initFuture);
+
+  // Background subnet scan without blocking router.ready:
+  () async {
+    await initFuture;
+    await autoDiscovery.checkAndDiscover(force: false);
+  }();
+
   return router;
 });
 
@@ -514,7 +525,9 @@ final connectivityStreamProvider = StreamProvider<List<ConnectivityResult>>((
   return connectivity.onConnectivityChanged;
 });
 
-final aiModeProvider = FutureProvider<AiMode>((ref) async {
+final FutureProvider<AiMode> aiModeProvider = FutureProvider<AiMode>((
+  ref,
+) async {
   ref.watch(connectivityStreamProvider);
   ref.watch(aiSettingsProvider);
   final router = ref.watch(aiRouterProvider);

@@ -6,9 +6,12 @@ import 'package:chto_prigotovit/core/ai/ai_router.dart';
 import 'package:chto_prigotovit/core/ai/gigachat_provider.dart';
 import 'package:chto_prigotovit/core/ai/lm_studio_provider.dart';
 import 'package:chto_prigotovit/core/ai/pc_discovery.dart';
+import 'package:chto_prigotovit/core/providers.dart';
 import 'package:clock/clock.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:network_info_plus/network_info_plus.dart';
 
@@ -410,5 +413,55 @@ void main() {
         isNull,
       ); // PC is reachable, format was invalid
     });
+
+    test('R4-02: Router does not wait for 10-second LAN discovery when GigaChat is configured', () async {
+      FlutterSecureStorage.setMockInitialValues({
+        'ai_gigachat_auth_key': 'test_giga_auth_key',
+      });
+
+      final fakeDiscovery = _SlowPcDiscovery(
+        delay: const Duration(seconds: 10),
+      );
+
+      final container = ProviderContainer(
+        overrides: [
+          pcDiscoveryProvider.overrideWithValue(fakeDiscovery),
+          connectivityProvider.overrideWithValue(
+            FakeConnectivity([ConnectivityResult.wifi]),
+          ),
+        ],
+      );
+      addTearDown(container.dispose);
+
+      final router = container.read(aiRouterProvider);
+
+      final stopwatch = Stopwatch()..start();
+      final provider = await router.getActiveProvider();
+      stopwatch.stop();
+
+      // Must resolve to GigaChat immediately without waiting for 10s discovery!
+      expect(provider, isNotNull);
+      expect(provider!.name, equals('gigachat'));
+      expect(stopwatch.elapsedMilliseconds, lessThan(1000));
+    });
   });
+}
+
+class _SlowPcDiscovery extends PcDiscovery {
+  _SlowPcDiscovery({required this.delay});
+  final Duration delay;
+
+  @override
+  Future<bool> isWifiConnected() async => true;
+
+  @override
+  Future<String?> discover({
+    String? savedHost,
+    int port = 1234,
+    List<int>? candidatePorts,
+    bool force = false,
+  }) async {
+    await Future.delayed(delay);
+    return null;
+  }
 }
