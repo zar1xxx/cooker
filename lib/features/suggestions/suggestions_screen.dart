@@ -70,10 +70,17 @@ class SuggestionsScreen extends ConsumerStatefulWidget {
 }
 
 class _SuggestionsScreenState extends ConsumerState<SuggestionsScreen> {
+  final ScrollController _dishTypeScrollController = ScrollController();
   DishType? _selectedDishType;
   Difficulty? _selectedDifficulty;
   final Set<String> _rejectedRecipeIds = <String>{};
   final Set<String> _rejectedAiTitles = <String>{};
+
+  @override
+  void dispose() {
+    _dishTypeScrollController.dispose();
+    super.dispose();
+  }
 
   void _rejectRecipe(Recipe recipe) {
     final l10n = AppLocalizations.of(context)!;
@@ -356,23 +363,25 @@ class _SuggestionsScreenState extends ConsumerState<SuggestionsScreen> {
                 if (filteredReady.isEmpty &&
                     filteredAlmostReady.isEmpty &&
                     filteredAiDishes.isEmpty) {
-                  return Center(
-                    child: Padding(
-                      padding: const EdgeInsets.all(24),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          const AppStateIllustration(
-                            assetPath: AppImages.stateNoDishes,
-                            height: 160,
-                          ),
-                          const SizedBox(height: 16),
-                          Text(
-                            l10n.dishesEmpty,
-                            textAlign: TextAlign.center,
-                            style: theme.textTheme.titleMedium,
-                          ),
-                        ],
+                  return SingleChildScrollView(
+                    child: Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(24),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const AppStateIllustration(
+                              assetPath: AppImages.stateNoDishes,
+                              height: 160,
+                            ),
+                            const SizedBox(height: 16),
+                            Text(
+                              l10n.dishesEmpty,
+                              textAlign: TextAlign.center,
+                              style: theme.textTheme.titleMedium,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   );
@@ -676,58 +685,96 @@ class _SuggestionsScreenState extends ConsumerState<SuggestionsScreen> {
       color: theme.colorScheme.surface,
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Dish types row
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
+          // Dish types row with scrollbar and visual scroll indicator
+          Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Row(
               children: [
-                FilterChip(
-                  selected: _selectedDishType == null,
-                  onSelected: (_) {
-                    setState(() => _selectedDishType = null);
-                  },
-                  label: Text(
-                    l10n.dishesFilterAllTypes,
-                    style: theme.textTheme.bodyLarge?.copyWith(
-                      fontWeight: _selectedDishType == null
-                          ? FontWeight.bold
-                          : FontWeight.normal,
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 8),
-                for (final type in DishType.values) ...[
-                  FilterChip(
-                    selected: _selectedDishType == type,
-                    onSelected: (selected) {
-                      setState(() {
-                        _selectedDishType = selected ? type : null;
-                      });
-                    },
-                    avatar: AppDishTypeIcon(dishType: type, size: 20),
-                    label: Text(
-                      _dishTypeName(l10n, type),
-                      style: theme.textTheme.bodyLarge?.copyWith(
-                        fontWeight: _selectedDishType == type
-                            ? FontWeight.bold
-                            : FontWeight.normal,
+                Expanded(
+                  child: Scrollbar(
+                    controller: _dishTypeScrollController,
+                    thumbVisibility: true,
+                    child: SingleChildScrollView(
+                      controller: _dishTypeScrollController,
+                      scrollDirection: Axis.horizontal,
+                      padding: const EdgeInsets.only(bottom: 6),
+                      child: Row(
+                        children: [
+                          FilterChip(
+                            selected: _selectedDishType == null,
+                            onSelected: (_) {
+                              setState(() => _selectedDishType = null);
+                            },
+                            label: Text(
+                              l10n.dishesFilterAllTypes,
+                              style: theme.textTheme.bodyLarge?.copyWith(
+                                fontWeight: _selectedDishType == null
+                                    ? FontWeight.bold
+                                    : FontWeight.normal,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: 8),
+                          for (final type in DishType.values) ...[
+                            FilterChip(
+                              selected: _selectedDishType == type,
+                              onSelected: (selected) {
+                                setState(() {
+                                  _selectedDishType = selected ? type : null;
+                                });
+                              },
+                              avatar: AppDishTypeIcon(dishType: type, size: 20),
+                              label: Text(
+                                _dishTypeName(l10n, type),
+                                style: theme.textTheme.bodyLarge?.copyWith(
+                                  fontWeight: _selectedDishType == type
+                                      ? FontWeight.bold
+                                      : FontWeight.normal,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+                          ],
+                        ],
                       ),
                     ),
                   ),
-                  const SizedBox(width: 8),
-                ],
+                ),
+                const SizedBox(width: 4),
+                IconButton(
+                  icon: const Icon(Icons.chevron_right, size: 28),
+                  tooltip: 'Ещё типы блюд',
+                  padding: EdgeInsets.zero,
+                  constraints: const BoxConstraints(
+                    minWidth: 36,
+                    minHeight: 36,
+                  ),
+                  onPressed: () {
+                    if (_dishTypeScrollController.hasClients) {
+                      final newOffset = _dishTypeScrollController.offset + 140;
+                      final maxOffset =
+                          _dishTypeScrollController.position.maxScrollExtent;
+                      _dishTypeScrollController.animateTo(
+                        newOffset > maxOffset ? maxOffset : newOffset,
+                        duration: const Duration(milliseconds: 300),
+                        curve: Curves.easeOut,
+                      );
+                    }
+                  },
+                ),
               ],
             ),
           ),
           const SizedBox(height: 8),
 
-          // Difficulty row
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
+          // Difficulty wrap (wrapping onto second line)
+          Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Row(
+            child: Wrap(
+              spacing: 8,
+              runSpacing: 8,
               children: [
                 FilterChip(
                   selected: _selectedDifficulty == null,
@@ -743,8 +790,7 @@ class _SuggestionsScreenState extends ConsumerState<SuggestionsScreen> {
                     ),
                   ),
                 ),
-                const SizedBox(width: 8),
-                for (final diff in Difficulty.values) ...[
+                for (final diff in Difficulty.values)
                   FilterChip(
                     selected: _selectedDifficulty == diff,
                     onSelected: (selected) {
@@ -761,8 +807,6 @@ class _SuggestionsScreenState extends ConsumerState<SuggestionsScreen> {
                       ),
                     ),
                   ),
-                  const SizedBox(width: 8),
-                ],
               ],
             ),
           ),
