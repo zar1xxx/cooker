@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:chto_prigotovit/core/ai/ai_failure.dart';
 import 'package:chto_prigotovit/core/ai/ai_provider.dart';
 import 'package:chto_prigotovit/core/ai/ai_router.dart';
 import 'package:chto_prigotovit/core/ai/ai_service.dart';
@@ -19,17 +20,25 @@ class _SimpleRouter extends AiRouter {
   final AiProvider? _provider;
 
   @override
+  Future<({AiProvider? provider, AiFailure? failure})> determineProvider({
+    Duration healthCheckTimeout = const Duration(milliseconds: 1500),
+  }) async => (
+    provider: _provider,
+    failure: _provider == null ? const AiFailure.notConfigured() : null,
+  );
+
+  @override
   Future<AiProvider?> getActiveProvider({
     Duration healthCheckTimeout = const Duration(milliseconds: 1500),
   }) async => _provider;
 
   @override
-  Future<AiCompletionResponse?> executeChatWithFallback(
+  Future<AiCompletionResponse> executeChatWithFallback(
     AiChatRequest request, {
     String? Function(String content)? validateContent,
   }) async {
     final p = _provider;
-    if (p == null) return null;
+    if (p == null) throw const AiException(AiFailure.notConfigured());
     return p.chat(request);
   }
 }
@@ -55,10 +64,12 @@ void main() {
       final router = _SimpleRouter(fake);
       final service = AiService(router: router, validator: validator, db: db);
 
-      final dishes = await service.suggestDishes(
+      final result = await service.suggestDishes(
         availableIngredients: ['картофель', 'лук', 'яйца'],
       );
 
+      expect(result.isSuccess, isTrue);
+      final dishes = result.data;
       expect(dishes, isNotEmpty);
       expect(dishes.length, equals(2));
       expect(dishes.first.title, equals('Картофельные драники'));
@@ -84,10 +95,12 @@ void main() {
         final router = _SimpleRouter(fake);
         final service = AiService(router: router, validator: validator, db: db);
 
-        final dishes = await service.suggestDishes(
+        final result = await service.suggestDishes(
           availableIngredients: ['картофель', 'лук', 'яйца'],
         );
 
+        expect(result.isSuccess, isTrue);
+        final dishes = result.data;
         expect(dishes, isNotEmpty);
         expect(dishes.first.title, equals('Картофельные драники'));
         expect(fake.recordedRequests.length, equals(2));
@@ -99,34 +112,33 @@ void main() {
       },
     );
 
-    test(
-      'returns empty list without throwing when both attempts fail validation',
-      () async {
-        final fake = FakeAiProvider();
-        fake.queueResponse('Некорректный ответ ИИ');
-        fake.queueResponse('Ещё один некорректный ответ');
+    test('returns failure result without throwing when both attempts fail validation', () async {
+      final fake = FakeAiProvider();
+      fake.queueResponse('Некорректный ответ ИИ');
+      fake.queueResponse('Ещё один некорректный ответ');
 
-        final router = _SimpleRouter(fake);
-        final service = AiService(router: router, validator: validator, db: db);
-
-        final dishes = await service.suggestDishes(
-          availableIngredients: ['картофель'],
-        );
-
-        expect(dishes, isEmpty);
-        expect(fake.recordedRequests.length, equals(2));
-      },
-    );
-
-    test('returns empty list when offline (no active provider)', () async {
-      final router = _SimpleRouter(null);
+      final router = _SimpleRouter(fake);
       final service = AiService(router: router, validator: validator, db: db);
 
-      final dishes = await service.suggestDishes(
+      final result = await service.suggestDishes(
         availableIngredients: ['картофель'],
       );
 
-      expect(dishes, isEmpty);
+      expect(result.isFailure, isTrue);
+      expect(result.failure, isA<AiFailureRejected>());
+      expect(fake.recordedRequests.length, equals(2));
+    });
+
+    test('returns failure when offline (no active provider)', () async {
+      final router = _SimpleRouter(null);
+      final service = AiService(router: router, validator: validator, db: db);
+
+      final result = await service.suggestDishes(
+        availableIngredients: ['картофель'],
+      );
+
+      expect(result.isFailure, isTrue);
+      expect(result.failure, isA<AiFailureNotConfigured>());
     });
   });
 
@@ -136,7 +148,7 @@ void main() {
       final router = _SimpleRouter(fake);
       final service = AiService(router: router, validator: validator, db: db);
 
-      final recipe = await service.fullRecipe(
+      final result = await service.fullRecipe(
         title: 'Картофельные драники',
         dishType: 'main',
         difficulty: 'medium',
@@ -144,8 +156,9 @@ void main() {
         availableIngredients: ['картофель', 'лук', 'яйца', 'мука'],
       );
 
-      expect(recipe, isNotNull);
-      expect(recipe!['title'], equals('Картофельные драники'));
+      expect(result.isSuccess, isTrue);
+      final recipe = result.data;
+      expect(recipe['title'], equals('Картофельные драники'));
       expect((recipe['steps'] as List).length, equals(3));
     });
 
@@ -161,7 +174,7 @@ void main() {
         final router = _SimpleRouter(fake);
         final service = AiService(router: router, validator: validator, db: db);
 
-        final recipe = await service.fullRecipe(
+        final result = await service.fullRecipe(
           title: 'Курица на сковороде',
           dishType: 'main',
           difficulty: 'easy',
@@ -171,7 +184,7 @@ void main() {
               name == 'куриное филе' ? 'chicken_fillet' : null,
         );
 
-        expect(recipe, isNotNull);
+        expect(result.isSuccess, isTrue);
         expect(fake.recordedRequests.length, equals(2));
         expect(
           fake.recordedRequests[1].messages.last.content,
@@ -180,11 +193,11 @@ void main() {
       },
     );
 
-    test('returns null without throwing when offline', () async {
+    test('returns failure without throwing when offline', () async {
       final router = _SimpleRouter(null);
       final service = AiService(router: router, validator: validator, db: db);
 
-      final recipe = await service.fullRecipe(
+      final result = await service.fullRecipe(
         title: 'Борщ',
         dishType: 'soup',
         difficulty: 'medium',
@@ -192,7 +205,8 @@ void main() {
         availableIngredients: ['говядина'],
       );
 
-      expect(recipe, isNull);
+      expect(result.isFailure, isTrue);
+      expect(result.failure, isA<AiFailureNotConfigured>());
     });
   });
 

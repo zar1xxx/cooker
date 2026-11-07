@@ -2,6 +2,7 @@ import 'package:clock/clock.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'ai/ai_failure.dart';
 import 'ai/ai_router.dart';
 import 'ai/ai_service.dart';
 import 'ai/ai_settings_service.dart';
@@ -440,15 +441,15 @@ final aiModeProvider = FutureProvider<AiMode>((ref) async {
 });
 
 final aiDishesProvider =
-    AsyncNotifierProvider<AiDishesNotifier, List<AiDishSuggestion>>(
+    AsyncNotifierProvider<AiDishesNotifier, AiResult<List<AiDishSuggestion>>>(
       AiDishesNotifier.new,
     );
 
-class AiDishesNotifier extends AsyncNotifier<List<AiDishSuggestion>> {
+class AiDishesNotifier extends AsyncNotifier<AiResult<List<AiDishSuggestion>>> {
   @override
-  Future<List<AiDishSuggestion>> build() async {
+  Future<AiResult<List<AiDishSuggestion>>> build() async {
     final availableIds = await ref.watch(pantryProvider.future);
-    if (availableIds.isEmpty) return const [];
+    if (availableIds.isEmpty) return const AiResult.success([]);
 
     final aiService = await ref.watch(aiServiceProvider.future);
     final ingredientDao = ref.watch(ingredientDaoProvider);

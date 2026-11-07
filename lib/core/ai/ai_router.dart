@@ -1,10 +1,9 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:clock/clock.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:dio/dio.dart';
 
+import 'ai_failure.dart';
 import 'ai_provider.dart';
 import 'gigachat_provider.dart';
 import 'lm_studio_provider.dart';
@@ -57,6 +56,83 @@ class AiRouter {
     return status.contains(ConnectivityResult.wifi);
   }
 
+  /// Determines the active provider and why resolution succeeded or failed.
+  Future<({AiProvider? provider, AiFailure? failure})> determineProvider({
+    Duration healthCheckTimeout = const Duration(milliseconds: 1500),
+  }) async {
+    await ready;
+    final now = clock.now();
+    final onWifi = await isWifiConnected();
+    final hasLm = lmStudioProvider != null;
+    final hasGiga =
+        gigaChatProvider != null && gigaChatProvider!.authKey.trim().isNotEmpty;
+
+    // 0. Neither provider configured
+    if (!hasLm && !hasGiga) {
+      return (provider: null, failure: const AiFailure.notConfigured());
+    }
+
+    // 1. LM Studio configured
+    if (hasLm) {
+      if (!onWifi) {
+        if (hasGiga) {
+          return (provider: gigaChatProvider, failure: null);
+        }
+        return (provider: null, failure: const AiFailure.noWifi());
+      }
+
+      final pcFailedRecently =
+          _lastPcFailure != null &&
+          now.difference(_lastPcFailure!) < const Duration(seconds: 60);
+
+      if (pcFailedRecently) {
+        if (hasGiga) {
+          return (provider: gigaChatProvider, failure: null);
+        }
+        return (provider: null, failure: const AiFailure.pcNotFound());
+      }
+
+      final pcVerifiedRecently =
+          _lastPcSuccess != null &&
+          now.difference(_lastPcSuccess!) < const Duration(seconds: 60);
+
+      if (pcVerifiedRecently) {
+        return (provider: lmStudioProvider, failure: null);
+      }
+
+      // 1.5s health-check
+      try {
+        final models = await lmStudioProvider!.getModels(
+          timeout: healthCheckTimeout,
+        );
+        if (models.isNotEmpty) {
+          markPcSuccess(now);
+          return (provider: lmStudioProvider, failure: null);
+        } else {
+          markPcFailure(now);
+          if (hasGiga) {
+            return (provider: gigaChatProvider, failure: null);
+          }
+          return (provider: null, failure: const AiFailure.pcNoModel());
+        }
+      } catch (e) {
+        markPcFailure(now);
+        if (hasGiga) {
+          return (provider: gigaChatProvider, failure: null);
+        }
+        final failure = mapExceptionToFailure(e, isGigaChat: false);
+        return (provider: null, failure: failure);
+      }
+    }
+
+    // 2. GigaChat fallback
+    if (hasGiga) {
+      return (provider: gigaChatProvider, failure: null);
+    }
+
+    return (provider: null, failure: const AiFailure.notConfigured());
+  }
+
   /// Chooses active provider based on rules of TZ 6.1.1:
   /// - Wi-Fi + PC checked < 60s -> LM Studio
   /// - Wi-Fi + check missing or > 60s -> 1.5s health-check -> LM Studio or GigaChat
@@ -66,50 +142,10 @@ class AiRouter {
   Future<AiProvider?> getActiveProvider({
     Duration healthCheckTimeout = const Duration(milliseconds: 1500),
   }) async {
-    await ready;
-    final now = clock.now();
-    final onWifi = await isWifiConnected();
-
-    // 1. Wi-Fi and LM Studio configured
-    if (onWifi && lmStudioProvider != null) {
-      final pcFailedRecently =
-          _lastPcFailure != null &&
-          now.difference(_lastPcFailure!) < const Duration(seconds: 60);
-
-      if (!pcFailedRecently) {
-        final pcVerifiedRecently =
-            _lastPcSuccess != null &&
-            now.difference(_lastPcSuccess!) < const Duration(seconds: 60);
-
-        if (pcVerifiedRecently) {
-          return lmStudioProvider;
-        }
-
-        // 1.5s health-check
-        try {
-          final isHealthy = await lmStudioProvider!.isAvailable().timeout(
-            healthCheckTimeout,
-          );
-          if (isHealthy) {
-            markPcSuccess(now);
-            return lmStudioProvider;
-          } else {
-            markPcFailure(now);
-          }
-        } catch (_) {
-          markPcFailure(now);
-        }
-      }
-    }
-
-    // 2. GigaChat fallback
-    if (gigaChatProvider != null &&
-        gigaChatProvider!.authKey.trim().isNotEmpty) {
-      return gigaChatProvider;
-    }
-
-    // 3. Pure local fallback (no active AI provider)
-    return null;
+    final result = await determineProvider(
+      healthCheckTimeout: healthCheckTimeout,
+    );
+    return result.provider;
   }
 
   /// Returns current operational mode for UI indicator
@@ -122,13 +158,14 @@ class AiRouter {
   }
 
   /// Executes chat request with automatic fallback from LM Studio to GigaChat on network/timeout failure
-  Future<AiCompletionResponse?> executeChatWithFallback(
+  Future<AiCompletionResponse> executeChatWithFallback(
     AiChatRequest request, {
     String? Function(String rawPayload)? validateContent,
   }) async {
-    final primary = await getActiveProvider();
+    final resolution = await determineProvider();
+    final primary = resolution.provider;
     if (primary == null) {
-      return null;
+      throw AiException(resolution.failure ?? const AiFailure.notConfigured());
     }
 
     if (primary is LmStudioProvider) {
@@ -140,39 +177,43 @@ class AiRouter {
         );
         markPcSuccess();
         return response;
-      } on DioException catch (_) {
-        markPcFailure();
+      } catch (e) {
+        // TZ 6.1.1 p.4: invalid JSON twice on LM Studio -> GigaChat.
+        // The PC itself is reachable, so do not mark as failed for format errors.
+        final isFormatError =
+            e is FormatException ||
+            (e is AiException && e.failure is AiFailureBadResponse);
+        if (!isFormatError) {
+          markPcFailure();
+        }
+
         // Fallback to GigaChat
         if (gigaChatProvider != null &&
             gigaChatProvider!.authKey.trim().isNotEmpty) {
-          return _attemptWithRetry(gigaChatProvider!, request, validateContent);
+          try {
+            return await _attemptWithRetry(
+              gigaChatProvider!,
+              request,
+              validateContent,
+            );
+          } catch (gigaErr) {
+            if (gigaErr is AiException) rethrow;
+            throw AiException(mapExceptionToFailure(gigaErr, isGigaChat: true));
+          }
         }
-        rethrow;
-      } on SocketException catch (_) {
-        markPcFailure();
-        if (gigaChatProvider != null &&
-            gigaChatProvider!.authKey.trim().isNotEmpty) {
-          return _attemptWithRetry(gigaChatProvider!, request, validateContent);
-        }
-        rethrow;
-      } on TimeoutException catch (_) {
-        markPcFailure();
-        if (gigaChatProvider != null &&
-            gigaChatProvider!.authKey.trim().isNotEmpty) {
-          return _attemptWithRetry(gigaChatProvider!, request, validateContent);
-        }
-        rethrow;
-      } on FormatException catch (_) {
-        // TZ 6.1.1 p.4: invalid JSON twice on LM Studio -> GigaChat.
-        // The PC itself is reachable, so it is not marked as failed.
-        if (gigaChatProvider != null &&
-            gigaChatProvider!.authKey.trim().isNotEmpty) {
-          return _attemptWithRetry(gigaChatProvider!, request, validateContent);
-        }
-        rethrow;
+
+        if (e is AiException) rethrow;
+        throw AiException(mapExceptionToFailure(e, isGigaChat: false));
       }
     } else {
-      return _attemptWithRetry(primary, request, validateContent);
+      try {
+        return await _attemptWithRetry(primary, request, validateContent);
+      } catch (err) {
+        if (err is AiException) rethrow;
+        throw AiException(
+          mapExceptionToFailure(err, isGigaChat: primary is GigaChatProvider),
+        );
+      }
     }
   }
 

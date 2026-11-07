@@ -8,6 +8,7 @@ import 'package:dio/dio.dart';
 import 'package:dio/io.dart';
 import 'package:uuid/uuid.dart';
 
+import 'ai_failure.dart';
 import 'ai_provider.dart';
 
 class GigaChatProvider implements AiProvider {
@@ -93,36 +94,41 @@ class GigaChatProvider implements AiProvider {
 
     final cleanKey = authKey.trim();
     if (cleanKey.isEmpty) {
-      throw StateError('GigaChat auth key is empty');
+      throw const AiException(AiFailure.gigaChatBadKey('Ключ GigaChat пуст'));
     }
 
     final rqUid = _uuid.v4();
-    final response = await _dio.post<Map<String, dynamic>>(
-      oauthUrl,
-      data: 'scope=GIGACHAT_API_PERS',
-      options: Options(
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          'Accept': 'application/json',
-          'RqUID': rqUid,
-          'Authorization': 'Basic $cleanKey',
-        },
-        sendTimeout: const Duration(seconds: 20),
-        receiveTimeout: const Duration(seconds: 20),
-      ),
-    );
+    try {
+      final response = await _dio.post<Map<String, dynamic>>(
+        oauthUrl,
+        data: 'scope=GIGACHAT_API_PERS',
+        options: Options(
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Accept': 'application/json',
+            'RqUID': rqUid,
+            'Authorization': 'Basic $cleanKey',
+          },
+          sendTimeout: const Duration(seconds: 20),
+          receiveTimeout: const Duration(seconds: 20),
+        ),
+      );
 
-    final data = response.data;
-    if (data == null || data['access_token'] == null) {
-      throw FormatException('Failed to get GigaChat OAuth token: $data');
+      final data = response.data;
+      if (data == null || data['access_token'] == null) {
+        throw FormatException('Failed to get GigaChat OAuth token: $data');
+      }
+
+      final token = data['access_token'] as String;
+      final expiresAt = (data['expires_at'] as num).toInt();
+
+      _cachedToken = token;
+      _tokenExpiresAtMs = expiresAt;
+      return token;
+    } catch (e) {
+      if (e is AiException) rethrow;
+      throw AiException(mapExceptionToFailure(e, isGigaChat: true));
     }
-
-    final token = data['access_token'] as String;
-    final expiresAt = (data['expires_at'] as num).toInt();
-
-    _cachedToken = token;
-    _tokenExpiresAtMs = expiresAt;
-    return token;
   }
 
   List<Map<String, dynamic>> _prepareMessages(AiChatRequest request) {
@@ -252,7 +258,11 @@ class GigaChatProvider implements AiProvider {
         _tokenExpiresAtMs = null;
         return _executeChat(request, hasRetriedAuth: true);
       }
-      rethrow;
+      throw AiException(mapExceptionToFailure(e, isGigaChat: true));
+    } catch (e) {
+      stopwatch.stop();
+      if (e is AiException) rethrow;
+      throw AiException(mapExceptionToFailure(e, isGigaChat: true));
     }
   }
 }

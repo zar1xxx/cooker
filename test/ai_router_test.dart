@@ -307,7 +307,7 @@ void main() {
       );
 
       expect(response, isNotNull);
-      expect(response!.providerName, 'gigachat');
+      expect(response.providerName, 'gigachat');
       expect(response.rawContent, contains('Борщ'));
       expect(router.lastPcFailure, isNotNull);
     });
@@ -354,7 +354,7 @@ void main() {
 
         expect(response, isNotNull);
         expect(lmAttempts, 2);
-        expect(response!.rawContent, '{"valid": true}');
+        expect(response.rawContent, '{"valid": true}');
       },
     );
 
@@ -402,7 +402,7 @@ void main() {
       );
 
       expect(response, isNotNull);
-      expect(response!.providerName, 'gigachat');
+      expect(response.providerName, 'gigachat');
       expect(response.rawContent, contains('Борщ из GigaChat'));
       expect(lmCalls, 2); // 1 initial + 1 retry before fallback
       expect(

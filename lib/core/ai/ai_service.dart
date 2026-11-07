@@ -6,6 +6,7 @@ import 'package:uuid/uuid.dart';
 
 import '../db/app_database.dart';
 import '../db/enums.dart';
+import 'ai_failure.dart';
 import 'ai_provider.dart';
 import 'ai_router.dart';
 import 'anti_repeat.dart';
@@ -114,8 +115,9 @@ class AiService {
   ///
   /// Adheres to ТЗ 6.2 and `spec/ai/schemas/suggest_dishes.schema.json`.
   /// Performs 1 automatic retry if the model returns invalid JSON.
-  /// If offline or on failure, returns an empty list without throwing errors.
-  Future<List<AiDishSuggestion>> suggestDishes({
+  /// Returns [AiResult] carrying structured dish suggestions on success or
+  /// a concrete [AiFailure] on error without throwing or swallowing.
+  Future<AiResult<List<AiDishSuggestion>>> suggestDishes({
     required List<String> availableIngredients,
     List<String> forbiddenIngredients = const [],
     List<String> doNotSuggest = const [],
@@ -142,13 +144,22 @@ class AiService {
         difficultyFilter: difficultyFilter,
       );
       if (cached != null && cached.isNotEmpty) {
-        return cached;
+        return AiResult.success(cached);
       }
     }
 
-    final activeProvider = await router.getActiveProvider();
+    final resolution = await router.determineProvider();
+    final activeProvider = resolution.provider;
     if (activeProvider == null) {
-      return const [];
+      final failure = resolution.failure ?? const AiFailure.notConfigured();
+      await _logRequest(
+        kind: 'suggest_dishes',
+        prompt: 'suggest_dishes',
+        responseJson: failure.message,
+        model: 'none',
+        status: 'error',
+      );
+      return AiResult.failure(failure);
     }
 
     // 2. Augment doNotSuggest list from database per ТЗ 6.3
@@ -195,25 +206,20 @@ class AiService {
     try {
       response = await router.executeChatWithFallback(request);
     } catch (e) {
+      final failure = e is AiException
+          ? e.failure
+          : mapExceptionToFailure(
+              e,
+              isGigaChat: activeProvider.name == 'gigachat',
+            );
       await _logRequest(
         kind: 'suggest_dishes',
         prompt: userPrompt,
-        responseJson: '',
+        responseJson: failure.message,
         model: activeProvider.name,
         status: 'error',
       );
-      return const [];
-    }
-
-    if (response == null) {
-      await _logRequest(
-        kind: 'suggest_dishes',
-        prompt: userPrompt,
-        responseJson: '',
-        model: activeProvider.name,
-        status: 'error',
-      );
-      return const [];
+      return AiResult.failure(failure);
     }
 
     var validation = validator.validateRawDishesJson(
@@ -245,16 +251,6 @@ class AiService {
         final retryResponse = await router.executeChatWithFallback(
           retryRequest,
         );
-        if (retryResponse == null) {
-          await _logRequest(
-            kind: 'suggest_dishes',
-            prompt: userPrompt,
-            responseJson: '',
-            model: activeProvider.name,
-            status: 'error',
-          );
-          return const [];
-        }
         response = retryResponse;
         validation = validator.validateRawDishesJson(
           response.rawContent,
@@ -265,30 +261,42 @@ class AiService {
           attempt: 2,
         );
       } catch (e) {
+        final failure = e is AiException
+            ? e.failure
+            : mapExceptionToFailure(
+                e,
+                isGigaChat: activeProvider.name == 'gigachat',
+              );
         await _logRequest(
           kind: 'suggest_dishes',
           prompt: userPrompt,
-          responseJson: '',
+          responseJson: failure.message,
           model: response?.model ?? activeProvider.name,
           tokensIn: response?.promptTokens,
           tokensOut: response?.completionTokens,
           status: 'error',
         );
-        return const [];
+        return AiResult.failure(failure);
       }
     }
 
     if (validation is! Valid) {
+      final reason = validation is Rejected
+          ? validation.reason
+          : (validation is Retryable
+                ? validation.reasonForModel
+                : 'Некорректный формат блюд');
+      final failure = AiFailure.rejected(reason);
       await _logRequest(
         kind: 'suggest_dishes',
         prompt: userPrompt,
-        responseJson: response.rawContent,
+        responseJson: failure.message,
         model: response.model,
         tokensIn: response.promptTokens,
         tokensOut: response.completionTokens,
         status: 'rejected',
       );
-      return const [];
+      return AiResult.failure(failure);
     }
 
     if (database != null) {
@@ -309,12 +317,24 @@ class AiService {
         extractJsonPayload(response.rawContent),
       ) as Map<String, dynamic>;
       final dishesRaw = (decoded['dishes'] as List?) ?? const [];
-      return dishesRaw
+      final dishes = dishesRaw
           .whereType<Map<String, dynamic>>()
           .map(AiDishSuggestion.fromJson)
           .toList();
+
+      return AiResult.success(dishes);
     } catch (_) {
-      return const [];
+      const failure = AiFailure.badResponse('Не удалось разобрать JSON ответа');
+      await _logRequest(
+        kind: 'suggest_dishes',
+        prompt: userPrompt,
+        responseJson: failure.message,
+        model: response.model,
+        tokensIn: response.promptTokens,
+        tokensOut: response.completionTokens,
+        status: 'error',
+      );
+      return const AiResult.failure(failure);
     }
   }
 
@@ -322,7 +342,8 @@ class AiService {
   ///
   /// Adheres to ТЗ 6.2 and `spec/ai/schemas/full_recipe.schema.json`.
   /// Performs 1 automatic retry if the model returns invalid JSON or fails safety checks.
-  Future<Map<String, dynamic>?> fullRecipe({
+  /// Returns [AiResult] carrying recipe JSON map on success or [AiFailure] on error.
+  Future<AiResult<Map<String, dynamic>>> fullRecipe({
     required String title,
     required String dishType,
     required String difficulty,
@@ -335,9 +356,18 @@ class AiService {
     String? Function(String name)? resolveIngredientId,
     Map<String, List<String>>? forbiddenTerms,
   }) async {
-    final activeProvider = await router.getActiveProvider();
+    final resolution = await router.determineProvider();
+    final activeProvider = resolution.provider;
     if (activeProvider == null) {
-      return null;
+      final failure = resolution.failure ?? const AiFailure.notConfigured();
+      await _logRequest(
+        kind: 'full_recipe',
+        prompt: title,
+        responseJson: failure.message,
+        model: 'none',
+        status: 'error',
+      );
+      return AiResult.failure(failure);
     }
 
     final schema = await AiSchemas.loadFullRecipeSchema();
@@ -374,25 +404,20 @@ class AiService {
     try {
       response = await router.executeChatWithFallback(request);
     } catch (e) {
+      final failure = e is AiException
+          ? e.failure
+          : mapExceptionToFailure(
+              e,
+              isGigaChat: activeProvider.name == 'gigachat',
+            );
       await _logRequest(
         kind: 'full_recipe',
         prompt: userPrompt,
-        responseJson: '',
+        responseJson: failure.message,
         model: activeProvider.name,
         status: 'error',
       );
-      return null;
-    }
-
-    if (response == null) {
-      await _logRequest(
-        kind: 'full_recipe',
-        prompt: userPrompt,
-        responseJson: '',
-        model: activeProvider.name,
-        status: 'error',
-      );
-      return null;
+      return AiResult.failure(failure);
     }
 
     var validation = validator.validateRawRecipeJson(
@@ -424,16 +449,6 @@ class AiService {
         final retryResponse = await router.executeChatWithFallback(
           retryRequest,
         );
-        if (retryResponse == null) {
-          await _logRequest(
-            kind: 'full_recipe',
-            prompt: userPrompt,
-            responseJson: '',
-            model: activeProvider.name,
-            status: 'error',
-          );
-          return null;
-        }
         response = retryResponse;
         validation = validator.validateRawRecipeJson(
           response.rawContent,
@@ -444,30 +459,42 @@ class AiService {
           attempt: 2,
         );
       } catch (e) {
+        final failure = e is AiException
+            ? e.failure
+            : mapExceptionToFailure(
+                e,
+                isGigaChat: activeProvider.name == 'gigachat',
+              );
         await _logRequest(
           kind: 'full_recipe',
           prompt: userPrompt,
-          responseJson: '',
+          responseJson: failure.message,
           model: response?.model ?? activeProvider.name,
           tokensIn: response?.promptTokens,
           tokensOut: response?.completionTokens,
           status: 'error',
         );
-        return null;
+        return AiResult.failure(failure);
       }
     }
 
     if (validation is! Valid) {
+      final reason = validation is Rejected
+          ? validation.reason
+          : (validation is Retryable
+                ? validation.reasonForModel
+                : 'Некорректный формат рецепта');
+      final failure = AiFailure.rejected(reason);
       await _logRequest(
         kind: 'full_recipe',
         prompt: userPrompt,
-        responseJson: response.rawContent,
+        responseJson: failure.message,
         model: response.model,
         tokensIn: response.promptTokens,
         tokensOut: response.completionTokens,
         status: 'rejected',
       );
-      return null;
+      return AiResult.failure(failure);
     }
 
     await _logRequest(
@@ -481,10 +508,24 @@ class AiService {
     );
 
     try {
-      return jsonDecode(extractJsonPayload(response.rawContent))
-          as Map<String, dynamic>;
+      final decoded = jsonDecode(
+        extractJsonPayload(response.rawContent),
+      ) as Map<String, dynamic>;
+      return AiResult.success(decoded);
     } catch (_) {
-      return null;
+      const failure = AiFailure.badResponse(
+        'Не удалось разобрать JSON рецепта',
+      );
+      await _logRequest(
+        kind: 'full_recipe',
+        prompt: userPrompt,
+        responseJson: failure.message,
+        model: response.model,
+        tokensIn: response.promptTokens,
+        tokensOut: response.completionTokens,
+        status: 'error',
+      );
+      return const AiResult.failure(failure);
     }
   }
 
@@ -507,8 +548,17 @@ class AiService {
     String? Function(String name)? resolveIngredientId,
     Map<String, List<String>>? forbiddenTerms,
   }) async {
-    final activeProvider = await router.getActiveProvider();
+    final resolution = await router.determineProvider();
+    final activeProvider = resolution.provider;
     if (activeProvider == null) {
+      final failure = resolution.failure ?? const AiFailure.notConfigured();
+      await _logRequest(
+        kind: 'month_plan',
+        prompt: '$dateFrom - $dateTo',
+        responseJson: failure.message,
+        model: 'none',
+        status: 'error',
+      );
       return null;
     }
 
@@ -546,21 +596,16 @@ class AiService {
     try {
       response = await router.executeChatWithFallback(request);
     } catch (e) {
+      final failure = e is AiException
+          ? e.failure
+          : mapExceptionToFailure(
+              e,
+              isGigaChat: activeProvider.name == 'gigachat',
+            );
       await _logRequest(
         kind: 'month_plan',
         prompt: userPrompt,
-        responseJson: '',
-        model: activeProvider.name,
-        status: 'error',
-      );
-      return null;
-    }
-
-    if (response == null) {
-      await _logRequest(
-        kind: 'month_plan',
-        prompt: userPrompt,
-        responseJson: '',
+        responseJson: failure.message,
         model: activeProvider.name,
         status: 'error',
       );
@@ -595,16 +640,6 @@ class AiService {
         final retryResponse = await router.executeChatWithFallback(
           retryRequest,
         );
-        if (retryResponse == null) {
-          await _logRequest(
-            kind: 'month_plan',
-            prompt: userPrompt,
-            responseJson: '',
-            model: activeProvider.name,
-            status: 'error',
-          );
-          return null;
-        }
         response = retryResponse;
         validation = validator.validateRawMonthPlanJson(
           response.rawContent,
@@ -615,10 +650,16 @@ class AiService {
           attempt: 2,
         );
       } catch (e) {
+        final failure = e is AiException
+            ? e.failure
+            : mapExceptionToFailure(
+                e,
+                isGigaChat: activeProvider.name == 'gigachat',
+              );
         await _logRequest(
           kind: 'month_plan',
           prompt: userPrompt,
-          responseJson: '',
+          responseJson: failure.message,
           model: response?.model ?? activeProvider.name,
           tokensIn: response?.promptTokens,
           tokensOut: response?.completionTokens,
@@ -629,10 +670,16 @@ class AiService {
     }
 
     if (validation is! Valid) {
+      final reason = validation is Rejected
+          ? validation.reason
+          : (validation is Retryable
+                ? validation.reasonForModel
+                : 'Некорректный формат плана');
+      final failure = AiFailure.rejected(reason);
       await _logRequest(
         kind: 'month_plan',
         prompt: userPrompt,
-        responseJson: response.rawContent,
+        responseJson: failure.message,
         model: response.model,
         tokensIn: response.promptTokens,
         tokensOut: response.completionTokens,

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 
+import 'ai_failure.dart';
 import 'ai_provider.dart';
 
 bool isPrivateOrLocalHost(String host) {
@@ -154,49 +155,55 @@ class LmStudioProvider implements AiProvider {
     final body = _buildChatBody(request);
 
     final stopwatch = Stopwatch()..start();
-    final response = await _dio.post<Map<String, dynamic>>(
-      url,
-      data: body,
-      options: _buildOptions(timeout: request.timeout),
-    );
-    stopwatch.stop();
+    try {
+      final response = await _dio.post<Map<String, dynamic>>(
+        url,
+        data: body,
+        options: _buildOptions(timeout: request.timeout),
+      );
+      stopwatch.stop();
 
-    final data = response.data;
-    if (data == null) {
-      throw FormatException('Empty response from LM Studio at $url');
+      final data = response.data;
+      if (data == null) {
+        throw FormatException('Empty response from LM Studio at $url');
+      }
+
+      final choices = data['choices'] as List?;
+      if (choices == null || choices.isEmpty) {
+        throw FormatException('No choices in LM Studio response: $data');
+      }
+
+      final firstChoice = choices.first as Map<String, dynamic>;
+      final message = firstChoice['message'] as Map<String, dynamic>?;
+      final content = message?['content'] as String? ?? '';
+      final responseModel =
+          (data['model'] as String?) ?? request.model ?? model ?? 'lm_studio';
+
+      int promptTokens = 0;
+      int completionTokens = 0;
+      int totalTokens = 0;
+      if (data['usage'] is Map) {
+        final usage = data['usage'] as Map;
+        promptTokens = (usage['prompt_tokens'] as num?)?.toInt() ?? 0;
+        completionTokens = (usage['completion_tokens'] as num?)?.toInt() ?? 0;
+        totalTokens =
+            (usage['total_tokens'] as num?)?.toInt() ??
+            (promptTokens + completionTokens);
+      }
+
+      return AiCompletionResponse(
+        rawContent: content,
+        model: responseModel,
+        providerName: name,
+        promptTokens: promptTokens,
+        completionTokens: completionTokens,
+        totalTokens: totalTokens,
+        duration: stopwatch.elapsed,
+      );
+    } catch (e) {
+      stopwatch.stop();
+      if (e is AiException) rethrow;
+      throw AiException(mapExceptionToFailure(e, isGigaChat: false));
     }
-
-    final choices = data['choices'] as List?;
-    if (choices == null || choices.isEmpty) {
-      throw FormatException('No choices in LM Studio response: $data');
-    }
-
-    final firstChoice = choices.first as Map<String, dynamic>;
-    final message = firstChoice['message'] as Map<String, dynamic>?;
-    final content = message?['content'] as String? ?? '';
-    final responseModel =
-        (data['model'] as String?) ?? request.model ?? model ?? 'lm_studio';
-
-    int promptTokens = 0;
-    int completionTokens = 0;
-    int totalTokens = 0;
-    if (data['usage'] is Map) {
-      final usage = data['usage'] as Map;
-      promptTokens = (usage['prompt_tokens'] as num?)?.toInt() ?? 0;
-      completionTokens = (usage['completion_tokens'] as num?)?.toInt() ?? 0;
-      totalTokens =
-          (usage['total_tokens'] as num?)?.toInt() ??
-          (promptTokens + completionTokens);
-    }
-
-    return AiCompletionResponse(
-      rawContent: content,
-      model: responseModel,
-      providerName: name,
-      promptTokens: promptTokens,
-      completionTokens: completionTokens,
-      totalTokens: totalTokens,
-      duration: stopwatch.elapsed,
-    );
   }
 }

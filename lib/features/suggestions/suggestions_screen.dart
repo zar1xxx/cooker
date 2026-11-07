@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../app/app_images.dart';
+import '../../core/ai/ai_failure.dart';
 import '../../core/ai/ai_router.dart';
 import '../../core/ai/ai_service.dart';
 import '../../core/ai/anti_repeat.dart';
@@ -174,7 +175,7 @@ class _SuggestionsScreenState extends ConsumerState<SuggestionsScreen> {
       final ings = await ingDao.byIds(pantryIds.toList());
       final availableNames = ings.map((i) => i.name).toList();
 
-      final fullRecipeJson = await aiService.fullRecipe(
+      final result = await aiService.fullRecipe(
         title: suggestion.title,
         dishType: suggestion.dishType,
         difficulty: suggestion.difficulty,
@@ -185,20 +186,32 @@ class _SuggestionsScreenState extends ConsumerState<SuggestionsScreen> {
       if (!mounted) return;
       Navigator.of(context, rootNavigator: true).pop(); // dismiss dialog
 
-      if (fullRecipeJson != null) {
-        final saved = await aiService.saveAiRecipeToDatabase(fullRecipeJson);
-        if (saved != null && mounted) {
-          unawaited(context.push('/recipe/${saved.id}'));
+      switch (result) {
+        case AiSuccess(data: final fullRecipeJson):
+          final saved = await aiService.saveAiRecipeToDatabase(fullRecipeJson);
+          if (saved != null && mounted) {
+            unawaited(context.push('/recipe/${saved.id}'));
+            return;
+          }
+        case AiError(failure: final failure):
+          if (!mounted) return;
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Не удалось открыть рецепт: ${failure.message}'),
+            ),
+          );
           return;
-        }
       }
 
       if (!mounted) return;
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text(l10n.dishesEmpty)));
-    } catch (_) {
+    } catch (e) {
       if (mounted) {
         Navigator.of(context, rootNavigator: true).pop();
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Ошибка при загрузке рецепта: $e')),
+        );
       }
     }
   }
@@ -299,7 +312,8 @@ class _SuggestionsScreenState extends ConsumerState<SuggestionsScreen> {
                 }).toList();
 
                 final aiDishes =
-                    aiDishesAsync.value ?? const <AiDishSuggestion>[];
+                    aiDishesAsync.value?.dataOrNull ??
+                    const <AiDishSuggestion>[];
                 final filteredAiDishes = aiDishes.where((d) {
                   if (_rejectedAiTitles.contains(
                     d.title.toLowerCase().trim(),

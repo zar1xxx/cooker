@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:chto_prigotovit/core/ai/ai_failure.dart';
 import 'package:chto_prigotovit/core/ai/ai_provider.dart';
 import 'package:chto_prigotovit/core/ai/ai_router.dart';
 import 'package:chto_prigotovit/core/ai/ai_service.dart';
@@ -65,12 +66,12 @@ void main() {
         final service = AiService(router: router, validator: validator, db: db);
 
         // Wire fake as router's active provider via a custom router adapter
-        final dishes = await service.suggestDishes(
+        final dishesResult = await service.suggestDishes(
           availableIngredients: ['картофель', 'лук'],
         );
 
-        // In offline mode with no active provider, returns empty
-        expect(dishes, isEmpty);
+        // In offline mode with no active provider, returns failure
+        expect(dishesResult.isFailure, isTrue);
 
         // Now with fake provider active in router
         router.lmStudioProvider = LmStudioProvider(
@@ -89,7 +90,8 @@ void main() {
           availableIngredients: ['картофель', 'лук'],
         );
 
-        expect(result, isEmpty);
+        expect(result.isFailure, isTrue);
+        expect(result.failure, isA<AiFailureRejected>());
         expect(fake.recordedRequests.length, equals(2));
         // Second request included rejection reason
         expect(
@@ -292,7 +294,7 @@ void main() {
       final response = await router.executeChatWithFallback(request);
 
       expect(response, isNotNull);
-      expect(response!.providerName, equals('fake'));
+      expect(response.providerName, equals('fake'));
       expect(response.rawContent, contains('Картофельные драники'));
 
       // PC marked failed
@@ -317,7 +319,7 @@ void main() {
         final dishes = await service.suggestDishes(
           availableIngredients: ['картофель', 'морковь'],
         );
-        expect(dishes, isEmpty);
+        expect(dishes.isFailure, isTrue);
 
         final recipe = await service.fullRecipe(
           title: 'Драники',
@@ -327,7 +329,7 @@ void main() {
           mainIngredients: ['картофель'],
           availableIngredients: ['картофель'],
         );
-        expect(recipe, isNull);
+        expect(recipe.isFailure, isTrue);
       },
     );
 
@@ -387,12 +389,17 @@ class _RouterWithProvider extends AiRouter {
   final AiProvider _provider;
 
   @override
+  Future<({AiProvider? provider, AiFailure? failure})> determineProvider({
+    Duration healthCheckTimeout = const Duration(milliseconds: 1500),
+  }) async => (provider: _provider, failure: null);
+
+  @override
   Future<AiProvider?> getActiveProvider({
     Duration healthCheckTimeout = const Duration(milliseconds: 1500),
   }) async => _provider;
 
   @override
-  Future<AiCompletionResponse?> executeChatWithFallback(
+  Future<AiCompletionResponse> executeChatWithFallback(
     AiChatRequest request, {
     String? Function(String rawPayload)? validateContent,
   }) => _provider.chat(request);
@@ -409,6 +416,14 @@ class _RouterWithFallback extends AiRouter {
   final AiProvider fallback;
 
   @override
+  Future<({AiProvider? provider, AiFailure? failure})> determineProvider({
+    Duration healthCheckTimeout = const Duration(milliseconds: 1500),
+  }) async {
+    final p = await getActiveProvider(healthCheckTimeout: healthCheckTimeout);
+    return (provider: p, failure: null);
+  }
+
+  @override
   Future<AiProvider?> getActiveProvider({
     Duration healthCheckTimeout = const Duration(milliseconds: 1500),
   }) async {
@@ -420,7 +435,7 @@ class _RouterWithFallback extends AiRouter {
   }
 
   @override
-  Future<AiCompletionResponse?> executeChatWithFallback(
+  Future<AiCompletionResponse> executeChatWithFallback(
     AiChatRequest request, {
     String? Function(String rawPayload)? validateContent,
   }) async {
