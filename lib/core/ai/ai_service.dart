@@ -197,14 +197,31 @@ class AiService {
       ],
       jsonSchema: schema,
       schemaName: 'suggest_dishes',
+      maxTokens: AiMaxTokens.suggestDishes,
       timeout: activeProvider.name == 'lm_studio'
-          ? const Duration(seconds: 60)
+          ? const Duration(seconds: 45)
           : const Duration(seconds: 30),
     );
 
     AiCompletionResponse? response;
     try {
-      response = await router.executeChatWithFallback(request);
+      response = await router.executeChatWithFallback(
+        request,
+        onAttempt:
+            ({
+              required provider,
+              required status,
+              required responseJson,
+            }) async {
+              await _logRequest(
+                kind: 'suggest_dishes',
+                prompt: userPrompt,
+                responseJson: responseJson,
+                model: provider,
+                status: status,
+              );
+            },
+      );
     } catch (e) {
       final failure = e is AiException
           ? e.failure
@@ -244,6 +261,7 @@ class AiService {
         ],
         jsonSchema: schema,
         schemaName: 'suggest_dishes',
+        maxTokens: AiMaxTokens.suggestDishes,
         timeout: const Duration(seconds: 45),
       );
 
@@ -395,14 +413,31 @@ class AiService {
       ],
       jsonSchema: schema,
       schemaName: 'full_recipe',
+      maxTokens: AiMaxTokens.fullRecipe,
       timeout: activeProvider.name == 'lm_studio'
-          ? const Duration(seconds: 90)
+          ? const Duration(seconds: 45)
           : const Duration(seconds: 45),
     );
 
     AiCompletionResponse? response;
     try {
-      response = await router.executeChatWithFallback(request);
+      response = await router.executeChatWithFallback(
+        request,
+        onAttempt:
+            ({
+              required provider,
+              required status,
+              required responseJson,
+            }) async {
+              await _logRequest(
+                kind: 'full_recipe',
+                prompt: userPrompt,
+                responseJson: responseJson,
+                model: provider,
+                status: status,
+              );
+            },
+      );
     } catch (e) {
       final failure = e is AiException
           ? e.failure
@@ -442,7 +477,8 @@ class AiService {
         ],
         jsonSchema: schema,
         schemaName: 'full_recipe',
-        timeout: const Duration(seconds: 60),
+        maxTokens: AiMaxTokens.fullRecipe,
+        timeout: const Duration(seconds: 45),
       );
 
       try {
@@ -589,12 +625,29 @@ class AiService {
       ],
       jsonSchema: schema,
       schemaName: 'month_plan',
-      timeout: const Duration(seconds: 90),
+      maxTokens: AiMaxTokens.monthPlan,
+      timeout: const Duration(seconds: 45),
     );
 
     AiCompletionResponse? response;
     try {
-      response = await router.executeChatWithFallback(request);
+      response = await router.executeChatWithFallback(
+        request,
+        onAttempt:
+            ({
+              required provider,
+              required status,
+              required responseJson,
+            }) async {
+              await _logRequest(
+                kind: 'month_plan',
+                prompt: userPrompt,
+                responseJson: responseJson,
+                model: provider,
+                status: status,
+              );
+            },
+      );
     } catch (e) {
       final failure = e is AiException
           ? e.failure
@@ -633,7 +686,8 @@ class AiService {
         ],
         jsonSchema: schema,
         schemaName: 'month_plan',
-        timeout: const Duration(seconds: 90),
+        maxTokens: AiMaxTokens.monthPlan,
+        timeout: const Duration(seconds: 45),
       );
 
       try {

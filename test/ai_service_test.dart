@@ -36,6 +36,12 @@ class _SimpleRouter extends AiRouter {
   Future<AiCompletionResponse> executeChatWithFallback(
     AiChatRequest request, {
     String? Function(String content)? validateContent,
+    Future<void> Function({
+      required String provider,
+      required String status,
+      required String responseJson,
+    })?
+    onAttempt,
   }) async {
     final p = _provider;
     if (p == null) throw const AiException(AiFailure.notConfigured());

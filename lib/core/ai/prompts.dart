@@ -54,6 +54,14 @@ String _formatVariableValue(dynamic val) {
   return s.isEmpty ? 'нет' : s;
 }
 
+/// Limits for completion token output per R5-07 to prevent infinite generation loops.
+abstract final class AiMaxTokens {
+  static const int suggestDishes = 1200;
+  static const int fullRecipe = 2500;
+  static const int monthPlan = 2000;
+  static const int pingQuery = 100;
+}
+
 /// Prompt templates for AI generation loaded from assets or default constants.
 class PromptTemplates {
   static AssetStringLoader? assetLoader;

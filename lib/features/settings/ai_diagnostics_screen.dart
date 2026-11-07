@@ -12,6 +12,7 @@ import '../../core/ai/ai_provider.dart';
 import '../../core/ai/gigachat_cert.dart';
 import '../../core/ai/gigachat_provider.dart';
 import '../../core/ai/lm_studio_provider.dart';
+import '../../core/ai/prompts.dart';
 import '../../core/db/app_database.dart';
 import '../../core/providers.dart';
 import '../../l10n/app_localizations.dart';
@@ -453,6 +454,7 @@ class _AiDiagnosticsScreenState extends ConsumerState<AiDiagnosticsScreen> {
           const AiChatRequest(
             messages: [AiChatMessage.user('Ответь одним словом: готов')],
             temperature: 0.1,
+            maxTokens: AiMaxTokens.pingQuery,
             timeout: Duration(seconds: 5),
           ),
         );
@@ -490,6 +492,7 @@ class _AiDiagnosticsScreenState extends ConsumerState<AiDiagnosticsScreen> {
           const AiChatRequest(
             messages: [AiChatMessage.user('Ответь одним словом: готов')],
             temperature: 0.1,
+            maxTokens: AiMaxTokens.pingQuery,
             timeout: Duration(seconds: 5),
           ),
         );

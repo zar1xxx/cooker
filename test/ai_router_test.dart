@@ -414,6 +414,101 @@ void main() {
       ); // PC is reachable, format was invalid
     });
 
+    test('R5-07: finish_reason == "length" triggers retry with temperature 0.2 and then falls back to GigaChat', () async {
+      int lmCalls = 0;
+      final recordedTemperatures = <double>[];
+      lmDio.httpClientAdapter = MockHttpClientAdapter((options) async {
+        if (options.path.contains('/models')) {
+          return _createJsonResponse({
+            'data': [
+              {'id': 'llama-3'},
+            ],
+          });
+        }
+        lmCalls++;
+        final data = options.data as Map<String, dynamic>;
+        recordedTemperatures.add((data['temperature'] as num).toDouble());
+        // Return length cutoff twice
+        return _createJsonResponse({
+          'choices': [
+            {
+              'message': {'content': '{"dish": "Куриный'},
+              'finish_reason': 'length',
+            },
+          ],
+        });
+      });
+
+      gigaDio.httpClientAdapter = MockHttpClientAdapter((options) async {
+        if (options.path.contains('/oauth')) {
+          return _createJsonResponse({
+            'access_token': 'giga-token',
+            'expires_at': DateTime.now()
+                .add(const Duration(minutes: 30))
+                .millisecondsSinceEpoch,
+          });
+        }
+        return _createJsonResponse({
+          'choices': [
+            {
+              'message': {'content': '{"dish": "Плов из GigaChat"}'},
+              'finish_reason': 'stop',
+            },
+          ],
+        });
+      });
+
+      final response = await router.executeChatWithFallback(
+        const AiChatRequest(
+          messages: [AiChatMessage.user('Dinner')],
+          temperature: 0.7,
+          maxTokens: 1200,
+        ),
+      );
+
+      expect(response, isNotNull);
+      expect(response.providerName, 'gigachat');
+      expect(response.rawContent, contains('Плов из GigaChat'));
+      expect(lmCalls, 2); // Initial attempt + retry with temp 0.2
+      expect(recordedTemperatures, [0.7, 0.2]);
+    });
+
+    test(
+      'R5-07: max_tokens is present in LM Studio and GigaChat request bodies',
+      () async {
+        int? capturedLmMaxTokens;
+        lmDio.httpClientAdapter = MockHttpClientAdapter((options) async {
+          if (options.path.contains('/models')) {
+            return _createJsonResponse({
+              'data': [
+                {'id': 'llama-3'},
+              ],
+            });
+          }
+          final data = options.data as Map<String, dynamic>;
+          capturedLmMaxTokens = data['max_tokens'] as int?;
+          return _createJsonResponse({
+            'choices': [
+              {
+                'message': {'content': '{"ok": true}'},
+                'finish_reason': 'stop',
+              },
+            ],
+          });
+        });
+
+        final response = await router.executeChatWithFallback(
+          const AiChatRequest(
+            messages: [AiChatMessage.user('Test')],
+            maxTokens: 1200,
+          ),
+        );
+
+        expect(response.rawContent, contains('{"ok": true}'));
+        expect(capturedLmMaxTokens, equals(1200));
+      },
+    );
+
     test('R4-02: Router does not wait for 10-second LAN discovery when GigaChat is configured', () async {
       FlutterSecureStorage.setMockInitialValues({
         'ai_gigachat_auth_key': 'test_giga_auth_key',

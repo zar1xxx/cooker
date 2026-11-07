@@ -29,7 +29,7 @@ Future<void> main(List<String> args) async {
   final suggestSchema = await AiSchemas.loadSuggestDishesSchema();
   final fullRecipeSchema = await AiSchemas.loadFullRecipeSchema();
 
-  await _testLmStudio(
+  final lmOk = await _testLmStudio(
     templates: templates,
     validator: validator,
     suggestSchema: suggestSchema,
@@ -39,7 +39,7 @@ Future<void> main(List<String> args) async {
 
   stdout.writeln();
 
-  await _testGigaChat(
+  final gigaOk = await _testGigaChat(
     templates: templates,
     validator: validator,
     suggestSchema: suggestSchema,
@@ -49,15 +49,36 @@ Future<void> main(List<String> args) async {
   stdout.writeln('\n========================================');
   stdout.writeln('  AI Smoke Test Completed               ');
   stdout.writeln('========================================');
+
+  if (!lmOk || !gigaOk) {
+    exit(1);
+  }
 }
 
-Future<void> _testLmStudio({
+Future<bool> _testLmStudio({
   required PromptTemplates templates,
   required RecipeValidator validator,
   required Map<String, dynamic> suggestSchema,
   required Map<String, dynamic> fullRecipeSchema,
   List<int> candidatePorts = const [1234, 1235],
 }) async {
+  final rawLog = <String, dynamic>{
+    'timestamp': DateTime.now().toIso8601String(),
+    'candidate_ports': candidatePorts,
+  };
+
+  void saveRawLog() {
+    try {
+      final f = File('docs/reports/last_ai_smoke_raw.json');
+      f.parent.createSync(recursive: true);
+      f.writeAsStringSync(
+        const JsonEncoder.withIndent('  ').convert(rawLog),
+      );
+    } catch (e) {
+      stdout.writeln('[Smoke] Warning: could not write raw log: $e');
+    }
+  }
+
   stdout.writeln(
     '[LM Studio] Checking server at candidate ports: ${candidatePorts.join(', ')} ...',
   );
@@ -90,11 +111,15 @@ Future<void> _testLmStudio({
     stdout.writeln(
       '[LM Studio] (Start LM Studio on this PC, load a model, and start the local server via tool\\start_lmstudio_server.bat)',
     );
-    return;
+    rawLog['error'] = 'LM Studio not reachable on ports: $candidatePorts';
+    saveRawLog();
+    return false;
   }
 
   final provider = connectedProvider;
   final modelId = connectedModelId;
+  rawLog['selected_model'] = modelId;
+  rawLog['selected_port'] = connectedPort;
   stdout.writeln(
     '[LM Studio] Selected port $connectedPort with model: $connectedModelId',
   );
@@ -127,9 +152,10 @@ Future<void> _testLmStudio({
         ],
         model: modelId,
         temperature: 0.3,
+        maxTokens: AiMaxTokens.suggestDishes,
         jsonSchema: suggestSchema,
         schemaName: 'suggest_dishes',
-        timeout: const Duration(seconds: 120),
+        timeout: const Duration(seconds: 45),
       ),
     );
     sw1.stop();
@@ -138,7 +164,9 @@ Future<void> _testLmStudio({
     stdout.writeln(
       '[LM Studio] suggest_dishes query FAILED in ${sw1.elapsed.inSeconds}s: $e',
     );
-    return;
+    rawLog['suggest_dishes_error'] = e.toString();
+    saveRawLog();
+    return false;
   }
 
   stdout.writeln(
@@ -147,12 +175,32 @@ Future<void> _testLmStudio({
   stdout.writeln(
     '[LM Studio] Usage: prompt_tokens=${resp1.promptTokens}, completion_tokens=${resp1.completionTokens}',
   );
+  stdout.writeln('[LM Studio] finish_reason: ${resp1.finishReason}');
+
+  rawLog['suggest_dishes'] = {
+    'finish_reason': resp1.finishReason,
+    'prompt_tokens': resp1.promptTokens,
+    'completion_tokens': resp1.completionTokens,
+    'duration_ms': sw1.elapsedMilliseconds,
+    'raw_content': resp1.rawContent,
+  };
 
   String firstDishTitle = 'Куриный суп с картофелем';
+  bool val1Ok = false;
   try {
     final parsed = jsonDecode(resp1.rawContent) as Map<String, dynamic>;
     final valResult = validator.validateDishes(parsed);
     stdout.writeln('[LM Studio] suggest_dishes validation: $valResult');
+    if (valResult is Valid) {
+      val1Ok = true;
+    } else {
+      stdout.writeln(
+        '[LM Studio] Warning/Invalid suggest_dishes: finish_reason=${resp1.finishReason}',
+      );
+      stdout.writeln(
+        'First 500 characters of response:\n${resp1.rawContent.length > 500 ? resp1.rawContent.substring(0, 500) : resp1.rawContent}',
+      );
+    }
     final dishes = parsed['dishes'] as List?;
     if (dishes != null && dishes.isNotEmpty && dishes.first is Map) {
       final title = (dishes.first as Map)['title'];
@@ -162,9 +210,16 @@ Future<void> _testLmStudio({
     }
   } catch (e) {
     stdout.writeln(
-      '[LM Studio] Error parsing/validating suggest_dishes response: $e',
+      '[LM Studio] Error parsing/validating suggest_dishes response: $e (finish_reason: ${resp1.finishReason})',
     );
-    stdout.writeln('Raw response:\n${resp1.rawContent}');
+    stdout.writeln(
+      'First 500 characters of response:\n${resp1.rawContent.length > 500 ? resp1.rawContent.substring(0, 500) : resp1.rawContent}',
+    );
+  }
+
+  if (!val1Ok) {
+    saveRawLog();
+    return false;
   }
 
   // 2. full_recipe
@@ -201,9 +256,10 @@ Future<void> _testLmStudio({
         ],
         model: modelId,
         temperature: 0.3,
+        maxTokens: AiMaxTokens.fullRecipe,
         jsonSchema: fullRecipeSchema,
         schemaName: 'full_recipe',
-        timeout: const Duration(seconds: 180),
+        timeout: const Duration(seconds: 45),
       ),
     );
     sw2.stop();
@@ -212,7 +268,9 @@ Future<void> _testLmStudio({
     stdout.writeln(
       '[LM Studio] full_recipe query FAILED in ${sw2.elapsed.inSeconds}s: $e',
     );
-    return;
+    rawLog['full_recipe_error'] = e.toString();
+    saveRawLog();
+    return false;
   }
 
   stdout.writeln(
@@ -221,20 +279,45 @@ Future<void> _testLmStudio({
   stdout.writeln(
     '[LM Studio] Usage: prompt_tokens=${resp2.promptTokens}, completion_tokens=${resp2.completionTokens}',
   );
+  stdout.writeln('[LM Studio] finish_reason: ${resp2.finishReason}');
 
+  rawLog['full_recipe'] = {
+    'finish_reason': resp2.finishReason,
+    'prompt_tokens': resp2.promptTokens,
+    'completion_tokens': resp2.completionTokens,
+    'duration_ms': sw2.elapsedMilliseconds,
+    'raw_content': resp2.rawContent,
+  };
+  saveRawLog();
+
+  bool val2Ok = false;
   try {
     final parsedRecipe = jsonDecode(resp2.rawContent) as Map<String, dynamic>;
     final valResult = validator.validate(parsedRecipe);
     stdout.writeln('[LM Studio] full_recipe validation: $valResult');
+    if (valResult is Valid) {
+      val2Ok = true;
+    } else {
+      stdout.writeln(
+        '[LM Studio] Warning/Invalid full_recipe: finish_reason=${resp2.finishReason}',
+      );
+      stdout.writeln(
+        'First 500 characters of response:\n${resp2.rawContent.length > 500 ? resp2.rawContent.substring(0, 500) : resp2.rawContent}',
+      );
+    }
   } catch (e) {
     stdout.writeln(
-      '[LM Studio] Error parsing/validating full_recipe response: $e',
+      '[LM Studio] Error parsing/validating full_recipe response: $e (finish_reason: ${resp2.finishReason})',
     );
-    stdout.writeln('Raw response:\n${resp2.rawContent}');
+    stdout.writeln(
+      'First 500 characters of response:\n${resp2.rawContent.length > 500 ? resp2.rawContent.substring(0, 500) : resp2.rawContent}',
+    );
   }
+
+  return val2Ok;
 }
 
-Future<void> _testGigaChat({
+Future<bool> _testGigaChat({
   required PromptTemplates templates,
   required RecipeValidator validator,
   required Map<String, dynamic> suggestSchema,
@@ -251,7 +334,7 @@ Future<void> _testGigaChat({
     stdout.writeln(
       '[GigaChat] (To test GigaChat: set GIGACHAT_KEY=<auth_key> and rerun)',
     );
-    return;
+    return true; // Skipped intentionally, not a failure
   }
 
   stdout.writeln(
@@ -294,9 +377,10 @@ Future<void> _testGigaChat({
           AiChatMessage.user(suggestUser),
         ],
         temperature: 0.3,
+        maxTokens: AiMaxTokens.suggestDishes,
         jsonSchema: suggestSchema,
         schemaName: 'suggest_dishes',
-        timeout: const Duration(seconds: 60),
+        timeout: const Duration(seconds: 45),
       ),
     );
     sw1.stop();
@@ -305,7 +389,7 @@ Future<void> _testGigaChat({
     stdout.writeln(
       '[GigaChat] suggest_dishes query FAILED in ${sw1.elapsed.inSeconds}s: $e',
     );
-    return;
+    return false;
   }
 
   stdout.writeln(
@@ -314,12 +398,17 @@ Future<void> _testGigaChat({
   stdout.writeln(
     '[GigaChat] Usage: prompt_tokens=${resp1.promptTokens}, completion_tokens=${resp1.completionTokens}',
   );
+  stdout.writeln('[GigaChat] finish_reason: ${resp1.finishReason}');
 
   String firstDishTitle = 'Куриный суп с картофелем';
+  bool val1Ok = false;
   try {
     final parsed = jsonDecode(resp1.rawContent) as Map<String, dynamic>;
     final valResult = validator.validateDishes(parsed);
     stdout.writeln('[GigaChat] suggest_dishes validation: $valResult');
+    if (valResult is Valid) {
+      val1Ok = true;
+    }
     final dishes = parsed['dishes'] as List?;
     if (dishes != null && dishes.isNotEmpty && dishes.first is Map) {
       final title = (dishes.first as Map)['title'];
@@ -332,6 +421,8 @@ Future<void> _testGigaChat({
       '[GigaChat] Error parsing/validating suggest_dishes response: $e',
     );
   }
+
+  if (!val1Ok) return false;
 
   stdout.writeln(
     '\n[GigaChat] 2/2: Testing full_recipe for "$firstDishTitle" ...',
@@ -365,9 +456,10 @@ Future<void> _testGigaChat({
           AiChatMessage.user(recipeUser),
         ],
         temperature: 0.3,
+        maxTokens: AiMaxTokens.fullRecipe,
         jsonSchema: fullRecipeSchema,
         schemaName: 'full_recipe',
-        timeout: const Duration(seconds: 60),
+        timeout: const Duration(seconds: 45),
       ),
     );
     sw2.stop();
@@ -376,7 +468,7 @@ Future<void> _testGigaChat({
     stdout.writeln(
       '[GigaChat] full_recipe query FAILED in ${sw2.elapsed.inSeconds}s: $e',
     );
-    return;
+    return false;
   }
 
   stdout.writeln(
@@ -385,14 +477,21 @@ Future<void> _testGigaChat({
   stdout.writeln(
     '[GigaChat] Usage: prompt_tokens=${resp2.promptTokens}, completion_tokens=${resp2.completionTokens}',
   );
+  stdout.writeln('[GigaChat] finish_reason: ${resp2.finishReason}');
 
+  bool val2Ok = false;
   try {
     final parsedRecipe = jsonDecode(resp2.rawContent) as Map<String, dynamic>;
     final valResult = validator.validate(parsedRecipe);
     stdout.writeln('[GigaChat] full_recipe validation: $valResult');
+    if (valResult is Valid) {
+      val2Ok = true;
+    }
   } catch (e) {
     stdout.writeln(
       '[GigaChat] Error parsing/validating full_recipe response: $e',
     );
   }
+
+  return val2Ok;
 }

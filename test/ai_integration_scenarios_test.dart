@@ -402,6 +402,12 @@ class _RouterWithProvider extends AiRouter {
   Future<AiCompletionResponse> executeChatWithFallback(
     AiChatRequest request, {
     String? Function(String rawPayload)? validateContent,
+    Future<void> Function({
+      required String provider,
+      required String status,
+      required String responseJson,
+    })?
+    onAttempt,
   }) => _provider.chat(request);
 }
 
@@ -438,6 +444,12 @@ class _RouterWithFallback extends AiRouter {
   Future<AiCompletionResponse> executeChatWithFallback(
     AiChatRequest request, {
     String? Function(String rawPayload)? validateContent,
+    Future<void> Function({
+      required String provider,
+      required String status,
+      required String responseJson,
+    })?
+    onAttempt,
   }) async {
     try {
       return await primary.chat(request);

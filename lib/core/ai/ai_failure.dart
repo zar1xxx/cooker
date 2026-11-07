@@ -377,6 +377,11 @@ AiFailure mapExceptionToFailure(
     if (error.type == DioExceptionType.connectionTimeout ||
         error.type == DioExceptionType.sendTimeout ||
         error.type == DioExceptionType.receiveTimeout) {
+      if (!isGigaChat) {
+        return const AiFailure.timeout(
+          'Компьютер долго отвечает (превышено время ожидания)',
+        );
+      }
       return const AiFailure.timeout();
     }
 
@@ -399,6 +404,11 @@ AiFailure mapExceptionToFailure(
   }
 
   if (error is TimeoutException) {
+    if (!isGigaChat) {
+      return const AiFailure.timeout(
+        'Компьютер долго отвечает (превышено время ожидания)',
+      );
+    }
     return const AiFailure.timeout();
   }
 

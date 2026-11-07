@@ -195,6 +195,9 @@ class GigaChatProvider implements AiProvider {
       'messages': messages,
       'temperature': request.temperature,
     };
+    if (request.maxTokens != null) {
+      body['max_tokens'] = request.maxTokens;
+    }
 
     final effectiveTimeout = request.timeout ?? const Duration(seconds: 45);
     final stopwatch = Stopwatch()..start();
@@ -228,6 +231,7 @@ class GigaChatProvider implements AiProvider {
       final firstChoice = choices.first as Map<String, dynamic>;
       final message = firstChoice['message'] as Map<String, dynamic>?;
       final content = message?['content'] as String? ?? '';
+      final finishReason = firstChoice['finish_reason'] as String?;
       final responseModel = (data['model'] as String?) ?? selectedModel;
 
       int promptTokens = 0;
@@ -246,6 +250,7 @@ class GigaChatProvider implements AiProvider {
         rawContent: content,
         model: responseModel,
         providerName: name,
+        finishReason: finishReason,
         promptTokens: promptTokens,
         completionTokens: completionTokens,
         totalTokens: totalTokens,

@@ -93,6 +93,34 @@ class RecipeValidator {
     return RecipeValidator(safetyMinimums: decoded);
   }
 
+  static final _repeatedCharsRegex = RegExp(r'([^\s])\1{3,}');
+  static final _allowedCharsRegex = RegExp(
+    r"^[\u0400-\u04FFa-zA-Z0-9\s\.,\-–—!?'"
+    '"'
+    r"«»\(\)%;:/\№°~+&=@\[\]]+$",
+  );
+
+  /// Validates that text does not contain junk characters, asterisks formatting artifacts,
+  /// or excessive repetitions per R5-08.
+  static String? checkGarbageText(String text, String fieldName) {
+    final trimmed = text.trim();
+    if (trimmed.isEmpty) return null;
+
+    if (trimmed.contains('**')) {
+      return 'Поле "$fieldName" содержит недопустимые символы "**": "$trimmed"';
+    }
+
+    if (_repeatedCharsRegex.hasMatch(trimmed)) {
+      return 'Поле "$fieldName" содержит повторяющиеся символы (4+ раз): "$trimmed"';
+    }
+
+    if (!_allowedCharsRegex.hasMatch(trimmed)) {
+      return 'Поле "$fieldName" содержит недопустимые символы (разрешены только кириллица, латиница, цифры и пунктуация): "$trimmed"';
+    }
+
+    return null;
+  }
+
   /// Validates a single full recipe against schema, structure, heat treatment,
   /// stop-list, allergens, and per-serving ingredient limits (ТЗ 9.1).
   ///
@@ -124,6 +152,8 @@ class RecipeValidator {
         title.trim().length > 80) {
       return fail('Название блюда должно быть строкой от 2 до 80 символов.');
     }
+    final titleGarbage = checkGarbageText(title, 'название блюда');
+    if (titleGarbage != null) return fail(titleGarbage);
 
     final dishType = recipe['dish_type']?.toString();
     if (dishType == null || !allowedDishTypes.contains(dishType)) {
@@ -211,6 +241,10 @@ class RecipeValidator {
           'Название ингредиента не должно превышать 80 символов: $name.',
         );
       }
+      if (name.isNotEmpty) {
+        final nameGarbage = checkGarbageText(name, 'ингредиент');
+        if (nameGarbage != null) return fail(nameGarbage);
+      }
 
       final amount = (ing['amount'] as num?)?.toDouble();
       if (amount != null && amount < 0) {
@@ -267,6 +301,8 @@ class RecipeValidator {
           'Текст каждого шага должен быть строкой от 3 до 240 символов.',
         );
       }
+      final stepGarbage = checkGarbageText(text, 'шаг');
+      if (stepGarbage != null) return fail(stepGarbage);
 
       final timer = (s['timer_seconds'] as num?)?.toInt();
       if (timer != null) {
@@ -544,6 +580,8 @@ class RecipeValidator {
           'Блюдо ${i + 1}: название должно быть от 2 до 80 символов.',
         );
       }
+      final titleGarbage = checkGarbageText(title, 'название блюда');
+      if (titleGarbage != null) return fail(titleGarbage);
 
       final dishType = dish['dish_type']?.toString();
       if (dishType == null || !allowedDishTypes.contains(dishType)) {
@@ -573,6 +611,12 @@ class RecipeValidator {
         return fail(
           'Блюдо ${i + 1}: должно содержать от 1 до 6 основных ингредиентов.',
         );
+      }
+      for (final ing in mainIngredients) {
+        if (ing is String) {
+          final ingGarbage = checkGarbageText(ing, 'основной ингредиент');
+          if (ingGarbage != null) return fail(ingGarbage);
+        }
       }
 
       final missing = dish['missing'];
@@ -768,6 +812,8 @@ class RecipeValidator {
           title.trim().length > 80) {
         return fail('День ${i + 1}: название должно быть от 2 до 80 символов.');
       }
+      final titleGarbage = checkGarbageText(title, 'название блюда');
+      if (titleGarbage != null) return fail(titleGarbage);
 
       final dishType = day['dish_type']?.toString();
       if (dishType == null || !allowedDishTypes.contains(dishType)) {
@@ -790,6 +836,12 @@ class RecipeValidator {
         return fail(
           'День ${i + 1}: основных ингредиентов должно быть от 1 до 4.',
         );
+      }
+      for (final ing in mainIngredients) {
+        if (ing is String) {
+          final ingGarbage = checkGarbageText(ing, 'основной ингредиент');
+          if (ingGarbage != null) return fail(ingGarbage);
+        }
       }
 
       // Check stop-list & allergens for this day

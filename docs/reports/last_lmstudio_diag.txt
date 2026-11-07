@@ -1,0 +1,260 @@
+===== time
+07.11.2026 
+22:32
+===== lms server status
+The server is running on port 1235.
+===== lms ps
+
+IDENTIFIER                MODEL                     STATUS    SIZE       CONTEXT    PARALLEL    DEVICE    TTL
+google/gemma-4-12b-qat    google/gemma-4-12b-qat    IDLE      7.15 GB    8192       4           Local        
+
+===== listening ports 1234/1235
+  TCP    0.0.0.0:1235           0.0.0.0:0              LISTENING       2980
+===== ipconfig
+
+Windows IP Configuration
+
+
+Unknown adapter FlClashX:
+
+   Connection-specific DNS Suffix  . : 
+   IPv4 Address. . . . . . . . . . . : 198.18.0.1
+   Subnet Mask . . . . . . . . . . . : 255.255.255.252
+   Default Gateway . . . . . . . . . : 198.18.0.2
+
+Ethernet adapter Ethernet:
+
+   Media State . . . . . . . . . . . : Media disconnected
+   Connection-specific DNS Suffix  . : 
+
+Unknown adapter Tailscale:
+
+   Connection-specific DNS Suffix  . : 
+   Link-local IPv6 Address . . . . . : fe80::4d05:8e57:83f7:dc4b%7
+   Autoconfiguration IPv4 Address. . : 169.254.83.107
+   Subnet Mask . . . . . . . . . . . : 255.255.0.0
+   Default Gateway . . . . . . . . . : 
+
+Wireless LAN adapter Å•·Ø‡Æ¢Æ§≠†Ô ·•‚Ï 2:
+
+   Media State . . . . . . . . . . . : Media disconnected
+   Connection-specific DNS Suffix  . : 
+
+Wireless LAN adapter Å•·Ø‡Æ¢Æ§≠†Ô ·•‚Ï 4:
+
+   Media State . . . . . . . . . . . : Media disconnected
+   Connection-specific DNS Suffix  . : 
+
+Wireless LAN adapter Å•·Ø‡Æ¢Æ§≠†Ô ·•‚Ï:
+
+   Connection-specific DNS Suffix  . : 
+   Link-local IPv6 Address . . . . . : fe80::3036:d64b:c909:ea51%19
+   IPv4 Address. . . . . . . . . . . : 192.168.50.224
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . : 192.168.50.1
+===== curl localhost 1235
+{
+  "data": [
+    {
+      "id": "google/gemma-4-12b-qat",
+      "object": "model",
+      "owned_by": "organization_owner"
+    },
+    {
+      "id": "ornith-1.5-9b",
+      "object": "model",
+      "owned_by": "organization_owner"
+    },
+    {
+      "id": "ornith-1.5-35b-a3b",
+      "object": "model",
+      "owned_by": "organization_owner"
+    },
+    {
+      "id": "qwen3.6-35b-a3b-1m",
+      "object": "model",
+      "owned_by": "organization_owner"
+    },
+    {
+      "id": "flint",
+      "object": "model",
+      "owned_by": "organization_owner"
+    },
+    {
+      "id": "qwen3-coder-next",
+      "object": "model",
+      "owned_by": "organization_owner"
+    },
+    {
+      "id": "qwen/qwen3.8-27b",
+      "object": "model",
+      "owned_by": "organization_owner"
+    },
+    {
+      "id": "text-embedding-nomic-embed-text-v1.5",
+      "object": "model",
+      "owned_by": "organization_owner"
+    }
+  ],
+  "object": "list"
+}
+===== curl localhost 1234
+
+===== curl LAN IPs 1235
+--- 198.18.0.1
+{
+  "data": [
+    {
+      "id": "google/gemma-4-12b-qat",
+      "object": "model",
+      "owned_by": "organization_owner"
+    },
+    {
+      "id": "ornith-1.5-9b",
+      "object": "model",
+      "owned_by": "organization_owner"
+    },
+    {
+      "id": "ornith-1.5-35b-a3b",
+      "object": "model",
+      "owned_by": "organization_owner"
+    },
+    {
+      "id": "qwen3.6-35b-a3b-1m",
+      "object": "model",
+      "owned_by": "organization_owner"
+    },
+    {
+      "id": "flint",
+      "object": "model",
+      "owned_by": "organization_owner"
+    },
+    {
+      "id": "qwen3-coder-next",
+      "object": "model",
+      "owned_by": "organization_owner"
+    },
+    {
+      "id": "qwen/qwen3.8-27b",
+      "object": "model",
+      "owned_by": "organization_owner"
+    },
+    {
+      "id": "text-embedding-nomic-embed-text-v1.5",
+      "object": "model",
+      "owned_by": "organization_owner"
+    }
+  ],
+  "object": "list"
+}
+--- 169.254.83.107
+{
+  "data": [
+    {
+      "id": "google/gemma-4-12b-qat",
+      "object": "model",
+      "owned_by": "organization_owner"
+    },
+    {
+      "id": "ornith-1.5-9b",
+      "object": "model",
+      "owned_by": "organization_owner"
+    },
+    {
+      "id": "ornith-1.5-35b-a3b",
+      "object": "model",
+      "owned_by": "organization_owner"
+    },
+    {
+      "id": "qwen3.6-35b-a3b-1m",
+      "object": "model",
+      "owned_by": "organization_owner"
+    },
+    {
+      "id": "flint",
+      "object": "model",
+      "owned_by": "organization_owner"
+    },
+    {
+      "id": "qwen3-coder-next",
+      "object": "model",
+      "owned_by": "organization_owner"
+    },
+    {
+      "id": "qwen/qwen3.8-27b",
+      "object": "model",
+      "owned_by": "organization_owner"
+    },
+    {
+      "id": "text-embedding-nomic-embed-text-v1.5",
+      "object": "model",
+      "owned_by": "organization_owner"
+    }
+  ],
+  "object": "list"
+}
+--- 192.168.50.224
+{
+  "data": [
+    {
+      "id": "google/gemma-4-12b-qat",
+      "object": "model",
+      "owned_by": "organization_owner"
+    },
+    {
+      "id": "ornith-1.5-9b",
+      "object": "model",
+      "owned_by": "organization_owner"
+    },
+    {
+      "id": "ornith-1.5-35b-a3b",
+      "object": "model",
+      "owned_by": "organization_owner"
+    },
+    {
+      "id": "qwen3.6-35b-a3b-1m",
+      "object": "model",
+      "owned_by": "organization_owner"
+    },
+    {
+      "id": "flint",
+      "object": "model",
+      "owned_by": "organization_owner"
+    },
+    {
+      "id": "qwen3-coder-next",
+      "object": "model",
+      "owned_by": "organization_owner"
+    },
+    {
+      "id": "qwen/qwen3.8-27b",
+      "object": "model",
+      "owned_by": "organization_owner"
+    },
+    {
+      "id": "text-embedding-nomic-embed-text-v1.5",
+      "object": "model",
+      "owned_by": "organization_owner"
+    }
+  ],
+  "object": "list"
+}
+===== network profile
+
+Name         InterfaceAlias    NetworkCategory
+----         --------------    ---------------
+Tailscale    Tailscale                 Private
+ASUS_DO_5G 2 –ë–µ—Å–ø—Ä–æ–≤–æ–¥–Ω–∞—è —Å–µ—Ç—å         Private
+FlClashX     FlClashX                  Private
+
+
+
+===== firewall rules for 1234/1235 and LM Studio
+
+DisplayName    Action Profile
+-----------    ------ -------
+LM Studio 1235  Allow Private
+
+
+
+===== done

@@ -134,6 +134,10 @@ class LmStudioProvider implements AiProvider {
       'stream': false,
     };
 
+    if (request.maxTokens != null) {
+      body['max_tokens'] = request.maxTokens;
+    }
+
     if (request.jsonSchema != null) {
       body['response_format'] = {
         'type': 'json_schema',
@@ -222,6 +226,7 @@ class LmStudioProvider implements AiProvider {
       final firstChoice = choices.first as Map<String, dynamic>;
       final message = firstChoice['message'] as Map<String, dynamic>?;
       final content = message?['content'] as String? ?? '';
+      final finishReason = firstChoice['finish_reason'] as String?;
       final responseModel =
           (data['model'] as String?) ?? request.model ?? selectedModel;
 
@@ -241,6 +246,7 @@ class LmStudioProvider implements AiProvider {
         rawContent: content,
         model: responseModel,
         providerName: name,
+        finishReason: finishReason,
         promptTokens: promptTokens,
         completionTokens: completionTokens,
         totalTokens: totalTokens,

@@ -164,6 +164,12 @@ class AiRouter {
   Future<AiCompletionResponse> executeChatWithFallback(
     AiChatRequest request, {
     String? Function(String rawPayload)? validateContent,
+    Future<void> Function({
+      required String provider,
+      required String status,
+      required String responseJson,
+    })?
+    onAttempt,
   }) async {
     final resolution = await determineProvider();
     final primary = resolution.provider;
@@ -190,6 +196,18 @@ class AiRouter {
           markPcFailure();
         }
 
+        final failure = e is AiException
+            ? e.failure
+            : mapExceptionToFailure(e, isGigaChat: false);
+
+        if (onAttempt != null) {
+          await onAttempt(
+            provider: primary.name,
+            status: 'error',
+            responseJson: failure.message,
+          );
+        }
+
         // Fallback to GigaChat
         if (gigaChatProvider != null &&
             gigaChatProvider!.authKey.trim().isNotEmpty) {
@@ -206,7 +224,7 @@ class AiRouter {
         }
 
         if (e is AiException) rethrow;
-        throw AiException(mapExceptionToFailure(e, isGigaChat: false));
+        throw AiException(failure);
       }
     } else {
       try {
@@ -227,19 +245,55 @@ class AiRouter {
   ) async {
     final firstResponse = await provider.chat(request);
 
-    if (validateContent == null) {
-      return firstResponse;
+    // R5-07: finish_reason == "length" -> retry once with temperature 0.2
+    if (firstResponse.finishReason == 'length') {
+      final retryRequest = AiChatRequest(
+        messages: request.messages,
+        model: request.model,
+        temperature: 0.2,
+        maxTokens: request.maxTokens,
+        timeout: request.timeout,
+        jsonSchema: request.jsonSchema,
+        schemaName: request.schemaName,
+      );
+      final retryResponse = await provider.chat(retryRequest);
+      if (retryResponse.finishReason == 'length') {
+        throw const AiException(
+          AiFailure.badResponse(
+            'Превышен лимит длины ответа (finish_reason: length)',
+          ),
+        );
+      }
+      return _validateOrRetry(
+        provider,
+        retryRequest,
+        retryResponse,
+        validateContent,
+      );
     }
 
-    final validationError = validateContent(firstResponse.rawContent);
+    return _validateOrRetry(provider, request, firstResponse, validateContent);
+  }
+
+  Future<AiCompletionResponse> _validateOrRetry(
+    AiProvider provider,
+    AiChatRequest request,
+    AiCompletionResponse response,
+    String? Function(String rawPayload)? validateContent,
+  ) async {
+    if (validateContent == null) {
+      return response;
+    }
+
+    final validationError = validateContent(response.rawContent);
     if (validationError == null) {
-      return firstResponse;
+      return response;
     }
 
     // 1 retry on same provider with error message
     final retryMessages = [
       ...request.messages,
-      AiChatMessage.assistant(firstResponse.rawContent),
+      AiChatMessage.assistant(response.rawContent),
       AiChatMessage.user(
         'Ответ не соответствует формату: $validationError. Исправь ошибку и ответь строго валидным JSON.',
       ),
@@ -249,12 +303,20 @@ class AiRouter {
       messages: retryMessages,
       model: request.model,
       temperature: request.temperature,
+      maxTokens: request.maxTokens,
       timeout: request.timeout,
       jsonSchema: request.jsonSchema,
       schemaName: request.schemaName,
     );
 
     final secondResponse = await provider.chat(retryRequest);
+    if (secondResponse.finishReason == 'length') {
+      throw const AiException(
+        AiFailure.badResponse(
+          'Превышен лимит длины ответа при повторе (finish_reason: length)',
+        ),
+      );
+    }
     final secondError = validateContent(secondResponse.rawContent);
     if (secondError != null) {
       throw FormatException('AI response validation failed: $secondError');

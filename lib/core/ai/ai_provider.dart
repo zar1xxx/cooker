@@ -28,6 +28,7 @@ class AiChatRequest {
     required this.messages,
     this.model,
     this.temperature = 0.7,
+    this.maxTokens,
     this.timeout,
     this.jsonSchema,
     this.schemaName,
@@ -36,6 +37,7 @@ class AiChatRequest {
   final List<AiChatMessage> messages;
   final String? model;
   final double temperature;
+  final int? maxTokens;
   final Duration? timeout;
   final Map<String, dynamic>? jsonSchema;
   final String? schemaName;
@@ -46,6 +48,7 @@ class AiCompletionResponse {
     required this.rawContent,
     required this.model,
     required this.providerName,
+    this.finishReason,
     this.promptTokens = 0,
     this.completionTokens = 0,
     this.totalTokens = 0,
@@ -55,6 +58,7 @@ class AiCompletionResponse {
   final String rawContent;
   final String model;
   final String providerName;
+  final String? finishReason;
   final int promptTokens;
   final int completionTokens;
   final int totalTokens;

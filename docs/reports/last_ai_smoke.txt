@@ -1,0 +1,28 @@
+Running build hooks...Running build hooks...========================================
+  AI Smoke Test: LM Studio & GigaChat   
+========================================
+
+[LM Studio] Checking server at candidate ports: 1235 ...
+[LM Studio] Probing http://127.0.0.1:1235 ...
+[LM Studio] Server reachable on port 1235! Using model: google/gemma-4-12b-qat
+[LM Studio] Selected port 1235 with model: google/gemma-4-12b-qat
+
+[LM Studio] 1/2: Testing suggest_dishes ...
+[LM Studio] suggest_dishes completed in 9033 ms
+[LM Studio] Usage: prompt_tokens=406, completion_tokens=583
+[LM Studio] finish_reason: stop
+[LM Studio] suggest_dishes validation: Valid(warnings: [])
+
+[LM Studio] 2/2: Testing full_recipe for "Запечённый картофель с курицей" ...
+[LM Studio] full_recipe completed in 19075 ms
+[LM Studio] Usage: prompt_tokens=420, completion_tokens=1293
+[LM Studio] finish_reason: stop
+[LM Studio] full_recipe validation: Valid(warnings: [])
+
+[GigaChat] GIGACHAT_KEY environment variable is not set. Skipped.
+[GigaChat] (To test GigaChat: set GIGACHAT_KEY=<auth_key> and rerun)
+
+========================================
+  AI Smoke Test Completed               
+========================================
+exit 0 

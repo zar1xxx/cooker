@@ -795,4 +795,135 @@ void main() {
       expect(res2, isA<Rejected>());
     });
   });
+
+  group('R5-08: Garbage in titles, ingredients, and steps', () {
+    test(
+      'junk characters or asterisks in title produce Retryable on attempt 1',
+      () {
+        final v = _validator();
+        final recipe1 = {
+          'title': 'Дバイス**',
+          'dish_type': 'main',
+          'difficulty': 'easy',
+          'cuisine': 'home',
+          'total_minutes': 30,
+          'servings': 2,
+          'ingredients': [
+            {
+              'name': 'картофель',
+              'amount': 200,
+              'unit': 'g',
+              'is_optional': false,
+            },
+          ],
+          'steps': [
+            {'text': 'Почистить картофель.', 'timer_seconds': 0},
+            {'text': 'Отварить до готовности.', 'timer_seconds': 1200},
+          ],
+        };
+        final res1 = v.validate(recipe1, attempt: 1);
+        expect(res1, isA<Retryable>());
+
+        final recipe2 = Map<String, dynamic>.from(recipe1);
+        recipe2['title'] = 'Суп********';
+        final res2 = v.validate(recipe2, attempt: 1);
+        expect(res2, isA<Retryable>());
+      },
+    );
+
+    test('normal titles "Борщ" and "Омлет с сыром (2 порции)" pass', () {
+      final v = _validator();
+      final recipe = {
+        'title': 'Борщ',
+        'dish_type': 'soup',
+        'difficulty': 'medium',
+        'cuisine': 'russian',
+        'total_minutes': 60,
+        'servings': 4,
+        'ingredients': [
+          {'name': 'свёкла', 'amount': 200, 'unit': 'g', 'is_optional': false},
+          {
+            'name': 'картофель',
+            'amount': 300,
+            'unit': 'g',
+            'is_optional': false,
+          },
+        ],
+        'steps': [
+          {'text': 'Нарезать свёклу и картофель соломкой.', 'timer_seconds': 0},
+          {'text': 'Варить овощи до мягкости 20 минут.', 'timer_seconds': 1200},
+        ],
+      };
+      final res1 = v.validate(recipe);
+      expect(res1, isA<Valid>());
+
+      recipe['title'] = 'Омлет с сыром (2 порции)';
+      final res2 = v.validate(recipe);
+      expect(res2, isA<Valid>());
+    });
+
+    test('junk characters in ingredient or step text produce Retryable', () {
+      final v = _validator();
+      final recipe = {
+        'title': 'Плов домашний',
+        'dish_type': 'main',
+        'difficulty': 'easy',
+        'cuisine': 'home',
+        'total_minutes': 40,
+        'servings': 2,
+        'ingredients': [
+          {'name': 'Рис****', 'amount': 200, 'unit': 'g', 'is_optional': false},
+        ],
+        'steps': [
+          {'text': 'Промыть рис водой.', 'timer_seconds': 0},
+          {'text': 'Варить 20 минут.', 'timer_seconds': 1200},
+        ],
+      };
+      final resIng = v.validate(recipe, attempt: 1);
+      expect(resIng, isA<Retryable>());
+
+      recipe['ingredients'] = [
+        {'name': 'рис', 'amount': 200, 'unit': 'g', 'is_optional': false},
+      ];
+      recipe['steps'] = [
+        {'text': 'Промыть рис водой.', 'timer_seconds': 0},
+        {'text': 'Варить до готовности****', 'timer_seconds': 1200},
+      ];
+      final resStep = v.validate(recipe, attempt: 1);
+      expect(resStep, isA<Retryable>());
+    });
+
+    test('validateDishes rejects junk titles and main_ingredients', () {
+      final v = _validator();
+      final dishes1 = {
+        'dishes': [
+          {
+            'title': 'Дバイス**',
+            'dish_type': 'main',
+            'difficulty': 'easy',
+            'total_minutes': 30,
+            'main_ingredients': ['картофель'],
+            'missing': [],
+            'why': 'Вкусно',
+          },
+        ],
+      };
+      expect(v.validateDishes(dishes1, attempt: 1), isA<Retryable>());
+
+      final dishes2 = {
+        'dishes': [
+          {
+            'title': 'Суп********',
+            'dish_type': 'soup',
+            'difficulty': 'easy',
+            'total_minutes': 30,
+            'main_ingredients': ['картофель'],
+            'missing': [],
+            'why': 'Вкусно',
+          },
+        ],
+      };
+      expect(v.validateDishes(dishes2, attempt: 1), isA<Retryable>());
+    });
+  });
 }
