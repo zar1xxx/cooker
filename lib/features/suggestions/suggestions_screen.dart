@@ -384,6 +384,173 @@ class _SuggestionsScreenState extends ConsumerState<SuggestionsScreen> {
                     vertical: 12,
                   ),
                   children: [
+                    // AI Failure Banner (R4-03: placed at top above recipe groups)
+                    if (aiDishesAsync.value?.failureOrNull != null) ...[
+                      Builder(
+                        builder: (context) {
+                          final failure = aiDishesAsync.value!.failureOrNull!;
+                          final isNotConfigured =
+                              failure is AiFailureNotConfigured;
+                          return Padding(
+                            padding: const EdgeInsets.only(top: 4, bottom: 12),
+                            child: Card(
+                              key: Key(
+                                isNotConfigured
+                                    ? 'ai_not_configured_banner'
+                                    : 'ai_error_banner',
+                              ),
+                              color: theme.colorScheme.surfaceContainerHighest,
+                              elevation: 0,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(16),
+                                side: BorderSide(
+                                  color: theme.colorScheme.outlineVariant,
+                                ),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(12),
+                                child: Column(
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.stretch,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Icon(
+                                          isNotConfigured
+                                              ? Icons.tune
+                                              : Icons.info_outline,
+                                          color: theme.colorScheme.primary,
+                                          size: 24,
+                                        ),
+                                        const SizedBox(width: 10),
+                                        Expanded(
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                isNotConfigured
+                                                    ? l10n.aiNotConfiguredTitle
+                                                    : l10n.aiNotRespondingTitle,
+                                                style: theme
+                                                    .textTheme
+                                                    .titleMedium
+                                                    ?.copyWith(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                              ),
+                                              const SizedBox(height: 2),
+                                              Text(
+                                                isNotConfigured
+                                                    ? l10n.aiNotConfiguredSubtitle
+                                                    : failure.message,
+                                                style: theme
+                                                    .textTheme
+                                                    .bodyMedium
+                                                    ?.copyWith(
+                                                      color: theme
+                                                          .colorScheme
+                                                          .onSurfaceVariant,
+                                                    ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(height: 10),
+                                    if (isNotConfigured)
+                                      Wrap(
+                                        spacing: 8,
+                                        runSpacing: 8,
+                                        children: [
+                                          ElevatedButton.icon(
+                                            key: const Key('btn_connect_qr_ai'),
+                                            style: ElevatedButton.styleFrom(
+                                              minimumSize: const Size(140, 48),
+                                            ),
+                                            icon: const Icon(
+                                              Icons.qr_code_scanner,
+                                              size: 20,
+                                            ),
+                                            label: Text(
+                                              l10n.aiSettingsConnectQr,
+                                              style:
+                                                  theme.textTheme.titleMedium,
+                                            ),
+                                            onPressed: () => context.push(
+                                              '/settings/ai/qr-scanner',
+                                            ),
+                                          ),
+                                          FilledButton.tonal(
+                                            key: const Key('btn_configure_ai'),
+                                            style: FilledButton.styleFrom(
+                                              minimumSize: const Size(110, 48),
+                                            ),
+                                            onPressed: () =>
+                                                context.push('/settings/ai'),
+                                            child: Text(
+                                              l10n.aiConfigureButton,
+                                              style:
+                                                  theme.textTheme.titleMedium,
+                                            ),
+                                          ),
+                                        ],
+                                      )
+                                    else
+                                      Row(
+                                        children: [
+                                          Expanded(
+                                            child: OutlinedButton.icon(
+                                              key: const Key('btn_retry_ai'),
+                                              style: OutlinedButton.styleFrom(
+                                                minimumSize:
+                                                    const Size.fromHeight(48),
+                                              ),
+                                              icon: const Icon(
+                                                Icons.refresh,
+                                                size: 20,
+                                              ),
+                                              label: Text(
+                                                l10n.aiRetryButton,
+                                                style:
+                                                    theme.textTheme.titleMedium,
+                                              ),
+                                              onPressed: () {
+                                                ref.invalidate(
+                                                  aiDishesProvider,
+                                                );
+                                              },
+                                            ),
+                                          ),
+                                          const SizedBox(width: 8),
+                                          IconButton.filledTonal(
+                                            key: const Key(
+                                              'btn_ai_banner_settings',
+                                            ),
+                                            style: IconButton.styleFrom(
+                                              minimumSize: const Size(48, 48),
+                                            ),
+                                            icon: const Icon(Icons.settings),
+                                            tooltip: l10n.aiSettingsTooltip,
+                                            onPressed: () =>
+                                                context.push('/settings/ai'),
+                                          ),
+                                        ],
+                                      ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ],
+
                     // AI Suggestions Group (if available)
                     if (filteredAiDishes.isNotEmpty) ...[
                       Padding(
@@ -463,158 +630,6 @@ class _SuggestionsScreenState extends ConsumerState<SuggestionsScreen> {
                             onReject: () => _rejectRecipe(scored.entry.recipe),
                           ),
                         ),
-                    ],
-
-                    // AI Failure Banner (R3-02)
-                    if (aiDishesAsync.value?.failureOrNull != null) ...[
-                      Builder(
-                        builder: (context) {
-                          final failure = aiDishesAsync.value!.failureOrNull!;
-                          final isNotConfigured =
-                              failure is AiFailureNotConfigured;
-                          return Padding(
-                            padding: const EdgeInsets.only(top: 8, bottom: 8),
-                            child: Card(
-                              key: Key(
-                                isNotConfigured
-                                    ? 'ai_not_configured_banner'
-                                    : 'ai_error_banner',
-                              ),
-                              color: theme.colorScheme.surfaceContainerHighest,
-                              elevation: 0,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(16),
-                                side: BorderSide(
-                                  color: theme.colorScheme.outlineVariant,
-                                ),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(16),
-                                child: Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.stretch,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Icon(
-                                          isNotConfigured
-                                              ? Icons.tune
-                                              : Icons.info_outline,
-                                          color: theme.colorScheme.primary,
-                                          size: 28,
-                                        ),
-                                        const SizedBox(width: 12),
-                                        Expanded(
-                                          child: Text(
-                                            isNotConfigured
-                                                ? l10n.aiNotConfiguredTitle
-                                                : l10n.aiNotRespondingTitle,
-                                            style: theme.textTheme.titleMedium
-                                                ?.copyWith(
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    const SizedBox(height: 8),
-                                    Text(
-                                      isNotConfigured
-                                          ? l10n.aiNotConfiguredSubtitle
-                                          : failure.message,
-                                      style: theme.textTheme.bodyMedium
-                                          ?.copyWith(
-                                            color: theme
-                                                .colorScheme
-                                                .onSurfaceVariant,
-                                          ),
-                                    ),
-                                    const SizedBox(height: 12),
-                                    if (isNotConfigured)
-                                      Wrap(
-                                        spacing: 8,
-                                        runSpacing: 8,
-                                        children: [
-                                          ElevatedButton.icon(
-                                            key: const Key('btn_connect_qr_ai'),
-                                            style: ElevatedButton.styleFrom(
-                                              minimumSize: const Size(160, 56),
-                                            ),
-                                            icon: const Icon(
-                                              Icons.qr_code_scanner,
-                                            ),
-                                            label: Text(
-                                              l10n.aiSettingsConnectQr,
-                                              style:
-                                                  theme.textTheme.titleMedium,
-                                            ),
-                                            onPressed: () => context.push(
-                                              '/settings/ai/qr-scanner',
-                                            ),
-                                          ),
-                                          FilledButton.tonal(
-                                            key: const Key('btn_configure_ai'),
-                                            style: FilledButton.styleFrom(
-                                              minimumSize: const Size(120, 56),
-                                            ),
-                                            onPressed: () =>
-                                                context.push('/settings/ai'),
-                                            child: Text(
-                                              l10n.aiConfigureButton,
-                                              style:
-                                                  theme.textTheme.titleMedium,
-                                            ),
-                                          ),
-                                        ],
-                                      )
-                                    else
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                            child: OutlinedButton.icon(
-                                              key: const Key('btn_retry_ai'),
-                                              style: OutlinedButton.styleFrom(
-                                                minimumSize:
-                                                    const Size.fromHeight(56),
-                                              ),
-                                              icon: const Icon(
-                                                Icons.refresh,
-                                                size: 24,
-                                              ),
-                                              label: Text(
-                                                l10n.aiRetryButton,
-                                                style:
-                                                    theme.textTheme.titleMedium,
-                                              ),
-                                              onPressed: () {
-                                                ref.invalidate(
-                                                  aiDishesProvider,
-                                                );
-                                              },
-                                            ),
-                                          ),
-                                          const SizedBox(width: 8),
-                                          IconButton.filledTonal(
-                                            key: const Key(
-                                              'btn_ai_banner_settings',
-                                            ),
-                                            style: IconButton.styleFrom(
-                                              minimumSize: const Size(56, 56),
-                                            ),
-                                            icon: const Icon(Icons.settings),
-                                            tooltip: l10n.aiSettingsTooltip,
-                                            onPressed: () =>
-                                                context.push('/settings/ai'),
-                                          ),
-                                        ],
-                                      ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          );
-                        },
-                      ),
                     ],
 
                     // «Другие варианты» Button (ТЗ 6.3)
