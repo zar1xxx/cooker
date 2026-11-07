@@ -4,6 +4,7 @@ import 'package:chto_prigotovit/core/ai/pc_discovery.dart';
 import 'package:chto_prigotovit/core/ai/recipe_validator.dart';
 import 'package:chto_prigotovit/core/db/app_database.dart';
 import 'package:chto_prigotovit/core/providers.dart';
+import 'package:chto_prigotovit/features/settings/ai_diagnostics_screen.dart';
 import 'package:chto_prigotovit/features/settings/ai_settings_screen.dart';
 import 'package:chto_prigotovit/l10n/app_localizations.dart';
 import 'package:drift/native.dart';
@@ -14,6 +15,15 @@ import 'package:flutter_test/flutter_test.dart';
 
 class _FakePcDiscovery extends PcDiscovery {
   String? fakeFoundHost;
+
+  @override
+  Future<bool> probeHost(
+    String host,
+    int port, {
+    Duration timeout = const Duration(milliseconds: 300),
+  }) async {
+    return fakeFoundHost != null;
+  }
 
   @override
   Future<String?> discover({
@@ -185,6 +195,46 @@ void main() {
 
       // Navigated to settings screen
       expect(find.text('Настройки помощника (ИИ)'), findsOneWidget);
+    });
+
+    testWidgets('has diagnostics button that navigates to diagnostics screen', (
+      tester,
+    ) async {
+      tester.view.physicalSize = const Size(1080, 2400);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(() {
+        tester.view.resetPhysicalSize();
+        tester.view.resetDevicePixelRatio();
+      });
+
+      await tester.pumpWidget(
+        ProviderScope(
+          overrides: [
+            databaseProvider.overrideWithValue(db),
+            pcDiscoveryProvider.overrideWithValue(fakeDiscovery),
+            aiConnectionCheckerProvider.overrideWithValue(fakeChecker),
+          ],
+          child: MaterialApp.router(
+            routerConfig: appRouter,
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
+            supportedLocales: AppLocalizations.supportedLocales,
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      appRouter.go('/settings/ai');
+      await tester.pumpAndSettle();
+
+      final diagBtn = find.byKey(const Key('btn_open_diagnostics'));
+      expect(diagBtn, findsOneWidget);
+
+      await tester.tap(diagBtn);
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 300));
+
+      expect(find.byType(AiDiagnosticsScreen), findsOneWidget);
+      expect(find.text('Проверка помощника'), findsOneWidget);
     });
   });
 }

@@ -1,5 +1,6 @@
 import 'package:clock/clock.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:network_info_plus/network_info_plus.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'ai/ai_failure.dart';
@@ -368,9 +369,14 @@ final connectivityProvider = Provider<Connectivity>((ref) {
   return Connectivity();
 });
 
+final networkInfoProvider = Provider<NetworkInfo>((ref) {
+  return NetworkInfo();
+});
+
 final pcDiscoveryProvider = Provider<PcDiscovery>((ref) {
   final connectivity = ref.watch(connectivityProvider);
-  return PcDiscovery(connectivity: connectivity);
+  final networkInfo = ref.watch(networkInfoProvider);
+  return PcDiscovery(connectivity: connectivity, networkInfo: networkInfo);
 });
 
 final aiRouterProvider = Provider<AiRouter>((ref) {

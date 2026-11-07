@@ -924,6 +924,38 @@
   "@aiSettingsTooltip": {
     "description": "Подсказка для кнопки настроек помощника в AppBar"
   },
+  "aiDiagnosticsTitle": "Проверка помощника",
+  "@aiDiagnosticsTitle": {
+    "description": "Заголовок экрана проверки помощника"
+  },
+  "aiDiagnosticsSubtitle": "Пошаговая проверка подключения к компьютеру и GigaChat",
+  "@aiDiagnosticsSubtitle": {
+    "description": "Подзаголовок экрана проверки помощника"
+  },
+  "aiDiagnosticsRun": "Запустить проверку",
+  "@aiDiagnosticsRun": {
+    "description": "Кнопка запуска диагностики"
+  },
+  "aiDiagnosticsRunning": "Выполняется проверка...",
+  "@aiDiagnosticsRunning": {
+    "description": "Индикатор выполнения проверки"
+  },
+  "aiDiagnosticsHistoryTitle": "Последние 10 запросов",
+  "@aiDiagnosticsHistoryTitle": {
+    "description": "Заголовок списка последних запросов"
+  },
+  "aiDiagnosticsHistoryEmpty": "Запросов пока нет",
+  "@aiDiagnosticsHistoryEmpty": {
+    "description": "Сообщение при пустом списке запросов"
+  },
+  "aiDiagnosticsBtnOpen": "Проверка помощника",
+  "@aiDiagnosticsBtnOpen": {
+    "description": "Кнопка перехода на экран диагностики в настройках"
+  },
+  "aiDiagnosticsBtnOpenSubtitle": "Проверить Wi-Fi, компьютер, GigaChat и историю запросов",
+  "@aiDiagnosticsBtnOpenSubtitle": {
+    "description": "Подзаголовок кнопки диагностики"
+  },
   "tasteScreenTitle": "Что приложение знает о ваших вкусах",
   "@tasteScreenTitle": {
     "description": "Заголовок экрана вкусов и предпочтений"

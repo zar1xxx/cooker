@@ -7,6 +7,7 @@ import '../features/history/history_screen.dart';
 import '../features/pantry/pantry_screen.dart';
 import '../features/recipe/cooking_screen.dart';
 import '../features/recipe/recipe_screen.dart';
+import '../features/settings/ai_diagnostics_screen.dart';
 import '../features/settings/ai_settings_screen.dart';
 import '../features/settings/backup_screen.dart';
 import '../features/settings/taste_preferences_screen.dart';
@@ -30,6 +31,11 @@ final GoRouter appRouter = GoRouter(
       path: '/settings/ai',
       parentNavigatorKey: rootNavigatorKey,
       builder: (context, state) => const AiSettingsScreen(),
+    ),
+    GoRoute(
+      path: '/settings/ai/diagnostics',
+      parentNavigatorKey: rootNavigatorKey,
+      builder: (context, state) => const AiDiagnosticsScreen(),
     ),
     GoRoute(
       path: '/settings/preferences',

@@ -1300,6 +1300,54 @@ abstract class AppLocalizations {
   /// **'Настройки помощника'**
   String get aiSettingsTooltip;
 
+  /// Заголовок экрана проверки помощника
+  ///
+  /// In ru, this message translates to:
+  /// **'Проверка помощника'**
+  String get aiDiagnosticsTitle;
+
+  /// Подзаголовок экрана проверки помощника
+  ///
+  /// In ru, this message translates to:
+  /// **'Пошаговая проверка подключения к компьютеру и GigaChat'**
+  String get aiDiagnosticsSubtitle;
+
+  /// Кнопка запуска диагностики
+  ///
+  /// In ru, this message translates to:
+  /// **'Запустить проверку'**
+  String get aiDiagnosticsRun;
+
+  /// Индикатор выполнения проверки
+  ///
+  /// In ru, this message translates to:
+  /// **'Выполняется проверка...'**
+  String get aiDiagnosticsRunning;
+
+  /// Заголовок списка последних запросов
+  ///
+  /// In ru, this message translates to:
+  /// **'Последние 10 запросов'**
+  String get aiDiagnosticsHistoryTitle;
+
+  /// Сообщение при пустом списке запросов
+  ///
+  /// In ru, this message translates to:
+  /// **'Запросов пока нет'**
+  String get aiDiagnosticsHistoryEmpty;
+
+  /// Кнопка перехода на экран диагностики в настройках
+  ///
+  /// In ru, this message translates to:
+  /// **'Проверка помощника'**
+  String get aiDiagnosticsBtnOpen;
+
+  /// Подзаголовок кнопки диагностики
+  ///
+  /// In ru, this message translates to:
+  /// **'Проверить Wi-Fi, компьютер, GigaChat и историю запросов'**
+  String get aiDiagnosticsBtnOpenSubtitle;
+
   /// Заголовок экрана вкусов и предпочтений
   ///
   /// In ru, this message translates to:

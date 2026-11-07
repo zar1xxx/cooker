@@ -669,6 +669,32 @@ class AppLocalizationsRu extends AppLocalizations {
   String get aiSettingsTooltip => 'Настройки помощника';
 
   @override
+  String get aiDiagnosticsTitle => 'Проверка помощника';
+
+  @override
+  String get aiDiagnosticsSubtitle =>
+      'Пошаговая проверка подключения к компьютеру и GigaChat';
+
+  @override
+  String get aiDiagnosticsRun => 'Запустить проверку';
+
+  @override
+  String get aiDiagnosticsRunning => 'Выполняется проверка...';
+
+  @override
+  String get aiDiagnosticsHistoryTitle => 'Последние 10 запросов';
+
+  @override
+  String get aiDiagnosticsHistoryEmpty => 'Запросов пока нет';
+
+  @override
+  String get aiDiagnosticsBtnOpen => 'Проверка помощника';
+
+  @override
+  String get aiDiagnosticsBtnOpenSubtitle =>
+      'Проверить Wi-Fi, компьютер, GigaChat и историю запросов';
+
+  @override
   String get tasteScreenTitle => 'Что приложение знает о ваших вкусах';
 
   @override

@@ -389,6 +389,33 @@ class _AiSettingsScreenState extends ConsumerState<AiSettingsScreen> {
             ),
             const SizedBox(height: 12),
 
+            // Diagnostics Link Card (R3-03)
+            Card(
+              elevation: 0,
+              color: theme.colorScheme.primaryContainer.withValues(alpha: 0.35),
+              child: ListTile(
+                key: const Key('btn_open_diagnostics'),
+                leading: Icon(
+                  Icons.troubleshoot,
+                  color: theme.colorScheme.primary,
+                  size: 28,
+                ),
+                title: Text(
+                  l10n.aiDiagnosticsBtnOpen,
+                  style: theme.textTheme.titleSmall?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                subtitle: Text(
+                  l10n.aiDiagnosticsBtnOpenSubtitle,
+                  style: theme.textTheme.bodySmall,
+                ),
+                trailing: const Icon(Icons.chevron_right),
+                onTap: () => context.push('/settings/ai/diagnostics'),
+              ),
+            ),
+            const SizedBox(height: 12),
+
             // Section: Daily Notification (ТЗ 7.3)
             Card(
               elevation: 0,
