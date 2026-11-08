@@ -119,5 +119,48 @@ void main() {
       expect(html, contains('120000'));
       expect(html, contains('Содержит ключ GigaChat'));
     });
+
+    test('R5-04: parsePairPcArgs only accepts --gigachat as flag, never from CLI arguments', () {
+      final args1 = parsePairPcArgs(['--gigachat']);
+      expect(args1.withGigaChat, isTrue);
+
+      final args2 = parsePairPcArgs([
+        '--gigachat',
+        'should-not-be-accepted-as-key',
+      ]);
+      expect(args2.withGigaChat, isTrue);
+
+      final args3 = parsePairPcArgs(['--gigachat=secret-key']);
+      // Does not treat --gigachat=key as valid flag
+      expect(args3.withGigaChat, isFalse);
+
+      final args4 = parsePairPcArgs(['--port', '1235']);
+      expect(args4.port, equals(1235));
+      expect(args4.withGigaChat, isFalse);
+
+      final args5 = parsePairPcArgs(['--port=1235', '--gigachat']);
+      expect(args5.port, equals(1235));
+      expect(args5.withGigaChat, isTrue);
+    });
+
+    test('R5-04: filterCandidateHosts returns empty list when no private LAN addresses exist', () {
+      final interfaces = [
+        const PcNetworkInfo(
+          name: 'Loopback Pseudo-Interface 1',
+          addresses: ['127.0.0.1'],
+        ),
+        const PcNetworkInfo(name: 'FlClashX', addresses: ['198.18.0.1']),
+        const PcNetworkInfo(
+          name: 'vEthernet (Default Switch)',
+          addresses: ['172.28.16.1'],
+        ),
+        const PcNetworkInfo(name: 'Public', addresses: ['8.8.8.8']),
+      ];
+
+      final filtered = filterCandidateHosts(interfaces);
+      expect(filtered, isEmpty);
+      // Ensures 127.0.0.1 is NEVER included
+      expect(filtered.contains('127.0.0.1'), isFalse);
+    });
   });
 }

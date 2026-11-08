@@ -7,6 +7,33 @@ class PcNetworkInfo {
   final List<String> addresses;
 }
 
+class PairPcArgs {
+  const PairPcArgs({this.withGigaChat = false, this.port});
+  final bool withGigaChat;
+  final int? port;
+}
+
+/// Parses CLI arguments for pair_pc.
+/// Note: per R5-04, GigaChat key is NEVER accepted from command-line arguments.
+PairPcArgs parsePairPcArgs(List<String> args) {
+  bool withGigaChat = false;
+  int? port;
+
+  for (int i = 0; i < args.length; i++) {
+    final arg = args[i];
+    if (arg == '--gigachat') {
+      withGigaChat = true;
+    } else if (arg == '--port' && i + 1 < args.length) {
+      port = int.tryParse(args[i + 1]);
+      i++;
+    } else if (arg.startsWith('--port=')) {
+      port = int.tryParse(arg.substring('--port='.length));
+    }
+  }
+
+  return PairPcArgs(withGigaChat: withGigaChat, port: port);
+}
+
 /// Returns true if the network interface name indicates a virtual, container, or tunnel adapter.
 bool isVirtualOrExcludedAdapter(String name) {
   final lower = name.toLowerCase();

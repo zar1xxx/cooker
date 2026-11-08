@@ -4,20 +4,10 @@ Running build hooks...Running build hooks...====================================
 
 [LM Studio] Checking server at candidate ports: 1235 ...
 [LM Studio] Probing http://127.0.0.1:1235 ...
-[LM Studio] Server reachable on port 1235! Using model: google/gemma-4-12b-qat
-[LM Studio] Selected port 1235 with model: google/gemma-4-12b-qat
-
-[LM Studio] 1/2: Testing suggest_dishes ...
-[LM Studio] suggest_dishes completed in 9033 ms
-[LM Studio] Usage: prompt_tokens=406, completion_tokens=583
-[LM Studio] finish_reason: stop
-[LM Studio] suggest_dishes validation: Valid(warnings: [])
-
-[LM Studio] 2/2: Testing full_recipe for "Запечённый картофель с курицей" ...
-[LM Studio] full_recipe completed in 19075 ms
-[LM Studio] Usage: prompt_tokens=420, completion_tokens=1293
-[LM Studio] finish_reason: stop
-[LM Studio] full_recipe validation: Valid(warnings: [])
+[LM Studio] Port 1235 not answering / error: DioException [connection error]: The connection errored: Удаленный компьютер отклонил это сетевое подключение This indicates an error which most likely cannot be solved by the library.
+Error: SocketException: Удаленный компьютер отклонил это сетевое подключение (OS Error: Удаленный компьютер отклонил это сетевое подключение, errno = 1225), address = 127.0.0.1, port = 58355
+[LM Studio] NOT RUNNING / NOT REACHABLE on candidate ports: 1235
+[LM Studio] (Start LM Studio on this PC, load a model, and start the local server via tool\start_lmstudio_server.bat)
 
 [GigaChat] GIGACHAT_KEY environment variable is not set. Skipped.
 [GigaChat] (To test GigaChat: set GIGACHAT_KEY=<auth_key> and rerun)
@@ -25,4 +15,4 @@ Running build hooks...Running build hooks...====================================
 ========================================
   AI Smoke Test Completed               
 ========================================
-exit 0 
+exit 1 

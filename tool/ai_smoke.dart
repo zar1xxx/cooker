@@ -71,9 +71,7 @@ Future<bool> _testLmStudio({
     try {
       final f = File('docs/reports/last_ai_smoke_raw.json');
       f.parent.createSync(recursive: true);
-      f.writeAsStringSync(
-        const JsonEncoder.withIndent('  ').convert(rawLog),
-      );
+      f.writeAsStringSync(const JsonEncoder.withIndent('  ').convert(rawLog));
     } catch (e) {
       stdout.writeln('[Smoke] Warning: could not write raw log: $e');
     }
@@ -177,6 +175,36 @@ Future<bool> _testLmStudio({
   );
   stdout.writeln('[LM Studio] finish_reason: ${resp1.finishReason}');
 
+  if (resp1.finishReason == 'length') {
+    stdout.writeln(
+      '[LM Studio] finish_reason is length! Retrying suggest_dishes once with temperature 0.2 per R5-07 ...',
+    );
+    final swRetryLen = Stopwatch()..start();
+    try {
+      final retryResp = await provider.chat(
+        AiChatRequest(
+          messages: [
+            AiChatMessage.system(suggestSystem),
+            AiChatMessage.user(suggestUser),
+          ],
+          model: modelId,
+          temperature: 0.2,
+          maxTokens: AiMaxTokens.suggestDishes,
+          jsonSchema: suggestSchema,
+          schemaName: 'suggest_dishes',
+          timeout: const Duration(seconds: 45),
+        ),
+      );
+      swRetryLen.stop();
+      stdout.writeln(
+        '[LM Studio] suggest_dishes length retry completed in ${swRetryLen.elapsed.inMilliseconds} ms (finish_reason: ${retryResp.finishReason})',
+      );
+      resp1 = retryResp;
+    } catch (e) {
+      stdout.writeln('[LM Studio] length retry failed: $e');
+    }
+  }
+
   rawLog['suggest_dishes'] = {
     'finish_reason': resp1.finishReason,
     'prompt_tokens': resp1.promptTokens,
@@ -186,13 +214,47 @@ Future<bool> _testLmStudio({
   };
 
   String firstDishTitle = 'Куриный суп с картофелем';
+  String firstDishType = 'soup';
+  String firstDishDifficulty = 'easy';
+  List<String> firstDishMainIngredients = ['куриное филе', 'картофель'];
   bool val1Ok = false;
   try {
     final parsed = jsonDecode(resp1.rawContent) as Map<String, dynamic>;
-    final valResult = validator.validateDishes(parsed);
+    var valResult = validator.validateDishes(parsed);
     stdout.writeln('[LM Studio] suggest_dishes validation: $valResult');
     if (valResult is Valid) {
       val1Ok = true;
+    } else if (valResult is Retryable) {
+      stdout.writeln(
+        '[LM Studio] Retrying suggest_dishes once: ${valResult.reasonForModel} ...',
+      );
+      final retryResp = await provider.chat(
+        AiChatRequest(
+          messages: [
+            AiChatMessage.system(suggestSystem),
+            AiChatMessage.user(suggestUser),
+            AiChatMessage.assistant(resp1.rawContent),
+            AiChatMessage.user(
+              'Ответ отклонён: ${valResult.reasonForModel}. Пожалуйста, исправь ошибки и верни строго валидный JSON по схеме.',
+            ),
+          ],
+          model: modelId,
+          temperature: 0.2,
+          maxTokens: AiMaxTokens.suggestDishes,
+          jsonSchema: suggestSchema,
+          schemaName: 'suggest_dishes',
+          timeout: const Duration(seconds: 45),
+        ),
+      );
+      final retryParsed =
+          jsonDecode(retryResp.rawContent) as Map<String, dynamic>;
+      valResult = validator.validateDishes(retryParsed);
+      stdout.writeln('[LM Studio] suggest_dishes retry validation: $valResult');
+      if (valResult is Valid) {
+        val1Ok = true;
+        parsed.clear();
+        parsed.addAll(retryParsed);
+      }
     } else {
       stdout.writeln(
         '[LM Studio] Warning/Invalid suggest_dishes: finish_reason=${resp1.finishReason}',
@@ -203,9 +265,22 @@ Future<bool> _testLmStudio({
     }
     final dishes = parsed['dishes'] as List?;
     if (dishes != null && dishes.isNotEmpty && dishes.first is Map) {
-      final title = (dishes.first as Map)['title'];
+      final firstMap = dishes.first as Map<String, dynamic>;
+      final title = firstMap['title'];
       if (title is String && title.isNotEmpty) {
         firstDishTitle = title;
+      }
+      final dType = firstMap['dish_type'];
+      if (dType is String && dType.isNotEmpty) {
+        firstDishType = dType;
+      }
+      final diff = firstMap['difficulty'];
+      if (diff is String && diff.isNotEmpty) {
+        firstDishDifficulty = diff;
+      }
+      final mainIngs = firstMap['main_ingredients'];
+      if (mainIngs is List && mainIngs.isNotEmpty) {
+        firstDishMainIngredients = mainIngs.cast<String>();
       }
     }
   } catch (e) {
@@ -224,7 +299,7 @@ Future<bool> _testLmStudio({
 
   // 2. full_recipe
   stdout.writeln(
-    '\n[LM Studio] 2/2: Testing full_recipe for "$firstDishTitle" ...',
+    '\n[LM Studio] 2/2: Testing full_recipe for "$firstDishTitle" ($firstDishType, $firstDishDifficulty) ...',
   );
   final recipeSystem = templates.buildSystem(
     schemaJson: jsonEncode(fullRecipeSchema),
@@ -232,9 +307,9 @@ Future<bool> _testLmStudio({
   );
   final recipeUser = templates.buildFullRecipe(
     title: firstDishTitle,
-    dishType: 'soup',
-    difficulty: 'easy',
-    mainIngredients: ['куриное филе', 'картофель'],
+    dishType: firstDishType,
+    difficulty: firstDishDifficulty,
+    mainIngredients: firstDishMainIngredients,
     availableIngredients: [
       'картофель',
       'морковь',
@@ -281,6 +356,36 @@ Future<bool> _testLmStudio({
   );
   stdout.writeln('[LM Studio] finish_reason: ${resp2.finishReason}');
 
+  if (resp2.finishReason == 'length') {
+    stdout.writeln(
+      '[LM Studio] finish_reason is length! Retrying full_recipe once with temperature 0.2 per R5-07 ...',
+    );
+    final swRetryLen = Stopwatch()..start();
+    try {
+      final retryResp = await provider.chat(
+        AiChatRequest(
+          messages: [
+            AiChatMessage.system(recipeSystem),
+            AiChatMessage.user(recipeUser),
+          ],
+          model: modelId,
+          temperature: 0.2,
+          maxTokens: AiMaxTokens.fullRecipe,
+          jsonSchema: fullRecipeSchema,
+          schemaName: 'full_recipe',
+          timeout: const Duration(seconds: 45),
+        ),
+      );
+      swRetryLen.stop();
+      stdout.writeln(
+        '[LM Studio] full_recipe length retry completed in ${swRetryLen.elapsed.inMilliseconds} ms (finish_reason: ${retryResp.finishReason})',
+      );
+      resp2 = retryResp;
+    } catch (e) {
+      stdout.writeln('[LM Studio] length retry failed: $e');
+    }
+  }
+
   rawLog['full_recipe'] = {
     'finish_reason': resp2.finishReason,
     'prompt_tokens': resp2.promptTokens,
@@ -293,10 +398,44 @@ Future<bool> _testLmStudio({
   bool val2Ok = false;
   try {
     final parsedRecipe = jsonDecode(resp2.rawContent) as Map<String, dynamic>;
-    final valResult = validator.validate(parsedRecipe);
+    var valResult = validator.validate(parsedRecipe);
     stdout.writeln('[LM Studio] full_recipe validation: $valResult');
     if (valResult is Valid) {
       val2Ok = true;
+    } else if (valResult is Retryable) {
+      stdout.writeln(
+        '[LM Studio] Retrying full_recipe once: ${valResult.reasonForModel} ...',
+      );
+      final swRetry = Stopwatch()..start();
+      final retryResp = await provider.chat(
+        AiChatRequest(
+          messages: [
+            AiChatMessage.system(recipeSystem),
+            AiChatMessage.user(recipeUser),
+            AiChatMessage.assistant(resp2.rawContent),
+            AiChatMessage.user(
+              'Ответ отклонён: ${valResult.reasonForModel}. Пожалуйста, исправь ошибки и верни строго валидный JSON по схеме.',
+            ),
+          ],
+          model: modelId,
+          temperature: 0.2,
+          maxTokens: AiMaxTokens.fullRecipe,
+          jsonSchema: fullRecipeSchema,
+          schemaName: 'full_recipe',
+          timeout: const Duration(seconds: 45),
+        ),
+      );
+      swRetry.stop();
+      stdout.writeln(
+        '[LM Studio] full_recipe retry completed in ${swRetry.elapsed.inMilliseconds} ms (finish_reason: ${retryResp.finishReason})',
+      );
+      final retryParsed =
+          jsonDecode(retryResp.rawContent) as Map<String, dynamic>;
+      valResult = validator.validate(retryParsed);
+      stdout.writeln('[LM Studio] full_recipe retry validation: $valResult');
+      if (valResult is Valid) {
+        val2Ok = true;
+      }
     } else {
       stdout.writeln(
         '[LM Studio] Warning/Invalid full_recipe: finish_reason=${resp2.finishReason}',
