@@ -223,7 +223,7 @@ void main() {
       mockScannerError = null;
     });
 
-    Widget buildTestScreen() {
+    Widget buildTestScreen({Future<bool> Function()? openSettings}) {
       return ProviderScope(
         overrides: [
           pcDiscoveryProvider.overrideWithValue(fakeDiscovery),
@@ -242,10 +242,10 @@ void main() {
             return Container(key: const ValueKey('mock_camera_view'));
           }),
         ],
-        child: const MaterialApp(
+        child: MaterialApp(
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,
-          home: QrScannerScreen(),
+          home: QrScannerScreen(openSettings: openSettings),
         ),
       );
     }
@@ -258,29 +258,67 @@ void main() {
 
       expect(find.text('Подключение по QR-коду'), findsOneWidget);
       expect(find.byKey(const ValueKey('mock_camera_view')), findsOneWidget);
+      expect(find.byKey(const Key('qr_viewfinder_overlay')), findsOneWidget);
       expect(
         find.text('Наведите камеру на QR-код на экране компьютера'),
         findsOneWidget,
       );
     });
 
-    testWidgets('renders error view when camera permission error occurs', (
-      tester,
-    ) async {
-      mockScannerError = const MobileScannerException(
-        errorCode: MobileScannerErrorCode.permissionDenied,
-      );
+    testWidgets(
+      'R5-05: renders permission error, hides viewfinder overlay, and Open Settings calls handler',
+      (tester) async {
+        bool settingsOpened = false;
+        mockScannerError = const MobileScannerException(
+          errorCode: MobileScannerErrorCode.permissionDenied,
+        );
 
-      await tester.pumpWidget(buildTestScreen());
-      await tester.pumpAndSettle();
+        await tester.pumpWidget(
+          buildTestScreen(
+            openSettings: () async {
+              settingsOpened = true;
+              return true;
+            },
+          ),
+        );
+        await tester.pumpAndSettle();
 
-      expect(
-        find.text('Для сканирования QR-кода нужен доступ к камере'),
-        findsOneWidget,
-      );
-      expect(find.text('Открыть настройки'), findsOneWidget);
-      expect(find.byIcon(Icons.videocam_off_outlined), findsOneWidget);
-    });
+        expect(
+          find.text('Для сканирования QR-кода нужен доступ к камере'),
+          findsOneWidget,
+        );
+        expect(find.text('Открыть настройки'), findsOneWidget);
+        expect(find.byIcon(Icons.videocam_off_outlined), findsOneWidget);
+        // Viewfinder overlay must NOT be painted when camera error occurs
+        expect(find.byKey(const Key('qr_viewfinder_overlay')), findsNothing);
+
+        await tester.tap(find.byKey(const Key('btn_open_app_settings')));
+        await tester.pumpAndSettle();
+        expect(settingsOpened, isTrue);
+      },
+    );
+
+    testWidgets(
+      'R5-05: renders distinct camera unavailable error and hides viewfinder overlay',
+      (tester) async {
+        mockScannerError = const MobileScannerException(
+          errorCode: MobileScannerErrorCode.unsupported,
+        );
+
+        await tester.pumpWidget(buildTestScreen());
+        await tester.pumpAndSettle();
+
+        expect(
+          find.text('Камера недоступна на этом устройстве'),
+          findsOneWidget,
+        );
+        expect(
+          find.text('Для сканирования QR-кода нужен доступ к камере'),
+          findsNothing,
+        );
+        expect(find.byKey(const Key('qr_viewfinder_overlay')), findsNothing);
+      },
+    );
 
     testWidgets(
       'successful QR scan probes host, shows success SnackBar and pops',

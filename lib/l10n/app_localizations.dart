@@ -1917,6 +1917,18 @@ abstract class AppLocalizations {
   /// In ru, this message translates to:
   /// **'ПК не отвечает по указанным адресам'**
   String get aiQrScannerSavedNotResponding;
+
+  /// Сообщение о том что камера недоступна на устройстве
+  ///
+  /// In ru, this message translates to:
+  /// **'Камера недоступна на этом устройстве'**
+  String get aiQrScannerCameraUnavailable;
+
+  /// Сообщение об ошибке сохранения настроек подключения
+  ///
+  /// In ru, this message translates to:
+  /// **'Не удалось сохранить настройки подключения'**
+  String get aiQrScannerSaveError;
 }
 
 class _AppLocalizationsDelegate

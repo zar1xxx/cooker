@@ -1388,5 +1388,13 @@
   "aiQrScannerSavedNotResponding": "ПК не отвечает по указанным адресам",
   "@aiQrScannerSavedNotResponding": {
     "description": "Предупреждение, если компьютер записан из QR, но не отвечает по сети"
+  },
+  "aiQrScannerCameraUnavailable": "Камера недоступна на этом устройстве",
+  "@aiQrScannerCameraUnavailable": {
+    "description": "Сообщение о том что камера недоступна на устройстве"
+  },
+  "aiQrScannerSaveError": "Не удалось сохранить настройки подключения",
+  "@aiQrScannerSaveError": {
+    "description": "Сообщение об ошибке сохранения настроек подключения"
   }
 }

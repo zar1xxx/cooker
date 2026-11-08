@@ -2,13 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import '../../core/ai/qr_pairing_parser.dart';
 import '../../core/providers.dart';
 import '../../l10n/app_localizations.dart';
 
 class QrScannerScreen extends ConsumerStatefulWidget {
-  const QrScannerScreen({super.key});
+  const QrScannerScreen({super.key, this.openSettings});
+
+  final Future<bool> Function()? openSettings;
 
   @override
   ConsumerState<QrScannerScreen> createState() => _QrScannerScreenState();
@@ -18,6 +21,7 @@ class _QrScannerScreenState extends ConsumerState<QrScannerScreen> {
   late final MobileScannerController _controller;
   bool _isProcessing = false;
   bool _torchEnabled = false;
+  bool _hasCameraError = false;
 
   @override
   void initState() {
@@ -96,11 +100,11 @@ class _QrScannerScreenState extends ConsumerState<QrScannerScreen> {
       }
 
       context.pop(result);
-    } catch (e) {
+    } catch (_) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Ошибка сохранения настроек: $e'),
+            content: Text(l10n.aiQrScannerSaveError),
             duration: const Duration(seconds: 3),
           ),
         );
@@ -112,7 +116,23 @@ class _QrScannerScreenState extends ConsumerState<QrScannerScreen> {
   }
 
   Widget _buildErrorView(BuildContext context, MobileScannerException error) {
+    if (!_hasCameraError) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted && !_hasCameraError) {
+          setState(() {
+            _hasCameraError = true;
+          });
+        }
+      });
+    }
+
     final l10n = AppLocalizations.of(context)!;
+    final isPermissionDenied =
+        error.errorCode == MobileScannerErrorCode.permissionDenied;
+    final message = isPermissionDenied
+        ? l10n.aiQrScannerPermissionError
+        : l10n.aiQrScannerCameraUnavailable;
+
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(24.0),
@@ -126,7 +146,7 @@ class _QrScannerScreenState extends ConsumerState<QrScannerScreen> {
             ),
             const SizedBox(height: 16),
             Text(
-              l10n.aiQrScannerPermissionError,
+              message,
               textAlign: TextAlign.center,
               style: const TextStyle(
                 color: Colors.white,
@@ -136,8 +156,9 @@ class _QrScannerScreenState extends ConsumerState<QrScannerScreen> {
             ),
             const SizedBox(height: 24),
             ElevatedButton.icon(
-              onPressed: () => context.pop(),
-              icon: const Icon(Icons.arrow_back),
+              key: const Key('btn_open_app_settings'),
+              onPressed: () => (widget.openSettings ?? openAppSettings)(),
+              icon: const Icon(Icons.settings),
               label: Text(l10n.aiQrScannerOpenSettings),
               style: ElevatedButton.styleFrom(minimumSize: const Size(180, 48)),
             ),
@@ -178,39 +199,45 @@ class _QrScannerScreenState extends ConsumerState<QrScannerScreen> {
         fit: StackFit.expand,
         children: [
           scannerBuilder(context, _controller, _handleBarcode, _buildErrorView),
-          // Viewfinder Overlay
-          Center(
-            child: Container(
-              width: 260,
-              height: 260,
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.white, width: 3),
-                borderRadius: BorderRadius.circular(20),
-              ),
-            ),
-          ),
-          // Bottom hint banner
-          Positioned(
-            left: 20,
-            right: 20,
-            bottom: 40,
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-              decoration: BoxDecoration(
-                color: Colors.black87,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Text(
-                l10n.aiQrScannerHint,
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 15,
-                  fontWeight: FontWeight.w500,
+          if (!_hasCameraError) ...[
+            // Viewfinder Overlay
+            Center(
+              child: Container(
+                key: const Key('qr_viewfinder_overlay'),
+                width: 260,
+                height: 260,
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.white, width: 3),
+                  borderRadius: BorderRadius.circular(20),
                 ),
               ),
             ),
-          ),
+            // Bottom hint banner
+            Positioned(
+              left: 20,
+              right: 20,
+              bottom: 40,
+              child: Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 12,
+                ),
+                decoration: BoxDecoration(
+                  color: Colors.black87,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Text(
+                  l10n.aiQrScannerHint,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 15,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+            ),
+          ],
           if (_isProcessing)
             Container(
               color: Colors.black54,

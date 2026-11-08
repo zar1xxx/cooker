@@ -1015,4 +1015,12 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get aiQrScannerSavedNotResponding =>
       'ПК не отвечает по указанным адресам';
+
+  @override
+  String get aiQrScannerCameraUnavailable =>
+      'Камера недоступна на этом устройстве';
+
+  @override
+  String get aiQrScannerSaveError =>
+      'Не удалось сохранить настройки подключения';
 }
