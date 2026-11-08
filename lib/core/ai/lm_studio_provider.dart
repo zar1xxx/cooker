@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
@@ -93,7 +94,7 @@ class LmStudioProvider implements AiProvider {
   /// 1. [requestedModel] if provided in request.
   /// 2. [model] configured in constructor.
   /// 3. [_cachedAutoModel] if previously auto-selected.
-  /// 4. Queries `GET /v1/models` and picks the first model without 'embed'.
+  /// 4. Queries `GET /api/v0/models` (or `GET /api/v1/models`) for loaded models.
   /// Throws [AiException] with [AiFailure.pcNoModel] if no models are loaded.
   Future<String> resolveModel({
     String? requestedModel,
@@ -109,17 +110,90 @@ class LmStudioProvider implements AiProvider {
       return _cachedAutoModel!;
     }
 
-    final models = await getModels(timeout: timeout);
-    if (models.isEmpty) {
+    final loadedModels = await getLoadedModels(timeout: timeout);
+    if (loadedModels.isEmpty) {
       throw const AiException(
         AiFailure.pcNoModel('На компьютере не загружена модель'),
       );
     }
 
-    final nonEmbed = models.where((m) => !m.toLowerCase().contains('embed'));
-    final selected = nonEmbed.isNotEmpty ? nonEmbed.first : models.first;
+    final selected = loadedModels.first;
     _cachedAutoModel = selected;
     return selected;
+  }
+
+  /// Queries loaded models from LM Studio:
+  /// First tries `GET /api/v0/models` filtering by `state == "loaded"` and `type == "llm"` (or "vlm").
+  /// If that endpoint fails, tries `GET /api/v1/models` checking non-empty `loaded_instances`.
+  /// Excludes embedding models. Returns empty list if no models are loaded.
+  Future<List<String>> getLoadedModels({
+    Duration timeout = const Duration(seconds: 3),
+  }) async {
+    final cleanBase = sanitizeBaseUrl(baseUrl);
+    _validateUrl(cleanBase);
+
+    // 1. Try GET /api/v0/models
+    try {
+      final response = await _dio.get<Map<String, dynamic>>(
+        '$cleanBase/api/v0/models',
+        options: _buildOptions(timeout: timeout),
+      );
+      final data = response.data?['data'];
+      if (data is List) {
+        final loaded = data
+            .whereType<Map<dynamic, dynamic>>()
+            .where((m) {
+              final state = m['state'] as String?;
+              final type = m['type'] as String?;
+              return state == 'loaded' && (type == 'llm' || type == 'vlm');
+            })
+            .map((m) => m['id'] as String?)
+            .whereType<String>()
+            .where((id) => !id.toLowerCase().contains('embed'))
+            .toList();
+        if (loaded.isNotEmpty) {
+          return loaded;
+        }
+      }
+    } catch (_) {
+      // Fall through to /api/v1/models
+    }
+
+    // 2. Try GET /api/v1/models
+    try {
+      final response = await _dio.get<Map<String, dynamic>>(
+        '$cleanBase/api/v1/models',
+        options: _buildOptions(timeout: timeout),
+      );
+      final models = response.data?['models'];
+      if (models is List) {
+        final loaded = <String>[];
+        for (final m in models.whereType<Map<dynamic, dynamic>>()) {
+          final type = m['type'] as String?;
+          if (type != 'llm' && type != 'vlm') continue;
+          final instances = m['loaded_instances'];
+          if (instances is List && instances.isNotEmpty) {
+            final firstInst = instances.first;
+            String? id;
+            if (firstInst is Map && firstInst['id'] is String) {
+              id = firstInst['id'] as String;
+            } else if (m['key'] is String) {
+              id = m['key'] as String;
+            }
+            if (id != null && !id.toLowerCase().contains('embed')) {
+              loaded.add(id);
+            }
+          }
+        }
+        if (loaded.isNotEmpty) {
+          return loaded;
+        }
+      }
+    } catch (_) {
+      // Fall through
+    }
+
+    return [];
   }
 
   Map<String, dynamic> _buildChatBody(
@@ -191,6 +265,39 @@ class LmStudioProvider implements AiProvider {
     }
   }
 
+  static bool _canParseJson(String text) {
+    if (text.trim().isEmpty) return false;
+    try {
+      final payload = extractJsonPayload(text);
+      jsonDecode(payload);
+      return true;
+    } catch (_) {
+      return false;
+    }
+  }
+
+  static String selectEffectiveContent({
+    required String? content,
+    required String? reasoningContent,
+  }) {
+    final c = content ?? '';
+    final r = reasoningContent ?? '';
+
+    final cIsJson = _canParseJson(c);
+    final rIsJson = _canParseJson(r);
+
+    if ((c.trim().isEmpty || !cIsJson) && rIsJson) {
+      return r;
+    }
+    if (c.trim().isNotEmpty) {
+      return c;
+    }
+    if (r.trim().isNotEmpty) {
+      return r;
+    }
+    return '';
+  }
+
   @override
   Future<AiCompletionResponse> chat(AiChatRequest request) async {
     final cleanBase = sanitizeBaseUrl(baseUrl);
@@ -225,7 +332,19 @@ class LmStudioProvider implements AiProvider {
 
       final firstChoice = choices.first as Map<String, dynamic>;
       final message = firstChoice['message'] as Map<String, dynamic>?;
-      final content = message?['content'] as String? ?? '';
+      final content = message?['content'] as String?;
+      final reasoningContent = message?['reasoning_content'] as String?;
+      final effectiveContent = selectEffectiveContent(
+        content: content,
+        reasoningContent: reasoningContent,
+      );
+      if (effectiveContent.trim().isEmpty) {
+        throw const AiException(
+          AiFailure.badResponse(
+            'Пустой ответ от LM Studio (content и reasoning_content пустые)',
+          ),
+        );
+      }
       final finishReason = firstChoice['finish_reason'] as String?;
       final responseModel =
           (data['model'] as String?) ?? request.model ?? selectedModel;
@@ -243,7 +362,7 @@ class LmStudioProvider implements AiProvider {
       }
 
       return AiCompletionResponse(
-        rawContent: content,
+        rawContent: effectiveContent,
         model: responseModel,
         providerName: name,
         finishReason: finishReason,

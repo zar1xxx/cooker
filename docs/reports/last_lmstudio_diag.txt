@@ -1,16 +1,15 @@
 ===== time
 08.11.2026 
-10:01
+12:10
 ===== lms server status
-The server is not running.
+The server is running on port 1235.
 ===== lms ps
-Waking up LM Studio service...
-No models are currently loaded.
 
-To load a model, run:
+IDENTIFIER            MODEL                 STATUS    SIZE        CONTEXT    PARALLEL    DEVICE    TTL
+ornith-1.5-35b-a3b    ornith-1.5-35b-a3b    IDLE      29.21 GB    8192       2           Local        
 
-    lms load <model path>
 ===== listening ports 1234/1235
+  TCP    0.0.0.0:1235           0.0.0.0:0              LISTENING       32732
 ===== ipconfig
 
 Windows IP Configuration
@@ -54,16 +53,192 @@ Wireless LAN adapter Беспроводная сеть:
    Subnet Mask . . . . . . . . . . . : 255.255.255.0
    Default Gateway . . . . . . . . . : 192.168.50.1
 ===== curl localhost 1235
-
+{
+  "data": [
+    {
+      "id": "ornith-1.5-35b-a3b",
+      "object": "model",
+      "owned_by": "organization_owner"
+    },
+    {
+      "id": "ornith-1.5-9b",
+      "object": "model",
+      "owned_by": "organization_owner"
+    },
+    {
+      "id": "qwen3.6-35b-a3b-1m",
+      "object": "model",
+      "owned_by": "organization_owner"
+    },
+    {
+      "id": "flint",
+      "object": "model",
+      "owned_by": "organization_owner"
+    },
+    {
+      "id": "qwen3-coder-next",
+      "object": "model",
+      "owned_by": "organization_owner"
+    },
+    {
+      "id": "qwen/qwen3.8-27b",
+      "object": "model",
+      "owned_by": "organization_owner"
+    },
+    {
+      "id": "google/gemma-4-12b-qat",
+      "object": "model",
+      "owned_by": "organization_owner"
+    },
+    {
+      "id": "text-embedding-nomic-embed-text-v1.5",
+      "object": "model",
+      "owned_by": "organization_owner"
+    }
+  ],
+  "object": "list"
+}
 ===== curl localhost 1234
 
 ===== curl LAN IPs 1235
 --- 198.18.0.1
-
+{
+  "data": [
+    {
+      "id": "ornith-1.5-35b-a3b",
+      "object": "model",
+      "owned_by": "organization_owner"
+    },
+    {
+      "id": "ornith-1.5-9b",
+      "object": "model",
+      "owned_by": "organization_owner"
+    },
+    {
+      "id": "qwen3.6-35b-a3b-1m",
+      "object": "model",
+      "owned_by": "organization_owner"
+    },
+    {
+      "id": "flint",
+      "object": "model",
+      "owned_by": "organization_owner"
+    },
+    {
+      "id": "qwen3-coder-next",
+      "object": "model",
+      "owned_by": "organization_owner"
+    },
+    {
+      "id": "qwen/qwen3.8-27b",
+      "object": "model",
+      "owned_by": "organization_owner"
+    },
+    {
+      "id": "google/gemma-4-12b-qat",
+      "object": "model",
+      "owned_by": "organization_owner"
+    },
+    {
+      "id": "text-embedding-nomic-embed-text-v1.5",
+      "object": "model",
+      "owned_by": "organization_owner"
+    }
+  ],
+  "object": "list"
+}
 --- 169.254.83.107
-
+{
+  "data": [
+    {
+      "id": "ornith-1.5-35b-a3b",
+      "object": "model",
+      "owned_by": "organization_owner"
+    },
+    {
+      "id": "ornith-1.5-9b",
+      "object": "model",
+      "owned_by": "organization_owner"
+    },
+    {
+      "id": "qwen3.6-35b-a3b-1m",
+      "object": "model",
+      "owned_by": "organization_owner"
+    },
+    {
+      "id": "flint",
+      "object": "model",
+      "owned_by": "organization_owner"
+    },
+    {
+      "id": "qwen3-coder-next",
+      "object": "model",
+      "owned_by": "organization_owner"
+    },
+    {
+      "id": "qwen/qwen3.8-27b",
+      "object": "model",
+      "owned_by": "organization_owner"
+    },
+    {
+      "id": "google/gemma-4-12b-qat",
+      "object": "model",
+      "owned_by": "organization_owner"
+    },
+    {
+      "id": "text-embedding-nomic-embed-text-v1.5",
+      "object": "model",
+      "owned_by": "organization_owner"
+    }
+  ],
+  "object": "list"
+}
 --- 192.168.50.224
-
+{
+  "data": [
+    {
+      "id": "ornith-1.5-35b-a3b",
+      "object": "model",
+      "owned_by": "organization_owner"
+    },
+    {
+      "id": "ornith-1.5-9b",
+      "object": "model",
+      "owned_by": "organization_owner"
+    },
+    {
+      "id": "qwen3.6-35b-a3b-1m",
+      "object": "model",
+      "owned_by": "organization_owner"
+    },
+    {
+      "id": "flint",
+      "object": "model",
+      "owned_by": "organization_owner"
+    },
+    {
+      "id": "qwen3-coder-next",
+      "object": "model",
+      "owned_by": "organization_owner"
+    },
+    {
+      "id": "qwen/qwen3.8-27b",
+      "object": "model",
+      "owned_by": "organization_owner"
+    },
+    {
+      "id": "google/gemma-4-12b-qat",
+      "object": "model",
+      "owned_by": "organization_owner"
+    },
+    {
+      "id": "text-embedding-nomic-embed-text-v1.5",
+      "object": "model",
+      "owned_by": "organization_owner"
+    }
+  ],
+  "object": "list"
+}
 ===== network profile
 
 Name         InterfaceAlias    NetworkCategory

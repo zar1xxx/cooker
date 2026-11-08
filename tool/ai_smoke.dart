@@ -87,7 +87,13 @@ Future<bool> _testLmStudio({
 
   for (final port in candidatePorts) {
     stdout.writeln('[LM Studio] Probing http://127.0.0.1:$port ...');
-    final provider = LmStudioProvider(baseUrl: 'http://127.0.0.1:$port');
+    final modelOverride = Platform.environment['LMSTUDIO_MODEL'];
+    final provider = LmStudioProvider(
+      baseUrl: 'http://127.0.0.1:$port',
+      model: (modelOverride == null || modelOverride.trim().isEmpty)
+          ? null
+          : modelOverride.trim(),
+    );
     try {
       final modelId = await provider.resolveModel();
       connectedProvider = provider;

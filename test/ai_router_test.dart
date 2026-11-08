@@ -191,6 +191,7 @@ void main() {
 
       lmProvider = LmStudioProvider(
         baseUrl: 'http://192.168.1.100:1234',
+        model: 'llama-3',
         dio: lmDio,
       );
       gigaProvider = GigaChatProvider(authKey: 'test-giga-key', dio: gigaDio);

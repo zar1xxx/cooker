@@ -1,7 +1,22 @@
 {
-  "timestamp": "2026-11-08T10:01:11.770052",
+  "timestamp": "2026-11-08T12:10:21.522314",
   "candidate_ports": [
     1235
   ],
-  "error": "LM Studio not reachable on ports: [1235]"
+  "selected_model": "ornith-1.5-35b-a3b",
+  "selected_port": 1235,
+  "suggest_dishes": {
+    "finish_reason": "stop",
+    "prompt_tokens": 381,
+    "completion_tokens": 525,
+    "duration_ms": 13025,
+    "raw_content": "{\n  \"dishes\": [\n    {\n      \"title\": \"Картофельное пюре\",\n      \"dish_type\": \"side\",\n      \"difficulty\": \"easy\",\n      \"total_minutes\": 30,\n      \"main_ingredients\": [\"potato\"],\n      \"missing\": [],\n      \"why\": \"Мягкий и сытный гарнир, который готовится просто.\"\n    },\n    {\n      \"title\": \"Запечённая курица с овощами\",\n      \"dish_type\": \"main\",\n      \"difficulty\": \"medium\",\n      \"total_minutes\": 60,\n      \"main_ingredients\": [\"chicken\"],\n      \"missing\": [],\n      \"why\": \"Сочная курица и мягкие овощи из одной формы.\"\n    },\n    {\n      \"title\": \"Овощной суп\",\n      \"dish_type\": \"soup\",\n      \"difficulty\": \"easy\",\n      \"total_minutes\": 45,\n      \"main_ingredients\": [\"potato\", \"carrot\"],\n      \"missing\": [],\n      \"why\": \"Лёгкий и горячий суп из доступных продуктов.\"\n    },\n    {\n      \"title\": \"Тушёная морковь с луком\",\n      \"dish_type\": \"side\",\n      \"difficulty\": \"easy\",\n      \"total_minutes\": 25,\n      \"main_ingredients\": [\"carrot\"],\n      \"missing\": [],\n      \"why\": \"Сладкая морковь и ароматный лук как простой гарнир.\"\n    },\n    {\n      \"title\": \"Куриное филе на сковороде\",\n      \"dish_type\": \"main\",\n      \"difficulty\": \"medium\",\n      \"total_minutes\": 30,\n      \"main_ingredients\": [\"chicken\"],\n      \"missing\": [],\n      \"why\": \"Простое блюдо из курицы с хрустящей корочкой.\"\n    },\n    {\n      \"title\": \"Варёный картофель\",\n      \"dish_type\": \"side\",\n      \"difficulty\": \"easy\",\n      \"total_minutes\": 30,\n      \"main_ingredients\": [\"potato\"],\n      \"missing\": [],\n      \"why\": \"Обычный и понятный гарнир для любого стола.\"\n    }\n  ]\n}"
+  },
+  "full_recipe": {
+    "finish_reason": "stop",
+    "prompt_tokens": 387,
+    "completion_tokens": 385,
+    "duration_ms": 9390,
+    "raw_content": "{\n  \"title\": \"Картофельное пюре\",\n  \"dish_type\": \"side\",\n  \"difficulty\": \"easy\",\n  \"cuisine\": \"русская\",\n  \"total_minutes\": 30,\n  \"active_minutes\": 10,\n  \"servings\": 2,\n  \"description\": \"Пышное картофельное пюре на воде — простое и сытное гарнир.\",\n  \"ingredients\": [\n    {\n      \"name\": \"картофель\",\n      \"amount\": 700,\n      \"unit\": \"g\"\n    ,\n    \"is_optional\": false\n    },\n    {\n      \"name\": \"соль\",\n      \"amount\": 1,\n      \"unit\": \"tsp\"\n    ,\n    \"is_optional\": false\n    },\n    {\n      \"name\": \"растительное масло\",\n      \"amount\": 2,\n      \"unit\": \"tbsp\"\n    ,\n    \"is_optional\": false\n    }\n  ],\n  \"steps\": [\n    {\n      \"text\": \"Очистить картофель и нарезать крупными кусками.\",\n      \"timer_seconds\": 180\n    },\n    {\n      \"text\": \"Положить картофель в кастрюлю, залить холодной водой, добавить соль.\",\n      \"timer_seconds\": 0\n    },\n    {\n      \"text\": \"Варить после закипания 20 минут до мягкости.\",\n      \"timer_seconds\": 1200\n    },\n    {\n      \"text\": \"Слить воду, размять картофель с маслом.\",\n      \"timer_seconds\": 180\n    }\n  ]\n}"
+  }
 }

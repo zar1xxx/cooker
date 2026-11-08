@@ -80,14 +80,27 @@ void main() {
     test('getModels calls /v1/models and returns model list', () async {
       final dio = Dio();
       dio.httpClientAdapter = MockHttpClientAdapter((options) async {
-        expect(options.path, 'http://192.168.1.100:1234/v1/models');
-        expect(options.method, 'GET');
-        return _createJsonResponse({
-          'data': [
-            {'id': 'meta-llama-3-8b-instruct'},
-            {'id': 'mistral-7b-instruct-v0.3'},
-          ],
-        });
+        if (options.path.endsWith('/v1/models')) {
+          expect(options.method, 'GET');
+          return _createJsonResponse({
+            'data': [
+              {'id': 'meta-llama-3-8b-instruct'},
+              {'id': 'mistral-7b-instruct-v0.3'},
+            ],
+          });
+        }
+        if (options.path.endsWith('/api/v0/models')) {
+          return _createJsonResponse({
+            'data': [
+              {
+                'id': 'meta-llama-3-8b-instruct',
+                'state': 'loaded',
+                'type': 'llm',
+              },
+            ],
+          });
+        }
+        throw DioException(requestOptions: options);
       });
 
       final provider = LmStudioProvider(
@@ -210,20 +223,24 @@ void main() {
       },
     );
 
-    group('R3-05: Auto-select LM Studio model', () {
-      test('automatically selects first non-embed model when model is not configured and caches it', () async {
+    group('R3-05 / R6-00: Auto-select LM Studio loaded model', () {
+      test('automatically selects first loaded non-embed model from /api/v0/models and caches it', () async {
         final dio = Dio();
         int modelsCallCount = 0;
         RequestOptions? capturedChatOptions;
 
         dio.httpClientAdapter = MockHttpClientAdapter((options) async {
-          if (options.path.endsWith('/v1/models')) {
+          if (options.path.endsWith('/api/v0/models')) {
             modelsCallCount++;
             return _createJsonResponse({
               'data': [
-                {'id': 'text-embedding-nomic-embed-text-v1.5'},
-                {'id': 'qwen2.5-7b-instruct'},
-                {'id': 'meta-llama-3-8b'},
+                {
+                  'id': 'text-embedding-nomic-embed-text-v1.5',
+                  'type': 'embeddings',
+                  'state': 'loaded',
+                },
+                {'id': 'qwen2.5-7b-instruct', 'type': 'llm', 'state': 'loaded'},
+                {'id': 'meta-llama-3-8b', 'type': 'llm', 'state': 'not-loaded'},
               ],
             });
           } else if (options.path.endsWith('/v1/chat/completions')) {
@@ -248,7 +265,7 @@ void main() {
         expect(provider.model, isNull);
         expect(provider.cachedAutoModel, isNull);
 
-        // 1. First chat query resolves model via /v1/models
+        // 1. First chat query resolves model via /api/v0/models
         final resp1 = await provider.chat(
           const AiChatRequest(messages: [AiChatMessage.user('Привет')]),
         );
@@ -260,7 +277,7 @@ void main() {
         expect(body1['model'], equals('qwen2.5-7b-instruct'));
         expect(resp1.model, equals('qwen2.5-7b-instruct'));
 
-        // 2. Second chat query reuses cached model without calling /v1/models again
+        // 2. Second chat query reuses cached model without calling /api/v0/models again
         await provider.chat(
           const AiChatRequest(messages: [AiChatMessage.user('Ещё раз')]),
         );
@@ -268,50 +285,68 @@ void main() {
         expect(modelsCallCount, equals(1)); // Still 1, didn't re-fetch
       });
 
-      test(
-        'throws AiFailure.pcNoModel when /v1/models returns empty list',
-        () async {
-          final dio = Dio();
-          dio.httpClientAdapter = MockHttpClientAdapter((options) async {
-            if (options.path.endsWith('/v1/models')) {
-              return _createJsonResponse({'data': []});
-            }
-            throw DioException(requestOptions: options);
-          });
-
-          final provider = LmStudioProvider(
-            baseUrl: 'http://192.168.1.100:1234',
-            dio: dio,
-          );
-
-          try {
-            await provider.chat(
-              const AiChatRequest(messages: [AiChatMessage.user('Привет')]),
-            );
-            fail('Expected AiException');
-          } on AiException catch (e) {
-            expect(e.failure, isA<AiFailurePcNoModel>());
-            expect(e.failure.code, equals('pc_no_model'));
-            expect(
-              e.failure.message,
-              equals('На компьютере не загружена модель'),
-            );
+      test('throws AiFailure.pcNoModel when /api/v0/models has no loaded models and /api/v1/models fails', () async {
+        final dio = Dio();
+        dio.httpClientAdapter = MockHttpClientAdapter((options) async {
+          if (options.path.endsWith('/api/v0/models')) {
+            return _createJsonResponse({
+              'data': [
+                {
+                  'id': 'not-loaded-model',
+                  'type': 'llm',
+                  'state': 'not-loaded',
+                },
+              ],
+            });
+          } else if (options.path.endsWith('/api/v1/models')) {
+            return _createJsonResponse({'models': []});
           }
+          throw DioException(requestOptions: options);
+        });
 
-          expect(await provider.isAvailable(), isFalse);
-        },
-      );
+        final provider = LmStudioProvider(
+          baseUrl: 'http://192.168.1.100:1234',
+          dio: dio,
+        );
+
+        try {
+          await provider.chat(
+            const AiChatRequest(messages: [AiChatMessage.user('Привет')]),
+          );
+          fail('Expected AiException');
+        } on AiException catch (e) {
+          expect(e.failure, isA<AiFailurePcNoModel>());
+          expect(e.failure.code, equals('pc_no_model'));
+          expect(
+            e.failure.message,
+            equals('На компьютере не загружена модель'),
+          );
+        }
+
+        expect(await provider.isAvailable(), isFalse);
+      });
 
       test(
-        'falls back to first model if all models contain embed keyword',
+        'falls back to /api/v1/models when /api/v0/models returns 404',
         () async {
           final dio = Dio();
           dio.httpClientAdapter = MockHttpClientAdapter((options) async {
-            if (options.path.endsWith('/v1/models')) {
+            if (options.path.endsWith('/api/v0/models')) {
+              throw DioException(
+                requestOptions: options,
+                response: Response(requestOptions: options, statusCode: 404),
+                type: DioExceptionType.badResponse,
+              );
+            } else if (options.path.endsWith('/api/v1/models')) {
               return _createJsonResponse({
-                'data': [
-                  {'id': 'all-embed-model-1'},
-                  {'id': 'another-embed-model-2'},
+                'models': [
+                  {
+                    'key': 'ornith-1.5-35b-a3b',
+                    'type': 'llm',
+                    'loaded_instances': [
+                      {'id': 'ornith-1.5-35b-a3b'},
+                    ],
+                  },
                 ],
               });
             }
@@ -324,20 +359,20 @@ void main() {
           );
 
           final resolved = await provider.resolveModel();
-          expect(resolved, equals('all-embed-model-1'));
-          expect(provider.cachedAutoModel, equals('all-embed-model-1'));
+          expect(resolved, equals('ornith-1.5-35b-a3b'));
+          expect(provider.cachedAutoModel, equals('ornith-1.5-35b-a3b'));
         },
       );
 
       test(
-        'does not call /v1/models when model is configured in constructor',
+        'does not call model endpoint when model is configured in constructor',
         () async {
           final dio = Dio();
           int modelsCallCount = 0;
           RequestOptions? capturedChatOptions;
 
           dio.httpClientAdapter = MockHttpClientAdapter((options) async {
-            if (options.path.endsWith('/v1/models')) {
+            if (options.path.contains('/models')) {
               modelsCallCount++;
               return _createJsonResponse({'data': []});
             } else if (options.path.endsWith('/v1/chat/completions')) {
@@ -368,6 +403,164 @@ void main() {
           expect(capturedChatOptions, isNotNull);
           final body = capturedChatOptions!.data as Map<String, dynamic>;
           expect(body['model'], equals('my-custom-model'));
+        },
+      );
+    });
+
+    group('R6-00: Qwen/Ornith reasoning_content JSON fallback', () {
+      test('uses reasoning_content when content is empty and reasoning_content contains valid JSON', () async {
+        final dio = Dio();
+        dio.httpClientAdapter = MockHttpClientAdapter((options) async {
+          if (options.path.endsWith('/v1/chat/completions')) {
+            return _createJsonResponse({
+              'choices': [
+                {
+                  'index': 0,
+                  'message': {
+                    'role': 'assistant',
+                    'content': '',
+                    'reasoning_content':
+                        '{"dishes": [{"title": "Борщ по-деревенски"}]}',
+                  },
+                },
+              ],
+            });
+          }
+          throw DioException(requestOptions: options);
+        });
+
+        final provider = LmStudioProvider(
+          baseUrl: 'http://192.168.1.100:1234',
+          model: 'ornith-1.5-35b-a3b',
+          dio: dio,
+        );
+
+        final response = await provider.chat(
+          const AiChatRequest(
+            messages: [AiChatMessage.user('Что приготовить?')],
+          ),
+        );
+
+        expect(
+          response.rawContent,
+          equals('{"dishes": [{"title": "Борщ по-деревенски"}]}'),
+        );
+        expect(response.decodeJson()['dishes'], isNotEmpty);
+      });
+
+      test('uses reasoning_content when content is non-JSON chat preamble and reasoning_content has valid JSON', () async {
+        final dio = Dio();
+        dio.httpClientAdapter = MockHttpClientAdapter((options) async {
+          if (options.path.endsWith('/v1/chat/completions')) {
+            return _createJsonResponse({
+              'choices': [
+                {
+                  'index': 0,
+                  'message': {
+                    'role': 'assistant',
+                    'content': 'Вот предлагаемые блюда:\n',
+                    'reasoning_content':
+                        '```json\n{"dishes": [{"title": "Омлет"}]}\n```',
+                  },
+                },
+              ],
+            });
+          }
+          throw DioException(requestOptions: options);
+        });
+
+        final provider = LmStudioProvider(
+          baseUrl: 'http://192.168.1.100:1234',
+          model: 'qwen3.6-35b',
+          dio: dio,
+        );
+
+        final response = await provider.chat(
+          const AiChatRequest(messages: [AiChatMessage.user('Рецепт')]),
+        );
+
+        expect(response.rawContent, contains('"title": "Омлет"'));
+        expect(response.decodeJson()['dishes'], isNotEmpty);
+      });
+
+      test('uses content when content already has valid JSON', () async {
+        final dio = Dio();
+        dio.httpClientAdapter = MockHttpClientAdapter((options) async {
+          if (options.path.endsWith('/v1/chat/completions')) {
+            return _createJsonResponse({
+              'choices': [
+                {
+                  'index': 0,
+                  'message': {
+                    'role': 'assistant',
+                    'content': '{"dishes": [{"title": "Картофель отварной"}]}',
+                    'reasoning_content':
+                        'I decided to recommend boiled potatoes.',
+                  },
+                },
+              ],
+            });
+          }
+          throw DioException(requestOptions: options);
+        });
+
+        final provider = LmStudioProvider(
+          baseUrl: 'http://192.168.1.100:1234',
+          model: 'google/gemma-4-12b-qat',
+          dio: dio,
+        );
+
+        final response = await provider.chat(
+          const AiChatRequest(
+            messages: [AiChatMessage.user('Что приготовить?')],
+          ),
+        );
+
+        expect(
+          response.rawContent,
+          equals('{"dishes": [{"title": "Картофель отварной"}]}'),
+        );
+      });
+
+      test(
+        'throws badResponse when both content and reasoning_content are empty',
+        () async {
+          final dio = Dio();
+          dio.httpClientAdapter = MockHttpClientAdapter((options) async {
+            if (options.path.endsWith('/v1/chat/completions')) {
+              return _createJsonResponse({
+                'choices': [
+                  {
+                    'index': 0,
+                    'message': {
+                      'role': 'assistant',
+                      'content': '   ',
+                      'reasoning_content': '',
+                    },
+                  },
+                ],
+              });
+            }
+            throw DioException(requestOptions: options);
+          });
+
+          final provider = LmStudioProvider(
+            baseUrl: 'http://192.168.1.100:1234',
+            model: 'ornith-1.5-35b-a3b',
+            dio: dio,
+          );
+
+          try {
+            await provider.chat(
+              const AiChatRequest(
+                messages: [AiChatMessage.user('Что приготовить?')],
+              ),
+            );
+            fail('Expected AiException');
+          } on AiException catch (e) {
+            expect(e.failure, isA<AiFailureBadResponse>());
+            expect(e.failure.code, equals('bad_response'));
+          }
         },
       );
     });

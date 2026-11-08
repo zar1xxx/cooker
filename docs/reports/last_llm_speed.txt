@@ -1,66 +1,10 @@
 ===== tiny request, max_tokens 40
-{
-  "id": "chatcmpl-9fkpujlas3wohqsr9m4tm",
-  "object": "chat.completion",
-  "created": 1794069077,
-  "model": "google/gemma-4-12b-qat",
-  "choices": [
-    {
-      "index": 0,
-      "message": {
-        "role": "assistant",
-        "content": "OK",
-        "reasoning_content": "\nThe user said \"Say OK\".\nThe user wants me to output the word \"OK\".\n\"OK\"\n\nPlan:\n1. Reply with \"OK\".",
-        "tool_calls": []
-      },
-      "logprobs": null,
-      "finish_reason": "stop"
-    }
-  ],
-  "usage": {
-    "prompt_tokens": 18,
-    "completion_tokens": 40,
-    "total_tokens": 58,
-    "completion_tokens_details": {
-      "reasoning_tokens": 35
-    }
-  },
-  "stats": {},
-  "system_fingerprint": "google/gemma-4-12b-qat"
-}
-HTTP 200 TIME 0.832987s
+
+HTTP 000 TIME 120.002139s
 
 ===== json_schema request, max_tokens 300
-{
-  "id": "chatcmpl-0syph2l6f23gq08v7ctroan",
-  "object": "chat.completion",
-  "created": 1794069078,
-  "model": "google/gemma-4-12b-qat",
-  "choices": [
-    {
-      "index": 0,
-      "message": {
-        "role": "assistant",
-        "content": "{\"dishes\": [\"Картошка с луком\", \"Жареная картошка с луком\"]}\n    ",
-        "reasoning_content": "",
-        "tool_calls": []
-      },
-      "logprobs": null,
-      "finish_reason": "stop"
-    }
-  ],
-  "usage": {
-    "prompt_tokens": 34,
-    "completion_tokens": 27,
-    "total_tokens": 61,
-    "completion_tokens_details": {
-      "reasoning_tokens": 0
-    }
-  },
-  "stats": {},
-  "system_fingerprint": "google/gemma-4-12b-qat"
-}
-HTTP 200 TIME 0.551216s
+
+HTTP 000 TIME 180.008213s
 
 ===== lms ps after
 

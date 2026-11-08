@@ -148,7 +148,7 @@ void main() {
     test('4. pcNoModel: LM Studio responds with empty models list', () async {
       final dio = Dio();
       dio.httpClientAdapter = _MockAdapter((options) {
-        if (options.path.endsWith('/v1/models')) {
+        if (options.path.contains('/models')) {
           return ResponseBody.fromString(
             jsonEncode({'data': []}),
             200,
@@ -287,11 +287,11 @@ void main() {
     test('8. timeout: LM Studio request times out', () async {
       final dio = Dio();
       dio.httpClientAdapter = _MockAdapter((options) {
-        if (options.path.endsWith('/v1/models')) {
+        if (options.path.contains('/models')) {
           return ResponseBody.fromString(
             jsonEncode({
               'data': [
-                {'id': 'qwen2.5-7b'},
+                {'id': 'qwen2.5-7b', 'state': 'loaded', 'type': 'llm'},
               ],
             }),
             200,
@@ -332,11 +332,11 @@ void main() {
     test('9. badResponse: server returns 500 or broken payload', () async {
       final dio = Dio();
       dio.httpClientAdapter = _MockAdapter((options) {
-        if (options.path.endsWith('/v1/models')) {
+        if (options.path.contains('/models')) {
           return ResponseBody.fromString(
             jsonEncode({
               'data': [
-                {'id': 'qwen2.5-7b'},
+                {'id': 'qwen2.5-7b', 'state': 'loaded', 'type': 'llm'},
               ],
             }),
             200,
@@ -380,11 +380,11 @@ void main() {
       () async {
         final dio = Dio();
         dio.httpClientAdapter = _MockAdapter((options) {
-          if (options.path.endsWith('/v1/models')) {
+          if (options.path.contains('/models')) {
             return ResponseBody.fromString(
               jsonEncode({
                 'data': [
-                  {'id': 'qwen2.5-7b'},
+                  {'id': 'qwen2.5-7b', 'state': 'loaded', 'type': 'llm'},
                 ],
               }),
               200,
@@ -449,11 +449,11 @@ void main() {
     test('11. R5-03: LM Studio timeout -> repeats via GigaChat and records both attempts in ai_requests', () async {
       final lmDio = Dio();
       lmDio.httpClientAdapter = _MockAdapter((options) {
-        if (options.path.endsWith('/v1/models')) {
+        if (options.path.contains('/models')) {
           return ResponseBody.fromString(
             jsonEncode({
               'data': [
-                {'id': 'qwen2.5-7b'},
+                {'id': 'qwen2.5-7b', 'state': 'loaded', 'type': 'llm'},
               ],
             }),
             200,
@@ -551,11 +551,11 @@ void main() {
     test('12. R5-03: LM Studio connectionError -> repeats via GigaChat and records both attempts in ai_requests', () async {
       final lmDio = Dio();
       lmDio.httpClientAdapter = _MockAdapter((options) {
-        if (options.path.endsWith('/v1/models')) {
+        if (options.path.contains('/models')) {
           return ResponseBody.fromString(
             jsonEncode({
               'data': [
-                {'id': 'qwen2.5-7b'},
+                {'id': 'qwen2.5-7b', 'state': 'loaded', 'type': 'llm'},
               ],
             }),
             200,
