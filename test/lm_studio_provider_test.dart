@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:typed_data';
 
@@ -35,6 +36,19 @@ ResponseBody _createJsonResponse(
     statusCode,
     headers: {
       Headers.contentTypeHeader: [Headers.jsonContentType],
+    },
+  );
+}
+
+ResponseBody _createSseResponse(
+  Stream<List<int>> byteStream, {
+  int statusCode = 200,
+}) {
+  return ResponseBody(
+    byteStream.map((b) => Uint8List.fromList(b)),
+    statusCode,
+    headers: {
+      Headers.contentTypeHeader: ['text/event-stream'],
     },
   );
 }
@@ -201,7 +215,8 @@ void main() {
         final body = capturedOptions!.data as Map<String, dynamic>;
         expect(body['model'], 'qwen2.5-7b');
         expect(body['temperature'], 0.5);
-        expect(body['stream'], isFalse);
+        expect(body['stream'], isTrue);
+        expect(body['stream_options'], {'include_usage': true});
         expect(body['messages'], [
           {'role': 'system', 'content': 'You are a chef'},
           {'role': 'user', 'content': 'Suggest dishes'},
@@ -563,6 +578,222 @@ void main() {
           }
         },
       );
+    });
+
+    group('R6-01: Streaming responses from LM Studio', () {
+      test(
+        'normal streaming response parses SSE deltas, usage, and finish_reason',
+        () async {
+          final dio = Dio();
+          dio.httpClientAdapter = MockHttpClientAdapter((options) async {
+            if (options.path.endsWith('/v1/chat/completions')) {
+              final sseLines = [
+                'data: {"id":"chat-1","model":"ornith-1.5-35b-a3b","choices":[{"delta":{"content":"{\\"dishes\\": "}}]}\n\n',
+                'data: {"id":"chat-1","model":"ornith-1.5-35b-a3b","choices":[{"delta":{"content":"[{\\"title\\": \\"Суп\\"}]}"}}]}\n\n',
+                'data: {"id":"chat-1","model":"ornith-1.5-35b-a3b","choices":[{"delta":{},"finish_reason":"stop"}],"usage":{"prompt_tokens":40,"completion_tokens":25,"total_tokens":65}}\n\n',
+                'data: [DONE]\n\n',
+              ];
+              final stream = Stream.fromIterable(
+                sseLines.map((s) => utf8.encode(s)),
+              );
+              return _createSseResponse(stream);
+            }
+            throw DioException(requestOptions: options);
+          });
+
+          final provider = LmStudioProvider(
+            baseUrl: 'http://192.168.1.100:1234',
+            model: 'ornith-1.5-35b-a3b',
+            dio: dio,
+          );
+
+          final response = await provider.chat(
+            const AiChatRequest(messages: [AiChatMessage.user('Суп')]),
+          );
+
+          expect(response.rawContent, equals('{"dishes": [{"title": "Суп"}]}'));
+          expect(response.model, equals('ornith-1.5-35b-a3b'));
+          expect(response.finishReason, equals('stop'));
+          expect(response.promptTokens, equals(40));
+          expect(response.completionTokens, equals(25));
+          expect(response.totalTokens, equals(65));
+          expect(response.timeToFirstToken, isNotNull);
+        },
+      );
+
+      test(
+        'streaming response parses reasoning_content when content is empty',
+        () async {
+          final dio = Dio();
+          dio.httpClientAdapter = MockHttpClientAdapter((options) async {
+            if (options.path.endsWith('/v1/chat/completions')) {
+              final sseLines = [
+                'data: {"id":"chat-2","model":"ornith-1.5-35b-a3b","choices":[{"delta":{"reasoning_content":"{\\"dishes\\": "}}]}\n\n',
+                'data: {"id":"chat-2","model":"ornith-1.5-35b-a3b","choices":[{"delta":{"reasoning_content":"[{\\"title\\": \\"Борщ\\"}]}"}}]}\n\n',
+                'data: {"id":"chat-2","model":"ornith-1.5-35b-a3b","choices":[{"delta":{},"finish_reason":"stop"}],"usage":{"prompt_tokens":50,"completion_tokens":30,"total_tokens":80}}\n\n',
+                'data: [DONE]\n\n',
+              ];
+              final stream = Stream.fromIterable(
+                sseLines.map((s) => utf8.encode(s)),
+              );
+              return _createSseResponse(stream);
+            }
+            throw DioException(requestOptions: options);
+          });
+
+          final provider = LmStudioProvider(
+            baseUrl: 'http://192.168.1.100:1234',
+            model: 'ornith-1.5-35b-a3b',
+            dio: dio,
+          );
+
+          final response = await provider.chat(
+            const AiChatRequest(messages: [AiChatMessage.user('Борщ')]),
+          );
+
+          expect(
+            response.rawContent,
+            equals('{"dishes": [{"title": "Борщ"}]}'),
+          );
+          expect(response.finishReason, equals('stop'));
+          expect(response.promptTokens, equals(50));
+          expect(response.completionTokens, equals(30));
+          expect(response.totalTokens, equals(80));
+        },
+      );
+
+      test(
+        'inactivity timeout aborts when pause exceeds inactivityTimeout',
+        () async {
+          final dio = Dio();
+          final controller = StreamController<List<int>>();
+
+          dio.httpClientAdapter = MockHttpClientAdapter((options) async {
+            if (options.path.endsWith('/v1/chat/completions')) {
+              controller.add(
+                utf8.encode(
+                  'data: {"choices":[{"delta":{"content":"{\\"dishes\\": "}}]}\n\n',
+                ),
+              );
+              Timer(const Duration(milliseconds: 100), () {
+                if (!controller.isClosed) {
+                  controller.add(
+                    utf8.encode(
+                      'data: {"choices":[{"delta":{"content":"[]}"}}]}\n\n',
+                    ),
+                  );
+                  controller.close();
+                }
+              });
+              return _createSseResponse(controller.stream);
+            }
+            throw DioException(requestOptions: options);
+          });
+
+          final provider = LmStudioProvider(
+            baseUrl: 'http://192.168.1.100:1234',
+            model: 'ornith-1.5-35b-a3b',
+            dio: dio,
+            inactivityTimeout: const Duration(milliseconds: 40),
+          );
+
+          try {
+            await provider.chat(
+              const AiChatRequest(messages: [AiChatMessage.user('test')]),
+            );
+            fail('Expected AiException with timeout');
+          } on AiException catch (e) {
+            expect(e.failure, isA<AiFailureTimeout>());
+            expect(e.failure.message, contains('15 с'));
+          } finally {
+            await controller.close();
+          }
+        },
+      );
+
+      test(
+        'overall timeout aborts when total request exceeds overallTimeout',
+        () async {
+          final dio = Dio();
+          final controller = StreamController<List<int>>();
+          Timer? periodic;
+
+          dio.httpClientAdapter = MockHttpClientAdapter((options) async {
+            if (options.path.endsWith('/v1/chat/completions')) {
+              periodic = Timer.periodic(const Duration(milliseconds: 20), (t) {
+                if (!controller.isClosed) {
+                  controller.add(
+                    utf8.encode(
+                      'data: {"choices":[{"delta":{"content":"a"}}]}\n\n',
+                    ),
+                  );
+                }
+              });
+              return _createSseResponse(controller.stream);
+            }
+            throw DioException(requestOptions: options);
+          });
+
+          final provider = LmStudioProvider(
+            baseUrl: 'http://192.168.1.100:1234',
+            model: 'ornith-1.5-35b-a3b',
+            dio: dio,
+            inactivityTimeout: const Duration(milliseconds: 50),
+            overallTimeout: const Duration(milliseconds: 60),
+          );
+
+          try {
+            await provider.chat(
+              const AiChatRequest(messages: [AiChatMessage.user('test')]),
+            );
+            fail('Expected AiException with overall timeout');
+          } on AiException catch (e) {
+            expect(e.failure, isA<AiFailureTimeout>());
+            expect(e.failure.message, contains('90 с'));
+          } finally {
+            periodic?.cancel();
+            await controller.close();
+          }
+        },
+      );
+
+      test('cancelToken abort terminates stream immediately', () async {
+        final dio = Dio();
+        final controller = StreamController<List<int>>();
+
+        dio.httpClientAdapter = MockHttpClientAdapter((options) async {
+          if (options.path.endsWith('/v1/chat/completions')) {
+            controller.add(
+              utf8.encode(
+                'data: {"choices":[{"delta":{"content":"start"}}]}\n\n',
+              ),
+            );
+            return _createSseResponse(controller.stream);
+          }
+          throw DioException(requestOptions: options);
+        });
+
+        final provider = LmStudioProvider(
+          baseUrl: 'http://192.168.1.100:1234',
+          model: 'ornith-1.5-35b-a3b',
+          dio: dio,
+          inactivityTimeout: const Duration(milliseconds: 50),
+        );
+
+        try {
+          await provider.chat(
+            const AiChatRequest(
+              messages: [AiChatMessage.user('test')],
+              timeout: Duration(milliseconds: 30),
+            ),
+          );
+          fail('Expected timeout AiException');
+        } on AiException catch (e) {
+          expect(e.failure, isA<AiFailureTimeout>());
+        } finally {
+          await controller.close();
+        }
+      });
     });
   });
 }

@@ -53,6 +53,7 @@ class AiCompletionResponse {
     this.completionTokens = 0,
     this.totalTokens = 0,
     this.duration = Duration.zero,
+    this.timeToFirstToken,
   });
 
   final String rawContent;
@@ -63,6 +64,7 @@ class AiCompletionResponse {
   final int completionTokens;
   final int totalTokens;
   final Duration duration;
+  final Duration? timeToFirstToken;
 
   /// Extracts clean JSON from `rawContent`, removing Markdown fences and surrounding comments.
   String get jsonPayload => extractJsonPayload(rawContent);

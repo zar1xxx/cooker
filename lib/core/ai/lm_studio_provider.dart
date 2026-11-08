@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
@@ -40,13 +41,21 @@ bool isPrivateOrLocalHost(String host) {
 }
 
 class LmStudioProvider implements AiProvider {
-  LmStudioProvider({required this.baseUrl, this.model, this.apiKey, Dio? dio})
-    : _dio = dio ?? Dio();
+  LmStudioProvider({
+    required this.baseUrl,
+    this.model,
+    this.apiKey,
+    Dio? dio,
+    this.inactivityTimeout = const Duration(seconds: 15),
+    this.overallTimeout = const Duration(seconds: 90),
+  }) : _dio = dio ?? Dio();
 
   final String baseUrl;
   final String? model;
   final String? apiKey;
   final Dio _dio;
+  final Duration inactivityTimeout;
+  final Duration overallTimeout;
 
   String? _cachedAutoModel;
 
@@ -198,15 +207,20 @@ class LmStudioProvider implements AiProvider {
 
   Map<String, dynamic> _buildChatBody(
     AiChatRequest request,
-    String resolvedModel,
-  ) {
+    String resolvedModel, {
+    bool stream = true,
+  }) {
     final messages = request.messages.map((m) => m.toJson()).toList();
     final body = <String, dynamic>{
       'model': resolvedModel,
       'messages': messages,
       'temperature': request.temperature,
-      'stream': false,
+      'stream': stream,
     };
+
+    if (stream) {
+      body['stream_options'] = {'include_usage': true};
+    }
 
     if (request.maxTokens != null) {
       body['max_tokens'] = request.maxTokens;
@@ -309,35 +323,193 @@ class LmStudioProvider implements AiProvider {
     );
 
     final url = '$cleanBase/v1/chat/completions';
-    final body = _buildChatBody(request, selectedModel);
+    final body = _buildChatBody(request, selectedModel, stream: true);
+
+    final cancelToken = CancelToken();
+    Timer? inactivityTimer;
+    Timer? overallTimer;
+    bool timedOut = false;
+    String timeoutMessage = '';
+
+    void cancelTimers() {
+      inactivityTimer?.cancel();
+      inactivityTimer = null;
+      overallTimer?.cancel();
+      overallTimer = null;
+    }
+
+    final contentBuffer = StringBuffer();
+    final reasoningBuffer = StringBuffer();
+    String? finishReason;
+    String? responseModel;
+    int promptTokens = 0;
+    int completionTokens = 0;
+    int totalTokens = 0;
+    Duration? timeToFirstToken;
 
     final stopwatch = Stopwatch()..start();
+    final completer = Completer<void>();
+    StreamSubscription<String>? sub;
+
+    void onTimeout(String msg) {
+      timedOut = true;
+      timeoutMessage = msg;
+      cancelTimers();
+      sub?.cancel();
+      if (!cancelToken.isCancelled) {
+        cancelToken.cancel(msg);
+      }
+      if (!completer.isCompleted) {
+        completer.completeError(AiException(AiFailure.timeout(msg)));
+      }
+    }
+
+    void resetInactivityTimer() {
+      inactivityTimer?.cancel();
+      inactivityTimer = Timer(inactivityTimeout, () {
+        onTimeout(
+          'Превышено время ожидания токена от LM Studio (15 с без новых данных)',
+        );
+      });
+    }
+
+    overallTimer = Timer(request.timeout ?? overallTimeout, () {
+      onTimeout('Превышено общее время ожидания ответа от LM Studio (90 с)');
+    });
+    resetInactivityTimer();
+
+    unawaited(
+      cancelToken.whenCancel.then((_) {
+        sub?.cancel();
+        cancelTimers();
+      }),
+    );
+
     try {
-      final response = await _dio.post<Map<String, dynamic>>(
+      final response = await _dio.post<ResponseBody>(
         url,
         data: body,
-        options: _buildOptions(timeout: request.timeout),
+        cancelToken: cancelToken,
+        options: Options(
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'text/event-stream',
+            if (apiKey != null && apiKey!.trim().isNotEmpty)
+              'Authorization': 'Bearer ${apiKey!.trim()}',
+          },
+          responseType: ResponseType.stream,
+        ),
       );
+
+      final responseBody = response.data;
+      if (responseBody == null) {
+        throw FormatException('Empty response stream from LM Studio at $url');
+      }
+
+      final linesStream = responseBody.stream
+          .cast<List<int>>()
+          .transform(utf8.decoder)
+          .transform(const LineSplitter());
+
+      sub = linesStream.listen(
+        (line) {
+          resetInactivityTimer();
+
+          final trimmed = line.trim();
+          if (trimmed.isEmpty) return;
+
+          String jsonPayload = trimmed;
+          if (trimmed.startsWith('data:')) {
+            jsonPayload = trimmed.substring('data:'.length).trim();
+          }
+          if (jsonPayload.isEmpty || jsonPayload == '[DONE]') {
+            if (jsonPayload == '[DONE]') {
+              sub?.cancel();
+              if (!completer.isCompleted) completer.complete();
+            }
+            return;
+          }
+
+          try {
+            final chunk = jsonDecode(jsonPayload);
+            if (chunk is Map<String, dynamic>) {
+              if (chunk['model'] is String) {
+                responseModel = chunk['model'] as String;
+              }
+
+              final choices = chunk['choices'];
+              if (choices is List && choices.isNotEmpty) {
+                final firstChoice = choices.first;
+                if (firstChoice is Map) {
+                  // 1. Streaming delta
+                  final delta = firstChoice['delta'];
+                  if (delta is Map) {
+                    final c = delta['content'] as String?;
+                    final r = delta['reasoning_content'] as String?;
+                    if ((c != null && c.isNotEmpty) ||
+                        (r != null && r.isNotEmpty)) {
+                      timeToFirstToken ??= stopwatch.elapsed;
+                    }
+                    if (c != null) contentBuffer.write(c);
+                    if (r != null) reasoningBuffer.write(r);
+                  }
+
+                  // 2. Non-streaming message (for mocks or fallback)
+                  final message = firstChoice['message'];
+                  if (message is Map) {
+                    final c = message['content'] as String?;
+                    final r = message['reasoning_content'] as String?;
+                    if ((c != null && c.isNotEmpty) ||
+                        (r != null && r.isNotEmpty)) {
+                      timeToFirstToken ??= stopwatch.elapsed;
+                    }
+                    if (c != null) contentBuffer.write(c);
+                    if (r != null) reasoningBuffer.write(r);
+                  }
+
+                  final fr = firstChoice['finish_reason'] as String?;
+                  if (fr != null && fr.isNotEmpty) {
+                    finishReason = fr;
+                  }
+                }
+              }
+
+              final usage = chunk['usage'];
+              if (usage is Map) {
+                promptTokens =
+                    (usage['prompt_tokens'] as num?)?.toInt() ?? promptTokens;
+                completionTokens =
+                    (usage['completion_tokens'] as num?)?.toInt() ??
+                    completionTokens;
+                totalTokens =
+                    (usage['total_tokens'] as num?)?.toInt() ?? totalTokens;
+              }
+            }
+          } catch (_) {
+            // Ignore partial or non-JSON chunk
+          }
+        },
+        onError: (Object error, StackTrace st) {
+          cancelTimers();
+          if (!completer.isCompleted) completer.completeError(error, st);
+        },
+        onDone: () {
+          cancelTimers();
+          if (!completer.isCompleted) completer.complete();
+        },
+        cancelOnError: true,
+      );
+
+      await completer.future;
+
       stopwatch.stop();
+      cancelTimers();
 
-      final data = response.data;
-      if (data == null) {
-        throw FormatException('Empty response from LM Studio at $url');
-      }
-
-      final choices = data['choices'] as List?;
-      if (choices == null || choices.isEmpty) {
-        throw FormatException('No choices in LM Studio response: $data');
-      }
-
-      final firstChoice = choices.first as Map<String, dynamic>;
-      final message = firstChoice['message'] as Map<String, dynamic>?;
-      final content = message?['content'] as String?;
-      final reasoningContent = message?['reasoning_content'] as String?;
       final effectiveContent = selectEffectiveContent(
-        content: content,
-        reasoningContent: reasoningContent,
+        content: contentBuffer.toString(),
+        reasoningContent: reasoningBuffer.toString(),
       );
+
       if (effectiveContent.trim().isEmpty) {
         throw const AiException(
           AiFailure.badResponse(
@@ -345,34 +517,37 @@ class LmStudioProvider implements AiProvider {
           ),
         );
       }
-      final finishReason = firstChoice['finish_reason'] as String?;
-      final responseModel =
-          (data['model'] as String?) ?? request.model ?? selectedModel;
 
-      int promptTokens = 0;
-      int completionTokens = 0;
-      int totalTokens = 0;
-      if (data['usage'] is Map) {
-        final usage = data['usage'] as Map;
-        promptTokens = (usage['prompt_tokens'] as num?)?.toInt() ?? 0;
-        completionTokens = (usage['completion_tokens'] as num?)?.toInt() ?? 0;
-        totalTokens =
-            (usage['total_tokens'] as num?)?.toInt() ??
-            (promptTokens + completionTokens);
+      if (totalTokens == 0 && (promptTokens > 0 || completionTokens > 0)) {
+        totalTokens = promptTokens + completionTokens;
       }
 
       return AiCompletionResponse(
         rawContent: effectiveContent,
-        model: responseModel,
+        model: responseModel ?? request.model ?? selectedModel,
         providerName: name,
         finishReason: finishReason,
         promptTokens: promptTokens,
         completionTokens: completionTokens,
         totalTokens: totalTokens,
         duration: stopwatch.elapsed,
+        timeToFirstToken: timeToFirstToken,
       );
     } catch (e) {
       stopwatch.stop();
+      cancelTimers();
+      if (timedOut) {
+        throw AiException(AiFailure.timeout(timeoutMessage));
+      }
+      if (cancelToken.isCancelled) {
+        throw AiException(
+          AiFailure.timeout(
+            timeoutMessage.isNotEmpty
+                ? timeoutMessage
+                : 'Запрос к LM Studio был прерван по таймауту',
+          ),
+        );
+      }
       if (e is AiException) rethrow;
       throw AiException(mapExceptionToFailure(e, isGigaChat: false));
     }

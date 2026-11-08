@@ -7,7 +7,7 @@
 - Этап: **R6-00…R6-04** (R6-00 — первой: ответ Qwen-моделей из `reasoning_content`, выбор загруженной модели) (потоковые ответы LM Studio, скорость в `ai_smoke`, инструкция про видеопамять) — `docs/TASKS.md`
 - 2026-11-08 11:27–11:36 (Claude): 3 прогона `ai_smoke` — `suggest_dishes` таймаут 45 с во всех; причина — **не хватает видеопамяти** (RTX 3080 10 ГБ, свободно 432 МиБ, скорость падает с 30 до 0,2 ток/с). Файлы: `docs/reports/last_ai_smoke_run1..3.txt`, `last_gpu_diag.txt`
 - R5 принят (Claude, 2026-11-08); R5-01 закрыта живым прогоном с ornith-1.5-35b-a3b (suggest_dishes 13.0 с, full_recipe 9.4 с, Valid)
-- Последний зелёный прогон `tool/check.ps1`: 2026-11-08 12:10:02, 504 теста
+- Последний зелёный прогон `tool/check.ps1`: 2026-11-08 12:21:33, 509 тестов
 
 ## Проверить владельцу на устройстве
 
@@ -25,6 +25,7 @@
 
 | Дата | Задача | Результат | Комментарий |
 | --- | --- | --- | --- |
+| 2026-11-08 | R6-01 | Выполнено | Потоковые ответы LM Studio (stream: true, stream_options.include_usage: true), SSE-парсер с поддержкой reasoning_content и обычного content, сбор usage и finish_reason. Двойной таймаут: 15 с неактивности между токенами и 90 с общий, немедленная отмена CancelToken и закрытие потока. Добавлено timeToFirstToken. 5 новых тестов в test/lm_studio_provider_test.dart. 509 тестов |
 | 2026-11-08 | R6-00 | Выполнено | Ответы Qwen/Ornith: извлечение JSON из reasoning_content при пустом/не-JSON content; resolveModel выбирает только загруженную модель из GET /api/v0/models (fallback на /api/v1/models), не триггеря JIT-загрузку. Живой прогон tool\run_ai_smoke.bat с ornith-1.5-35b-a3b: suggest_dishes (13.0 с, Valid), full_recipe (9.4 с, Valid), exit 0. Закрывает также R5-01. 504 теста |
 | 2026-11-08 | Выбор модели | Claude | Сравнение 4 моделей (`docs/reports/bench/`): выбрана ornith-1.5-35b-a3b (13 с, 46 ток/с, видеопамять не переполняет); Qwen-модели кладут JSON в `reasoning_content` — задача R6-00 |
 | 2026-11-08 | Живой прогон | Не прошёл (Claude) | 3×`ai_smoke`: таймаут 45 с; лог LM Studio: 30 → 0,2 ток/с после ~100 токенов; видеопамять 9620/10240 МиБ. Задачи R6-01…R6-04, шаги владельцу — в «Проверить владельцу» п. 2 |
