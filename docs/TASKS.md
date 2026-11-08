@@ -257,6 +257,6 @@
     4. Прогнать `tool\run_ai_smoke.bat` 3 раза подряд; в отчёт — время и `finish_reason` каждого запроса из файлов.
     Тесты: `max_tokens` есть в каждом запросе; `length` → повтор → fallback.
 - [x] **R5-08** **Мусор в названиях.** `RecipeValidator`: название блюда, продукта или шага с символами не из кириллицы/латиницы/цифр/обычной пунктуации (японские знаки, `**`, повтор одного символа 4+ раз) → `Retryable`. Тесты на «Дバイス**», «Суп********», нормальные «Борщ», «Омлет с сыром (2 порции)».
-- [ ] **R5-06** `tool\check.ps1`, release `--split-per-abi`, отчёт `docs/reports/REVIEW_FIXES_R5.md` с выдержками из `last_ai_smoke.txt` и `last_llm_speed.txt`.
+- [x] **R5-06** `tool\check.ps1`, release `--split-per-abi`, отчёт `docs/reports/REVIEW_FIXES_R5.md` с выдержками из `last_ai_smoke.txt` и `last_llm_speed.txt`.
 
 **Готово, когда:** все R5 закрыты, `check.ps1` зелёный, `last_ai_smoke.txt` показывает успешные `suggest_dishes` и `full_recipe` — или R5-01 открыта с записью в «Блокерах».
