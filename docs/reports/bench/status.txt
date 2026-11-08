@@ -1,0 +1,6 @@
+running 
+ornith-1.5-9b done 
+google/gemma-4-12b-qat done 
+qwen3.6-35b-a3b-1m done 
+ornith-1.5-35b-a3b done 
+all done 

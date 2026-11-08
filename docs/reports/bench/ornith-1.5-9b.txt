@@ -1,0 +1,48 @@
+===== ornith-1.5-9b 
+
+Model: ornith-1.5-9b
+Context Length: 4 096
+Estimated GPU Memory:   6.14 GiB
+Estimated Total Memory: 6.14 GiB
+
+Estimate: This model may be loaded based on your resource guardrails settings.
+Unloading "google/gemma-4-12b-qat"...
+Unloaded 1 model.
+[?25lLoading ornith-1.5-9b 0% ⠋[?25lLoading ornith-1.5-9b 0% ⠙[?25lLoading ornith-1.5-9b 2% ⠙[?25lLoading ornith-1.5-9b 2% ⠹[?25lLoading ornith-1.5-9b 4% ⠹[?25lLoading ornith-1.5-9b 4% ⠸[?25lLoading ornith-1.5-9b 4% ⠼[?25lLoading ornith-1.5-9b 6% ⠼[?25lLoading ornith-1.5-9b 6% ⠴[?25lLoading ornith-1.5-9b 7% ⠴[?25lLoading ornith-1.5-9b 7% ⠦[?25lLoading ornith-1.5-9b 7% ⠧[?25lLoading ornith-1.5-9b 9% ⠧[?25lLoading ornith-1.5-9b 9% ⠇[?25lLoading ornith-1.5-9b 11% ⠇[?25lLoading ornith-1.5-9b 11% ⠏[?25lLoading ornith-1.5-9b 12% ⠏[?25lLoading ornith-1.5-9b 12% ⠋[?25lLoading ornith-1.5-9b 12% ⠙[?25lLoading ornith-1.5-9b 14% ⠙[?25lLoading ornith-1.5-9b 14% ⠹[?25lLoading ornith-1.5-9b 15% ⠹[?25lLoading ornith-1.5-9b 15% ⠸[?25lLoading ornith-1.5-9b 17% ⠸[?25lLoading ornith-1.5-9b 17% ⠼[?25lLoading ornith-1.5-9b 17% ⠴[?25lLoading ornith-1.5-9b 18% ⠴[?25lLoading ornith-1.5-9b 18% ⠦[?25lLoading ornith-1.5-9b 19% ⠦[?25lLoading ornith-1.5-9b 19% ⠧[?25lLoading ornith-1.5-9b 21% ⠧[?25lLoading ornith-1.5-9b 21% ⠇[?25lLoading ornith-1.5-9b 21% ⠏[?25lLoading ornith-1.5-9b 22% ⠏[?25lLoading ornith-1.5-9b 22% ⠋[?25lLoading ornith-1.5-9b 23% ⠋[?25lLoading ornith-1.5-9b 23% ⠙[?25lLoading ornith-1.5-9b 24% ⠙[?25lLoading ornith-1.5-9b 24% ⠹[?25lLoading ornith-1.5-9b 26% ⠹[?25lLoading ornith-1.5-9b 26% ⠸[?25lLoading ornith-1.5-9b 26% ⠼[?25lLoading ornith-1.5-9b 27% ⠼[?25lLoading ornith-1.5-9b 27% ⠴[?25lLoading ornith-1.5-9b 28% ⠴[?25lLoading ornith-1.5-9b 28% ⠦[?25lLoading ornith-1.5-9b 28% ⠧[?25lLoading ornith-1.5-9b 29% ⠧[?25lLoading ornith-1.5-9b 29% ⠇[?25lLoading ornith-1.5-9b 30% ⠇[?25lLoading ornith-1.5-9b 30% ⠏[?25lLoading ornith-1.5-9b 31% ⠏[?25lLoading ornith-1.5-9b 31% ⠋[?25lLoading ornith-1.5-9b 31% ⠙[?25lLoading ornith-1.5-9b 32% ⠙[?25lLoading ornith-1.5-9b 32% ⠹[?25lLoading ornith-1.5-9b 33% ⠹[?25lLoading ornith-1.5-9b 33% ⠸[?25lLoading ornith-1.5-9b 34% ⠸[?25lLoading ornith-1.5-9b 34% ⠼[?25lLoading ornith-1.5-9b 34% ⠴[?25lLoading ornith-1.5-9b 34% ⠴[?25lLoading ornith-1.5-9b 34% ⠦[?25lLoading ornith-1.5-9b 35% ⠦[?25lLoading ornith-1.5-9b 35% ⠧[?25lLoading ornith-1.5-9b 36% ⠧[?25lLoading ornith-1.5-9b 36% ⠇[?25lLoading ornith-1.5-9b 36% ⠏[?25lLoading ornith-1.5-9b 37% ⠏[?25lLoading ornith-1.5-9b 37% ⠋[?25lLoading ornith-1.5-9b 38% ⠋[?25lLoading ornith-1.5-9b 38% ⠙[?25lLoading ornith-1.5-9b 38% ⠙[?25lLoading ornith-1.5-9b 38% ⠹[?25lLoading ornith-1.5-9b 38% ⠸[?25lLoading ornith-1.5-9b 39% ⠸[?25lLoading ornith-1.5-9b 39% ⠼[?25lLoading ornith-1.5-9b 40% ⠼[?25lLoading ornith-1.5-9b 40% ⠴[?25lLoading ornith-1.5-9b 41% ⠴[?25lLoading ornith-1.5-9b 41% ⠦[?25lLoading ornith-1.5-9b 41% ⠧[?25lLoading ornith-1.5-9b 41% ⠧[?25lLoading ornith-1.5-9b 41% ⠇[?25lLoading ornith-1.5-9b 42% ⠇[?25lLoading ornith-1.5-9b 42% ⠏[?25lLoading ornith-1.5-9b 43% ⠏[?25lLoading ornith-1.5-9b 43% ⠋[?25lLoading ornith-1.5-9b 43% ⠙[?25lLoading ornith-1.5-9b 43% ⠙[?25lLoading ornith-1.5-9b 43% ⠹[?25lLoading ornith-1.5-9b 44% ⠹[?25lLoading ornith-1.5-9b 100% ⠹[K[?25hModel loaded successfully in 4.93s.
+(5.38 GiB)
+To use the model in the API/SDK, use the identifier "ornith-1.5-9b".
+
+IDENTIFIER       MODEL            STATUS    SIZE       CONTEXT    PARALLEL    DEVICE    TTL
+ornith-1.5-9b    ornith-1.5-9b    IDLE      5.78 GB    4096       1           Local        
+
+memory.used [MiB], memory.free [MiB]
+6557 MiB, 3495 MiB
+Running build hooks...Running build hooks...========================================
+  AI Smoke Test: LM Studio & GigaChat   
+========================================
+
+[LM Studio] Checking server at candidate ports: 1235 ...
+[LM Studio] Probing http://127.0.0.1:1235 ...
+[LM Studio] Server reachable on port 1235! Using model: ornith-1.5-9b
+[LM Studio] Selected port 1235 with model: ornith-1.5-9b
+
+[LM Studio] 1/2: Testing suggest_dishes ...
+[LM Studio] suggest_dishes completed in 3543 ms
+[LM Studio] Usage: prompt_tokens=381, completion_tokens=307
+[LM Studio] finish_reason: stop
+[LM Studio] Error parsing/validating suggest_dishes response: FormatException: Unexpected end of input (at character 1)
+
+^
+ (finish_reason: stop)
+First 500 characters of response:
+
+
+[GigaChat] GIGACHAT_KEY environment variable is not set. Skipped.
+[GigaChat] (To test GigaChat: set GIGACHAT_KEY=<auth_key> and rerun)
+
+========================================
+  AI Smoke Test Completed               
+========================================
+exit 1 
+memory.used [MiB], memory.free [MiB]
+6783 MiB, 3269 MiB

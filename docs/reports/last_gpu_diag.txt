@@ -1,0 +1,89 @@
+===== nvidia-smi
+Sun Nov  8 12:28:21 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 610.62                 KMD Version: 610.62        CUDA UMD Version: 13.3     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                  Driver-Model | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA GeForce RTX 3080      WDDM  |   00000000:01:00.0  On |                  N/A |
+|  0%   35C    P8             29W /  320W |    4598MiB /  10240MiB |     21%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|    0   N/A  N/A            2512    C+G   ...2txyewy\CrossDeviceResume.exe      N/A      |
+|    0   N/A  N/A            6636    C+G   ....0.4341.42\msedgewebview2.exe      N/A      |
+|    0   N/A  N/A            6748    C+G   ...Files\LM Studio\LM Studio.exe      N/A      |
+|    0   N/A  N/A            9452    C+G   C:\Windows\explorer.exe               N/A      |
+|    0   N/A  N/A            9988    C+G   ...IA app\CEF\NVIDIA Overlay.exe      N/A      |
+|    0   N/A  N/A           12144    C+G   ..._pzs8sxrjxfjjc\app\claude.exe      N/A      |
+|    0   N/A  N/A           12656    C+G   ...ntrolPanel\SystemSettings.exe      N/A      |
+|    0   N/A  N/A           13792    C+G   ...em32\ApplicationFrameHost.exe      N/A      |
+|    0   N/A  N/A           14548    C+G   ...m Files\FlClashX\FlClashX.exe      N/A      |
+|    0   N/A  N/A           16316    C+G   ...5n1h2txyewy\TextInputHost.exe      N/A      |
+|    0   N/A  N/A           16344    C+G   ...n1h2txyewy\CHXSmartScreen.exe      N/A      |
+|    0   N/A  N/A           16692    C+G   ..._cw5n1h2txyewy\SearchHost.exe      N/A      |
+|    0   N/A  N/A           19168    C+G   ...pp-4.0.896\RazerAppEngine.exe      N/A      |
+|    0   N/A  N/A           20764    C+G   ...)\Mozilla Firefox\firefox.exe      N/A      |
+|    0   N/A  N/A           21096    C+G   ...y\StartMenuExperienceHost.exe      N/A      |
+|    0   N/A  N/A           22368    C+G   ..._pzs8sxrjxfjjc\app\claude.exe      N/A      |
+|    0   N/A  N/A           22824    C+G   ...s\antigravity\Antigravity.exe      N/A      |
+|    0   N/A  N/A           23544    C+G   ...)\Mozilla Firefox\firefox.exe      N/A      |
+|    0   N/A  N/A           25948    C+G   ...yb3d8bbwe\WindowsTerminal.exe      N/A      |
+|    0   N/A  N/A           27308    C+G   ...IA app\CEF\NVIDIA Overlay.exe      N/A      |
+|    0   N/A  N/A           27852    C+G   ...xyewy\ShellExperienceHost.exe      N/A      |
+|    0   N/A  N/A           30712    C+G   ...s\antigravity\Antigravity.exe      N/A      |
+|    0   N/A  N/A           32216    C+G   ...indows\System32\ShellHost.exe      N/A      |
+|    0   N/A  N/A           32580    C+G   ...Telegram Desktop\Telegram.exe      N/A      |
+|    0   N/A  N/A           33172      C   ...Files\LM Studio\LM Studio.exe      N/A      |
++-----------------------------------------------------------------------------------------+
+===== gpu memory and clocks
+name, memory.total [MiB], memory.used [MiB], memory.free [MiB], utilization.gpu [%], temperature.gpu, clocks.current.sm [MHz], clocks.max.sm [MHz], power.draw [W], pstate, clocks_event_reasons.active
+NVIDIA GeForce RTX 3080, 10240 MiB, 4598 MiB, 5454 MiB, 21 %, 35, 210 MHz, 2100 MHz, 29.23 W, P8, 0x0000000000000001
+===== processes using gpu
+pid, process_name, used_gpu_memory [MiB]
+10780, [Insufficient Permissions], [N/A]
+32216, C:\Windows\System32\ShellHost.exe, [N/A]
+2512, C:\Windows\SystemApps\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\CrossDeviceResume.exe, [N/A]
+9452, C:\Windows\explorer.exe, [N/A]
+21096, C:\Windows\SystemApps\Microsoft.Windows.StartMenuExperienceHost_cw5n1h2txyewy\StartMenuExperienceHost.exe, [N/A]
+16692, C:\Windows\SystemApps\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\SearchHost.exe, [N/A]
+9988, C:\Program Files\NVIDIA Corporation\NVIDIA app\CEF\NVIDIA Overlay.exe, [N/A]
+6636, C:\Program Files (x86)\Microsoft\EdgeWebView\Application\157.0.4341.42\msedgewebview2.exe, [N/A]
+21880, [Insufficient Permissions], [N/A]
+16316, C:\Windows\SystemApps\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\TextInputHost.exe, [N/A]
+19168, C:\Program Files\Razer\RazerAppEngine\app-4.0.896\RazerAppEngine.exe, [N/A]
+14548, C:\Program Files\FlClashX\FlClashX.exe, [N/A]
+16344, C:\Windows\SystemApps\Microsoft.Windows.AppRep.ChxApp_cw5n1h2txyewy\CHXSmartScreen.exe, [N/A]
+27852, C:\Windows\SystemApps\ShellExperienceHost_cw5n1h2txyewy\ShellExperienceHost.exe, [N/A]
+32580, C:\Users\Мой Компьютер\AppData\Roaming\Telegram Desktop\Telegram.exe, [N/A]
+21728, [Insufficient Permissions], [N/A]
+22824, C:\Users\Мой Компьютер\AppData\Local\Programs\antigravity\Antigravity.exe, [N/A]
+30712, C:\Users\Мой Компьютер\AppData\Local\Programs\antigravity\Antigravity.exe, [N/A]
+12144, C:\Program Files\WindowsApps\Claude_4.23118.0.0_x64__pzs8sxrjxfjjc\app\claude.exe, [N/A]
+22368, C:\Program Files\WindowsApps\Claude_4.23118.0.0_x64__pzs8sxrjxfjjc\app\claude.exe, [N/A]
+20764, C:\Program Files (x86)\Mozilla Firefox\firefox.exe, [N/A]
+23544, C:\Program Files (x86)\Mozilla Firefox\firefox.exe, [N/A]
+25948, C:\Program Files\WindowsApps\Microsoft.WindowsTerminal_1.24.12741.0_x64__8wekyb3d8bbwe\WindowsTerminal.exe, [N/A]
+13792, C:\Windows\System32\ApplicationFrameHost.exe, [N/A]
+12656, C:\Windows\ImmersiveControlPanel\SystemSettings.exe, [N/A]
+6748, C:\Program Files\LM Studio\LM Studio.exe, [N/A]
+33172, C:\Program Files\LM Studio\LM Studio.exe, [N/A]
+27308, C:\Program Files\NVIDIA Corporation\NVIDIA app\CEF\NVIDIA Overlay.exe, [N/A]
+===== lms ps
+
+IDENTIFIER            MODEL                 STATUS    SIZE        CONTEXT    PARALLEL    DEVICE    TTL
+ornith-1.5-35b-a3b    ornith-1.5-35b-a3b    IDLE      29.21 GB    8192       2           Local        
+
+===== tiny request now
+HTTP 400 TIME 0.514536s
+===== nvidia-smi after
+memory.used [MiB], utilization.gpu [%], temperature.gpu, clocks.current.sm [MHz], pstate
+4598 MiB, 8 %, 35, 210 MHz, P8
+done 

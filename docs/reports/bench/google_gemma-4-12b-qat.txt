@@ -1,0 +1,46 @@
+===== google/gemma-4-12b-qat 
+
+Model: google/gemma-4-12b-qat
+Context Length: 4 096
+Estimated GPU Memory:   7.49 GiB
+Estimated Total Memory: 7.49 GiB
+
+Estimate: This model may be loaded based on your resource guardrails settings.
+Unloading "ornith-1.5-9b"...
+Unloaded 1 model.
+[?25lLoading google/gemma-4-12b-qat 0% ⠋[?25lLoading google/gemma-4-12b-qat 0% ⠙[?25lLoading google/gemma-4-12b-qat 2% ⠙[?25lLoading google/gemma-4-12b-qat 2% ⠹[?25lLoading google/gemma-4-12b-qat 4% ⠹[?25lLoading google/gemma-4-12b-qat 4% ⠸[?25lLoading google/gemma-4-12b-qat 4% ⠼[?25lLoading google/gemma-4-12b-qat 6% ⠼[?25lLoading google/gemma-4-12b-qat 6% ⠴[?25lLoading google/gemma-4-12b-qat 7% ⠴[?25lLoading google/gemma-4-12b-qat 7% ⠦[?25lLoading google/gemma-4-12b-qat 9% ⠦[?25lLoading google/gemma-4-12b-qat 9% ⠧[?25lLoading google/gemma-4-12b-qat 9% ⠇[?25lLoading google/gemma-4-12b-qat 11% ⠇[?25lLoading google/gemma-4-12b-qat 11% ⠏[?25lLoading google/gemma-4-12b-qat 12% ⠏[?25lLoading google/gemma-4-12b-qat 12% ⠋[?25lLoading google/gemma-4-12b-qat 14% ⠋[?25lLoading google/gemma-4-12b-qat 14% ⠙[?25lLoading google/gemma-4-12b-qat 14% ⠹[?25lLoading google/gemma-4-12b-qat 15% ⠹[?25lLoading google/gemma-4-12b-qat 15% ⠸[?25lLoading google/gemma-4-12b-qat 17% ⠸[?25lLoading google/gemma-4-12b-qat 17% ⠼[?25lLoading google/gemma-4-12b-qat 18% ⠼[?25lLoading google/gemma-4-12b-qat 18% ⠴[?25lLoading google/gemma-4-12b-qat 18% ⠦[?25lLoading google/gemma-4-12b-qat 19% ⠦[?25lLoading google/gemma-4-12b-qat 19% ⠧[?25lLoading google/gemma-4-12b-qat 21% ⠧[?25lLoading google/gemma-4-12b-qat 21% ⠇[?25lLoading google/gemma-4-12b-qat 22% ⠇[?25lLoading google/gemma-4-12b-qat 22% ⠏[?25lLoading google/gemma-4-12b-qat 22% ⠋[?25lLoading google/gemma-4-12b-qat 23% ⠋[?25lLoading google/gemma-4-12b-qat 23% ⠙[?25lLoading google/gemma-4-12b-qat 24% ⠙[?25lLoading google/gemma-4-12b-qat 24% ⠹[?25lLoading google/gemma-4-12b-qat 26% ⠹[?25lLoading google/gemma-4-12b-qat 26% ⠸[?25lLoading google/gemma-4-12b-qat 26% ⠼[?25lLoading google/gemma-4-12b-qat 27% ⠼[?25lLoading google/gemma-4-12b-qat 27% ⠴[?25lLoading google/gemma-4-12b-qat 28% ⠴[?25lLoading google/gemma-4-12b-qat 28% ⠦[?25lLoading google/gemma-4-12b-qat 29% ⠦[?25lLoading google/gemma-4-12b-qat 29% ⠧[?25lLoading google/gemma-4-12b-qat 29% ⠇[?25lLoading google/gemma-4-12b-qat 30% ⠇[?25lLoading google/gemma-4-12b-qat 30% ⠏[?25lLoading google/gemma-4-12b-qat 31% ⠏[?25lLoading google/gemma-4-12b-qat 31% ⠋[?25lLoading google/gemma-4-12b-qat 31% ⠙[?25lLoading google/gemma-4-12b-qat 32% ⠙[?25lLoading google/gemma-4-12b-qat 32% ⠹[?25lLoading google/gemma-4-12b-qat 33% ⠹[?25lLoading google/gemma-4-12b-qat 33% ⠸[?25lLoading google/gemma-4-12b-qat 34% ⠸[?25lLoading google/gemma-4-12b-qat 34% ⠼[?25lLoading google/gemma-4-12b-qat 34% ⠴[?25lLoading google/gemma-4-12b-qat 34% ⠴[?25lLoading google/gemma-4-12b-qat 34% ⠦[?25lLoading google/gemma-4-12b-qat 35% ⠦[?25lLoading google/gemma-4-12b-qat 100% ⠦[?25lLoading google/gemma-4-12b-qat 100% ⠧[K[?25hModel loaded successfully in 3.47s.
+(6.66 GiB)
+To use the model in the API/SDK, use the identifier "google/gemma-4-12b-qat".
+
+IDENTIFIER                MODEL                     STATUS    SIZE       CONTEXT    PARALLEL    DEVICE    TTL
+google/gemma-4-12b-qat    google/gemma-4-12b-qat    IDLE      7.15 GB    4096       1           Local        
+
+memory.used [MiB], memory.free [MiB]
+9196 MiB, 856 MiB
+Running build hooks...Running build hooks...========================================
+  AI Smoke Test: LM Studio & GigaChat   
+========================================
+
+[LM Studio] Checking server at candidate ports: 1235 ...
+[LM Studio] Probing http://127.0.0.1:1235 ...
+[LM Studio] Server reachable on port 1235! Using model: google/gemma-4-12b-qat
+[LM Studio] Selected port 1235 with model: google/gemma-4-12b-qat
+
+[LM Studio] 1/2: Testing suggest_dishes ...
+[LM Studio] suggest_dishes completed in 7691 ms
+[LM Studio] Usage: prompt_tokens=406, completion_tokens=368
+[LM Studio] finish_reason: stop
+[LM Studio] suggest_dishes validation: Valid(warnings: [])
+
+[LM Studio] 2/2: Testing full_recipe for "Картофель запеченный" (main, easy) ...
+[LM Studio] full_recipe query FAILED in 45s: AiException(timeout: Компьютер долго отвечает (превышено время ожидания))
+
+[GigaChat] GIGACHAT_KEY environment variable is not set. Skipped.
+[GigaChat] (To test GigaChat: set GIGACHAT_KEY=<auth_key> and rerun)
+
+========================================
+  AI Smoke Test Completed               
+========================================
+exit 1 
+memory.used [MiB], memory.free [MiB]
+9725 MiB, 327 MiB

@@ -1,0 +1,57 @@
+===== lms ls
+
+You have 8 models, taking up 177.74 GB of disk space.
+
+LLM                                   PARAMS      ARCH         SIZE        DEVICE            
+flint                                 256x2.1B    flint        36.32 GB    Local             
+google/gemma-4-12b-qat (1 variant)    12B         gemma4       7.15 GB     Local     ✓ LOADED
+ornith-1.5-35b-a3b                    35B         qwen35moe    29.21 GB    Local             
+ornith-1.5-9b                         9B          qwen35       5.78 GB     Local             
+qwen/qwen3.8-27b (1 variant)          27B         qwen35       17.74 GB    Local             
+qwen3-coder-next                      512x2.5B    qwen3next    49.61 GB    Local             
+qwen3.6-35b-a3b-1m                    35B-A3B     qwen35moe    31.84 GB    Local             
+
+EMBEDDING                               PARAMS    ARCH          SIZE        DEVICE    
+text-embedding-nomic-embed-text-v1.5              Nomic BERT    84.11 MB    Local     
+
+===== lms ls --json
+[{"type":"llm","modelKey":"ornith-1.5-9b","format":"gguf","displayName":"Ornith 1.5 9B","publisher":"ornith-ai","path":"ornith-ai/Ornith-1.5-9B-GGUF/Ornith-1.5-9B-Q4_K_M.gguf","sizeBytes":5780090816,"indexedModelIdentifier":"ornith-ai/Ornith-1.5-9B-GGUF/Ornith-1.5-9B-Q4_K_M.gguf","deviceIdentifier":null,"paramsString":"9B","architecture":"qwen35","quantization":{"name":"Q4_K_M","bits":4},"vision":false,"trainedForToolUse":true,"maxContextLength":262144},{"type":"llm","modelKey":"ornith-1.5-35b-a3b","format":"gguf","displayName":"Ornith 1.5 35B","publisher":"ornith-ai","path":"ornith-ai/Ornith-1.5-35B-A3B-GGUF/Ornith-1.5-35B-Q6_K.gguf","sizeBytes":29208731392,"indexedModelIdentifier":"ornith-ai/Ornith-1.5-35B-A3B-GGUF/Ornith-1.5-35B-Q6_K.gguf","deviceIdentifier":null,"paramsString":"35B","architecture":"qwen35moe","quantization":{"name":"Q6_K","bits":6},"vision":false,"trainedForToolUse":true,"maxContextLength":262144},{"type":"llm","modelKey":"qwen3.6-35b-a3b-1m","format":"gguf","displayName":"Qwen3.6 35B A3B 1M UD","publisher":"unsloth","path":"unsloth/Qwen3.6-35B-A3B-1M-GGUF/Qwen3.6-35B-A3B-1M-UD-Q6_K_XL.gguf","sizeBytes":31843777664,"indexedModelIdentifier":"unsloth/Qwen3.6-35B-A3B-1M-GGUF/Qwen3.6-35B-A3B-1M-UD-Q6_K_XL.gguf","deviceIdentifier":null,"paramsString":"35B-A3B","architecture":"qwen35moe","quantization":{"name":"Q6_K_XL","bits":6},"vision":false,"trainedForToolUse":true,"maxContextLength":1048576},{"type":"llm","modelKey":"flint","format":"gguf","displayName":"Flint UD","publisher":"unsloth","path":"unsloth/flint-GGUF/flint-UD-Q6_K_XL.gguf","sizeBytes":36319999424,"indexedModelIdentifier":"unsloth/flint-GGUF/flint-UD-Q6_K_XL.gguf","deviceIdentifier":null,"paramsString":"256x2.1B","architecture":"flint","quantization":{"name":"Q6_K_XL","bits":6},"vision":false,"trainedForToolUse":true,"maxContextLength":262144},{"type":"llm","modelKey":"qwen3-coder-next","format":"gguf","displayName":"Qwen3 Coder Next UD","publisher":"unsloth","path":"unsloth/Qwen3-Coder-Next-GGUF/Qwen3-Coder-Next-UD-Q4_K_XL.gguf","sizeBytes":49608478720,"indexedModelIdentifier":"unsloth/Qwen3-Coder-Next-GGUF/Qwen3-Coder-Next-UD-Q4_K_XL.gguf","deviceIdentifier":null,"paramsString":"512x2.5B","architecture":"qwen3next","quantization":{"name":"Q4_K_XL","bits":4},"vision":false,"trainedForToolUse":true,"maxContextLength":262144},{"type":"llm","modelKey":"qwen/qwen3.8-27b","format":"gguf","displayName":"Qwen3.8 27B","publisher":"qwen","path":"qwen/qwen3.8-27b","sizeBytes":17742040464,"indexedModelIdentifier":"qwen/qwen3.8-27b","deviceIdentifier":null,"paramsString":"27B","architecture":"qwen35","quantization":{"name":"Q4_K_M","bits":4},"variants":["qwen/qwen3.8-27b@q4_k_m"],"selectedVariant":"qwen/qwen3.8-27b@q4_k_m","vision":true,"trainedForToolUse":true,"maxContextLength":262144},{"type":"llm","modelKey":"google/gemma-4-12b-qat","format":"gguf","displayName":"Gemma 4 12B QAT","publisher":"google","path":"google/gemma-4-12b-qat","sizeBytes":7151066820,"indexedModelIdentifier":"google/gemma-4-12b-qat","deviceIdentifier":null,"paramsString":"12B","architecture":"gemma4","quantization":{"name":"Q4_0","bits":4},"variants":["google/gemma-4-12b-qat@q4_0"],"selectedVariant":"google/gemma-4-12b-qat@q4_0","vision":true,"trainedForToolUse":true,"maxContextLength":262144},{"type":"embedding","modelKey":"text-embedding-nomic-embed-text-v1.5","format":"gguf","displayName":"Nomic Embed Text v1.5","publisher":"nomic-ai","path":"nomic-ai/nomic-embed-text-v1.5-GGUF/nomic-embed-text-v1.5.Q4_K_M.gguf","sizeBytes":84106624,"indexedModelIdentifier":"nomic-ai/nomic-embed-text-v1.5-GGUF/nomic-embed-text-v1.5.Q4_K_M.gguf","deviceIdentifier":null,"architecture":"nomic-bert","quantization":{"name":"Q4_K_M","bits":4},"maxContextLength":2048}]
+===== lms ps
+
+IDENTIFIER                MODEL                     STATUS    SIZE       CONTEXT    PARALLEL    DEVICE    TTL
+google/gemma-4-12b-qat    google/gemma-4-12b-qat    IDLE      7.15 GB    8192       4           Local        
+
+===== gpu
+name, memory.total [MiB], memory.used [MiB], memory.free [MiB]
+NVIDIA GeForce RTX 3080, 10240 MiB, 9765 MiB, 287 MiB
+===== ram
+
+
+TotalPhysicalMemory : 66124611584
+
+
+
+
+
+Name          : AMD Ryzen 9 9950X3D 16-Core Processor          
+NumberOfCores : 16
+
+
+
+===== model files
+
+   GB FullName                                                                                                              
+   -- --------                                                                                                              
+  6,5 C:\Users\Мой Компьютер\.lmstudio\models\lmstudio-community\gemma-4-12B-it-QAT-GGUF\gemma-4-12B-it-QAT-Q4_0.gguf       
+ 0,16 C:\Users\Мой Компьютер\.lmstudio\models\lmstudio-community\gemma-4-12B-it-QAT-GGUF\mmproj-gemma-4-12B-it-QAT-BF16.gguf
+ 0,87 C:\Users\Мой Компьютер\.lmstudio\models\lmstudio-community\Qwen3.8-27B-GGUF\mmproj-Qwen3.8-27B-BF16.gguf              
+15,66 C:\Users\Мой Компьютер\.lmstudio\models\lmstudio-community\Qwen3.8-27B-GGUF\Qwen3.8-27B-Q4_K_M.gguf                   
+ 27,2 C:\Users\Мой Компьютер\.lmstudio\models\ornith-ai\Ornith-1.5-35B-A3B-GGUF\Ornith-1.5-35B-Q6_K.gguf                    
+ 5,38 C:\Users\Мой Компьютер\.lmstudio\models\ornith-ai\Ornith-1.5-9B-GGUF\Ornith-1.5-9B-Q4_K_M.gguf                        
+33,83 C:\Users\Мой Компьютер\.lmstudio\models\unsloth\flint-GGUF\flint-UD-Q6_K_XL.gguf                                      
+ 46,2 C:\Users\Мой Компьютер\.lmstudio\models\unsloth\Qwen3-Coder-Next-GGUF\Qwen3-Coder-Next-UD-Q4_K_XL.gguf                
+29,66 C:\Users\Мой Компьютер\.lmstudio\models\unsloth\Qwen3.6-35B-A3B-1M-GGUF\Qwen3.6-35B-A3B-1M-UD-Q6_K_XL.gguf            
+
+
+
+done
