@@ -6,17 +6,22 @@ Running build hooks...Running build hooks...====================================
 [LM Studio] Probing http://127.0.0.1:1235 ...
 [LM Studio] Server reachable on port 1235! Using model: ornith-1.5-35b-a3b
 [LM Studio] Selected port 1235 with model: ornith-1.5-35b-a3b
+[LM Studio] Model info: ornith-1.5-35b-a3b (context: 8192, parallel: 2)
 
 [LM Studio] 1/2: Testing suggest_dishes ...
-[LM Studio] suggest_dishes completed in 13025 ms
-[LM Studio] Usage: prompt_tokens=381, completion_tokens=525
+[LM Studio] suggest_dishes completed in 13042 ms
+[LM Studio] Usage: prompt_tokens=381, completion_tokens=586
 [LM Studio] finish_reason: stop
+[LM Studio] Speed: 44.9 tok/s (586 completion tokens in 13.04s)
+[LM Studio] Time to first token (TTFT): 0.56s
 [LM Studio] suggest_dishes validation: Valid(warnings: [])
 
-[LM Studio] 2/2: Testing full_recipe for "Картофельное пюре" (side, easy) ...
-[LM Studio] full_recipe completed in 9390 ms
-[LM Studio] Usage: prompt_tokens=387, completion_tokens=385
+[LM Studio] 2/2: Testing full_recipe for "Картофельное пюре с курицей" (soup, easy) ...
+[LM Studio] full_recipe completed in 14308 ms
+[LM Studio] Usage: prompt_tokens=395, completion_tokens=600
 [LM Studio] finish_reason: stop
+[LM Studio] Speed: 41.9 tok/s (600 completion tokens in 14.31s)
+[LM Studio] Time to first token (TTFT): 1.46s
 [LM Studio] full_recipe validation: Valid(warnings: [])
 
 [GigaChat] GIGACHAT_KEY environment variable is not set. Skipped.

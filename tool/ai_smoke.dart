@@ -108,7 +108,9 @@ Future<bool> _testLmStudio({
     }
   }
 
-  if (connectedProvider == null || connectedModelId == null) {
+  if (connectedProvider == null ||
+      connectedModelId == null ||
+      connectedPort == null) {
     stdout.writeln(
       '[LM Studio] NOT RUNNING / NOT REACHABLE on candidate ports: ${candidatePorts.join(', ')}',
     );
@@ -122,11 +124,14 @@ Future<bool> _testLmStudio({
 
   final provider = connectedProvider;
   final modelId = connectedModelId;
+  final port = connectedPort;
   rawLog['selected_model'] = modelId;
-  rawLog['selected_port'] = connectedPort;
+  rawLog['selected_port'] = port;
   stdout.writeln(
-    '[LM Studio] Selected port $connectedPort with model: $connectedModelId',
+    '[LM Studio] Selected port $port with model: $connectedModelId',
   );
+
+  await _printLoadedModelInfo(port, connectedModelId);
 
   // 1. suggest_dishes
   stdout.writeln('\n[LM Studio] 1/2: Testing suggest_dishes ...');
@@ -180,6 +185,7 @@ Future<bool> _testLmStudio({
     '[LM Studio] Usage: prompt_tokens=${resp1.promptTokens}, completion_tokens=${resp1.completionTokens}',
   );
   stdout.writeln('[LM Studio] finish_reason: ${resp1.finishReason}');
+  _printSpeedAndCheck(resp1, sw1.elapsed);
 
   if (resp1.finishReason == 'length') {
     stdout.writeln(
@@ -206,6 +212,7 @@ Future<bool> _testLmStudio({
         '[LM Studio] suggest_dishes length retry completed in ${swRetryLen.elapsed.inMilliseconds} ms (finish_reason: ${retryResp.finishReason})',
       );
       resp1 = retryResp;
+      _printSpeedAndCheck(resp1, swRetryLen.elapsed);
     } catch (e) {
       stdout.writeln('[LM Studio] length retry failed: $e');
     }
@@ -216,6 +223,10 @@ Future<bool> _testLmStudio({
     'prompt_tokens': resp1.promptTokens,
     'completion_tokens': resp1.completionTokens,
     'duration_ms': sw1.elapsedMilliseconds,
+    'time_to_first_token_ms': resp1.timeToFirstToken?.inMilliseconds,
+    'speed_tok_s': sw1.elapsedMilliseconds > 0
+        ? (resp1.completionTokens / (sw1.elapsedMilliseconds / 1000.0))
+        : 0.0,
     'raw_content': resp1.rawContent,
   };
 
@@ -361,6 +372,7 @@ Future<bool> _testLmStudio({
     '[LM Studio] Usage: prompt_tokens=${resp2.promptTokens}, completion_tokens=${resp2.completionTokens}',
   );
   stdout.writeln('[LM Studio] finish_reason: ${resp2.finishReason}');
+  _printSpeedAndCheck(resp2, sw2.elapsed);
 
   if (resp2.finishReason == 'length') {
     stdout.writeln(
@@ -387,6 +399,7 @@ Future<bool> _testLmStudio({
         '[LM Studio] full_recipe length retry completed in ${swRetryLen.elapsed.inMilliseconds} ms (finish_reason: ${retryResp.finishReason})',
       );
       resp2 = retryResp;
+      _printSpeedAndCheck(resp2, swRetryLen.elapsed);
     } catch (e) {
       stdout.writeln('[LM Studio] length retry failed: $e');
     }
@@ -397,6 +410,10 @@ Future<bool> _testLmStudio({
     'prompt_tokens': resp2.promptTokens,
     'completion_tokens': resp2.completionTokens,
     'duration_ms': sw2.elapsedMilliseconds,
+    'time_to_first_token_ms': resp2.timeToFirstToken?.inMilliseconds,
+    'speed_tok_s': sw2.elapsedMilliseconds > 0
+        ? (resp2.completionTokens / (sw2.elapsedMilliseconds / 1000.0))
+        : 0.0,
     'raw_content': resp2.rawContent,
   };
   saveRawLog();
@@ -639,4 +656,86 @@ Future<bool> _testGigaChat({
   }
 
   return val2Ok;
+}
+
+void _printSpeedAndCheck(AiCompletionResponse resp, Duration duration) {
+  final elapsedSec = duration.inMilliseconds / 1000.0;
+  final tokPerSec = elapsedSec > 0 ? (resp.completionTokens / elapsedSec) : 0.0;
+  stdout.writeln(
+    '[LM Studio] Speed: ${tokPerSec.toStringAsFixed(1)} tok/s (${resp.completionTokens} completion tokens in ${elapsedSec.toStringAsFixed(2)}s)',
+  );
+  if (resp.timeToFirstToken != null) {
+    final ttftSec = resp.timeToFirstToken!.inMilliseconds / 1000.0;
+    stdout.writeln(
+      '[LM Studio] Time to first token (TTFT): ${ttftSec.toStringAsFixed(2)}s',
+    );
+  }
+  if (tokPerSec < 5.0) {
+    stdout.writeln(
+      '[LM Studio] Видеопамяти не хватает: см. docs/INSTALL.md раздел 2.4',
+    );
+  }
+}
+
+Future<void> _printLoadedModelInfo(int port, String fallbackModelId) async {
+  try {
+    final client = HttpClient()..connectionTimeout = const Duration(seconds: 3);
+    final req = await client.getUrl(
+      Uri.parse('http://127.0.0.1:$port/api/v1/models'),
+    );
+    final resp = await req.close();
+    if (resp.statusCode == 200) {
+      final text = await resp.transform(utf8.decoder).join();
+      final data = jsonDecode(text);
+      if (data is Map && data['models'] is List) {
+        for (final m in data['models'] as List) {
+          if (m is Map &&
+              m['loaded_instances'] is List &&
+              (m['loaded_instances'] as List).isNotEmpty) {
+            final instance = (m['loaded_instances'] as List).first as Map;
+            final config = instance['config'] as Map?;
+            final id = instance['id'] ?? m['key'];
+            final ctx =
+                config?['context_length'] ?? m['max_context_length'] ?? '?';
+            final parallel = config?['parallel'] ?? '?';
+            stdout.writeln(
+              '[LM Studio] Model info: $id (context: $ctx, parallel: $parallel)',
+            );
+            client.close();
+            return;
+          }
+        }
+      }
+    }
+    client.close();
+  } catch (_) {}
+
+  try {
+    final client = HttpClient()..connectionTimeout = const Duration(seconds: 3);
+    final req = await client.getUrl(
+      Uri.parse('http://127.0.0.1:$port/api/v0/models'),
+    );
+    final resp = await req.close();
+    if (resp.statusCode == 200) {
+      final text = await resp.transform(utf8.decoder).join();
+      final data = jsonDecode(text);
+      if (data is Map && data['data'] is List) {
+        for (final m in data['data'] as List) {
+          if (m is Map && m['state'] == 'loaded') {
+            final id = m['id'];
+            final ctx =
+                m['loaded_context_length'] ?? m['max_context_length'] ?? '?';
+            stdout.writeln(
+              '[LM Studio] Model info: $id (context: $ctx, parallel: 1)',
+            );
+            client.close();
+            return;
+          }
+        }
+      }
+    }
+    client.close();
+  } catch (_) {}
+
+  stdout.writeln('[LM Studio] Model info: $fallbackModelId');
 }
