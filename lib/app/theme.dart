@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 
-/// Application theme definitions conforming to TZ 7.1 senior accessibility rules:
-/// - Base body font >= 18 sp
-/// - Titles >= 24 sp
-/// - Interactive buttons min touch target >= 56 dp
-/// - Contrast ratio >= 4.5:1 in both light and dark themes
+import '../core/adaptive/adaptive_spec.dart';
+
+/// Application theme definitions conforming to TZ 7.1 senior accessibility rules
+/// and D-057 adaptive interface modes (simple / full via [AdaptiveSpec]).
 class AppTheme {
   AppTheme._();
 
@@ -26,93 +25,104 @@ class AppTheme {
   static const Color surfaceDark = Color(0xFF1C1F1D);
   static const Color onSurfaceDark = Color(0xFFE1E3DF);
 
-  static ThemeData get light {
-    const colorScheme = ColorScheme.light(
-      primary: primaryLight,
-      onPrimary: onPrimaryLight,
-      // Without these Flutter falls back to its default teal (#03DAC6) for
-      // selected chips, switches and FABs, and primaryContainer equals
-      // primary (dark text on dark green in selected pantry tiles).
-      primaryContainer: Color(0xFFCDEBD6),
-      onPrimaryContainer: Color(0xFF00210E),
-      secondary: Color(0xFF8A4B2A),
-      onSecondary: Colors.white,
-      secondaryContainer: Color(0xFFF5DCCB),
-      onSecondaryContainer: Color(0xFF3A1A08),
-      tertiary: Color(0xFF3E6373),
-      onTertiary: Colors.white,
-      tertiaryContainer: Color(0xFFC2E8FB),
-      onTertiaryContainer: Color(0xFF001F2A),
-      error: Color(0xFFBA1A1A),
-      onError: Colors.white,
-      // R4-04: explicitly configured errorContainer & onErrorContainer
-      errorContainer: Color(0xFFFFDAD6),
-      onErrorContainer: Color(0xFF410002),
-      surface: surfaceLight,
-      onSurface: onSurfaceLight,
-      onSurfaceVariant: Color(0xFF424940),
-      surfaceContainerLowest: Colors.white,
-      surfaceContainerLow: Color(0xFFF3F5EF),
-      surfaceContainer: Color(0xFFEDF0E9),
-      surfaceContainerHigh: Color(0xFFE7EAE3),
-      surfaceContainerHighest: Color(0xFFE2E4DE),
-      outline: Color(0xFF727972),
-      outlineVariant: Color(0xFFC2C9BD),
-    );
+  static const ColorScheme lightColorScheme = ColorScheme.light(
+    primary: primaryLight,
+    onPrimary: onPrimaryLight,
+    primaryContainer: Color(0xFFCDEBD6),
+    onPrimaryContainer: Color(0xFF00210E),
+    secondary: Color(0xFF8A4B2A),
+    onSecondary: Colors.white,
+    secondaryContainer: Color(0xFFF5DCCB),
+    onSecondaryContainer: Color(0xFF3A1A08),
+    tertiary: Color(0xFF3E6373),
+    onTertiary: Colors.white,
+    tertiaryContainer: Color(0xFFC2E8FB),
+    onTertiaryContainer: Color(0xFF001F2A),
+    error: Color(0xFFBA1A1A),
+    onError: Colors.white,
+    errorContainer: Color(0xFFFFDAD6),
+    onErrorContainer: Color(0xFF410002),
+    surface: surfaceLight,
+    onSurface: onSurfaceLight,
+    onSurfaceVariant: Color(0xFF424940),
+    surfaceContainerLowest: Colors.white,
+    surfaceContainerLow: Color(0xFFF3F5EF),
+    surfaceContainer: Color(0xFFEDF0E9),
+    surfaceContainerHigh: Color(0xFFE7EAE3),
+    surfaceContainerHighest: Color(0xFFE2E4DE),
+    outline: Color(0xFF727972),
+    outlineVariant: Color(0xFFC2C9BD),
+  );
 
-    return _buildTheme(colorScheme: colorScheme, isDark: false);
+  static const ColorScheme darkColorScheme = ColorScheme.dark(
+    primary: primaryDark,
+    onPrimary: onPrimaryDark,
+    primaryContainer: Color(0xFF00522D),
+    onPrimaryContainer: Color(0xFF85F5B2),
+    secondary: Color(0xFFFFB590),
+    onSecondary: Color(0xFF552100),
+    secondaryContainer: Color(0xFF6F3A1E),
+    onSecondaryContainer: Color(0xFFFFDBCB),
+    tertiary: Color(0xFFA6CCDE),
+    onTertiary: Color(0xFF073543),
+    tertiaryContainer: Color(0xFF254B5B),
+    onTertiaryContainer: Color(0xFFC2E8FB),
+    error: Color(0xFFFFB4AB),
+    onError: Color(0xFF690005),
+    errorContainer: Color(0xFF93000A),
+    onErrorContainer: Color(0xFFFFDAD6),
+    surface: surfaceDark,
+    onSurface: onSurfaceDark,
+    onSurfaceVariant: Color(0xFFC2C9BD),
+    surfaceContainerLowest: Color(0xFF0D0F0E),
+    surfaceContainerLow: Color(0xFF191C1A),
+    surfaceContainer: Color(0xFF1D201E),
+    surfaceContainerHigh: Color(0xFF282B28),
+    surfaceContainerHighest: Color(0xFF333834),
+    outline: Color(0xFF8C938C),
+    outlineVariant: Color(0xFF424940),
+  );
+
+  static ThemeData get light => lightFor(AdaptiveSpec.defaultSimple);
+
+  static ThemeData get dark => darkFor(AdaptiveSpec.defaultSimple);
+
+  static ThemeData lightFor([AdaptiveSpec? spec]) {
+    return _buildTheme(
+      colorScheme: lightColorScheme,
+      isDark: false,
+      spec: spec ?? AdaptiveSpec.defaultSimple,
+    );
   }
 
-  static ThemeData get dark {
-    const colorScheme = ColorScheme.dark(
-      primary: primaryDark,
-      onPrimary: onPrimaryDark,
-      primaryContainer: Color(0xFF00522D),
-      onPrimaryContainer: Color(0xFF85F5B2),
-      secondary: Color(0xFFFFB590),
-      onSecondary: Color(0xFF552100),
-      secondaryContainer: Color(0xFF6F3A1E),
-      onSecondaryContainer: Color(0xFFFFDBCB),
-      tertiary: Color(0xFFA6CCDE),
-      onTertiary: Color(0xFF073543),
-      tertiaryContainer: Color(0xFF254B5B),
-      onTertiaryContainer: Color(0xFFC2E8FB),
-      error: Color(0xFFFFB4AB),
-      onError: Color(0xFF690005),
-      // R4-04: explicitly configured errorContainer & onErrorContainer
-      errorContainer: Color(0xFF93000A),
-      onErrorContainer: Color(0xFFFFDAD6),
-      surface: surfaceDark,
-      onSurface: onSurfaceDark,
-      onSurfaceVariant: Color(0xFFC2C9BD),
-      surfaceContainerLowest: Color(0xFF0D0F0E),
-      surfaceContainerLow: Color(0xFF191C1A),
-      surfaceContainer: Color(0xFF1D201E),
-      surfaceContainerHigh: Color(0xFF282B28),
-      surfaceContainerHighest: Color(0xFF333834),
-      outline: Color(0xFF8C938C),
-      outlineVariant: Color(0xFF424940),
+  static ThemeData darkFor([AdaptiveSpec? spec]) {
+    return _buildTheme(
+      colorScheme: darkColorScheme,
+      isDark: true,
+      spec: spec ?? AdaptiveSpec.defaultSimple,
     );
-
-    return _buildTheme(colorScheme: colorScheme, isDark: true);
   }
 
   static ThemeData _buildTheme({
     required ColorScheme colorScheme,
     required bool isDark,
+    required AdaptiveSpec spec,
   }) {
-    final textTheme = _buildTextTheme(colorScheme.onSurface);
+    final textTheme = _buildTextTheme(colorScheme.onSurface, spec);
 
     final buttonStyle = ButtonStyle(
-      minimumSize: const WidgetStatePropertyAll(
-        Size(minTouchTarget, minTouchTarget),
+      minimumSize: WidgetStatePropertyAll(
+        Size(spec.minTouchTarget, spec.minTouchTarget),
       ),
-      padding: const WidgetStatePropertyAll(
-        EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+      padding: WidgetStatePropertyAll(
+        EdgeInsets.symmetric(
+          horizontal: spec.isFull ? 16 : 24,
+          vertical: spec.isFull ? 12 : 16,
+        ),
       ),
-      textStyle: const WidgetStatePropertyAll(
+      textStyle: WidgetStatePropertyAll(
         TextStyle(
-          fontSize: baseFontSize,
+          fontSize: spec.baseFontSize,
           fontWeight: FontWeight.w600,
           letterSpacing: 0.2,
         ),
@@ -126,6 +136,8 @@ class AppTheme {
       useMaterial3: true,
       brightness: isDark ? Brightness.dark : Brightness.light,
       colorScheme: colorScheme,
+      visualDensity: spec.visualDensity,
+      extensions: [spec],
       scaffoldBackgroundColor: isDark ? backgroundDark : backgroundLight,
       textTheme: textTheme,
       appBarTheme: AppBarTheme(
@@ -134,7 +146,7 @@ class AppTheme {
         backgroundColor: colorScheme.surface,
         foregroundColor: colorScheme.onSurface,
         titleTextStyle: TextStyle(
-          fontSize: titleFontSize,
+          fontSize: spec.titleFontSize,
           fontWeight: FontWeight.bold,
           color: colorScheme.onSurface,
         ),
@@ -149,27 +161,27 @@ class AppTheme {
         ),
       ),
       textButtonTheme: TextButtonThemeData(style: buttonStyle),
-      iconButtonTheme: const IconButtonThemeData(
+      iconButtonTheme: IconButtonThemeData(
         style: ButtonStyle(
           minimumSize: WidgetStatePropertyAll(
-            Size(minTouchTarget, minTouchTarget),
+            Size(spec.minTouchTarget, spec.minTouchTarget),
           ),
         ),
       ),
       floatingActionButtonTheme: FloatingActionButtonThemeData(
-        sizeConstraints: const BoxConstraints(
-          minWidth: minTouchTarget,
-          minHeight: minTouchTarget,
+        sizeConstraints: BoxConstraints(
+          minWidth: spec.minTouchTarget,
+          minHeight: spec.minTouchTarget,
         ),
         backgroundColor: colorScheme.primary,
         foregroundColor: colorScheme.onPrimary,
       ),
       navigationBarTheme: NavigationBarThemeData(
-        height: 72,
+        height: spec.isFull ? 64 : 72,
         indicatorColor: colorScheme.primary.withAlpha(isDark ? 80 : 40),
         labelTextStyle: WidgetStatePropertyAll(
           TextStyle(
-            fontSize: 16,
+            fontSize: spec.captionFontSize,
             fontWeight: FontWeight.w600,
             color: colorScheme.onSurface,
           ),
@@ -178,70 +190,70 @@ class AppTheme {
     );
   }
 
-  static TextTheme _buildTextTheme(Color onSurface) {
+  static TextTheme _buildTextTheme(Color onSurface, AdaptiveSpec spec) {
     return TextTheme(
       headlineLarge: TextStyle(
-        fontSize: 32,
+        fontSize: spec.headlineLargeFontSize,
         fontWeight: FontWeight.bold,
         color: onSurface,
         height: 1.25,
       ),
       headlineMedium: TextStyle(
-        fontSize: 28,
+        fontSize: spec.headlineMediumFontSize,
         fontWeight: FontWeight.bold,
         color: onSurface,
         height: 1.3,
       ),
       headlineSmall: TextStyle(
-        fontSize: titleFontSize,
+        fontSize: spec.headlineSmallFontSize,
         fontWeight: FontWeight.bold,
         color: onSurface,
         height: 1.3,
       ),
       titleLarge: TextStyle(
-        fontSize: titleFontSize,
+        fontSize: spec.titleFontSize,
         fontWeight: FontWeight.w700,
         color: onSurface,
         height: 1.3,
       ),
       titleMedium: TextStyle(
-        fontSize: 20,
+        fontSize: spec.isSimple ? 20 * spec.fontScale : 18 * spec.fontScale,
         fontWeight: FontWeight.w600,
         color: onSurface,
         height: 1.35,
       ),
       titleSmall: TextStyle(
-        fontSize: baseFontSize,
+        fontSize: spec.baseFontSize,
         fontWeight: FontWeight.w600,
         color: onSurface,
         height: 1.35,
       ),
       bodyLarge: TextStyle(
-        fontSize: baseFontSize,
+        fontSize: spec.baseFontSize,
         fontWeight: FontWeight.normal,
         color: onSurface,
         height: 1.45,
       ),
       bodyMedium: TextStyle(
-        fontSize: baseFontSize,
+        fontSize: spec.baseFontSize,
         fontWeight: FontWeight.normal,
         color: onSurface,
         height: 1.45,
       ),
       bodySmall: TextStyle(
-        fontSize: 16,
+        fontSize: spec.captionFontSize,
         fontWeight: FontWeight.normal,
         color: onSurface.withAlpha(200),
         height: 1.4,
       ),
       labelLarge: TextStyle(
-        fontSize: baseFontSize,
+        fontSize: spec.baseFontSize,
         fontWeight: FontWeight.w600,
         color: onSurface,
         height: 1.3,
       ),
       labelMedium: TextStyle(
-        fontSize: 16,
+        fontSize: spec.captionFontSize,
         fontWeight: FontWeight.w600,
         color: onSurface,
         height: 1.3,

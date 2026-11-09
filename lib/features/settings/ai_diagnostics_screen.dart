@@ -644,9 +644,12 @@ class _AiDiagnosticsScreenState extends ConsumerState<AiDiagnosticsScreen> {
         color: bg,
         borderRadius: BorderRadius.circular(8),
       ),
-      child: Text(
-        label,
-        style: TextStyle(color: fg, fontSize: 12, fontWeight: FontWeight.bold),
+      child: Builder(
+        builder: (context) => Text(
+          label,
+          style: Theme.of(context).textTheme.labelSmall
+              ?.copyWith(color: fg, fontWeight: FontWeight.bold),
+        ),
       ),
     );
   }
@@ -780,7 +783,6 @@ class _AiDiagnosticsScreenState extends ConsumerState<AiDiagnosticsScreen> {
             l10n.aiDiagnosticsHistoryTitle,
             style: theme.textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
-              fontSize: 18,
             ),
           ),
           const SizedBox(height: 8),

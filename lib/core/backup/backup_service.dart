@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:drift/drift.dart';
 
+import '../adaptive/ui_profile_service.dart';
 import '../db/app_database.dart';
 
 /// Summary of elements restored from a backup file.
@@ -32,8 +33,9 @@ class BackupRestoreSummary {
 /// Guaranteed to never export API keys or secrets (ТЗ 7.2, 8.2, S4-05, Правило 7).
 class BackupService {
   final AppDatabase db;
+  final UiProfileService? uiProfileService;
 
-  BackupService(this.db);
+  BackupService(this.db, {this.uiProfileService});
 
   /// Exports all user data into a clean JSON string, strictly excluding secrets.
   Future<String> exportBackupJson() async {
@@ -53,6 +55,8 @@ class BackupService {
       'app': 'chto_prigotovit',
       'exported_at': DateTime.now().toUtc().millisecondsSinceEpoch,
       'data': {
+        if (uiProfileService != null)
+          'ui_profile': uiProfileService!.exportData(),
         'preference_profile': profiles.map((p) => p.toJson()).toList(),
         'pantry_items': pantry.map((p) => p.toJson()).toList(),
         'cooked_entries': cooked.map((c) => c.toJson()).toList(),
@@ -247,6 +251,13 @@ class BackupService {
         aiReqCount++;
       }
     });
+
+    if (uiProfileService != null &&
+        data['ui_profile'] is Map<String, dynamic>) {
+      await uiProfileService!.importData(
+        data['ui_profile'] as Map<String, dynamic>,
+      );
+    }
 
     return BackupRestoreSummary(
       cookedEntries: cookedCount,

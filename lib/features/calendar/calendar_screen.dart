@@ -148,48 +148,56 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                       // blue for today and the selected day.
                       calendarStyle: CalendarStyle(
                         cellMargin: const EdgeInsets.all(2),
-                        defaultTextStyle: TextStyle(
-                          fontSize: 14,
-                          color: theme.colorScheme.onSurface,
-                        ),
-                        weekendTextStyle: TextStyle(
-                          fontSize: 14,
-                          color: theme.colorScheme.primary,
-                        ),
-                        outsideTextStyle: TextStyle(
-                          fontSize: 14,
-                          color: theme.colorScheme.outlineVariant,
-                        ),
+                        defaultTextStyle:
+                            theme.textTheme.bodySmall?.copyWith(
+                              color: theme.colorScheme.onSurface,
+                            ) ??
+                            TextStyle(color: theme.colorScheme.onSurface),
+                        weekendTextStyle:
+                            theme.textTheme.bodySmall?.copyWith(
+                              color: theme.colorScheme.primary,
+                            ) ??
+                            TextStyle(color: theme.colorScheme.primary),
+                        outsideTextStyle:
+                            theme.textTheme.bodySmall?.copyWith(
+                              color: theme.colorScheme.outlineVariant,
+                            ) ??
+                            TextStyle(color: theme.colorScheme.outlineVariant),
                         todayDecoration: BoxDecoration(
                           color: theme.colorScheme.primaryContainer,
                           shape: BoxShape.circle,
                         ),
-                        todayTextStyle: TextStyle(
-                          fontSize: 14,
-                          color: theme.colorScheme.onPrimaryContainer,
-                          fontWeight: FontWeight.bold,
-                        ),
+                        todayTextStyle:
+                            theme.textTheme.bodySmall?.copyWith(
+                              color: theme.colorScheme.onPrimaryContainer,
+                              fontWeight: FontWeight.bold,
+                            ) ??
+                            TextStyle(
+                              color: theme.colorScheme.onPrimaryContainer,
+                              fontWeight: FontWeight.bold,
+                            ),
                         selectedDecoration: BoxDecoration(
                           color: theme.colorScheme.primary,
                           shape: BoxShape.circle,
                         ),
-                        selectedTextStyle: TextStyle(
-                          fontSize: 14,
-                          color: theme.colorScheme.onPrimary,
-                          fontWeight: FontWeight.bold,
-                        ),
+                        selectedTextStyle:
+                            theme.textTheme.bodySmall?.copyWith(
+                              color: theme.colorScheme.onPrimary,
+                              fontWeight: FontWeight.bold,
+                            ) ??
+                            TextStyle(
+                              color: theme.colorScheme.onPrimary,
+                              fontWeight: FontWeight.bold,
+                            ),
                       ),
                       headerStyle: HeaderStyle(
                         formatButtonVisible: false,
                         titleCentered: true,
                         titleTextStyle:
-                            theme.textTheme.titleLarge?.copyWith(
+                            theme.textTheme.titleMedium?.copyWith(
                               fontWeight: FontWeight.bold,
                             ) ??
-                            const TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
+                            const TextStyle(fontWeight: FontWeight.bold),
                         leftChevronIcon: const Icon(
                           Icons.chevron_left,
                           size: 32,
@@ -202,16 +210,24 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                         rightChevronPadding: const EdgeInsets.all(12),
                       ),
                       daysOfWeekStyle: DaysOfWeekStyle(
-                        weekdayStyle: TextStyle(
-                          fontSize: 13,
-                          fontWeight: FontWeight.bold,
-                          color: theme.colorScheme.onSurface,
-                        ),
-                        weekendStyle: TextStyle(
-                          fontSize: 13,
-                          fontWeight: FontWeight.bold,
-                          color: theme.colorScheme.primary,
-                        ),
+                        weekdayStyle:
+                            theme.textTheme.labelSmall?.copyWith(
+                              fontWeight: FontWeight.bold,
+                              color: theme.colorScheme.onSurface,
+                            ) ??
+                            TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: theme.colorScheme.onSurface,
+                            ),
+                        weekendStyle:
+                            theme.textTheme.labelSmall?.copyWith(
+                              fontWeight: FontWeight.bold,
+                              color: theme.colorScheme.primary,
+                            ) ??
+                            TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: theme.colorScheme.primary,
+                            ),
                       ),
                       calendarBuilders: CalendarBuilders(
                         markerBuilder: (context, day, events) {
@@ -362,11 +378,12 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
       ref.invalidate(calendarPlanEntriesProvider);
 
       if (context.mounted) {
+        final theme = Theme.of(context);
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(
               'План составлен: ${planned.length} дней',
-              style: const TextStyle(fontSize: 16),
+              style: theme.textTheme.bodyMedium,
             ),
             duration: const Duration(seconds: 2),
           ),

@@ -864,7 +864,6 @@ class _RecipeCard extends StatelessWidget {
                       child: Text(
                         recipe.title,
                         style: theme.textTheme.titleMedium?.copyWith(
-                          fontSize: 20,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -1124,7 +1123,6 @@ class _AiDishCard extends StatelessWidget {
                       child: Text(
                         suggestion.title,
                         style: theme.textTheme.titleMedium?.copyWith(
-                          fontSize: 20,
                           fontWeight: FontWeight.bold,
                         ),
                       ),

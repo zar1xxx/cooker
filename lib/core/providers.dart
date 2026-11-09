@@ -32,6 +32,7 @@ import 'matching/diversity_reorderer.dart';
 import 'matching/recipe_matcher.dart';
 import 'matching/recipe_scorer.dart';
 import 'preferences/preference_service.dart';
+import 'adaptive/adaptive_provider.dart';
 import 'backup/backup_service.dart';
 import 'calendar/meal_planner.dart';
 import 'services/daily_notification_service.dart';
@@ -330,7 +331,10 @@ final preferenceServiceProvider = Provider<PreferenceService>((ref) {
 });
 
 final backupServiceProvider = Provider<BackupService>((ref) {
-  return BackupService(ref.watch(databaseProvider));
+  return BackupService(
+    ref.watch(databaseProvider),
+    uiProfileService: ref.watch(uiProfileServiceProvider),
+  );
 });
 
 final preferenceProfileProvider = FutureProvider<TasteProfile>((ref) async {

@@ -550,7 +550,6 @@ class _MonthSummaryCard extends ConsumerWidget {
                     style: theme.textTheme.titleMedium?.copyWith(
                       fontWeight: FontWeight.bold,
                       color: theme.colorScheme.onPrimaryContainer,
-                      fontSize: 18,
                     ),
                     textAlign: TextAlign.center,
                   ),
@@ -937,7 +936,6 @@ class _HistoryEntryCard extends StatelessWidget {
             Text(
               title,
               style: theme.textTheme.titleMedium?.copyWith(
-                fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
             ),

@@ -148,11 +148,8 @@ class _QrScannerScreenState extends ConsumerState<QrScannerScreen> {
             Text(
               message,
               textAlign: TextAlign.center,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
-              ),
+              style: Theme.of(context).textTheme.bodyMedium
+                  ?.copyWith(color: Colors.white, fontWeight: FontWeight.w500),
             ),
             const SizedBox(height: 24),
             ElevatedButton.icon(
@@ -229,9 +226,8 @@ class _QrScannerScreenState extends ConsumerState<QrScannerScreen> {
                 child: Text(
                   l10n.aiQrScannerHint,
                   textAlign: TextAlign.center,
-                  style: const TextStyle(
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     color: Colors.white,
-                    fontSize: 15,
                     fontWeight: FontWeight.w500,
                   ),
                 ),

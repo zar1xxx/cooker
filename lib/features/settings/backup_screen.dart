@@ -192,7 +192,6 @@ class _BackupScreenState extends ConsumerState<BackupScreen> {
             l10n.backupExportSection,
             style: theme.textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
-              fontSize: 20,
             ),
           ),
           const SizedBox(height: 12),
@@ -254,7 +253,6 @@ class _BackupScreenState extends ConsumerState<BackupScreen> {
             l10n.backupImportSection,
             style: theme.textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
-              fontSize: 20,
             ),
           ),
           const SizedBox(height: 4),

@@ -779,8 +779,7 @@ class _CookingScreenState extends ConsumerState<CookingScreen> {
             // Big digital clock display
             Text(
               _formatTimerDigits(remainingSeconds),
-              style: theme.textTheme.displaySmall?.copyWith(
-                fontSize: 48,
+              style: theme.textTheme.displayLarge?.copyWith(
                 fontWeight: FontWeight.bold,
                 fontFamily: 'monospace',
                 color: isDone

@@ -595,7 +595,6 @@ class _AiSettingsScreenState extends ConsumerState<AiSettingsScreen> {
               l10n.aiSettingsPcSection,
               style: theme.textTheme.titleMedium?.copyWith(
                 fontWeight: FontWeight.bold,
-                fontSize: 20,
               ),
             ),
             const SizedBox(height: 4),
@@ -742,7 +741,6 @@ class _AiSettingsScreenState extends ConsumerState<AiSettingsScreen> {
               l10n.aiSettingsGigaChatSection,
               style: theme.textTheme.titleMedium?.copyWith(
                 fontWeight: FontWeight.bold,
-                fontSize: 20,
               ),
             ),
             const SizedBox(height: 4),
