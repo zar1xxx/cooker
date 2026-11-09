@@ -1,4 +1,7 @@
 import 'package:chto_prigotovit/app/theme.dart';
+import 'package:chto_prigotovit/core/adaptive/adaptive_provider.dart';
+import 'package:chto_prigotovit/core/adaptive/adaptive_spec.dart';
+import 'package:chto_prigotovit/core/adaptive/ui_profile.dart';
 import 'package:chto_prigotovit/core/ai/ai_failure.dart';
 import 'package:chto_prigotovit/core/ai/ai_service.dart';
 import 'package:chto_prigotovit/core/ai/ai_settings_service.dart';
@@ -22,7 +25,9 @@ import 'package:chto_prigotovit/features/recipe/cooking_screen.dart';
 import 'package:chto_prigotovit/features/recipe/recipe_screen.dart';
 import 'package:chto_prigotovit/features/settings/ai_diagnostics_screen.dart';
 import 'package:chto_prigotovit/features/settings/ai_settings_screen.dart';
+import 'package:chto_prigotovit/features/settings/appearance_settings_screen.dart';
 import 'package:chto_prigotovit/features/settings/taste_preferences_screen.dart';
+import 'package:chto_prigotovit/features/statistics/statistics_screen.dart';
 import 'package:chto_prigotovit/features/suggestions/suggestions_screen.dart';
 import 'package:chto_prigotovit/l10n/app_localizations.dart';
 import 'package:drift/drift.dart' as drift;
@@ -149,7 +154,8 @@ void main() {
     late AiSettingsService aiSettingsService;
     late _MockAiService mockAiService;
 
-    setUp(() async {
+    setUpAll(() async {
+      drift.driftRuntimeOptions.dontWarnAboutMultipleDatabases = true;
       db = AppDatabase(NativeDatabase.memory(), seed: true);
       await db.customSelect('SELECT 1').get();
 
@@ -225,7 +231,7 @@ void main() {
           );
     });
 
-    tearDown(() async {
+    tearDownAll(() async {
       await db.close();
     });
 
@@ -233,9 +239,20 @@ void main() {
       required Widget child,
       required double width,
       required double textScale,
+      UiMode mode = UiMode.simple,
+      bool isDark = false,
     }) {
+      final profile = mode == UiMode.simple
+          ? UiProfile.defaultSimple()
+          : UiProfile.defaultFull();
+      final spec = AdaptiveSpec(profile: profile, systemFontScale: textScale);
+      final theme = isDark ? AppTheme.darkFor(spec) : AppTheme.lightFor(spec);
+
       return ProviderScope(
         overrides: [
+          uiProfileProvider.overrideWith(
+            () => _FixedUiProfileNotifier(profile),
+          ),
           databaseProvider.overrideWithValue(db),
           recipeDaoProvider.overrideWithValue(recipeDao),
           planDaoProvider.overrideWithValue(planDao),
@@ -251,22 +268,25 @@ void main() {
             (ref) async => const RecipeValidator(safetyMinimums: {}),
           ),
         ],
-        child: MediaQuery(
-          data: MediaQueryData(
-            size: Size(width, 800),
-            textScaler: TextScaler.linear(textScale),
-          ),
-          child: MaterialApp(
-            theme: AppTheme.light,
-            locale: const Locale('ru'),
-            localizationsDelegates: const [
-              AppLocalizations.delegate,
-              GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-              GlobalCupertinoLocalizations.delegate,
-            ],
-            supportedLocales: const [Locale('ru')],
-            home: child,
+        child: AdaptiveScope(
+          spec: spec,
+          child: MediaQuery(
+            data: MediaQueryData(
+              size: Size(width, 800),
+              textScaler: TextScaler.linear(textScale),
+            ),
+            child: MaterialApp(
+              theme: theme,
+              locale: const Locale('ru'),
+              localizationsDelegates: const [
+                AppLocalizations.delegate,
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
+              ],
+              supportedLocales: const [Locale('ru')],
+              home: child,
+            ),
           ),
         ),
       );
@@ -322,171 +342,78 @@ void main() {
       }
     }
 
-    final widths = [320.0, 360.0];
-    final scales = [1.0, 1.5, 2.0];
+    final screens = <String, Widget Function()>{
+      '1. TodayScreen': () => const TodayScreen(),
+      '2. PantryScreen': () => const PantryScreen(),
+      '3. SuggestionsScreen': () => const SuggestionsScreen(),
+      '4. RecipeScreen': () => const RecipeScreen(recipeId: 'borscht'),
+      '5. CookingScreen': () => const CookingScreen(recipeId: 'borscht'),
+      '6. CalendarScreen': () => const CalendarScreen(),
+      '7. HistoryScreen': () => const HistoryScreen(),
+      '8. AiSettingsScreen': () => const AiSettingsScreen(),
+      '9. AiDiagnosticsScreen': () => const AiDiagnosticsScreen(),
+      '10. TastePreferencesScreen': () => const TastePreferencesScreen(),
+      '11. AppearanceSettingsScreen': () => const AppearanceSettingsScreen(),
+      '12. StatisticsScreen': () => const StatisticsScreen(),
+    };
 
-    for (final w in widths) {
-      for (final s in scales) {
-        testWidgets('1. TodayScreen at ${w}dp font ${s}x', (tester) async {
-          await tester.binding.setSurfaceSize(Size(w, 800));
-          addTearDown(() => tester.binding.setSurfaceSize(null));
+    // R8-19: каждый экран × 2 режима × шрифт 1.0/2.0 × светлая/тёмная тема × 360 и 412 dp.
+    final widths = [360.0, 412.0];
+    final scales = [1.0, 2.0];
+    final modes = [UiMode.simple, UiMode.full];
+    final themes = [false, true]; // false: light, true: dark
 
-          await tester.pumpWidget(
-            buildTestApp(child: const TodayScreen(), width: w, textScale: s),
-          );
-          await tester.pump();
-          await tester.pump(const Duration(milliseconds: 300));
-          expect(tester.takeException(), isNull);
-          assertNoClippedText(tester, 'TodayScreen');
-        });
+    for (final entry in screens.entries) {
+      final screenName = entry.key;
+      final builder = entry.value;
 
-        testWidgets('2. PantryScreen at ${w}dp font ${s}x', (tester) async {
-          await tester.binding.setSurfaceSize(Size(w, 800));
-          addTearDown(() => tester.binding.setSurfaceSize(null));
+      for (final mode in modes) {
+        for (final isDark in themes) {
+          for (final w in widths) {
+            for (final s in scales) {
+              final modeTag = mode == UiMode.simple ? 'Simple' : 'Full';
+              final themeTag = isDark ? 'Dark' : 'Light';
+              testWidgets(
+                '$screenName ($modeTag, $themeTag, ${w.toInt()}dp, ${s}x)',
+                (tester) async {
+                  FlutterErrorDetails? caughtDetails;
+                  final oldOnError = FlutterError.onError;
+                  FlutterError.onError = (details) {
+                    caughtDetails = details;
+                  };
+                  addTearDown(() => FlutterError.onError = oldOnError);
 
-          await tester.pumpWidget(
-            buildTestApp(child: const PantryScreen(), width: w, textScale: s),
-          );
-          await tester.pump();
-          await tester.pump(const Duration(milliseconds: 300));
-          expect(tester.takeException(), isNull);
-          assertNoClippedText(tester, 'PantryScreen');
-        });
+                  await tester.binding.setSurfaceSize(Size(w, 800));
+                  addTearDown(() => tester.binding.setSurfaceSize(null));
 
-        testWidgets('3. SuggestionsScreen at ${w}dp font ${s}x', (
-          tester,
-        ) async {
-          await tester.binding.setSurfaceSize(Size(w, 800));
-          addTearDown(() => tester.binding.setSurfaceSize(null));
-
-          await tester.pumpWidget(
-            buildTestApp(
-              child: const SuggestionsScreen(),
-              width: w,
-              textScale: s,
-            ),
-          );
-          await tester.pump();
-          await tester.pump(const Duration(milliseconds: 300));
-          expect(tester.takeException(), isNull);
-          assertNoClippedText(tester, 'SuggestionsScreen');
-        });
-
-        testWidgets('4. RecipeScreen at ${w}dp font ${s}x', (tester) async {
-          await tester.binding.setSurfaceSize(Size(w, 800));
-          addTearDown(() => tester.binding.setSurfaceSize(null));
-
-          await tester.pumpWidget(
-            buildTestApp(
-              child: const RecipeScreen(recipeId: 'borscht'),
-              width: w,
-              textScale: s,
-            ),
-          );
-          await tester.pump();
-          await tester.pump(const Duration(milliseconds: 300));
-          expect(tester.takeException(), isNull);
-          assertNoClippedText(tester, 'RecipeScreen');
-        });
-
-        testWidgets('5. CookingScreen at ${w}dp font ${s}x', (tester) async {
-          await tester.binding.setSurfaceSize(Size(w, 800));
-          addTearDown(() => tester.binding.setSurfaceSize(null));
-
-          await tester.pumpWidget(
-            buildTestApp(
-              child: const CookingScreen(recipeId: 'borscht'),
-              width: w,
-              textScale: s,
-            ),
-          );
-          await tester.pump();
-          await tester.pump(const Duration(milliseconds: 300));
-          expect(tester.takeException(), isNull);
-          assertNoClippedText(tester, 'CookingScreen');
-        });
-
-        testWidgets('6. CalendarScreen at ${w}dp font ${s}x', (tester) async {
-          await tester.binding.setSurfaceSize(Size(w, 800));
-          addTearDown(() => tester.binding.setSurfaceSize(null));
-
-          await tester.pumpWidget(
-            buildTestApp(child: const CalendarScreen(), width: w, textScale: s),
-          );
-          await tester.pump();
-          await tester.pump(const Duration(milliseconds: 300));
-          expect(tester.takeException(), isNull);
-          assertNoClippedText(tester, 'CalendarScreen');
-        });
-
-        testWidgets('7. HistoryScreen at ${w}dp font ${s}x', (tester) async {
-          await tester.binding.setSurfaceSize(Size(w, 800));
-          addTearDown(() => tester.binding.setSurfaceSize(null));
-
-          await tester.pumpWidget(
-            buildTestApp(child: const HistoryScreen(), width: w, textScale: s),
-          );
-          await tester.pump();
-          await tester.pump(const Duration(milliseconds: 300));
-          expect(tester.takeException(), isNull);
-          assertNoClippedText(tester, 'HistoryScreen');
-        });
-
-        testWidgets('8. AiSettingsScreen at ${w}dp font ${s}x', (tester) async {
-          await tester.binding.setSurfaceSize(Size(w, 800));
-          addTearDown(() => tester.binding.setSurfaceSize(null));
-
-          await tester.pumpWidget(
-            buildTestApp(
-              child: const AiSettingsScreen(),
-              width: w,
-              textScale: s,
-            ),
-          );
-          await tester.pump();
-          await tester.pump(const Duration(milliseconds: 300));
-          expect(tester.takeException(), isNull);
-          assertNoClippedText(tester, 'AiSettingsScreen');
-        });
-
-        testWidgets('9. AiDiagnosticsScreen at ${w}dp font ${s}x', (
-          tester,
-        ) async {
-          await tester.binding.setSurfaceSize(Size(w, 800));
-          addTearDown(() => tester.binding.setSurfaceSize(null));
-
-          await tester.pumpWidget(
-            buildTestApp(
-              child: const AiDiagnosticsScreen(),
-              width: w,
-              textScale: s,
-            ),
-          );
-          await tester.pump();
-          await tester.pump(const Duration(milliseconds: 300));
-          expect(tester.takeException(), isNull);
-          assertNoClippedText(tester, 'AiDiagnosticsScreen');
-        });
-
-        testWidgets('10. TastePreferencesScreen at ${w}dp font ${s}x', (
-          tester,
-        ) async {
-          await tester.binding.setSurfaceSize(Size(w, 800));
-          addTearDown(() => tester.binding.setSurfaceSize(null));
-
-          await tester.pumpWidget(
-            buildTestApp(
-              child: const TastePreferencesScreen(),
-              width: w,
-              textScale: s,
-            ),
-          );
-          await tester.pump();
-          await tester.pump(const Duration(milliseconds: 300));
-          expect(tester.takeException(), isNull);
-          assertNoClippedText(tester, 'TastePreferencesScreen');
-        });
+                  await tester.pumpWidget(
+                    buildTestApp(
+                      child: builder(),
+                      width: w,
+                      textScale: s,
+                      mode: mode,
+                      isDark: isDark,
+                    ),
+                  );
+                  await tester.pump();
+                  await tester.pump(const Duration(milliseconds: 300));
+                  final err = tester.takeException();
+                  expect(err, isNull);
+                  expect(caughtDetails, isNull);
+                  assertNoClippedText(tester, screenName);
+                },
+              );
+            }
+          }
+        }
       }
     }
   });
+}
+
+class _FixedUiProfileNotifier extends UiProfileNotifier {
+  _FixedUiProfileNotifier(this._initial);
+  final UiProfile _initial;
+  @override
+  UiProfile build() => _initial;
 }

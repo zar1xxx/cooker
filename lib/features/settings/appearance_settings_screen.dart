@@ -31,25 +31,28 @@ class AppearanceSettingsScreen extends ConsumerWidget {
             ),
           ),
           const SizedBox(height: 12),
-          SegmentedButton<UiMode>(
-            segments: [
-              ButtonSegment<UiMode>(
-                value: UiMode.simple,
-                label: Text(l10n.modeSimpleTitle),
-                icon: const Icon(Icons.accessibility_new),
-              ),
-              ButtonSegment<UiMode>(
-                value: UiMode.full,
-                label: Text(l10n.modeFullTitle),
-                icon: const Icon(Icons.tune),
-              ),
-            ],
-            selected: {profile.mode},
-            onSelectionChanged: (set) {
-              if (set.isNotEmpty) {
-                notifier.setMode(set.first);
-              }
-            },
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: SegmentedButton<UiMode>(
+              segments: [
+                ButtonSegment<UiMode>(
+                  value: UiMode.simple,
+                  label: Text(l10n.modeSimpleTitle),
+                  icon: const Icon(Icons.accessibility_new),
+                ),
+                ButtonSegment<UiMode>(
+                  value: UiMode.full,
+                  label: Text(l10n.modeFullTitle),
+                  icon: const Icon(Icons.tune),
+                ),
+              ],
+              selected: {profile.mode},
+              onSelectionChanged: (set) {
+                if (set.isNotEmpty) {
+                  notifier.setMode(set.first);
+                }
+              },
+            ),
           ),
           const SizedBox(height: 24),
 
@@ -57,12 +60,15 @@ class AppearanceSettingsScreen extends ConsumerWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                l10n.appearanceFontScaleSection,
-                style: theme.textTheme.titleMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
+              Expanded(
+                child: Text(
+                  l10n.appearanceFontScaleSection,
+                  style: theme.textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
+              const SizedBox(width: 8),
               Text(
                 '${(profile.fontScale * 100).round()}%',
                 style: theme.textTheme.bodyMedium?.copyWith(
@@ -92,25 +98,28 @@ class AppearanceSettingsScreen extends ConsumerWidget {
             ),
           ),
           const SizedBox(height: 12),
-          SegmentedButton<UiDensity>(
-            segments: [
-              ButtonSegment<UiDensity>(
-                value: UiDensity.spacious,
-                label: Text(l10n.appearanceDensitySpacious),
-                icon: const Icon(Icons.view_agenda_outlined),
-              ),
-              ButtonSegment<UiDensity>(
-                value: UiDensity.compact,
-                label: Text(l10n.appearanceDensityCompact),
-                icon: const Icon(Icons.view_compact_outlined),
-              ),
-            ],
-            selected: {profile.density},
-            onSelectionChanged: (set) {
-              if (set.isNotEmpty) {
-                notifier.setDensity(set.first);
-              }
-            },
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: SegmentedButton<UiDensity>(
+              segments: [
+                ButtonSegment<UiDensity>(
+                  value: UiDensity.spacious,
+                  label: Text(l10n.appearanceDensitySpacious),
+                  icon: const Icon(Icons.view_agenda_outlined),
+                ),
+                ButtonSegment<UiDensity>(
+                  value: UiDensity.compact,
+                  label: Text(l10n.appearanceDensityCompact),
+                  icon: const Icon(Icons.view_compact_outlined),
+                ),
+              ],
+              selected: {profile.density},
+              onSelectionChanged: (set) {
+                if (set.isNotEmpty) {
+                  notifier.setDensity(set.first);
+                }
+              },
+            ),
           ),
           const SizedBox(height: 24),
 

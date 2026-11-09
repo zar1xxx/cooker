@@ -797,33 +797,46 @@ class _SuggestionsScreenState extends ConsumerState<SuggestionsScreen> {
                     onSelected: (val) => setState(() => _onlyReady = val),
                     label: const Text('Всё есть дома'),
                   ),
-                  DropdownButton<RecipeSortOption>(
-                    key: const Key('select_sort_option'),
-                    value: _sortOption,
-                    underline: const SizedBox.shrink(),
-                    items: const [
-                      DropdownMenuItem(
-                        value: RecipeSortOption.bestMatch,
-                        child: Text('Подходит больше всего'),
-                      ),
-                      DropdownMenuItem(
-                        value: RecipeSortOption.fastest,
-                        child: Text('Быстрее'),
-                      ),
-                      DropdownMenuItem(
-                        value: RecipeSortOption.newest,
-                        child: Text('Новое'),
-                      ),
-                      DropdownMenuItem(
-                        value: RecipeSortOption.highestRating,
-                        child: Text('Лучшие оценки'),
-                      ),
-                    ],
-                    onChanged: (val) {
-                      if (val != null) setState(() => _sortOption = val);
-                    },
-                  ),
                 ],
+              ),
+            ),
+            const SizedBox(height: 8),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: DropdownButtonHideUnderline(
+                child: DropdownButton<RecipeSortOption>(
+                  key: const Key('select_sort_option'),
+                  isExpanded: true,
+                  isDense: true,
+                  value: _sortOption,
+                  items: const [
+                    DropdownMenuItem(
+                      value: RecipeSortOption.bestMatch,
+                      child: Text(
+                        'Подходит больше всего',
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                    DropdownMenuItem(
+                      value: RecipeSortOption.fastest,
+                      child: Text('Быстрее', overflow: TextOverflow.ellipsis),
+                    ),
+                    DropdownMenuItem(
+                      value: RecipeSortOption.newest,
+                      child: Text('Новое', overflow: TextOverflow.ellipsis),
+                    ),
+                    DropdownMenuItem(
+                      value: RecipeSortOption.highestRating,
+                      child: Text(
+                        'Лучшие оценки',
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ],
+                  onChanged: (val) {
+                    if (val != null) setState(() => _sortOption = val);
+                  },
+                ),
               ),
             ),
             const SizedBox(height: 8),
@@ -1445,11 +1458,14 @@ class _AiDishCard extends StatelessWidget {
                         color: theme.colorScheme.primary,
                       ),
                       const SizedBox(width: 6),
-                      Text(
-                        'Помощник: ${suggestion.providerName ?? 'LM Studio'}',
-                        style: theme.textTheme.bodySmall?.copyWith(
-                          color: theme.colorScheme.primary,
-                          fontWeight: FontWeight.bold,
+                      Expanded(
+                        child: Text(
+                          'Помощник: ${suggestion.providerName ?? 'LM Studio'}',
+                          style: theme.textTheme.bodySmall?.copyWith(
+                            color: theme.colorScheme.primary,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          overflow: TextOverflow.ellipsis,
                         ),
                       ),
                     ],
@@ -1523,6 +1539,7 @@ class _AiDishCard extends StatelessWidget {
       return Dismissible(
         key: ValueKey('swipe_ai_${suggestion.title}'),
         direction: DismissDirection.endToStart,
+        background: Container(),
         secondaryBackground: Container(
           alignment: Alignment.centerRight,
           padding: const EdgeInsets.symmetric(horizontal: 20),

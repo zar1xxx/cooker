@@ -84,19 +84,22 @@ class _StatisticsScreenState extends ConsumerState<StatisticsScreen> {
             children: [
               // Period selector (Full mode only)
               if (adaptive.isFull) ...[
-                SegmentedButton<StatsPeriod>(
-                  segments: StatsPeriod.values.map((p) {
-                    return ButtonSegment<StatsPeriod>(
-                      value: p,
-                      label: Text(p.label),
-                    );
-                  }).toList(),
-                  selected: {_selectedPeriod},
-                  onSelectionChanged: (set) {
-                    if (set.isNotEmpty) {
-                      setState(() => _selectedPeriod = set.first);
-                    }
-                  },
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: SegmentedButton<StatsPeriod>(
+                    segments: StatsPeriod.values.map((p) {
+                      return ButtonSegment<StatsPeriod>(
+                        value: p,
+                        label: Text(p.label),
+                      );
+                    }).toList(),
+                    selected: {_selectedPeriod},
+                    onSelectionChanged: (set) {
+                      if (set.isNotEmpty) {
+                        setState(() => _selectedPeriod = set.first);
+                      }
+                    },
+                  ),
                 ),
                 const SizedBox(height: 16),
               ],
@@ -206,14 +209,22 @@ class _StatisticsScreenState extends ConsumerState<StatisticsScreen> {
                   child: Padding(
                     padding: adaptive.cardPadding,
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        _AiMetric(
-                          title: 'Предложено',
-                          value: '${totalCooked * 2}',
+                        Expanded(
+                          child: _AiMetric(
+                            title: 'Предложено',
+                            value: '${totalCooked * 2}',
+                          ),
                         ),
-                        _AiMetric(title: 'Принято', value: '$totalCooked'),
-                        const _AiMetric(title: 'Точность', value: '85%'),
+                        Expanded(
+                          child: _AiMetric(
+                            title: 'Принято',
+                            value: '$totalCooked',
+                          ),
+                        ),
+                        const Expanded(
+                          child: _AiMetric(title: 'Точность', value: '85%'),
+                        ),
                       ],
                     ),
                   ),
@@ -318,7 +329,14 @@ class _DistributionBar extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(label, style: theme.textTheme.bodyMedium),
+            Expanded(
+              child: Text(
+                label,
+                style: theme.textTheme.bodyMedium,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+            const SizedBox(width: 8),
             Text('$count ($total)', style: theme.textTheme.bodySmall),
           ],
         ),
