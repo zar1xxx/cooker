@@ -14,6 +14,7 @@ import '../features/settings/backup_screen.dart';
 import '../features/settings/mode_onboarding_screen.dart';
 import '../features/settings/qr_scanner_screen.dart';
 import '../features/settings/taste_preferences_screen.dart';
+import '../features/statistics/statistics_screen.dart';
 import '../features/suggestions/suggestions_screen.dart';
 import 'scaffold_with_nav_bar.dart';
 
@@ -125,6 +126,14 @@ final GoRouter appRouter = GoRouter(
             GoRoute(
               path: '/history',
               builder: (context, state) => const HistoryScreen(),
+            ),
+          ],
+        ),
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: '/stats',
+              builder: (context, state) => const StatisticsScreen(),
             ),
           ],
         ),

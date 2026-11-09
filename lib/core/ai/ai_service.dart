@@ -23,6 +23,7 @@ class AiDishSuggestion {
   final List<String> missing;
   final String why;
   final Map<String, dynamic> raw;
+  final String? providerName;
 
   const AiDishSuggestion({
     required this.title,
@@ -33,6 +34,7 @@ class AiDishSuggestion {
     required this.missing,
     required this.why,
     required this.raw,
+    this.providerName,
   });
 
   factory AiDishSuggestion.fromJson(Map<String, dynamic> json) {
@@ -48,6 +50,8 @@ class AiDishSuggestion {
           .map((e) => e.toString())
           .toList(),
       why: json['why'] as String? ?? '',
+      providerName:
+          json['provider_name'] as String? ?? json['_provider'] as String?,
       raw: json,
     );
   }
@@ -338,10 +342,12 @@ class AiService {
         extractJsonPayload(response.rawContent),
       ) as Map<String, dynamic>;
       final dishesRaw = (decoded['dishes'] as List?) ?? const [];
-      final dishes = dishesRaw
-          .whereType<Map<String, dynamic>>()
-          .map(AiDishSuggestion.fromJson)
-          .toList();
+      final providerName = response.providerName;
+      final dishes = dishesRaw.whereType<Map<String, dynamic>>().map((m) {
+        final map = Map<String, dynamic>.from(m);
+        map['provider_name'] = providerName;
+        return AiDishSuggestion.fromJson(map);
+      }).toList();
 
       return AiResult.success(dishes);
     } catch (_) {

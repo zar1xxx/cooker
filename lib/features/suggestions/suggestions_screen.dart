@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../app/app_images.dart';
+import '../../core/adaptive/adaptive_spec.dart';
 import '../../core/ai/ai_failure.dart';
 import '../../core/ai/ai_router.dart';
 import '../../core/ai/ai_service.dart';
@@ -62,6 +63,8 @@ int _difficultyCaps(Difficulty diff) {
   }
 }
 
+enum RecipeSortOption { bestMatch, fastest, newest, highestRating }
+
 class SuggestionsScreen extends ConsumerStatefulWidget {
   const SuggestionsScreen({super.key});
 
@@ -71,15 +74,98 @@ class SuggestionsScreen extends ConsumerStatefulWidget {
 
 class _SuggestionsScreenState extends ConsumerState<SuggestionsScreen> {
   final ScrollController _dishTypeScrollController = ScrollController();
+  final TextEditingController _searchController = TextEditingController();
   DishType? _selectedDishType;
   Difficulty? _selectedDifficulty;
+  RecipeSortOption _sortOption = RecipeSortOption.bestMatch;
+  bool _onlyReady = false;
+  bool _fastOnly = false;
   final Set<String> _rejectedRecipeIds = <String>{};
   final Set<String> _rejectedAiTitles = <String>{};
+
+  bool _matchesRecipe(Recipe r) {
+    if (_rejectedRecipeIds.contains(r.id)) return false;
+    if (_selectedDishType != null && r.dishType != _selectedDishType) {
+      return false;
+    }
+    if (_selectedDifficulty != null && r.difficulty != _selectedDifficulty) {
+      return false;
+    }
+    if (_fastOnly && r.totalMinutes > 30) return false;
+    final query = _searchController.text.trim().toLowerCase();
+    if (query.isNotEmpty && !r.title.toLowerCase().contains(query)) {
+      return false;
+    }
+    return true;
+  }
+
+  bool _matchesAi(AiDishSuggestion d) {
+    if (_rejectedAiTitles.contains(d.title.toLowerCase().trim())) {
+      return false;
+    }
+    if (_selectedDishType != null &&
+        d.dishType.toLowerCase().trim() != _selectedDishType!.name) {
+      return false;
+    }
+    if (_selectedDifficulty != null &&
+        d.difficulty.toLowerCase().trim() != _selectedDifficulty!.name) {
+      return false;
+    }
+    if (_fastOnly && d.totalMinutes > 30) return false;
+    if (_onlyReady && d.missing.isNotEmpty) return false;
+    final query = _searchController.text.trim().toLowerCase();
+    if (query.isNotEmpty && !d.title.toLowerCase().contains(query)) {
+      return false;
+    }
+    return true;
+  }
+
+  List<ScoredRecipe> _sortList(List<ScoredRecipe> list) {
+    final copy = List<ScoredRecipe>.from(list);
+    switch (_sortOption) {
+      case RecipeSortOption.fastest:
+        copy.sort(
+          (a, b) => a.entry.recipe.totalMinutes.compareTo(
+            b.entry.recipe.totalMinutes,
+          ),
+        );
+        break;
+      case RecipeSortOption.newest:
+        copy.sort(
+          (a, b) =>
+              b.entry.recipe.createdAt.compareTo(a.entry.recipe.createdAt),
+        );
+        break;
+      case RecipeSortOption.highestRating:
+        copy.sort((a, b) => b.scores.taste.compareTo(a.scores.taste));
+        break;
+      case RecipeSortOption.bestMatch:
+        break;
+    }
+    return copy;
+  }
 
   @override
   void dispose() {
     _dishTypeScrollController.dispose();
+    _searchController.dispose();
     super.dispose();
+  }
+
+  Future<void> _addToCalendar(Recipe recipe) async {
+    final now = DateTime.now();
+    final todayKey =
+        '${now.year.toString().padLeft(4, '0')}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')}';
+    await ref
+        .read(planDaoProvider)
+        .upsertEntry(recipeId: recipe.id, date: todayKey);
+    if (!mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('«${recipe.title}» добавлено в календарь'),
+        duration: const Duration(seconds: 4),
+      ),
+    );
   }
 
   void _rejectRecipe(Recipe recipe) {
@@ -308,57 +394,24 @@ class _SuggestionsScreenState extends ConsumerState<SuggestionsScreen> {
                 ),
               ),
               data: (data) {
-                final filteredReady = data.ready.where((s) {
-                  if (_rejectedRecipeIds.contains(s.entry.recipe.id)) {
-                    return false;
-                  }
-                  if (_selectedDishType != null &&
-                      s.entry.recipe.dishType != _selectedDishType) {
-                    return false;
-                  }
-                  if (_selectedDifficulty != null &&
-                      s.entry.recipe.difficulty != _selectedDifficulty) {
-                    return false;
-                  }
-                  return true;
-                }).toList();
+                final filteredReady = _sortList(
+                  data.ready
+                      .where((s) => _matchesRecipe(s.entry.recipe))
+                      .toList(),
+                );
 
-                final filteredAlmostReady = data.almostReady.where((s) {
-                  if (_rejectedRecipeIds.contains(s.entry.recipe.id)) {
-                    return false;
-                  }
-                  if (_selectedDishType != null &&
-                      s.entry.recipe.dishType != _selectedDishType) {
-                    return false;
-                  }
-                  if (_selectedDifficulty != null &&
-                      s.entry.recipe.difficulty != _selectedDifficulty) {
-                    return false;
-                  }
-                  return true;
-                }).toList();
+                final filteredAlmostReady = _onlyReady
+                    ? <ScoredRecipe>[]
+                    : _sortList(
+                        data.almostReady
+                            .where((s) => _matchesRecipe(s.entry.recipe))
+                            .toList(),
+                      );
 
                 final aiDishes =
                     aiDishesAsync.value?.dataOrNull ??
                     const <AiDishSuggestion>[];
-                final filteredAiDishes = aiDishes.where((d) {
-                  if (_rejectedAiTitles.contains(
-                    d.title.toLowerCase().trim(),
-                  )) {
-                    return false;
-                  }
-                  if (_selectedDishType != null &&
-                      d.dishType.toLowerCase().trim() !=
-                          _selectedDishType!.name) {
-                    return false;
-                  }
-                  if (_selectedDifficulty != null &&
-                      d.difficulty.toLowerCase().trim() !=
-                          _selectedDifficulty!.name) {
-                    return false;
-                  }
-                  return true;
-                }).toList();
+                final filteredAiDishes = aiDishes.where(_matchesAi).toList();
 
                 if (filteredReady.isEmpty &&
                     filteredAlmostReady.isEmpty &&
@@ -617,6 +670,8 @@ class _SuggestionsScreenState extends ConsumerState<SuggestionsScreen> {
                             scored: scored,
                             onOpen: () => _openRecipe(scored.entry.recipe),
                             onReject: () => _rejectRecipe(scored.entry.recipe),
+                            onAddToCalendar: () =>
+                                _addToCalendar(scored.entry.recipe),
                           ),
                         ),
                     ],
@@ -640,6 +695,8 @@ class _SuggestionsScreenState extends ConsumerState<SuggestionsScreen> {
                             scored: scored,
                             onOpen: () => _openRecipe(scored.entry.recipe),
                             onReject: () => _rejectRecipe(scored.entry.recipe),
+                            onAddToCalendar: () =>
+                                _addToCalendar(scored.entry.recipe),
                           ),
                         ),
                     ],
@@ -684,12 +741,94 @@ class _SuggestionsScreenState extends ConsumerState<SuggestionsScreen> {
   }
 
   Widget _buildFilterBar(ThemeData theme, AppLocalizations l10n) {
+    final adaptive = context.adaptive;
+
     return Container(
       color: theme.colorScheme.surface,
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // Multi-filter condition: Search field (Full mode only per R8-18)
+          if (adaptive.showMultiFilters) ...[
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: TextField(
+                key: const Key('input_suggestions_search'),
+                controller: _searchController,
+                decoration: InputDecoration(
+                  hintText: 'Поиск блюд...',
+                  prefixIcon: const Icon(Icons.search),
+                  suffixIcon: _searchController.text.isNotEmpty
+                      ? IconButton(
+                          icon: const Icon(Icons.clear),
+                          onPressed: () {
+                            setState(() {
+                              _searchController.clear();
+                            });
+                          },
+                        )
+                      : null,
+                  isDense: true,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+                onChanged: (_) => setState(() {}),
+              ),
+            ),
+            const SizedBox(height: 8),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Wrap(
+                spacing: 8,
+                runSpacing: 8,
+                crossAxisAlignment: WrapCrossAlignment.center,
+                children: [
+                  FilterChip(
+                    key: const Key('chip_filter_fast'),
+                    selected: _fastOnly,
+                    onSelected: (val) => setState(() => _fastOnly = val),
+                    label: const Text('До 30 мин'),
+                  ),
+                  FilterChip(
+                    key: const Key('chip_filter_ready_only'),
+                    selected: _onlyReady,
+                    onSelected: (val) => setState(() => _onlyReady = val),
+                    label: const Text('Всё есть дома'),
+                  ),
+                  DropdownButton<RecipeSortOption>(
+                    key: const Key('select_sort_option'),
+                    value: _sortOption,
+                    underline: const SizedBox.shrink(),
+                    items: const [
+                      DropdownMenuItem(
+                        value: RecipeSortOption.bestMatch,
+                        child: Text('Подходит больше всего'),
+                      ),
+                      DropdownMenuItem(
+                        value: RecipeSortOption.fastest,
+                        child: Text('Быстрее'),
+                      ),
+                      DropdownMenuItem(
+                        value: RecipeSortOption.newest,
+                        child: Text('Новое'),
+                      ),
+                      DropdownMenuItem(
+                        value: RecipeSortOption.highestRating,
+                        child: Text('Лучшие оценки'),
+                      ),
+                    ],
+                    onChanged: (val) {
+                      if (val != null) setState(() => _sortOption = val);
+                    },
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 8),
+          ],
+
           // Dish types row with scrollbar and visual scroll indicator
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -824,22 +963,25 @@ class _RecipeCard extends StatelessWidget {
     required this.scored,
     required this.onOpen,
     required this.onReject,
+    this.onAddToCalendar,
   });
 
   final ScoredRecipe scored;
   final VoidCallback onOpen;
   final VoidCallback onReject;
+  final VoidCallback? onAddToCalendar;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final l10n = AppLocalizations.of(context)!;
+    final adaptive = context.adaptive;
     final recipe = scored.entry.recipe;
     final match = scored.match;
     final capsCount = _difficultyCaps(recipe.difficulty);
     final isNewAi = recipe.source == RecipeSource.ai;
 
-    return Semantics(
+    final cardWidget = Semantics(
       button: true,
       label: '${recipe.title}, ${_dishTypeName(l10n, recipe.dishType)}',
       child: Card(
@@ -1066,6 +1208,70 @@ class _RecipeCard extends StatelessWidget {
         ),
       ),
     );
+
+    if (adaptive.cardGesturesEnabled) {
+      return Dismissible(
+        key: ValueKey('swipe_recipe_${recipe.id}'),
+        background: Container(
+          alignment: Alignment.centerLeft,
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          decoration: BoxDecoration(
+            color: theme.colorScheme.primaryContainer,
+            borderRadius: BorderRadius.circular(16),
+          ),
+          child: Row(
+            children: [
+              Icon(
+                Icons.calendar_today,
+                color: theme.colorScheme.onPrimaryContainer,
+              ),
+              const SizedBox(width: 8),
+              Text(
+                'В календарь',
+                style: theme.textTheme.titleMedium?.copyWith(
+                  color: theme.colorScheme.onPrimaryContainer,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+        ),
+        secondaryBackground: Container(
+          alignment: Alignment.centerRight,
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          decoration: BoxDecoration(
+            color: theme.colorScheme.errorContainer,
+            borderRadius: BorderRadius.circular(16),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Text(
+                l10n.dishesActionReject,
+                style: theme.textTheme.titleMedium?.copyWith(
+                  color: theme.colorScheme.onErrorContainer,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(width: 8),
+              Icon(Icons.close, color: theme.colorScheme.onErrorContainer),
+            ],
+          ),
+        ),
+        confirmDismiss: (direction) async {
+          if (direction == DismissDirection.startToEnd) {
+            onAddToCalendar?.call();
+            return false;
+          } else {
+            onReject();
+            return true;
+          }
+        },
+        child: cardWidget,
+      );
+    }
+
+    return cardWidget;
   }
 }
 
@@ -1084,6 +1290,7 @@ class _AiDishCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final l10n = AppLocalizations.of(context)!;
+    final adaptive = context.adaptive;
     final dishTypeEnum =
         DishType.values
             .where((e) => e.name == suggestion.dishType)
@@ -1095,7 +1302,7 @@ class _AiDishCard extends StatelessWidget {
             .firstOrNull ??
         Difficulty.easy;
 
-    return Semantics(
+    final cardWidget = Semantics(
       button: true,
       label: '${suggestion.title}, ${_dishTypeName(l10n, dishTypeEnum)}',
       child: Card(
@@ -1228,6 +1435,27 @@ class _AiDishCard extends StatelessWidget {
                   ),
                 ],
 
+                if (adaptive.showAiDetails) ...[
+                  const SizedBox(height: 8),
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.auto_awesome,
+                        size: 16,
+                        color: theme.colorScheme.primary,
+                      ),
+                      const SizedBox(width: 6),
+                      Text(
+                        'Помощник: ${suggestion.providerName ?? 'LM Studio'}',
+                        style: theme.textTheme.bodySmall?.copyWith(
+                          color: theme.colorScheme.primary,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+
                 const SizedBox(height: 16),
 
                 // Action buttons
@@ -1290,5 +1518,41 @@ class _AiDishCard extends StatelessWidget {
         ),
       ),
     );
+
+    if (adaptive.cardGesturesEnabled) {
+      return Dismissible(
+        key: ValueKey('swipe_ai_${suggestion.title}'),
+        direction: DismissDirection.endToStart,
+        secondaryBackground: Container(
+          alignment: Alignment.centerRight,
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          decoration: BoxDecoration(
+            color: theme.colorScheme.errorContainer,
+            borderRadius: BorderRadius.circular(16),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Text(
+                l10n.dishesActionReject,
+                style: theme.textTheme.titleMedium?.copyWith(
+                  color: theme.colorScheme.onErrorContainer,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(width: 8),
+              Icon(Icons.close, color: theme.colorScheme.onErrorContainer),
+            ],
+          ),
+        ),
+        confirmDismiss: (direction) async {
+          onReject();
+          return true;
+        },
+        child: cardWidget,
+      );
+    }
+
+    return cardWidget;
   }
 }

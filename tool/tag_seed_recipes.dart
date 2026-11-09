@@ -13,9 +13,8 @@ void main() async {
   }
 
   // 1. Load ingredient categories
-  final ingData = jsonDecode(
-    ingredientsFile.readAsStringSync(),
-  ) as Map<String, dynamic>;
+  final ingData =
+      jsonDecode(ingredientsFile.readAsStringSync()) as Map<String, dynamic>;
   final ingList = (ingData['ingredients'] as List).cast<Map<String, dynamic>>();
   final ingredientCategoryMap = <String, String>{};
   for (final ing in ingList) {
