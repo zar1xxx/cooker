@@ -1,3 +1,4 @@
+import 'package:chto_prigotovit/core/catalog/catalog_taxonomy.dart';
 import 'package:chto_prigotovit/core/db/app_database.dart';
 import 'package:chto_prigotovit/core/db/daos/history_dao.dart';
 import 'package:chto_prigotovit/core/db/daos/recipe_dao.dart';
@@ -54,6 +55,7 @@ void main() {
           title: 'Тестовый суп',
           normalizedTitle: 'тестовый суп',
           dishType: DishType.soup,
+          dishGroup: DishGroup.soup,
           difficulty: Difficulty.easy,
           cuisine: 'русская',
           totalMinutes: 30,
@@ -72,6 +74,7 @@ void main() {
           title: 'Тестовый десерт',
           normalizedTitle: 'тестовый десерт',
           dishType: DishType.dessert,
+          dishGroup: DishGroup.dessert,
           difficulty: Difficulty.easy,
           cuisine: 'русская',
           totalMinutes: 30,
@@ -90,6 +93,7 @@ void main() {
           title: 'Оценённый рецепт',
           normalizedTitle: 'оцененный рецепт',
           dishType: DishType.main,
+          dishGroup: DishGroup.meat,
           difficulty: Difficulty.easy,
           cuisine: 'русская',
           totalMinutes: 30,

@@ -1,6 +1,7 @@
 import 'package:chto_prigotovit/app/theme.dart';
 import 'package:chto_prigotovit/core/ai/ai_failure.dart';
 import 'package:chto_prigotovit/core/ai/ai_service.dart';
+import 'package:chto_prigotovit/core/catalog/catalog_taxonomy.dart';
 import 'package:chto_prigotovit/core/db/app_database.dart';
 import 'package:chto_prigotovit/core/db/daos/ingredient_dao.dart';
 import 'package:drift/native.dart';
@@ -24,6 +25,7 @@ ScoredRecipe _dummyScored(String id, String title) {
     title: title,
     normalizedTitle: title.toLowerCase(),
     dishType: DishType.soup,
+    dishGroup: DishGroup.soup,
     difficulty: Difficulty.easy,
     cuisine: 'русская',
     totalMinutes: 30,

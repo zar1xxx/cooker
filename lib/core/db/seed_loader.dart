@@ -4,6 +4,7 @@ import 'package:clock/clock.dart';
 import 'package:drift/drift.dart';
 import 'package:flutter/services.dart' show rootBundle;
 
+import '../catalog/catalog_taxonomy.dart';
 import 'app_database.dart';
 import 'enums.dart';
 
@@ -120,10 +121,16 @@ class SeedLoader {
       final title = raw['title'] as String;
       final normalizedTitle = title.toLowerCase().trim();
       final dishType = DishType.values.byName(raw['dish_type'] as String);
+      final dishGroup =
+          DishGroup.tryFromId(raw['dish_group'] as String?) ??
+          DishGroup.fromDishType(dishType);
       final difficulty = Difficulty.values.byName(raw['difficulty'] as String);
-      final cuisine = raw['cuisine'] as String? ?? 'домашняя';
+      final rawCuisine = raw['cuisine'] as String?;
+      final cuisine = Cuisine.normalize(rawCuisine);
       final totalMinutes = raw['total_minutes'] as int? ?? 30;
       final activeMinutes = raw['active_minutes'] as int? ?? 15;
+      final cookMinutes = (raw['cook_minutes'] as int?) ?? totalMinutes;
+      final kcalPerServing = raw['kcal_per_serving'] as int?;
       final servings = raw['servings'] as int? ?? 2;
       final description = raw['description'] as String? ?? '';
 
@@ -153,10 +160,13 @@ class SeedLoader {
                 title: Value(title),
                 normalizedTitle: Value(normalizedTitle),
                 dishType: Value(dishType),
+                dishGroup: Value(dishGroup),
                 difficulty: Value(difficulty),
                 cuisine: Value(cuisine),
                 totalMinutes: Value(totalMinutes),
                 activeMinutes: Value(activeMinutes),
+                cookMinutes: Value(cookMinutes),
+                kcalPerServing: Value(kcalPerServing),
                 servings: Value(servings),
                 description: Value(description),
                 source: const Value(RecipeSource.seed),
@@ -172,10 +182,13 @@ class SeedLoader {
             title: Value(title),
             normalizedTitle: Value(normalizedTitle),
             dishType: Value(dishType),
+            dishGroup: Value(dishGroup),
             difficulty: Value(difficulty),
             cuisine: Value(cuisine),
             totalMinutes: Value(totalMinutes),
             activeMinutes: Value(activeMinutes),
+            cookMinutes: Value(cookMinutes),
+            kcalPerServing: Value(kcalPerServing),
             servings: Value(servings),
             description: Value(description),
             fingerprint: Value(fingerprint),
@@ -186,6 +199,18 @@ class SeedLoader {
 
       await _syncRecipeIngredients(db, id, rawIngredients, nowMs);
       await _syncRecipeSteps(db, id, rawSteps, nowMs);
+      await _syncRecipeTags(
+        db,
+        id,
+        raw['tags'],
+        rawIngredients,
+        totalMinutes,
+        servings,
+        dishGroup,
+        difficulty,
+        cuisine,
+        title,
+      );
     }
   }
 
@@ -308,6 +333,92 @@ class SeedLoader {
       await (db.delete(
         db.recipeSteps,
       )..where((tbl) => tbl.id.equals(row.id))).go();
+    }
+  }
+
+  Future<void> _syncRecipeTags(
+    AppDatabase db,
+    String recipeId,
+    dynamic rawTags,
+    List<dynamic> rawIngredients,
+    int totalMinutes,
+    int servings,
+    DishGroup dishGroup,
+    Difficulty difficulty,
+    String cuisine,
+    String title,
+  ) async {
+    final tagsToInsert = <RecipeTag>[];
+
+    if (rawTags is List && rawTags.isNotEmpty) {
+      for (final item in rawTags) {
+        if (item is Map) {
+          final kindStr = item['kind']?.toString() ?? 'dietary';
+          final tagStr = item['tag']?.toString() ?? '';
+          final kind = TagKind.tryFromId(kindStr);
+          if (kind != null && tagStr.isNotEmpty) {
+            tagsToInsert.add(RecipeTag(kind: kind, tag: tagStr));
+          }
+        } else if (item is String && item.isNotEmpty) {
+          if (item.contains(':')) {
+            final parts = item.split(':');
+            final kind = TagKind.tryFromId(parts[0]);
+            if (kind != null && parts[1].isNotEmpty) {
+              tagsToInsert.add(RecipeTag(kind: kind, tag: parts[1]));
+            }
+          } else {
+            if (DietaryTag.tryFromId(item) != null) {
+              tagsToInsert.add(RecipeTag.dietary(DietaryTag.fromId(item)));
+            } else if (OccasionTag.tryFromId(item) != null) {
+              tagsToInsert.add(RecipeTag.occasion(OccasionTag.fromId(item)));
+            } else if (MoodTag.tryFromId(item) != null) {
+              tagsToInsert.add(RecipeTag.mood(MoodTag.fromId(item)));
+            }
+          }
+        }
+      }
+    }
+
+    if (tagsToInsert.isEmpty) {
+      final taxonomyIngredients = rawIngredients
+          .whereType<Map<String, dynamic>>()
+          .map(
+            (e) => TaxonomyIngredient(
+              id: e['ingredient_id']?.toString() ?? '',
+              amount: (e['amount'] as num?)?.toDouble() ?? 0.0,
+              unit: e['unit']?.toString() ?? 'g',
+            ),
+          )
+          .toList();
+
+      final inferred = RecipeTaxonomyRules.inferAllTags(
+        ingredients: taxonomyIngredients,
+        totalMinutes: totalMinutes,
+        servings: servings,
+        dishGroup: dishGroup,
+        difficulty: difficulty,
+        cuisine: cuisine,
+        title: title,
+      );
+      tagsToInsert.addAll(inferred);
+    }
+
+    // Clear and sync tags for this recipe
+    await (db.delete(
+      db.recipeTags,
+    )..where((tbl) => tbl.recipeId.equals(recipeId))).go();
+
+    for (final tag in tagsToInsert) {
+      await db
+          .into(db.recipeTags)
+          .insert(
+            RecipeTagsCompanion(
+              recipeId: Value(recipeId),
+              tagKind: Value(tag.kind),
+              tag: Value(tag.tag),
+            ),
+            mode: InsertMode.insertOrReplace,
+          );
     }
   }
 }

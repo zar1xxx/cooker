@@ -1,3 +1,4 @@
+import 'package:chto_prigotovit/core/catalog/catalog_taxonomy.dart';
 import 'package:chto_prigotovit/core/db/app_database.dart';
 import 'package:chto_prigotovit/core/db/daos/recipe_dao.dart';
 import 'package:chto_prigotovit/core/db/enums.dart';
@@ -30,6 +31,7 @@ Recipe _recipe(String id, {DishType dishType = DishType.main}) {
     title: id,
     normalizedTitle: id,
     dishType: dishType,
+    dishGroup: DishGroup.fromDishType(dishType),
     difficulty: Difficulty.easy,
     cuisine: 'русская',
     totalMinutes: 30,

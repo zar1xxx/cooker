@@ -6,7 +6,7 @@
       "title": "Куриный суп с картошкой",
       "dish_type": "soup",
       "difficulty": "easy",
-      "cuisine": "русская",
+      "cuisine": "ru",
       "total_minutes": 65,
       "active_minutes": 20,
       "servings": 4,
@@ -76,6 +76,31 @@
           "text": "Посолите суп, положите лавровый лист и дайте настояться 10 минут перед подачей.",
           "timer_seconds": 600
         }
+      ],
+      "dish_group": "soup",
+      "cook_minutes": 65,
+      "kcal_per_serving": 351,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "high_protein"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lactose_free"
+        },
+        {
+          "kind": "mood",
+          "tag": "cozy"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        }
       ]
     },
     {
@@ -83,7 +108,7 @@
       "title": "Куриный суп с лапшой",
       "dish_type": "soup",
       "difficulty": "easy",
-      "cuisine": "русская",
+      "cuisine": "ru",
       "total_minutes": 55,
       "active_minutes": 20,
       "servings": 4,
@@ -147,6 +172,35 @@
           "text": "Засыпьте в кастрюлю тонкую лапшу, посолите по вкусу и варите 5 минут при тихом кипении.",
           "timer_seconds": 300
         }
+      ],
+      "dish_group": "soup",
+      "cook_minutes": 55,
+      "kcal_per_serving": 241,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "high_protein"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lactose_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "low_calorie"
+        },
+        {
+          "kind": "mood",
+          "tag": "cozy"
+        },
+        {
+          "kind": "mood",
+          "tag": "light"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        }
       ]
     },
     {
@@ -154,7 +208,7 @@
       "title": "Борщ с говядиной",
       "dish_type": "soup",
       "difficulty": "medium",
-      "cuisine": "русская",
+      "cuisine": "ru",
       "total_minutes": 100,
       "active_minutes": 35,
       "servings": 6,
@@ -246,6 +300,39 @@
           "text": "Дайте готовому борщу постоять 15 минут под крышкой, затем разлейте по тарелкам и положите сметану.",
           "timer_seconds": 900
         }
+      ],
+      "dish_group": "soup",
+      "cook_minutes": 100,
+      "kcal_per_serving": 325,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "high_protein"
+        },
+        {
+          "kind": "dietary",
+          "tag": "low_calorie"
+        },
+        {
+          "kind": "mood",
+          "tag": "cozy"
+        },
+        {
+          "kind": "mood",
+          "tag": "light"
+        },
+        {
+          "kind": "occasion",
+          "tag": "festive"
+        },
+        {
+          "kind": "occasion",
+          "tag": "for_guests"
+        }
       ]
     },
     {
@@ -253,7 +340,7 @@
       "title": "Щи из свежей капусты",
       "dish_type": "soup",
       "difficulty": "easy",
-      "cuisine": "русская",
+      "cuisine": "ru",
       "total_minutes": 35,
       "active_minutes": 20,
       "servings": 4,
@@ -323,6 +410,47 @@
           "text": "Посолите щи, положите лавровый лист и протомите на тихом огне 5 минут перед подачей на стол.",
           "timer_seconds": 300
         }
+      ],
+      "dish_group": "soup",
+      "cook_minutes": 35,
+      "kcal_per_serving": 132,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lactose_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lenten"
+        },
+        {
+          "kind": "dietary",
+          "tag": "low_calorie"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegan"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegetarian"
+        },
+        {
+          "kind": "mood",
+          "tag": "cozy"
+        },
+        {
+          "kind": "mood",
+          "tag": "light"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        }
       ]
     },
     {
@@ -330,7 +458,7 @@
       "title": "Щи из квашеной капусты",
       "dish_type": "soup",
       "difficulty": "easy",
-      "cuisine": "русская",
+      "cuisine": "ru",
       "total_minutes": 50,
       "active_minutes": 20,
       "servings": 4,
@@ -394,6 +522,47 @@
           "text": "Варите щи на медленном огне 15 минут до полной мягкости капусты, затем посолите по вкусу.",
           "timer_seconds": 900
         }
+      ],
+      "dish_group": "soup",
+      "cook_minutes": 50,
+      "kcal_per_serving": 111,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lactose_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lenten"
+        },
+        {
+          "kind": "dietary",
+          "tag": "low_calorie"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegan"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegetarian"
+        },
+        {
+          "kind": "mood",
+          "tag": "cozy"
+        },
+        {
+          "kind": "mood",
+          "tag": "light"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        }
       ]
     },
     {
@@ -401,7 +570,7 @@
       "title": "Рассольник с перловкой",
       "dish_type": "soup",
       "difficulty": "easy",
-      "cuisine": "русская",
+      "cuisine": "ru",
       "total_minutes": 92,
       "active_minutes": 30,
       "servings": 6,
@@ -477,6 +646,35 @@
           "text": "Добавьте в кастрюлю тёртые огурцы, посолите по вкусу и проварите рассольник ещё 7 минут.",
           "timer_seconds": 420
         }
+      ],
+      "dish_group": "soup",
+      "cook_minutes": 92,
+      "kcal_per_serving": 253,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "lactose_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "low_calorie"
+        },
+        {
+          "kind": "mood",
+          "tag": "cozy"
+        },
+        {
+          "kind": "mood",
+          "tag": "light"
+        },
+        {
+          "kind": "occasion",
+          "tag": "festive"
+        },
+        {
+          "kind": "occasion",
+          "tag": "for_guests"
+        }
       ]
     },
     {
@@ -484,7 +682,7 @@
       "title": "Солянка мясная",
       "dish_type": "soup",
       "difficulty": "medium",
-      "cuisine": "русская",
+      "cuisine": "ru",
       "total_minutes": 60,
       "active_minutes": 35,
       "servings": 6,
@@ -566,6 +764,43 @@
           "text": "Положите в солянку оливки, выправите вкус солью и прогрейте суп ещё 3 минуты.",
           "timer_seconds": 180
         }
+      ],
+      "dish_group": "soup",
+      "cook_minutes": 60,
+      "kcal_per_serving": 229,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "high_protein"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lactose_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "low_calorie"
+        },
+        {
+          "kind": "mood",
+          "tag": "cozy"
+        },
+        {
+          "kind": "mood",
+          "tag": "light"
+        },
+        {
+          "kind": "occasion",
+          "tag": "festive"
+        },
+        {
+          "kind": "occasion",
+          "tag": "for_guests"
+        }
       ]
     },
     {
@@ -573,7 +808,7 @@
       "title": "Грибной суп с картошкой",
       "dish_type": "soup",
       "difficulty": "easy",
-      "cuisine": "русская",
+      "cuisine": "ru",
       "total_minutes": 30,
       "active_minutes": 25,
       "servings": 4,
@@ -643,6 +878,35 @@
           "text": "Посолите суп по вкусу, проварите на слабом огне 5 минут и подавайте со свежей сметаной.",
           "timer_seconds": 300
         }
+      ],
+      "dish_group": "soup",
+      "cook_minutes": 30,
+      "kcal_per_serving": 248,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "low_calorie"
+        },
+        {
+          "kind": "mood",
+          "tag": "cozy"
+        },
+        {
+          "kind": "mood",
+          "tag": "light"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        },
+        {
+          "kind": "occasion",
+          "tag": "quick"
+        }
       ]
     },
     {
@@ -650,7 +914,7 @@
       "title": "Гороховый суп с копчёностями",
       "dish_type": "soup",
       "difficulty": "easy",
-      "cuisine": "русская",
+      "cuisine": "ru",
       "total_minutes": 90,
       "active_minutes": 25,
       "servings": 6,
@@ -720,6 +984,39 @@
           "text": "Посолите суп и варите ещё 15 минут, пока картофель не станет мягким.",
           "timer_seconds": 900
         }
+      ],
+      "dish_group": "soup",
+      "cook_minutes": 90,
+      "kcal_per_serving": 256,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lactose_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "low_calorie"
+        },
+        {
+          "kind": "mood",
+          "tag": "cozy"
+        },
+        {
+          "kind": "mood",
+          "tag": "light"
+        },
+        {
+          "kind": "occasion",
+          "tag": "festive"
+        },
+        {
+          "kind": "occasion",
+          "tag": "for_guests"
+        }
       ]
     },
     {
@@ -727,7 +1024,7 @@
       "title": "Уха из минтая",
       "dish_type": "soup",
       "difficulty": "easy",
-      "cuisine": "русская",
+      "cuisine": "ru",
       "total_minutes": 34,
       "active_minutes": 25,
       "servings": 4,
@@ -797,6 +1094,39 @@
           "text": "Добавьте лавровый лист, посолите по вкусу и оставьте уху на выключенной плите на 7 минут.",
           "timer_seconds": 420
         }
+      ],
+      "dish_group": "soup",
+      "cook_minutes": 34,
+      "kcal_per_serving": 263,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "high_protein"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lactose_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "low_calorie"
+        },
+        {
+          "kind": "mood",
+          "tag": "cozy"
+        },
+        {
+          "kind": "mood",
+          "tag": "light"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        }
       ]
     },
     {
@@ -804,7 +1134,7 @@
       "title": "Тыквенный суп-пюре",
       "dish_type": "soup",
       "difficulty": "easy",
-      "cuisine": "домашняя",
+      "cuisine": "home",
       "total_minutes": 32,
       "active_minutes": 25,
       "servings": 4,
@@ -874,6 +1204,35 @@
           "text": "Измельчите овощи блендером до гладкости, влейте сливки, посолите и прогрейте 2 минуты.",
           "timer_seconds": 120
         }
+      ],
+      "dish_group": "soup",
+      "cook_minutes": 32,
+      "kcal_per_serving": 109,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "low_calorie"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegetarian"
+        },
+        {
+          "kind": "mood",
+          "tag": "cozy"
+        },
+        {
+          "kind": "mood",
+          "tag": "light"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        }
       ]
     },
     {
@@ -881,7 +1240,7 @@
       "title": "Суп-пюре из брокколи",
       "dish_type": "soup",
       "difficulty": "easy",
-      "cuisine": "домашняя",
+      "cuisine": "home",
       "total_minutes": 30,
       "active_minutes": 25,
       "servings": 4,
@@ -945,6 +1304,39 @@
           "text": "Пюрируйте суп погружным блендером, влейте подогретые сливки, посолите по вкусу и доведите до пара.",
           "timer_seconds": 120
         }
+      ],
+      "dish_group": "soup",
+      "cook_minutes": 30,
+      "kcal_per_serving": 136,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "low_calorie"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegetarian"
+        },
+        {
+          "kind": "mood",
+          "tag": "cozy"
+        },
+        {
+          "kind": "mood",
+          "tag": "light"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        },
+        {
+          "kind": "occasion",
+          "tag": "quick"
+        }
       ]
     },
     {
@@ -952,7 +1344,7 @@
       "title": "Томатный суп с базиликом",
       "dish_type": "soup",
       "difficulty": "easy",
-      "cuisine": "домашняя",
+      "cuisine": "home",
       "total_minutes": 25,
       "active_minutes": 20,
       "servings": 4,
@@ -1022,6 +1414,51 @@
           "text": "Пюрируйте суп блендером, добавьте свежий базилик, посолите по вкусу и подавайте тёплым.",
           "timer_seconds": null
         }
+      ],
+      "dish_group": "soup",
+      "cook_minutes": 25,
+      "kcal_per_serving": 72,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lactose_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lenten"
+        },
+        {
+          "kind": "dietary",
+          "tag": "low_calorie"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegan"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegetarian"
+        },
+        {
+          "kind": "mood",
+          "tag": "cozy"
+        },
+        {
+          "kind": "mood",
+          "tag": "light"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        },
+        {
+          "kind": "occasion",
+          "tag": "quick"
+        }
       ]
     },
     {
@@ -1029,7 +1466,7 @@
       "title": "Чечевичный суп",
       "dish_type": "soup",
       "difficulty": "easy",
-      "cuisine": "домашняя",
+      "cuisine": "home",
       "total_minutes": 35,
       "active_minutes": 25,
       "servings": 4,
@@ -1099,6 +1536,47 @@
           "text": "Посолите суп по вкусу, перемешайте половником и дайте постоять под крышкой 5 минут.",
           "timer_seconds": 300
         }
+      ],
+      "dish_group": "soup",
+      "cook_minutes": 35,
+      "kcal_per_serving": 124,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lactose_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lenten"
+        },
+        {
+          "kind": "dietary",
+          "tag": "low_calorie"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegan"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegetarian"
+        },
+        {
+          "kind": "mood",
+          "tag": "cozy"
+        },
+        {
+          "kind": "mood",
+          "tag": "light"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        }
       ]
     },
     {
@@ -1106,7 +1584,7 @@
       "title": "Окрошка на кефире",
       "dish_type": "soup",
       "difficulty": "easy",
-      "cuisine": "русская",
+      "cuisine": "ru",
       "total_minutes": 50,
       "active_minutes": 25,
       "servings": 4,
@@ -1182,6 +1660,27 @@
           "text": "Залейте смесь холодным кефиром, бережно перемешайте ложкой и охладите в холодильнике 30 минут.",
           "timer_seconds": 1800
         }
+      ],
+      "dish_group": "egg_dairy",
+      "cook_minutes": 50,
+      "kcal_per_serving": 428,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "high_protein"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegetarian"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        }
       ]
     },
     {
@@ -1189,7 +1688,7 @@
       "title": "Свёкольник холодный",
       "dish_type": "soup",
       "difficulty": "easy",
-      "cuisine": "русская",
+      "cuisine": "ru",
       "total_minutes": 65,
       "active_minutes": 25,
       "servings": 4,
@@ -1259,6 +1758,27 @@
           "text": "Залейте холодным кефиром, тщательно перемешайте и поставьте в холодильник на 30 минут перед подачей.",
           "timer_seconds": 1800
         }
+      ],
+      "dish_group": "egg_dairy",
+      "cook_minutes": 65,
+      "kcal_per_serving": 440,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "high_protein"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegetarian"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        }
       ]
     },
     {
@@ -1266,7 +1786,7 @@
       "title": "Куриный суп с рисом",
       "dish_type": "soup",
       "difficulty": "easy",
-      "cuisine": "русская",
+      "cuisine": "ru",
       "total_minutes": 62,
       "active_minutes": 20,
       "servings": 4,
@@ -1330,6 +1850,39 @@
           "text": "Посолите суп по вкусу, выключите огонь и дайте блюду настояться 7 минут.",
           "timer_seconds": 420
         }
+      ],
+      "dish_group": "soup",
+      "cook_minutes": 62,
+      "kcal_per_serving": 235,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "high_protein"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lactose_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "low_calorie"
+        },
+        {
+          "kind": "mood",
+          "tag": "cozy"
+        },
+        {
+          "kind": "mood",
+          "tag": "light"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        }
       ]
     },
     {
@@ -1337,7 +1890,7 @@
       "title": "Суп с фрикадельками",
       "dish_type": "soup",
       "difficulty": "easy",
-      "cuisine": "русская",
+      "cuisine": "ru",
       "total_minutes": 30,
       "active_minutes": 25,
       "servings": 4,
@@ -1401,6 +1954,39 @@
           "text": "Посолите суп по вкусу, когда фрикадельки всплывут, и томите ещё 3 минуты на малом огне.",
           "timer_seconds": 180
         }
+      ],
+      "dish_group": "soup",
+      "cook_minutes": 30,
+      "kcal_per_serving": 276,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lactose_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "low_calorie"
+        },
+        {
+          "kind": "mood",
+          "tag": "cozy"
+        },
+        {
+          "kind": "mood",
+          "tag": "light"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        },
+        {
+          "kind": "occasion",
+          "tag": "quick"
+        }
       ]
     },
     {
@@ -1408,7 +1994,7 @@
       "title": "Курица, тушённая с картошкой",
       "dish_type": "main",
       "difficulty": "easy",
-      "cuisine": "русская",
+      "cuisine": "ru",
       "total_minutes": 45,
       "active_minutes": 25,
       "servings": 4,
@@ -1490,6 +2076,31 @@
           "text": "Накройте сковороду крышкой и тушите блюдо на медленном огне 25 минут до мягкости картофеля.",
           "timer_seconds": 1500
         }
+      ],
+      "dish_group": "meat",
+      "cook_minutes": 45,
+      "kcal_per_serving": 436,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "high_protein"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lactose_free"
+        },
+        {
+          "kind": "mood",
+          "tag": "hearty"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        }
       ]
     },
     {
@@ -1497,7 +2108,7 @@
       "title": "Куриное филе с луком",
       "dish_type": "main",
       "difficulty": "easy",
-      "cuisine": "домашняя",
+      "cuisine": "home",
       "total_minutes": 25,
       "active_minutes": 20,
       "servings": 2,
@@ -1561,6 +2172,35 @@
           "text": "Посолите, добавьте чёрный перец по вкусу, перемешайте лопаткой и снимите с огня.",
           "timer_seconds": null
         }
+      ],
+      "dish_group": "meat",
+      "cook_minutes": 25,
+      "kcal_per_serving": 437,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "high_protein"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lactose_free"
+        },
+        {
+          "kind": "mood",
+          "tag": "hearty"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        },
+        {
+          "kind": "occasion",
+          "tag": "quick"
+        }
       ]
     },
     {
@@ -1568,7 +2208,7 @@
       "title": "Курица в сливочном соусе",
       "dish_type": "main",
       "difficulty": "easy",
-      "cuisine": "домашняя",
+      "cuisine": "home",
       "total_minutes": 30,
       "active_minutes": 25,
       "servings": 2,
@@ -1634,6 +2274,31 @@
           "text": "Влейте тёплые сливки, посолите по вкусу и томите соус на тихом огне 5 минут до загустения.",
           "timer_seconds": 300
         }
+      ],
+      "dish_group": "meat",
+      "cook_minutes": 30,
+      "kcal_per_serving": 671,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "high_protein"
+        },
+        {
+          "kind": "mood",
+          "tag": "hearty"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        },
+        {
+          "kind": "occasion",
+          "tag": "quick"
+        }
       ]
     },
     {
@@ -1641,7 +2306,7 @@
       "title": "Курица с гречкой",
       "dish_type": "main",
       "difficulty": "easy",
-      "cuisine": "домашняя",
+      "cuisine": "home",
       "total_minutes": 37,
       "active_minutes": 30,
       "servings": 4,
@@ -1705,6 +2370,39 @@
           "text": "Посолите, накройте крышкой и тушите на медленном огне 20 минут до полного впитывания воды.",
           "timer_seconds": 1200
         }
+      ],
+      "dish_group": "meat",
+      "cook_minutes": 37,
+      "kcal_per_serving": 346,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "high_protein"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lactose_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "low_calorie"
+        },
+        {
+          "kind": "mood",
+          "tag": "hearty"
+        },
+        {
+          "kind": "mood",
+          "tag": "light"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        }
       ]
     },
     {
@@ -1712,7 +2410,7 @@
       "title": "Курица, запечённая с овощами",
       "dish_type": "main",
       "difficulty": "easy",
-      "cuisine": "домашняя",
+      "cuisine": "home",
       "total_minutes": 45,
       "active_minutes": 25,
       "servings": 4,
@@ -1782,6 +2480,31 @@
           "text": "Проверьте мягкость картофеля ножом и подавайте горячим на стол.",
           "timer_seconds": null
         }
+      ],
+      "dish_group": "meat",
+      "cook_minutes": 45,
+      "kcal_per_serving": 407,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "high_protein"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lactose_free"
+        },
+        {
+          "kind": "mood",
+          "tag": "hearty"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        }
       ]
     },
     {
@@ -1789,7 +2512,7 @@
       "title": "Курица в карри",
       "dish_type": "main",
       "difficulty": "easy",
-      "cuisine": "домашняя",
+      "cuisine": "home",
       "total_minutes": 35,
       "active_minutes": 30,
       "servings": 4,
@@ -1865,6 +2588,35 @@
           "text": "Тушите курицу в соусе карри на малом огне 15 минут, пока соус слегка не уварится.",
           "timer_seconds": 900
         }
+      ],
+      "dish_group": "meat",
+      "cook_minutes": 35,
+      "kcal_per_serving": 282,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "high_protein"
+        },
+        {
+          "kind": "dietary",
+          "tag": "low_calorie"
+        },
+        {
+          "kind": "mood",
+          "tag": "hearty"
+        },
+        {
+          "kind": "mood",
+          "tag": "light"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        }
       ]
     },
     {
@@ -1872,7 +2624,7 @@
       "title": "Говядина, тушённая с овощами",
       "dish_type": "main",
       "difficulty": "medium",
-      "cuisine": "русская",
+      "cuisine": "ru",
       "total_minutes": 75,
       "active_minutes": 35,
       "servings": 4,
@@ -1942,6 +2694,31 @@
           "text": "Выложите нарезанный картофель, посолите по вкусу и тушите ещё 20 минут до мягкости картофеля.",
           "timer_seconds": 1200
         }
+      ],
+      "dish_group": "meat",
+      "cook_minutes": 75,
+      "kcal_per_serving": 488,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "high_protein"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lactose_free"
+        },
+        {
+          "kind": "mood",
+          "tag": "hearty"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        }
       ]
     },
     {
@@ -1949,7 +2726,7 @@
       "title": "Бефстроганов",
       "dish_type": "main",
       "difficulty": "easy",
-      "cuisine": "русская",
+      "cuisine": "ru",
       "total_minutes": 35,
       "active_minutes": 30,
       "servings": 4,
@@ -2019,6 +2796,27 @@
           "text": "Прогрейте бефстроганов на тихом огне 7 минут, пока сметанный соус не станет однородным и густым.",
           "timer_seconds": 420
         }
+      ],
+      "dish_group": "meat",
+      "cook_minutes": 35,
+      "kcal_per_serving": 447,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "high_protein"
+        },
+        {
+          "kind": "mood",
+          "tag": "hearty"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        }
       ]
     },
     {
@@ -2026,7 +2824,7 @@
       "title": "Котлеты из говядины",
       "dish_type": "main",
       "difficulty": "easy",
-      "cuisine": "русская",
+      "cuisine": "ru",
       "total_minutes": 35,
       "active_minutes": 30,
       "servings": 4,
@@ -2092,6 +2890,23 @@
           "text": "Накройте сковороду крышкой, убавьте огонь и томите котлеты 10 минут до полной прожарки мяса.",
           "timer_seconds": 600
         }
+      ],
+      "dish_group": "meat",
+      "cook_minutes": 35,
+      "kcal_per_serving": 373,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "high_protein"
+        },
+        {
+          "kind": "mood",
+          "tag": "hearty"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        }
       ]
     },
     {
@@ -2099,7 +2914,7 @@
       "title": "Свиные отбивные",
       "dish_type": "main",
       "difficulty": "easy",
-      "cuisine": "русская",
+      "cuisine": "ru",
       "total_minutes": 30,
       "active_minutes": 25,
       "servings": 4,
@@ -2159,6 +2974,31 @@
           "text": "Выложите готовые отбивные на блюдо и дайте мясу отдохнуть 5 минут перед подачей.",
           "timer_seconds": 300
         }
+      ],
+      "dish_group": "meat",
+      "cook_minutes": 30,
+      "kcal_per_serving": 414,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "high_protein"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lactose_free"
+        },
+        {
+          "kind": "mood",
+          "tag": "hearty"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        },
+        {
+          "kind": "occasion",
+          "tag": "quick"
+        }
       ]
     },
     {
@@ -2166,7 +3006,7 @@
       "title": "Свинина, тушённая с капустой",
       "dish_type": "main",
       "difficulty": "medium",
-      "cuisine": "русская",
+      "cuisine": "ru",
       "total_minutes": 47,
       "active_minutes": 35,
       "servings": 4,
@@ -2242,6 +3082,31 @@
           "text": "Тушите блюдо под крышкой на умеренном огне 25 минут, пока капуста не осядет и не станет мягкой.",
           "timer_seconds": 1500
         }
+      ],
+      "dish_group": "meat",
+      "cook_minutes": 47,
+      "kcal_per_serving": 374,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "high_protein"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lactose_free"
+        },
+        {
+          "kind": "mood",
+          "tag": "hearty"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        }
       ]
     },
     {
@@ -2249,7 +3114,7 @@
       "title": "Свинина, запечённая с картошкой",
       "dish_type": "main",
       "difficulty": "easy",
-      "cuisine": "русская",
+      "cuisine": "ru",
       "total_minutes": 50,
       "active_minutes": 30,
       "servings": 4,
@@ -2313,6 +3178,27 @@
           "text": "Выньте запеканку из духовки, когда сыр подрумянится, и дайте постоять 10 минут перед нарезкой.",
           "timer_seconds": 600
         }
+      ],
+      "dish_group": "meat",
+      "cook_minutes": 50,
+      "kcal_per_serving": 519,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "high_protein"
+        },
+        {
+          "kind": "mood",
+          "tag": "hearty"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        }
       ]
     },
     {
@@ -2320,7 +3206,7 @@
       "title": "Тефтели в томатном соусе",
       "dish_type": "main",
       "difficulty": "medium",
-      "cuisine": "домашняя",
+      "cuisine": "home",
       "total_minutes": 45,
       "active_minutes": 35,
       "servings": 4,
@@ -2402,6 +3288,35 @@
           "text": "Подавайте горячие тефтели с соусом к рису или картофелю.",
           "timer_seconds": null
         }
+      ],
+      "dish_group": "meat",
+      "cook_minutes": 45,
+      "kcal_per_serving": 343,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "high_protein"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lactose_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "low_calorie"
+        },
+        {
+          "kind": "mood",
+          "tag": "hearty"
+        },
+        {
+          "kind": "mood",
+          "tag": "light"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        }
       ]
     },
     {
@@ -2409,7 +3324,7 @@
       "title": "Макароны по-болонски",
       "dish_type": "main",
       "difficulty": "easy",
-      "cuisine": "домашняя",
+      "cuisine": "home",
       "total_minutes": 45,
       "active_minutes": 30,
       "servings": 4,
@@ -2481,6 +3396,27 @@
           "text": "Отварите макароны в подсоленной воде 10 минут, слейте воду и смешайте с горячим соусом.",
           "timer_seconds": 600
         }
+      ],
+      "dish_group": "meat",
+      "cook_minutes": 45,
+      "kcal_per_serving": 409,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "high_protein"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lactose_free"
+        },
+        {
+          "kind": "mood",
+          "tag": "hearty"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        }
       ]
     },
     {
@@ -2488,7 +3424,7 @@
       "title": "Лазанья с мясом",
       "dish_type": "main",
       "difficulty": "hard",
-      "cuisine": "итальянская",
+      "cuisine": "it",
       "total_minutes": 80,
       "active_minutes": 75,
       "servings": 6,
@@ -2570,6 +3506,35 @@
           "text": "Дайте лазанье немного остыть в течение 10 минут, чтобы слои закрепились перед подачей.",
           "timer_seconds": 600
         }
+      ],
+      "dish_group": "meat",
+      "cook_minutes": 80,
+      "kcal_per_serving": 690,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "high_protein"
+        },
+        {
+          "kind": "mood",
+          "tag": "hearty"
+        },
+        {
+          "kind": "mood",
+          "tag": "something_new"
+        },
+        {
+          "kind": "occasion",
+          "tag": "festive"
+        },
+        {
+          "kind": "occasion",
+          "tag": "for_guests"
+        }
       ]
     },
     {
@@ -2577,7 +3542,7 @@
       "title": "Плов с курицей",
       "dish_type": "main",
       "difficulty": "medium",
-      "cuisine": "узбекская",
+      "cuisine": "uz",
       "total_minutes": 55,
       "active_minutes": 35,
       "servings": 6,
@@ -2657,6 +3622,47 @@
           "text": "Убавьте огонь, накройте казан крышкой и томите плов 15 минут до полного впитывания всей влаги.",
           "timer_seconds": 900
         }
+      ],
+      "dish_group": "meat",
+      "cook_minutes": 55,
+      "kcal_per_serving": 267,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "high_protein"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lactose_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "low_calorie"
+        },
+        {
+          "kind": "mood",
+          "tag": "hearty"
+        },
+        {
+          "kind": "mood",
+          "tag": "light"
+        },
+        {
+          "kind": "mood",
+          "tag": "something_new"
+        },
+        {
+          "kind": "occasion",
+          "tag": "festive"
+        },
+        {
+          "kind": "occasion",
+          "tag": "for_guests"
+        }
       ]
     },
     {
@@ -2664,7 +3670,7 @@
       "title": "Гречка с мясом",
       "dish_type": "main",
       "difficulty": "easy",
-      "cuisine": "русская",
+      "cuisine": "ru",
       "total_minutes": 60,
       "active_minutes": 30,
       "servings": 4,
@@ -2728,6 +3734,31 @@
           "text": "Варите на слабом огне под крышкой 20 минут, пока гречка не впитает всю воду и не станет рассыпчатой.",
           "timer_seconds": 1200
         }
+      ],
+      "dish_group": "meat",
+      "cook_minutes": 60,
+      "kcal_per_serving": 396,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "high_protein"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lactose_free"
+        },
+        {
+          "kind": "mood",
+          "tag": "hearty"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        }
       ]
     },
     {
@@ -2735,7 +3766,7 @@
       "title": "Печень с луком",
       "dish_type": "main",
       "difficulty": "easy",
-      "cuisine": "русская",
+      "cuisine": "ru",
       "total_minutes": 25,
       "active_minutes": 20,
       "servings": 2,
@@ -2793,6 +3824,31 @@
           "text": "Добавьте сметану, посолите по вкусу, перемешайте и протомите под крышкой ещё 5 минут.",
           "timer_seconds": 300
         }
+      ],
+      "dish_group": "meat",
+      "cook_minutes": 25,
+      "kcal_per_serving": 632,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "high_protein"
+        },
+        {
+          "kind": "mood",
+          "tag": "hearty"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        },
+        {
+          "kind": "occasion",
+          "tag": "quick"
+        }
       ]
     },
     {
@@ -2800,7 +3856,7 @@
       "title": "Минтай жареный",
       "dish_type": "main",
       "difficulty": "easy",
-      "cuisine": "домашняя",
+      "cuisine": "home",
       "total_minutes": 25,
       "active_minutes": 20,
       "servings": 2,
@@ -2854,6 +3910,31 @@
           "text": "Обжаривайте минтай по 6 минут с каждой стороны до образования аппетитной румяной корочки.",
           "timer_seconds": 720
         }
+      ],
+      "dish_group": "fish_seafood",
+      "cook_minutes": 25,
+      "kcal_per_serving": 408,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "high_protein"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lactose_free"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        },
+        {
+          "kind": "occasion",
+          "tag": "quick"
+        }
       ]
     },
     {
@@ -2861,7 +3942,7 @@
       "title": "Треска, запечённая с овощами",
       "dish_type": "main",
       "difficulty": "easy",
-      "cuisine": "домашняя",
+      "cuisine": "home",
       "total_minutes": 35,
       "active_minutes": 25,
       "servings": 4,
@@ -2925,6 +4006,35 @@
           "text": "Дайте блюду постоять в тёплой духовке 5 минут перед подачей на стол.",
           "timer_seconds": 300
         }
+      ],
+      "dish_group": "fish_seafood",
+      "cook_minutes": 35,
+      "kcal_per_serving": 266,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "high_protein"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lactose_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "low_calorie"
+        },
+        {
+          "kind": "mood",
+          "tag": "light"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        }
       ]
     },
     {
@@ -2932,7 +4042,7 @@
       "title": "Рыбные котлеты",
       "dish_type": "main",
       "difficulty": "easy",
-      "cuisine": "русская",
+      "cuisine": "ru",
       "total_minutes": 35,
       "active_minutes": 30,
       "servings": 4,
@@ -3002,6 +4112,27 @@
           "text": "Убавьте огонь, накройте сковороду крышкой и подержите котлеты ещё 5 минут до полной готовности рыбы.",
           "timer_seconds": 300
         }
+      ],
+      "dish_group": "fish_seafood",
+      "cook_minutes": 35,
+      "kcal_per_serving": 186,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "high_protein"
+        },
+        {
+          "kind": "dietary",
+          "tag": "low_calorie"
+        },
+        {
+          "kind": "mood",
+          "tag": "light"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        }
       ]
     },
     {
@@ -3009,7 +4140,7 @@
       "title": "Паста с креветками",
       "dish_type": "main",
       "difficulty": "easy",
-      "cuisine": "итальянская",
+      "cuisine": "it",
       "total_minutes": 30,
       "active_minutes": 25,
       "servings": 2,
@@ -3069,6 +4200,31 @@
           "text": "Смешайте отваренную пасту с креветками в соусе и сразу подавайте к столу.",
           "timer_seconds": null
         }
+      ],
+      "dish_group": "fish_seafood",
+      "cook_minutes": 30,
+      "kcal_per_serving": 514,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "high_protein"
+        },
+        {
+          "kind": "mood",
+          "tag": "hearty"
+        },
+        {
+          "kind": "mood",
+          "tag": "something_new"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        },
+        {
+          "kind": "occasion",
+          "tag": "quick"
+        }
       ]
     },
     {
@@ -3076,7 +4232,7 @@
       "title": "Голубцы с мясом",
       "dish_type": "main",
       "difficulty": "medium",
-      "cuisine": "русская",
+      "cuisine": "ru",
       "total_minutes": 55,
       "active_minutes": 50,
       "servings": 6,
@@ -3164,6 +4320,35 @@
           "text": "Подавайте горячие голубцы со свежей сметаной.",
           "timer_seconds": null
         }
+      ],
+      "dish_group": "meat",
+      "cook_minutes": 55,
+      "kcal_per_serving": 258,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "low_calorie"
+        },
+        {
+          "kind": "mood",
+          "tag": "hearty"
+        },
+        {
+          "kind": "mood",
+          "tag": "light"
+        },
+        {
+          "kind": "occasion",
+          "tag": "festive"
+        },
+        {
+          "kind": "occasion",
+          "tag": "for_guests"
+        }
       ]
     },
     {
@@ -3171,7 +4356,7 @@
       "title": "Перец, фаршированный мясом",
       "dish_type": "main",
       "difficulty": "medium",
-      "cuisine": "русская",
+      "cuisine": "ru",
       "total_minutes": 50,
       "active_minutes": 45,
       "servings": 4,
@@ -3259,6 +4444,31 @@
           "text": "Подавайте фаршированные перцы горячими, полив соусом из формы.",
           "timer_seconds": null
         }
+      ],
+      "dish_group": "meat",
+      "cook_minutes": 50,
+      "kcal_per_serving": 360,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "high_protein"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lactose_free"
+        },
+        {
+          "kind": "mood",
+          "tag": "hearty"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        }
       ]
     },
     {
@@ -3266,7 +4476,7 @@
       "title": "Картофельная запеканка с мясом",
       "dish_type": "main",
       "difficulty": "medium",
-      "cuisine": "русская",
+      "cuisine": "ru",
       "total_minutes": 52,
       "active_minutes": 45,
       "servings": 6,
@@ -3342,6 +4552,35 @@
           "text": "Запекайте в духовке при 180 градусах 35 минут до аппетитной золотистой корочки.",
           "timer_seconds": 2100
         }
+      ],
+      "dish_group": "meat",
+      "cook_minutes": 52,
+      "kcal_per_serving": 351,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "high_protein"
+        },
+        {
+          "kind": "mood",
+          "tag": "hearty"
+        },
+        {
+          "kind": "occasion",
+          "tag": "festive"
+        },
+        {
+          "kind": "occasion",
+          "tag": "for_guests"
+        },
+        {
+          "kind": "occasion",
+          "tag": "kids"
+        }
       ]
     },
     {
@@ -3349,7 +4588,7 @@
       "title": "Пельмени домашние",
       "dish_type": "main",
       "difficulty": "hard",
-      "cuisine": "русская",
+      "cuisine": "ru",
       "total_minutes": 85,
       "active_minutes": 80,
       "servings": 6,
@@ -3419,6 +4658,35 @@
           "text": "Выньте пельмени шумовкой и подавайте с кусочком сливочного масла и сметаной.",
           "timer_seconds": null
         }
+      ],
+      "dish_group": "meat",
+      "cook_minutes": 85,
+      "kcal_per_serving": 505,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "high_protein"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lactose_free"
+        },
+        {
+          "kind": "mood",
+          "tag": "hearty"
+        },
+        {
+          "kind": "occasion",
+          "tag": "festive"
+        },
+        {
+          "kind": "occasion",
+          "tag": "for_guests"
+        }
       ]
     },
     {
@@ -3426,7 +4694,7 @@
       "title": "Индейка, тушённая с овощами",
       "dish_type": "main",
       "difficulty": "easy",
-      "cuisine": "домашняя",
+      "cuisine": "home",
       "total_minutes": 35,
       "active_minutes": 30,
       "servings": 4,
@@ -3496,6 +4764,39 @@
           "text": "Тушите индейку с овощами под крышкой 20 минут до нежной мягкости кабачков и мяса.",
           "timer_seconds": 1200
         }
+      ],
+      "dish_group": "meat",
+      "cook_minutes": 35,
+      "kcal_per_serving": 217,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "high_protein"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lactose_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "low_calorie"
+        },
+        {
+          "kind": "mood",
+          "tag": "hearty"
+        },
+        {
+          "kind": "mood",
+          "tag": "light"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        }
       ]
     },
     {
@@ -3503,7 +4804,7 @@
       "title": "Кролик, тушённый в сметане",
       "dish_type": "main",
       "difficulty": "medium",
-      "cuisine": "русская",
+      "cuisine": "ru",
       "total_minutes": 50,
       "active_minutes": 40,
       "servings": 4,
@@ -3573,6 +4874,27 @@
           "text": "Тушите кролика на медленном огне под крышкой 35 минут до нежной мягкости мяса.",
           "timer_seconds": 2100
         }
+      ],
+      "dish_group": "meat",
+      "cook_minutes": 50,
+      "kcal_per_serving": 461,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "high_protein"
+        },
+        {
+          "kind": "mood",
+          "tag": "hearty"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        }
       ]
     },
     {
@@ -3580,7 +4902,7 @@
       "title": "Картошка с грибами",
       "dish_type": "main",
       "difficulty": "easy",
-      "cuisine": "русская",
+      "cuisine": "ru",
       "total_minutes": 31,
       "active_minutes": 25,
       "servings": 4,
@@ -3640,6 +4962,35 @@
           "text": "Когда картофель покроется румяной корочкой, посолите, посыпьте укропом и подержите под крышкой 3 минуты.",
           "timer_seconds": 180
         }
+      ],
+      "dish_group": "meat",
+      "cook_minutes": 31,
+      "kcal_per_serving": 263,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lactose_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "low_calorie"
+        },
+        {
+          "kind": "mood",
+          "tag": "hearty"
+        },
+        {
+          "kind": "mood",
+          "tag": "light"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        }
       ]
     },
     {
@@ -3647,7 +4998,7 @@
       "title": "Баклажаны с фаршем",
       "dish_type": "main",
       "difficulty": "medium",
-      "cuisine": "домашняя",
+      "cuisine": "home",
       "total_minutes": 48,
       "active_minutes": 40,
       "servings": 4,
@@ -3717,6 +5068,27 @@
           "text": "Выньте блюдо и дайте ему постоять 5 минут перед подачей на стол.",
           "timer_seconds": 300
         }
+      ],
+      "dish_group": "meat",
+      "cook_minutes": 48,
+      "kcal_per_serving": 369,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "high_protein"
+        },
+        {
+          "kind": "mood",
+          "tag": "hearty"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        }
       ]
     },
     {
@@ -3724,7 +5096,7 @@
       "title": "Рыба под сыром",
       "dish_type": "main",
       "difficulty": "easy",
-      "cuisine": "домашняя",
+      "cuisine": "home",
       "total_minutes": 30,
       "active_minutes": 25,
       "servings": 4,
@@ -3784,6 +5156,35 @@
           "text": "Запекайте рыбу в разогретой духовке 25 минут при 180 градусах до золотистой сырной корочки.",
           "timer_seconds": 1500
         }
+      ],
+      "dish_group": "fish_seafood",
+      "cook_minutes": 30,
+      "kcal_per_serving": 327,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "high_protein"
+        },
+        {
+          "kind": "dietary",
+          "tag": "low_calorie"
+        },
+        {
+          "kind": "mood",
+          "tag": "light"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        },
+        {
+          "kind": "occasion",
+          "tag": "quick"
+        }
       ]
     },
     {
@@ -3791,7 +5192,7 @@
       "title": "Котлеты по-киевски",
       "dish_type": "main",
       "difficulty": "medium",
-      "cuisine": "русская",
+      "cuisine": "ru",
       "total_minutes": 55,
       "active_minutes": 50,
       "servings": 4,
@@ -3861,6 +5262,23 @@
           "text": "Подавайте горячими с гарниром из картофеля или свежими овощами.",
           "timer_seconds": null
         }
+      ],
+      "dish_group": "meat",
+      "cook_minutes": 55,
+      "kcal_per_serving": 744,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "high_protein"
+        },
+        {
+          "kind": "mood",
+          "tag": "hearty"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        }
       ]
     },
     {
@@ -3868,7 +5286,7 @@
       "title": "Телятина с овощами",
       "dish_type": "main",
       "difficulty": "medium",
-      "cuisine": "домашняя",
+      "cuisine": "home",
       "total_minutes": 53,
       "active_minutes": 35,
       "servings": 4,
@@ -3928,6 +5346,31 @@
           "text": "Опустите нарезанный дольками картофель, посолите по вкусу и тушите ещё 15 минут до мягкости картофеля.",
           "timer_seconds": 900
         }
+      ],
+      "dish_group": "meat",
+      "cook_minutes": 53,
+      "kcal_per_serving": 411,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "high_protein"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lactose_free"
+        },
+        {
+          "kind": "mood",
+          "tag": "hearty"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        }
       ]
     },
     {
@@ -3935,7 +5378,7 @@
       "title": "Картофельное пюре",
       "dish_type": "side",
       "difficulty": "easy",
-      "cuisine": "русская",
+      "cuisine": "ru",
       "total_minutes": 25,
       "active_minutes": 20,
       "servings": 4,
@@ -3979,6 +5422,35 @@
           "text": "Тщательно разомните картофель толкушкой до нежной кремовой консистенции без комочков.",
           "timer_seconds": null
         }
+      ],
+      "dish_group": "egg_dairy",
+      "cook_minutes": 25,
+      "kcal_per_serving": 255,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "low_calorie"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegetarian"
+        },
+        {
+          "kind": "mood",
+          "tag": "light"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        },
+        {
+          "kind": "occasion",
+          "tag": "quick"
+        }
       ]
     },
     {
@@ -3986,7 +5458,7 @@
       "title": "Картошка жареная",
       "dish_type": "side",
       "difficulty": "easy",
-      "cuisine": "русская",
+      "cuisine": "ru",
       "total_minutes": 30,
       "active_minutes": 25,
       "servings": 4,
@@ -4044,6 +5516,47 @@
           "text": "Посолите блюдо по вкусу в самом конце жарки и сразу подавайте к столу.",
           "timer_seconds": null
         }
+      ],
+      "dish_group": "vegetable",
+      "cook_minutes": 30,
+      "kcal_per_serving": 159,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lactose_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lenten"
+        },
+        {
+          "kind": "dietary",
+          "tag": "low_calorie"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegan"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegetarian"
+        },
+        {
+          "kind": "mood",
+          "tag": "light"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        },
+        {
+          "kind": "occasion",
+          "tag": "quick"
+        }
       ]
     },
     {
@@ -4051,7 +5564,7 @@
       "title": "Гречка с маслом",
       "dish_type": "side",
       "difficulty": "easy",
-      "cuisine": "русская",
+      "cuisine": "ru",
       "total_minutes": 25,
       "active_minutes": 15,
       "servings": 4,
@@ -4093,6 +5606,35 @@
           "text": "Положите кусочек сливочного масла, перемешайте и дайте постоять под крышкой 5 минут.",
           "timer_seconds": null
         }
+      ],
+      "dish_group": "egg_dairy",
+      "cook_minutes": 25,
+      "kcal_per_serving": 116,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "low_calorie"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegetarian"
+        },
+        {
+          "kind": "mood",
+          "tag": "light"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        },
+        {
+          "kind": "occasion",
+          "tag": "quick"
+        }
       ]
     },
     {
@@ -4100,7 +5642,7 @@
       "title": "Рис с овощами",
       "dish_type": "side",
       "difficulty": "easy",
-      "cuisine": "домашняя",
+      "cuisine": "home",
       "total_minutes": 30,
       "active_minutes": 25,
       "servings": 4,
@@ -4170,6 +5712,51 @@
           "text": "Посолите блюдо по вкусу, аккуратно перемешайте лопаткой и подавайте горячим.",
           "timer_seconds": null
         }
+      ],
+      "dish_group": "porridge_side",
+      "cook_minutes": 30,
+      "kcal_per_serving": 118,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lactose_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lenten"
+        },
+        {
+          "kind": "dietary",
+          "tag": "low_calorie"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegan"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegetarian"
+        },
+        {
+          "kind": "mood",
+          "tag": "cozy"
+        },
+        {
+          "kind": "mood",
+          "tag": "light"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        },
+        {
+          "kind": "occasion",
+          "tag": "quick"
+        }
       ]
     },
     {
@@ -4177,7 +5764,7 @@
       "title": "Макароны с сыром",
       "dish_type": "side",
       "difficulty": "easy",
-      "cuisine": "домашняя",
+      "cuisine": "home",
       "total_minutes": 25,
       "active_minutes": 20,
       "servings": 4,
@@ -4221,6 +5808,31 @@
           "text": "Всыпьте натёртый на мелкой тёрке сыр и интенсивно перемешайте до расплавления сыра.",
           "timer_seconds": null
         }
+      ],
+      "dish_group": "egg_dairy",
+      "cook_minutes": 25,
+      "kcal_per_serving": 249,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "low_calorie"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegetarian"
+        },
+        {
+          "kind": "mood",
+          "tag": "light"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        },
+        {
+          "kind": "occasion",
+          "tag": "quick"
+        }
       ]
     },
     {
@@ -4228,7 +5840,7 @@
       "title": "Пюре из тыквы",
       "dish_type": "side",
       "difficulty": "easy",
-      "cuisine": "домашняя",
+      "cuisine": "home",
       "total_minutes": 30,
       "active_minutes": 25,
       "servings": 4,
@@ -4276,6 +5888,35 @@
           "text": "Разомните овощи толкушкой или погружным блендером в нежное однородное пюре.",
           "timer_seconds": null
         }
+      ],
+      "dish_group": "egg_dairy",
+      "cook_minutes": 30,
+      "kcal_per_serving": 140,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "low_calorie"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegetarian"
+        },
+        {
+          "kind": "mood",
+          "tag": "light"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        },
+        {
+          "kind": "occasion",
+          "tag": "quick"
+        }
       ]
     },
     {
@@ -4283,7 +5924,7 @@
       "title": "Картофель, запечённый дольками",
       "dish_type": "side",
       "difficulty": "easy",
-      "cuisine": "домашняя",
+      "cuisine": "home",
       "total_minutes": 35,
       "active_minutes": 20,
       "servings": 4,
@@ -4337,6 +5978,43 @@
           "text": "Подавайте горячие хрустящие дольки прямо из духовки к столу.",
           "timer_seconds": null
         }
+      ],
+      "dish_group": "vegetable",
+      "cook_minutes": 35,
+      "kcal_per_serving": 147,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lactose_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lenten"
+        },
+        {
+          "kind": "dietary",
+          "tag": "low_calorie"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegan"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegetarian"
+        },
+        {
+          "kind": "mood",
+          "tag": "light"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        }
       ]
     },
     {
@@ -4344,7 +6022,7 @@
       "title": "Овощное рагу",
       "dish_type": "side",
       "difficulty": "easy",
-      "cuisine": "домашняя",
+      "cuisine": "home",
       "total_minutes": 35,
       "active_minutes": 30,
       "servings": 4,
@@ -4420,6 +6098,35 @@
           "text": "Положите нарезанные помидоры, перемешайте и протомите ещё 5 минут до мягкости овощей.",
           "timer_seconds": null
         }
+      ],
+      "dish_group": "egg_dairy",
+      "cook_minutes": 35,
+      "kcal_per_serving": 48,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lactose_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "low_calorie"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegetarian"
+        },
+        {
+          "kind": "mood",
+          "tag": "light"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        }
       ]
     },
     {
@@ -4427,7 +6134,7 @@
       "title": "Кускус с овощами",
       "dish_type": "side",
       "difficulty": "easy",
-      "cuisine": "домашняя",
+      "cuisine": "home",
       "total_minutes": 25,
       "active_minutes": 20,
       "servings": 4,
@@ -4493,6 +6200,51 @@
           "text": "Вспушите распаренный кускус вилкой, соедините с овощами, посолите и перемешайте перед подачей.",
           "timer_seconds": null
         }
+      ],
+      "dish_group": "porridge_side",
+      "cook_minutes": 25,
+      "kcal_per_serving": 123,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lactose_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lenten"
+        },
+        {
+          "kind": "dietary",
+          "tag": "low_calorie"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegan"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegetarian"
+        },
+        {
+          "kind": "mood",
+          "tag": "cozy"
+        },
+        {
+          "kind": "mood",
+          "tag": "light"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        },
+        {
+          "kind": "occasion",
+          "tag": "quick"
+        }
       ]
     },
     {
@@ -4500,7 +6252,7 @@
       "title": "Капуста тушёная",
       "dish_type": "side",
       "difficulty": "easy",
-      "cuisine": "русская",
+      "cuisine": "ru",
       "total_minutes": 35,
       "active_minutes": 25,
       "servings": 4,
@@ -4564,6 +6316,43 @@
           "text": "Посолите по вкусу, снимите крышку и выпарите остатки жидкости в течение 3 минут.",
           "timer_seconds": null
         }
+      ],
+      "dish_group": "vegetable",
+      "cook_minutes": 35,
+      "kcal_per_serving": 55,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lactose_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lenten"
+        },
+        {
+          "kind": "dietary",
+          "tag": "low_calorie"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegan"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegetarian"
+        },
+        {
+          "kind": "mood",
+          "tag": "light"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        }
       ]
     },
     {
@@ -4571,7 +6360,7 @@
       "title": "Перловка с грибами",
       "dish_type": "side",
       "difficulty": "easy",
-      "cuisine": "домашняя",
+      "cuisine": "home",
       "total_minutes": 75,
       "active_minutes": 30,
       "servings": 4,
@@ -4625,6 +6414,31 @@
           "text": "Откиньте крупу на дуршлаг, соедините со сковородой с грибами и прогрейте вместе 3 минуты.",
           "timer_seconds": null
         }
+      ],
+      "dish_group": "meat",
+      "cook_minutes": 75,
+      "kcal_per_serving": 152,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "lactose_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "low_calorie"
+        },
+        {
+          "kind": "mood",
+          "tag": "hearty"
+        },
+        {
+          "kind": "mood",
+          "tag": "light"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        }
       ]
     },
     {
@@ -4632,7 +6446,7 @@
       "title": "Винегрет",
       "dish_type": "salad",
       "difficulty": "easy",
-      "cuisine": "русская",
+      "cuisine": "ru",
       "total_minutes": 35,
       "active_minutes": 25,
       "servings": 4,
@@ -4710,6 +6524,43 @@
           "text": "Полейте салат нерафинированным подсолнечным маслом, посолите по вкусу и перемешайте лопаткой.",
           "timer_seconds": null
         }
+      ],
+      "dish_group": "vegetable",
+      "cook_minutes": 35,
+      "kcal_per_serving": 143,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lactose_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lenten"
+        },
+        {
+          "kind": "dietary",
+          "tag": "low_calorie"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegan"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegetarian"
+        },
+        {
+          "kind": "mood",
+          "tag": "light"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        }
       ]
     },
     {
@@ -4717,7 +6568,7 @@
       "title": "Салат Оливье",
       "dish_type": "salad",
       "difficulty": "easy",
-      "cuisine": "русская",
+      "cuisine": "ru",
       "total_minutes": 35,
       "active_minutes": 30,
       "servings": 4,
@@ -4789,6 +6640,39 @@
           "text": "Заправьте салат майонезом, посолите по вкусу и тщательно перемешайте ложкой перед подачей.",
           "timer_seconds": null
         }
+      ],
+      "dish_group": "meat",
+      "cook_minutes": 35,
+      "kcal_per_serving": 325,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "high_protein"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lactose_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "low_calorie"
+        },
+        {
+          "kind": "mood",
+          "tag": "hearty"
+        },
+        {
+          "kind": "mood",
+          "tag": "light"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        }
       ]
     },
     {
@@ -4796,7 +6680,7 @@
       "title": "Салат крабовый",
       "dish_type": "salad",
       "difficulty": "easy",
-      "cuisine": "домашняя",
+      "cuisine": "home",
       "total_minutes": 30,
       "active_minutes": 25,
       "servings": 4,
@@ -4866,6 +6750,35 @@
           "text": "Заправьте салат майонезом, добавьте щепотку соли и аккуратно перемешайте лопаткой.",
           "timer_seconds": null
         }
+      ],
+      "dish_group": "fish_seafood",
+      "cook_minutes": 30,
+      "kcal_per_serving": 216,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lactose_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "low_calorie"
+        },
+        {
+          "kind": "mood",
+          "tag": "light"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        },
+        {
+          "kind": "occasion",
+          "tag": "quick"
+        }
       ]
     },
     {
@@ -4873,7 +6786,7 @@
       "title": "Салат Цезарь с курицей",
       "dish_type": "salad",
       "difficulty": "easy",
-      "cuisine": "домашняя",
+      "cuisine": "home",
       "total_minutes": 35,
       "active_minutes": 30,
       "servings": 2,
@@ -4945,6 +6858,23 @@
           "text": "Сложите салат, тёплую курицу и сухарики в тарелку, полейте оливковым маслом и посыпьте сыром.",
           "timer_seconds": null
         }
+      ],
+      "dish_group": "meat",
+      "cook_minutes": 35,
+      "kcal_per_serving": 680,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "high_protein"
+        },
+        {
+          "kind": "mood",
+          "tag": "hearty"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        }
       ]
     },
     {
@@ -4952,7 +6882,7 @@
       "title": "Греческий салат",
       "dish_type": "salad",
       "difficulty": "easy",
-      "cuisine": "греческая",
+      "cuisine": "gr",
       "total_minutes": 25,
       "active_minutes": 20,
       "servings": 4,
@@ -5024,6 +6954,39 @@
           "text": "Сбрызните оливковым маслом, добавьте щепотку соли и бережно перемешайте перед подачей.",
           "timer_seconds": null
         }
+      ],
+      "dish_group": "egg_dairy",
+      "cook_minutes": 25,
+      "kcal_per_serving": 152,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "low_calorie"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegetarian"
+        },
+        {
+          "kind": "mood",
+          "tag": "light"
+        },
+        {
+          "kind": "mood",
+          "tag": "something_new"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        },
+        {
+          "kind": "occasion",
+          "tag": "quick"
+        }
       ]
     },
     {
@@ -5031,7 +6994,7 @@
       "title": "Салат из огурцов и помидоров",
       "dish_type": "salad",
       "difficulty": "easy",
-      "cuisine": "домашняя",
+      "cuisine": "home",
       "total_minutes": 20,
       "active_minutes": 15,
       "servings": 4,
@@ -5091,6 +7054,51 @@
           "text": "Полейте ароматным подсолнечным маслом, присолите по вкусу и перемешайте салатной ложкой.",
           "timer_seconds": null
         }
+      ],
+      "dish_group": "vegetable",
+      "cook_minutes": 20,
+      "kcal_per_serving": 34,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lactose_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lenten"
+        },
+        {
+          "kind": "dietary",
+          "tag": "low_calorie"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegan"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegetarian"
+        },
+        {
+          "kind": "mood",
+          "tag": "light"
+        },
+        {
+          "kind": "mood",
+          "tag": "on_the_run"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        },
+        {
+          "kind": "occasion",
+          "tag": "quick"
+        }
       ]
     },
     {
@@ -5098,7 +7106,7 @@
       "title": "Салат из капусты с морковью",
       "dish_type": "salad",
       "difficulty": "easy",
-      "cuisine": "русская",
+      "cuisine": "ru",
       "total_minutes": 20,
       "active_minutes": 15,
       "servings": 4,
@@ -5152,6 +7160,51 @@
           "text": "Добавьте каплю уксуса и подсолнечное масло, тщательно перемешайте салат перед подачей.",
           "timer_seconds": null
         }
+      ],
+      "dish_group": "vegetable",
+      "cook_minutes": 20,
+      "kcal_per_serving": 39,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lactose_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lenten"
+        },
+        {
+          "kind": "dietary",
+          "tag": "low_calorie"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegan"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegetarian"
+        },
+        {
+          "kind": "mood",
+          "tag": "light"
+        },
+        {
+          "kind": "mood",
+          "tag": "on_the_run"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        },
+        {
+          "kind": "occasion",
+          "tag": "quick"
+        }
       ]
     },
     {
@@ -5159,7 +7212,7 @@
       "title": "Салат из свёклы с чесноком",
       "dish_type": "salad",
       "difficulty": "easy",
-      "cuisine": "домашняя",
+      "cuisine": "home",
       "total_minutes": 35,
       "active_minutes": 20,
       "servings": 4,
@@ -5213,6 +7266,43 @@
           "text": "Заправьте тёртую свёклу майонезом с чесноком, посолите по вкусу и посыпьте рублеными орехами.",
           "timer_seconds": null
         }
+      ],
+      "dish_group": "vegetable",
+      "cook_minutes": 35,
+      "kcal_per_serving": 125,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lactose_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lenten"
+        },
+        {
+          "kind": "dietary",
+          "tag": "low_calorie"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegan"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegetarian"
+        },
+        {
+          "kind": "mood",
+          "tag": "light"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        }
       ]
     },
     {
@@ -5220,7 +7310,7 @@
       "title": "Морковь с яблоком",
       "dish_type": "salad",
       "difficulty": "easy",
-      "cuisine": "домашняя",
+      "cuisine": "home",
       "total_minutes": 20,
       "active_minutes": 15,
       "servings": 4,
@@ -5274,6 +7364,39 @@
           "text": "Заправьте салат свежей сметаной, добавьте ложечку сахара и аккуратно перемешайте десертной ложкой.",
           "timer_seconds": null
         }
+      ],
+      "dish_group": "egg_dairy",
+      "cook_minutes": 20,
+      "kcal_per_serving": 120,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "low_calorie"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegetarian"
+        },
+        {
+          "kind": "mood",
+          "tag": "light"
+        },
+        {
+          "kind": "mood",
+          "tag": "on_the_run"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        },
+        {
+          "kind": "occasion",
+          "tag": "quick"
+        }
       ]
     },
     {
@@ -5281,7 +7404,7 @@
       "title": "Курица с ананасом",
       "dish_type": "salad",
       "difficulty": "easy",
-      "cuisine": "домашняя",
+      "cuisine": "home",
       "total_minutes": 35,
       "active_minutes": 30,
       "servings": 4,
@@ -5335,6 +7458,35 @@
           "text": "Соедините все ингредиенты в салатнике, заправьте майонезом и поставьте в холод на 10 минут.",
           "timer_seconds": 600
         }
+      ],
+      "dish_group": "meat",
+      "cook_minutes": 35,
+      "kcal_per_serving": 271,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "high_protein"
+        },
+        {
+          "kind": "dietary",
+          "tag": "low_calorie"
+        },
+        {
+          "kind": "mood",
+          "tag": "hearty"
+        },
+        {
+          "kind": "mood",
+          "tag": "light"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        }
       ]
     },
     {
@@ -5342,7 +7494,7 @@
       "title": "Салат с кальмарами",
       "dish_type": "salad",
       "difficulty": "easy",
-      "cuisine": "домашняя",
+      "cuisine": "home",
       "total_minutes": 25,
       "active_minutes": 20,
       "servings": 4,
@@ -5402,6 +7554,35 @@
           "text": "Заправьте салат майонезом, слегка присолите по вкусу и перемешайте лопаткой.",
           "timer_seconds": null
         }
+      ],
+      "dish_group": "fish_seafood",
+      "cook_minutes": 25,
+      "kcal_per_serving": 176,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lactose_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "low_calorie"
+        },
+        {
+          "kind": "mood",
+          "tag": "light"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        },
+        {
+          "kind": "occasion",
+          "tag": "quick"
+        }
       ]
     },
     {
@@ -5409,7 +7590,7 @@
       "title": "Салат с грибами",
       "dish_type": "salad",
       "difficulty": "easy",
-      "cuisine": "домашняя",
+      "cuisine": "home",
       "total_minutes": 30,
       "active_minutes": 25,
       "servings": 4,
@@ -5469,6 +7650,39 @@
           "text": "Соедините в салатнике остывшие грибы, кусочки варёных яиц и тёртый сыр, заправьте майонезом и посолите.",
           "timer_seconds": null
         }
+      ],
+      "dish_group": "meat",
+      "cook_minutes": 30,
+      "kcal_per_serving": 246,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "high_protein"
+        },
+        {
+          "kind": "dietary",
+          "tag": "low_calorie"
+        },
+        {
+          "kind": "mood",
+          "tag": "hearty"
+        },
+        {
+          "kind": "mood",
+          "tag": "light"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        },
+        {
+          "kind": "occasion",
+          "tag": "quick"
+        }
       ]
     },
     {
@@ -5476,7 +7690,7 @@
       "title": "Салат с креветками и авокадо",
       "dish_type": "salad",
       "difficulty": "easy",
-      "cuisine": "домашняя",
+      "cuisine": "home",
       "total_minutes": 25,
       "active_minutes": 20,
       "servings": 2,
@@ -5542,6 +7756,39 @@
           "text": "Сбрызните салат свежим соком лимона и оливковым маслом, слегка посолив перед подачей.",
           "timer_seconds": null
         }
+      ],
+      "dish_group": "fish_seafood",
+      "cook_minutes": 25,
+      "kcal_per_serving": 217,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "high_protein"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lactose_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "low_calorie"
+        },
+        {
+          "kind": "mood",
+          "tag": "light"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        },
+        {
+          "kind": "occasion",
+          "tag": "quick"
+        }
       ]
     },
     {
@@ -5549,7 +7796,7 @@
       "title": "Салат из фасоли",
       "dish_type": "salad",
       "difficulty": "easy",
-      "cuisine": "домашняя",
+      "cuisine": "home",
       "total_minutes": 20,
       "active_minutes": 15,
       "servings": 4,
@@ -5615,6 +7862,51 @@
           "text": "Заправьте салат оливковым маслом, посолите по вкусу и перемешайте салатными ложками.",
           "timer_seconds": null
         }
+      ],
+      "dish_group": "vegetable",
+      "cook_minutes": 20,
+      "kcal_per_serving": 198,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lactose_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lenten"
+        },
+        {
+          "kind": "dietary",
+          "tag": "low_calorie"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegan"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegetarian"
+        },
+        {
+          "kind": "mood",
+          "tag": "light"
+        },
+        {
+          "kind": "mood",
+          "tag": "on_the_run"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        },
+        {
+          "kind": "occasion",
+          "tag": "quick"
+        }
       ]
     },
     {
@@ -5622,7 +7914,7 @@
       "title": "Омлет на молоке",
       "dish_type": "breakfast",
       "difficulty": "easy",
-      "cuisine": "домашняя",
+      "cuisine": "home",
       "total_minutes": 15,
       "active_minutes": 10,
       "servings": 2,
@@ -5670,6 +7962,39 @@
           "text": "Подавайте омлет горячим.",
           "timer_seconds": null
         }
+      ],
+      "dish_group": "egg_dairy",
+      "cook_minutes": 15,
+      "kcal_per_serving": 205,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "low_calorie"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegetarian"
+        },
+        {
+          "kind": "mood",
+          "tag": "light"
+        },
+        {
+          "kind": "mood",
+          "tag": "on_the_run"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        },
+        {
+          "kind": "occasion",
+          "tag": "quick"
+        }
       ]
     },
     {
@@ -5677,7 +8002,7 @@
       "title": "Омлет с сыром",
       "dish_type": "breakfast",
       "difficulty": "easy",
-      "cuisine": "домашняя",
+      "cuisine": "home",
       "total_minutes": 15,
       "active_minutes": 10,
       "servings": 2,
@@ -5731,6 +8056,35 @@
           "text": "Посыпьте омлет сыром и подавайте.",
           "timer_seconds": null
         }
+      ],
+      "dish_group": "egg_dairy",
+      "cook_minutes": 15,
+      "kcal_per_serving": 357,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "high_protein"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegetarian"
+        },
+        {
+          "kind": "mood",
+          "tag": "on_the_run"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        },
+        {
+          "kind": "occasion",
+          "tag": "quick"
+        }
       ]
     },
     {
@@ -5738,7 +8092,7 @@
       "title": "Яичница с помидорами",
       "dish_type": "breakfast",
       "difficulty": "easy",
-      "cuisine": "домашняя",
+      "cuisine": "home",
       "total_minutes": 15,
       "active_minutes": 10,
       "servings": 2,
@@ -5792,6 +8146,43 @@
           "text": "Посолите и посыпьте зелёным луком.",
           "timer_seconds": null
         }
+      ],
+      "dish_group": "egg_dairy",
+      "cook_minutes": 15,
+      "kcal_per_serving": 199,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lactose_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "low_calorie"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegetarian"
+        },
+        {
+          "kind": "mood",
+          "tag": "light"
+        },
+        {
+          "kind": "mood",
+          "tag": "on_the_run"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        },
+        {
+          "kind": "occasion",
+          "tag": "quick"
+        }
       ]
     },
     {
@@ -5799,7 +8190,7 @@
       "title": "Сырники из творога",
       "dish_type": "breakfast",
       "difficulty": "easy",
-      "cuisine": "русская",
+      "cuisine": "ru",
       "total_minutes": 25,
       "active_minutes": 20,
       "servings": 4,
@@ -5859,6 +8250,47 @@
           "text": "Подавайте сырники со сметаной.",
           "timer_seconds": null
         }
+      ],
+      "dish_group": "baking",
+      "cook_minutes": 25,
+      "kcal_per_serving": 312,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "high_protein"
+        },
+        {
+          "kind": "dietary",
+          "tag": "low_calorie"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegetarian"
+        },
+        {
+          "kind": "mood",
+          "tag": "light"
+        },
+        {
+          "kind": "mood",
+          "tag": "treat_yourself"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        },
+        {
+          "kind": "occasion",
+          "tag": "kids"
+        },
+        {
+          "kind": "occasion",
+          "tag": "quick"
+        }
       ]
     },
     {
@@ -5866,7 +8298,7 @@
       "title": "Овсянка на молоке",
       "dish_type": "breakfast",
       "difficulty": "easy",
-      "cuisine": "домашняя",
+      "cuisine": "home",
       "total_minutes": 25,
       "active_minutes": 10,
       "servings": 2,
@@ -5920,6 +8352,35 @@
           "text": "Дайте каше настояться.",
           "timer_seconds": 300
         }
+      ],
+      "dish_group": "egg_dairy",
+      "cook_minutes": 25,
+      "kcal_per_serving": 265,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "low_calorie"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegetarian"
+        },
+        {
+          "kind": "mood",
+          "tag": "light"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        },
+        {
+          "kind": "occasion",
+          "tag": "quick"
+        }
       ]
     },
     {
@@ -5927,7 +8388,7 @@
       "title": "Гречневая каша на молоке",
       "dish_type": "breakfast",
       "difficulty": "easy",
-      "cuisine": "домашняя",
+      "cuisine": "home",
       "total_minutes": 25,
       "active_minutes": 15,
       "servings": 2,
@@ -5981,6 +8442,39 @@
           "text": "Добавьте масло и мёд.",
           "timer_seconds": null
         }
+      ],
+      "dish_group": "egg_dairy",
+      "cook_minutes": 25,
+      "kcal_per_serving": 252,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "low_calorie"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegetarian"
+        },
+        {
+          "kind": "mood",
+          "tag": "light"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        },
+        {
+          "kind": "occasion",
+          "tag": "kids"
+        },
+        {
+          "kind": "occasion",
+          "tag": "quick"
+        }
       ]
     },
     {
@@ -5988,7 +8482,7 @@
       "title": "Рисовая каша с яблоком",
       "dish_type": "breakfast",
       "difficulty": "easy",
-      "cuisine": "домашняя",
+      "cuisine": "home",
       "total_minutes": 30,
       "active_minutes": 15,
       "servings": 2,
@@ -6048,6 +8542,39 @@
           "text": "Добавьте яблоко, масло и корицу.",
           "timer_seconds": null
         }
+      ],
+      "dish_group": "egg_dairy",
+      "cook_minutes": 30,
+      "kcal_per_serving": 334,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "low_calorie"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegetarian"
+        },
+        {
+          "kind": "mood",
+          "tag": "light"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        },
+        {
+          "kind": "occasion",
+          "tag": "kids"
+        },
+        {
+          "kind": "occasion",
+          "tag": "quick"
+        }
       ]
     },
     {
@@ -6055,7 +8582,7 @@
       "title": "Манная каша",
       "dish_type": "breakfast",
       "difficulty": "easy",
-      "cuisine": "домашняя",
+      "cuisine": "home",
       "total_minutes": 20,
       "active_minutes": 10,
       "servings": 2,
@@ -6115,6 +8642,39 @@
           "text": "Дайте каше настояться.",
           "timer_seconds": 300
         }
+      ],
+      "dish_group": "egg_dairy",
+      "cook_minutes": 20,
+      "kcal_per_serving": 280,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "low_calorie"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegetarian"
+        },
+        {
+          "kind": "mood",
+          "tag": "light"
+        },
+        {
+          "kind": "mood",
+          "tag": "on_the_run"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        },
+        {
+          "kind": "occasion",
+          "tag": "kids"
+        },
+        {
+          "kind": "occasion",
+          "tag": "quick"
+        }
       ]
     },
     {
@@ -6122,7 +8682,7 @@
       "title": "Блины на молоке",
       "dish_type": "breakfast",
       "difficulty": "medium",
-      "cuisine": "русская",
+      "cuisine": "ru",
       "total_minutes": 45,
       "active_minutes": 40,
       "servings": 4,
@@ -6182,6 +8742,31 @@
           "text": "Подавайте блины с маслом или вареньем.",
           "timer_seconds": null
         }
+      ],
+      "dish_group": "baking",
+      "cook_minutes": 45,
+      "kcal_per_serving": 368,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegetarian"
+        },
+        {
+          "kind": "mood",
+          "tag": "treat_yourself"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        },
+        {
+          "kind": "occasion",
+          "tag": "kids"
+        }
       ]
     },
     {
@@ -6189,7 +8774,7 @@
       "title": "Оладьи из кабачков",
       "dish_type": "breakfast",
       "difficulty": "easy",
-      "cuisine": "домашняя",
+      "cuisine": "home",
       "total_minutes": 30,
       "active_minutes": 25,
       "servings": 4,
@@ -6249,6 +8834,43 @@
           "text": "Подавайте оладьи со сметаной.",
           "timer_seconds": null
         }
+      ],
+      "dish_group": "baking",
+      "cook_minutes": 30,
+      "kcal_per_serving": 125,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lactose_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "low_calorie"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegetarian"
+        },
+        {
+          "kind": "mood",
+          "tag": "light"
+        },
+        {
+          "kind": "mood",
+          "tag": "treat_yourself"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        },
+        {
+          "kind": "occasion",
+          "tag": "quick"
+        }
       ]
     },
     {
@@ -6256,7 +8878,7 @@
       "title": "Тост с яйцом и сыром",
       "dish_type": "breakfast",
       "difficulty": "easy",
-      "cuisine": "домашняя",
+      "cuisine": "home",
       "total_minutes": 20,
       "active_minutes": 15,
       "servings": 2,
@@ -6310,6 +8932,35 @@
           "text": "Добавьте сыр и ломтик помидора.",
           "timer_seconds": null
         }
+      ],
+      "dish_group": "egg_dairy",
+      "cook_minutes": 20,
+      "kcal_per_serving": 497,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "high_protein"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegetarian"
+        },
+        {
+          "kind": "mood",
+          "tag": "hearty"
+        },
+        {
+          "kind": "mood",
+          "tag": "on_the_run"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        },
+        {
+          "kind": "occasion",
+          "tag": "quick"
+        }
       ]
     },
     {
@@ -6317,7 +8968,7 @@
       "title": "Творог с яблоком и мёдом",
       "dish_type": "breakfast",
       "difficulty": "easy",
-      "cuisine": "домашняя",
+      "cuisine": "home",
       "total_minutes": 10,
       "active_minutes": 5,
       "servings": 2,
@@ -6361,6 +9012,43 @@
           "text": "Добавьте мёд и грецкие орехи.",
           "timer_seconds": null
         }
+      ],
+      "dish_group": "egg_dairy",
+      "cook_minutes": 10,
+      "kcal_per_serving": 335,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "high_protein"
+        },
+        {
+          "kind": "dietary",
+          "tag": "low_calorie"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegetarian"
+        },
+        {
+          "kind": "mood",
+          "tag": "light"
+        },
+        {
+          "kind": "mood",
+          "tag": "on_the_run"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        },
+        {
+          "kind": "occasion",
+          "tag": "quick"
+        }
       ]
     },
     {
@@ -6368,7 +9056,7 @@
       "title": "Гренки с сыром и чесноком",
       "dish_type": "snack",
       "difficulty": "easy",
-      "cuisine": "домашняя",
+      "cuisine": "home",
       "total_minutes": 20,
       "active_minutes": 15,
       "servings": 2,
@@ -6416,6 +9104,35 @@
           "text": "Подавайте гренки горячими.",
           "timer_seconds": null
         }
+      ],
+      "dish_group": "egg_dairy",
+      "cook_minutes": 20,
+      "kcal_per_serving": 775,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "high_protein"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegetarian"
+        },
+        {
+          "kind": "mood",
+          "tag": "hearty"
+        },
+        {
+          "kind": "mood",
+          "tag": "on_the_run"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        },
+        {
+          "kind": "occasion",
+          "tag": "quick"
+        }
       ]
     },
     {
@@ -6423,7 +9140,7 @@
       "title": "Хумус",
       "dish_type": "snack",
       "difficulty": "easy",
-      "cuisine": "ближневосточная",
+      "cuisine": "tr",
       "total_minutes": 20,
       "active_minutes": 15,
       "servings": 4,
@@ -6479,6 +9196,55 @@
           "text": "Приправьте зирой и посолите.",
           "timer_seconds": null
         }
+      ],
+      "dish_group": "vegetable",
+      "cook_minutes": 20,
+      "kcal_per_serving": 248,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lactose_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lenten"
+        },
+        {
+          "kind": "dietary",
+          "tag": "low_calorie"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegan"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegetarian"
+        },
+        {
+          "kind": "mood",
+          "tag": "light"
+        },
+        {
+          "kind": "mood",
+          "tag": "on_the_run"
+        },
+        {
+          "kind": "mood",
+          "tag": "something_new"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        },
+        {
+          "kind": "occasion",
+          "tag": "quick"
+        }
       ]
     },
     {
@@ -6486,7 +9252,7 @@
       "title": "Рулетики из баклажанов",
       "dish_type": "snack",
       "difficulty": "easy",
-      "cuisine": "домашняя",
+      "cuisine": "home",
       "total_minutes": 35,
       "active_minutes": 30,
       "servings": 4,
@@ -6540,6 +9306,31 @@
           "text": "Посыпьте рулетики грецкими орехами.",
           "timer_seconds": null
         }
+      ],
+      "dish_group": "egg_dairy",
+      "cook_minutes": 35,
+      "kcal_per_serving": 186,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "low_calorie"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegetarian"
+        },
+        {
+          "kind": "mood",
+          "tag": "light"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        }
       ]
     },
     {
@@ -6547,7 +9338,7 @@
       "title": "Фаршированные яйца",
       "dish_type": "snack",
       "difficulty": "easy",
-      "cuisine": "домашняя",
+      "cuisine": "home",
       "total_minutes": 25,
       "active_minutes": 20,
       "servings": 4,
@@ -6601,6 +9392,35 @@
           "text": "Нафаршируйте яйца и посыпьте луком.",
           "timer_seconds": null
         }
+      ],
+      "dish_group": "egg_dairy",
+      "cook_minutes": 25,
+      "kcal_per_serving": 138,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "low_calorie"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegetarian"
+        },
+        {
+          "kind": "mood",
+          "tag": "light"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        },
+        {
+          "kind": "occasion",
+          "tag": "quick"
+        }
       ]
     },
     {
@@ -6608,7 +9428,7 @@
       "title": "Овощные палочки с соусом",
       "dish_type": "snack",
       "difficulty": "easy",
-      "cuisine": "домашняя",
+      "cuisine": "home",
       "total_minutes": 15,
       "active_minutes": 10,
       "servings": 4,
@@ -6664,6 +9484,39 @@
           "text": "Подавайте овощи с соусом.",
           "timer_seconds": null
         }
+      ],
+      "dish_group": "egg_dairy",
+      "cook_minutes": 15,
+      "kcal_per_serving": 111,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "low_calorie"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegetarian"
+        },
+        {
+          "kind": "mood",
+          "tag": "light"
+        },
+        {
+          "kind": "mood",
+          "tag": "on_the_run"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        },
+        {
+          "kind": "occasion",
+          "tag": "quick"
+        }
       ]
     },
     {
@@ -6671,7 +9524,7 @@
       "title": "Куриные крылья, запечённые с мёдом",
       "dish_type": "snack",
       "difficulty": "easy",
-      "cuisine": "домашняя",
+      "cuisine": "home",
       "total_minutes": 65,
       "active_minutes": 30,
       "servings": 4,
@@ -6725,6 +9578,27 @@
           "text": "Подавайте крылья горячими.",
           "timer_seconds": null
         }
+      ],
+      "dish_group": "meat",
+      "cook_minutes": 65,
+      "kcal_per_serving": 420,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "high_protein"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lactose_free"
+        },
+        {
+          "kind": "mood",
+          "tag": "hearty"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        }
       ]
     },
     {
@@ -6732,7 +9606,7 @@
       "title": "Тост с грибами",
       "dish_type": "snack",
       "difficulty": "easy",
-      "cuisine": "домашняя",
+      "cuisine": "home",
       "total_minutes": 25,
       "active_minutes": 20,
       "servings": 2,
@@ -6786,6 +9660,27 @@
           "text": "Посыпьте тост сыром.",
           "timer_seconds": null
         }
+      ],
+      "dish_group": "meat",
+      "cook_minutes": 25,
+      "kcal_per_serving": 567,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "high_protein"
+        },
+        {
+          "kind": "mood",
+          "tag": "hearty"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        },
+        {
+          "kind": "occasion",
+          "tag": "quick"
+        }
       ]
     },
     {
@@ -6793,7 +9688,7 @@
       "title": "Рулет из лаваша с сыром",
       "dish_type": "snack",
       "difficulty": "easy",
-      "cuisine": "домашняя",
+      "cuisine": "home",
       "total_minutes": 15,
       "active_minutes": 10,
       "servings": 2,
@@ -6847,6 +9742,31 @@
           "text": "Нарежьте рулет и подавайте.",
           "timer_seconds": null
         }
+      ],
+      "dish_group": "egg_dairy",
+      "cook_minutes": 15,
+      "kcal_per_serving": 366,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegetarian"
+        },
+        {
+          "kind": "mood",
+          "tag": "on_the_run"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        },
+        {
+          "kind": "occasion",
+          "tag": "quick"
+        }
       ]
     },
     {
@@ -6854,7 +9774,7 @@
       "title": "Шарлотка с яблоками",
       "dish_type": "baking",
       "difficulty": "medium",
-      "cuisine": "русская",
+      "cuisine": "ru",
       "total_minutes": 55,
       "active_minutes": 50,
       "servings": 6,
@@ -6918,6 +9838,39 @@
           "text": "Дайте пирогу остыть.",
           "timer_seconds": 600
         }
+      ],
+      "dish_group": "egg_dairy",
+      "cook_minutes": 55,
+      "kcal_per_serving": 329,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lactose_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "low_calorie"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegetarian"
+        },
+        {
+          "kind": "mood",
+          "tag": "light"
+        },
+        {
+          "kind": "occasion",
+          "tag": "festive"
+        },
+        {
+          "kind": "occasion",
+          "tag": "for_guests"
+        }
       ]
     },
     {
@@ -6925,7 +9878,7 @@
       "title": "Пирог с капустой",
       "dish_type": "baking",
       "difficulty": "hard",
-      "cuisine": "русская",
+      "cuisine": "ru",
       "total_minutes": 140,
       "active_minutes": 70,
       "servings": 6,
@@ -7001,6 +9954,31 @@
           "text": "Запекайте пирог до румяной корочки.",
           "timer_seconds": 1800
         }
+      ],
+      "dish_group": "baking",
+      "cook_minutes": 140,
+      "kcal_per_serving": 373,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegetarian"
+        },
+        {
+          "kind": "mood",
+          "tag": "treat_yourself"
+        },
+        {
+          "kind": "occasion",
+          "tag": "festive"
+        },
+        {
+          "kind": "occasion",
+          "tag": "for_guests"
+        }
       ]
     },
     {
@@ -7008,7 +9986,7 @@
       "title": "Пирог с мясом",
       "dish_type": "baking",
       "difficulty": "hard",
-      "cuisine": "русская",
+      "cuisine": "ru",
       "total_minutes": 110,
       "active_minutes": 75,
       "servings": 6,
@@ -7084,6 +10062,35 @@
           "text": "Запекайте пирог до румяной корочки.",
           "timer_seconds": 1800
         }
+      ],
+      "dish_group": "baking",
+      "cook_minutes": 110,
+      "kcal_per_serving": 513,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "high_protein"
+        },
+        {
+          "kind": "mood",
+          "tag": "hearty"
+        },
+        {
+          "kind": "mood",
+          "tag": "treat_yourself"
+        },
+        {
+          "kind": "occasion",
+          "tag": "festive"
+        },
+        {
+          "kind": "occasion",
+          "tag": "for_guests"
+        }
       ]
     },
     {
@@ -7091,7 +10098,7 @@
       "title": "Сырный хлеб",
       "dish_type": "baking",
       "difficulty": "medium",
-      "cuisine": "домашняя",
+      "cuisine": "home",
       "total_minutes": 55,
       "active_minutes": 50,
       "servings": 4,
@@ -7161,6 +10168,31 @@
           "text": "Дайте хлебу остыть.",
           "timer_seconds": 600
         }
+      ],
+      "dish_group": "egg_dairy",
+      "cook_minutes": 55,
+      "kcal_per_serving": 557,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "high_protein"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegetarian"
+        },
+        {
+          "kind": "mood",
+          "tag": "hearty"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        }
       ]
     },
     {
@@ -7168,7 +10200,7 @@
       "title": "Банановый хлеб",
       "dish_type": "baking",
       "difficulty": "medium",
-      "cuisine": "домашняя",
+      "cuisine": "home",
       "total_minutes": 50,
       "active_minutes": 45,
       "servings": 6,
@@ -7238,6 +10270,27 @@
           "text": "Дайте хлебу остыть.",
           "timer_seconds": 600
         }
+      ],
+      "dish_group": "egg_dairy",
+      "cook_minutes": 50,
+      "kcal_per_serving": 385,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegetarian"
+        },
+        {
+          "kind": "occasion",
+          "tag": "festive"
+        },
+        {
+          "kind": "occasion",
+          "tag": "for_guests"
+        }
       ]
     },
     {
@@ -7245,7 +10298,7 @@
       "title": "Морковные маффины",
       "dish_type": "baking",
       "difficulty": "medium",
-      "cuisine": "домашняя",
+      "cuisine": "home",
       "total_minutes": 40,
       "active_minutes": 35,
       "servings": 6,
@@ -7315,6 +10368,39 @@
           "text": "Запекайте маффины.",
           "timer_seconds": 1200
         }
+      ],
+      "dish_group": "egg_dairy",
+      "cook_minutes": 40,
+      "kcal_per_serving": 235,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lactose_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "low_calorie"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegetarian"
+        },
+        {
+          "kind": "mood",
+          "tag": "light"
+        },
+        {
+          "kind": "occasion",
+          "tag": "festive"
+        },
+        {
+          "kind": "occasion",
+          "tag": "for_guests"
+        }
       ]
     },
     {
@@ -7322,7 +10408,7 @@
       "title": "Творожная запеканка",
       "dish_type": "baking",
       "difficulty": "easy",
-      "cuisine": "домашняя",
+      "cuisine": "home",
       "total_minutes": 35,
       "active_minutes": 30,
       "servings": 4,
@@ -7386,6 +10472,27 @@
           "text": "Подавайте запеканку со сметаной.",
           "timer_seconds": null
         }
+      ],
+      "dish_group": "egg_dairy",
+      "cook_minutes": 35,
+      "kcal_per_serving": 359,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "high_protein"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegetarian"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        },
+        {
+          "kind": "occasion",
+          "tag": "kids"
+        }
       ]
     },
     {
@@ -7393,7 +10500,7 @@
       "title": "Пирог с рыбой",
       "dish_type": "baking",
       "difficulty": "hard",
-      "cuisine": "русская",
+      "cuisine": "ru",
       "total_minutes": 95,
       "active_minutes": 70,
       "servings": 6,
@@ -7469,6 +10576,31 @@
           "text": "Запекайте пирог до румяной корочки.",
           "timer_seconds": 1800
         }
+      ],
+      "dish_group": "baking",
+      "cook_minutes": 95,
+      "kcal_per_serving": 446,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "high_protein"
+        },
+        {
+          "kind": "mood",
+          "tag": "treat_yourself"
+        },
+        {
+          "kind": "occasion",
+          "tag": "festive"
+        },
+        {
+          "kind": "occasion",
+          "tag": "for_guests"
+        }
       ]
     },
     {
@@ -7476,7 +10608,7 @@
       "title": "Хлеб пшеничный",
       "dish_type": "baking",
       "difficulty": "hard",
-      "cuisine": "домашняя",
+      "cuisine": "home",
       "total_minutes": 125,
       "active_minutes": 90,
       "servings": 6,
@@ -7540,6 +10672,51 @@
           "text": "Запекайте пшеничный хлеб 30 минут до румяной корочки.",
           "timer_seconds": 1800
         }
+      ],
+      "dish_group": "porridge_side",
+      "cook_minutes": 125,
+      "kcal_per_serving": 319,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lactose_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lenten"
+        },
+        {
+          "kind": "dietary",
+          "tag": "low_calorie"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegan"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegetarian"
+        },
+        {
+          "kind": "mood",
+          "tag": "cozy"
+        },
+        {
+          "kind": "mood",
+          "tag": "light"
+        },
+        {
+          "kind": "occasion",
+          "tag": "festive"
+        },
+        {
+          "kind": "occasion",
+          "tag": "for_guests"
+        }
       ]
     },
     {
@@ -7547,7 +10724,7 @@
       "title": "Хлеб ржаной",
       "dish_type": "baking",
       "difficulty": "hard",
-      "cuisine": "домашняя",
+      "cuisine": "home",
       "total_minutes": 125,
       "active_minutes": 85,
       "servings": 6,
@@ -7611,6 +10788,47 @@
           "text": "Запекайте ржаной хлеб 30 минут до глухого звука при постукивании по корочке.",
           "timer_seconds": 1800
         }
+      ],
+      "dish_group": "porridge_side",
+      "cook_minutes": 125,
+      "kcal_per_serving": 286,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "lactose_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lenten"
+        },
+        {
+          "kind": "dietary",
+          "tag": "low_calorie"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegan"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegetarian"
+        },
+        {
+          "kind": "mood",
+          "tag": "cozy"
+        },
+        {
+          "kind": "mood",
+          "tag": "light"
+        },
+        {
+          "kind": "occasion",
+          "tag": "festive"
+        },
+        {
+          "kind": "occasion",
+          "tag": "for_guests"
+        }
       ]
     },
     {
@@ -7618,7 +10836,7 @@
       "title": "Пицца с сыром и колбасой",
       "dish_type": "baking",
       "difficulty": "medium",
-      "cuisine": "итальянская",
+      "cuisine": "it",
       "total_minutes": 85,
       "active_minutes": 60,
       "servings": 4,
@@ -7696,6 +10914,31 @@
           "text": "Запекайте пиццу до расплавленного сыра.",
           "timer_seconds": 1200
         }
+      ],
+      "dish_group": "meat",
+      "cook_minutes": 85,
+      "kcal_per_serving": 507,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "high_protein"
+        },
+        {
+          "kind": "mood",
+          "tag": "hearty"
+        },
+        {
+          "kind": "mood",
+          "tag": "something_new"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        }
       ]
     },
     {
@@ -7703,7 +10946,7 @@
       "title": "Яблоки, запечённые с мёдом",
       "dish_type": "dessert",
       "difficulty": "easy",
-      "cuisine": "домашняя",
+      "cuisine": "home",
       "total_minutes": 25,
       "active_minutes": 15,
       "servings": 4,
@@ -7751,6 +10994,47 @@
           "text": "Подавайте яблоки тёплыми.",
           "timer_seconds": null
         }
+      ],
+      "dish_group": "vegetable",
+      "cook_minutes": 25,
+      "kcal_per_serving": 178,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lactose_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lenten"
+        },
+        {
+          "kind": "dietary",
+          "tag": "low_calorie"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegan"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegetarian"
+        },
+        {
+          "kind": "mood",
+          "tag": "light"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        },
+        {
+          "kind": "occasion",
+          "tag": "quick"
+        }
       ]
     },
     {
@@ -7758,7 +11042,7 @@
       "title": "Груши, запечённые с корицей",
       "dish_type": "dessert",
       "difficulty": "easy",
-      "cuisine": "домашняя",
+      "cuisine": "home",
       "total_minutes": 25,
       "active_minutes": 15,
       "servings": 4,
@@ -7806,6 +11090,47 @@
           "text": "Подавайте груши тёплыми.",
           "timer_seconds": null
         }
+      ],
+      "dish_group": "vegetable",
+      "cook_minutes": 25,
+      "kcal_per_serving": 84,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lactose_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lenten"
+        },
+        {
+          "kind": "dietary",
+          "tag": "low_calorie"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegan"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegetarian"
+        },
+        {
+          "kind": "mood",
+          "tag": "light"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        },
+        {
+          "kind": "occasion",
+          "tag": "quick"
+        }
       ]
     },
     {
@@ -7813,7 +11138,7 @@
       "title": "Рисовый пудинг",
       "dish_type": "dessert",
       "difficulty": "medium",
-      "cuisine": "домашняя",
+      "cuisine": "home",
       "total_minutes": 45,
       "active_minutes": 40,
       "servings": 4,
@@ -7873,6 +11198,31 @@
           "text": "Запекайте пудинг до золотистой корочки.",
           "timer_seconds": 1200
         }
+      ],
+      "dish_group": "egg_dairy",
+      "cook_minutes": 45,
+      "kcal_per_serving": 227,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "low_calorie"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegetarian"
+        },
+        {
+          "kind": "mood",
+          "tag": "light"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        }
       ]
     },
     {
@@ -7880,7 +11230,7 @@
       "title": "Творожный десерт с клубникой",
       "dish_type": "dessert",
       "difficulty": "easy",
-      "cuisine": "домашняя",
+      "cuisine": "home",
       "total_minutes": 35,
       "active_minutes": 15,
       "servings": 4,
@@ -7924,6 +11274,39 @@
           "text": "Охладите десерт перед подачей.",
           "timer_seconds": 1800
         }
+      ],
+      "dish_group": "dessert",
+      "cook_minutes": 35,
+      "kcal_per_serving": 232,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "low_calorie"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegetarian"
+        },
+        {
+          "kind": "mood",
+          "tag": "light"
+        },
+        {
+          "kind": "mood",
+          "tag": "treat_yourself"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        },
+        {
+          "kind": "occasion",
+          "tag": "kids"
+        }
       ]
     },
     {
@@ -7931,7 +11314,7 @@
       "title": "Фруктовый салат",
       "dish_type": "dessert",
       "difficulty": "easy",
-      "cuisine": "домашняя",
+      "cuisine": "home",
       "total_minutes": 35,
       "active_minutes": 10,
       "servings": 4,
@@ -7987,6 +11370,31 @@
           "text": "Охладите салат перед подачей.",
           "timer_seconds": 1800
         }
+      ],
+      "dish_group": "egg_dairy",
+      "cook_minutes": 35,
+      "kcal_per_serving": 127,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "low_calorie"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegetarian"
+        },
+        {
+          "kind": "mood",
+          "tag": "light"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        }
       ]
     },
     {
@@ -7994,7 +11402,7 @@
       "title": "Шоколадный мусс",
       "dish_type": "dessert",
       "difficulty": "easy",
-      "cuisine": "домашняя",
+      "cuisine": "home",
       "total_minutes": 70,
       "active_minutes": 25,
       "servings": 4,
@@ -8042,6 +11450,31 @@
           "text": "Охладите мусс до застывания.",
           "timer_seconds": 3600
         }
+      ],
+      "dish_group": "dessert",
+      "cook_minutes": 70,
+      "kcal_per_serving": 354,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegetarian"
+        },
+        {
+          "kind": "mood",
+          "tag": "treat_yourself"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        },
+        {
+          "kind": "occasion",
+          "tag": "kids"
+        }
       ]
     },
     {
@@ -8049,7 +11482,7 @@
       "title": "Яблоки с творогом",
       "dish_type": "dessert",
       "difficulty": "easy",
-      "cuisine": "домашняя",
+      "cuisine": "home",
       "total_minutes": 25,
       "active_minutes": 20,
       "servings": 4,
@@ -8103,6 +11536,35 @@
           "text": "Запекайте яблоки до мягкости.",
           "timer_seconds": 1200
         }
+      ],
+      "dish_group": "egg_dairy",
+      "cook_minutes": 25,
+      "kcal_per_serving": 199,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "low_calorie"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegetarian"
+        },
+        {
+          "kind": "mood",
+          "tag": "light"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        },
+        {
+          "kind": "occasion",
+          "tag": "quick"
+        }
       ]
     },
     {
@@ -8110,7 +11572,7 @@
       "title": "Ягодный крамбл",
       "dish_type": "dessert",
       "difficulty": "easy",
-      "cuisine": "домашняя",
+      "cuisine": "home",
       "total_minutes": 35,
       "active_minutes": 30,
       "servings": 4,
@@ -8170,6 +11632,27 @@
           "text": "Запекайте крамбл до золотистой корочки.",
           "timer_seconds": 1200
         }
+      ],
+      "dish_group": "egg_dairy",
+      "cook_minutes": 35,
+      "kcal_per_serving": 486,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegetarian"
+        },
+        {
+          "kind": "mood",
+          "tag": "hearty"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        }
       ]
     },
     {
@@ -8177,7 +11660,7 @@
       "title": "Тыквенный пирог",
       "dish_type": "dessert",
       "difficulty": "medium",
-      "cuisine": "домашняя",
+      "cuisine": "home",
       "total_minutes": 65,
       "active_minutes": 50,
       "servings": 6,
@@ -8241,6 +11724,31 @@
           "text": "Запекайте тыквенный пирог 30 минут при 180 градусах до схватывания начинки.",
           "timer_seconds": 1800
         }
+      ],
+      "dish_group": "baking",
+      "cook_minutes": 65,
+      "kcal_per_serving": 410,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegetarian"
+        },
+        {
+          "kind": "mood",
+          "tag": "treat_yourself"
+        },
+        {
+          "kind": "occasion",
+          "tag": "festive"
+        },
+        {
+          "kind": "occasion",
+          "tag": "for_guests"
+        }
       ]
     },
     {
@@ -8248,7 +11756,7 @@
       "title": "Банановое мороженое",
       "dish_type": "dessert",
       "difficulty": "easy",
-      "cuisine": "домашняя",
+      "cuisine": "home",
       "total_minutes": 65,
       "active_minutes": 15,
       "servings": 4,
@@ -8296,6 +11804,39 @@
           "text": "Подавайте мороженое сразу.",
           "timer_seconds": null
         }
+      ],
+      "dish_group": "dessert",
+      "cook_minutes": 65,
+      "kcal_per_serving": 191,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "low_calorie"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegetarian"
+        },
+        {
+          "kind": "mood",
+          "tag": "light"
+        },
+        {
+          "kind": "mood",
+          "tag": "treat_yourself"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        },
+        {
+          "kind": "occasion",
+          "tag": "kids"
+        }
       ]
     },
     {
@@ -8303,7 +11844,7 @@
       "title": "Компот из сухофруктов",
       "dish_type": "drink",
       "difficulty": "easy",
-      "cuisine": "русская",
+      "cuisine": "ru",
       "total_minutes": 40,
       "active_minutes": 15,
       "servings": 6,
@@ -8351,6 +11892,51 @@
           "text": "Дайте компоту настояться.",
           "timer_seconds": 600
         }
+      ],
+      "dish_group": "beverage",
+      "cook_minutes": 40,
+      "kcal_per_serving": 73,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lactose_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lenten"
+        },
+        {
+          "kind": "dietary",
+          "tag": "low_calorie"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegan"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegetarian"
+        },
+        {
+          "kind": "mood",
+          "tag": "cozy"
+        },
+        {
+          "kind": "mood",
+          "tag": "light"
+        },
+        {
+          "kind": "occasion",
+          "tag": "festive"
+        },
+        {
+          "kind": "occasion",
+          "tag": "for_guests"
+        }
       ]
     },
     {
@@ -8358,7 +11944,7 @@
       "title": "Морс клюквенный",
       "dish_type": "drink",
       "difficulty": "easy",
-      "cuisine": "русская",
+      "cuisine": "ru",
       "total_minutes": 20,
       "active_minutes": 15,
       "servings": 4,
@@ -8400,6 +11986,55 @@
           "text": "Процедите морс и добавьте сахар.",
           "timer_seconds": null
         }
+      ],
+      "dish_group": "beverage",
+      "cook_minutes": 20,
+      "kcal_per_serving": 91,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lactose_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lenten"
+        },
+        {
+          "kind": "dietary",
+          "tag": "low_calorie"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegan"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegetarian"
+        },
+        {
+          "kind": "mood",
+          "tag": "cozy"
+        },
+        {
+          "kind": "mood",
+          "tag": "light"
+        },
+        {
+          "kind": "mood",
+          "tag": "on_the_run"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        },
+        {
+          "kind": "occasion",
+          "tag": "quick"
+        }
       ]
     },
     {
@@ -8407,7 +12042,7 @@
       "title": "Чай с имбирём и мёдом",
       "dish_type": "drink",
       "difficulty": "easy",
-      "cuisine": "домашняя",
+      "cuisine": "home",
       "total_minutes": 20,
       "active_minutes": 10,
       "servings": 2,
@@ -8461,6 +12096,55 @@
           "text": "Добавьте мёд и лимон.",
           "timer_seconds": null
         }
+      ],
+      "dish_group": "beverage",
+      "cook_minutes": 20,
+      "kcal_per_serving": 46,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lactose_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lenten"
+        },
+        {
+          "kind": "dietary",
+          "tag": "low_calorie"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegan"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegetarian"
+        },
+        {
+          "kind": "mood",
+          "tag": "cozy"
+        },
+        {
+          "kind": "mood",
+          "tag": "light"
+        },
+        {
+          "kind": "mood",
+          "tag": "on_the_run"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        },
+        {
+          "kind": "occasion",
+          "tag": "quick"
+        }
       ]
     },
     {
@@ -8468,7 +12152,7 @@
       "title": "Какао на молоке",
       "dish_type": "drink",
       "difficulty": "easy",
-      "cuisine": "домашняя",
+      "cuisine": "home",
       "total_minutes": 15,
       "active_minutes": 10,
       "servings": 2,
@@ -8516,6 +12200,39 @@
           "text": "Подавайте какао горячим.",
           "timer_seconds": null
         }
+      ],
+      "dish_group": "egg_dairy",
+      "cook_minutes": 15,
+      "kcal_per_serving": 258,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "low_calorie"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegetarian"
+        },
+        {
+          "kind": "mood",
+          "tag": "light"
+        },
+        {
+          "kind": "mood",
+          "tag": "on_the_run"
+        },
+        {
+          "kind": "occasion",
+          "tag": "everyday"
+        },
+        {
+          "kind": "occasion",
+          "tag": "quick"
+        }
       ]
     },
     {
@@ -8523,7 +12240,7 @@
       "title": "Огурцы малосольные",
       "dish_type": "preserve",
       "difficulty": "easy",
-      "cuisine": "русская",
+      "cuisine": "ru",
       "total_minutes": 65,
       "active_minutes": 20,
       "servings": 6,
@@ -8579,6 +12296,47 @@
           "text": "Оставьте огурцы при комнатной температуре.",
           "timer_seconds": 3600
         }
+      ],
+      "dish_group": "vegetable",
+      "cook_minutes": 65,
+      "kcal_per_serving": 31,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lactose_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lenten"
+        },
+        {
+          "kind": "dietary",
+          "tag": "low_calorie"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegan"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegetarian"
+        },
+        {
+          "kind": "mood",
+          "tag": "light"
+        },
+        {
+          "kind": "occasion",
+          "tag": "festive"
+        },
+        {
+          "kind": "occasion",
+          "tag": "for_guests"
+        }
       ]
     },
     {
@@ -8586,7 +12344,7 @@
       "title": "Капуста квашеная домашняя",
       "dish_type": "preserve",
       "difficulty": "easy",
-      "cuisine": "русская",
+      "cuisine": "ru",
       "total_minutes": 65,
       "active_minutes": 25,
       "servings": 6,
@@ -8636,6 +12394,47 @@
           "text": "Оставьте капусту под гнётом.",
           "timer_seconds": 3600
         }
+      ],
+      "dish_group": "vegetable",
+      "cook_minutes": 65,
+      "kcal_per_serving": 59,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lactose_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lenten"
+        },
+        {
+          "kind": "dietary",
+          "tag": "low_calorie"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegan"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegetarian"
+        },
+        {
+          "kind": "mood",
+          "tag": "light"
+        },
+        {
+          "kind": "occasion",
+          "tag": "festive"
+        },
+        {
+          "kind": "occasion",
+          "tag": "for_guests"
+        }
       ]
     },
     {
@@ -8643,7 +12442,7 @@
       "title": "Варенье из яблок",
       "dish_type": "preserve",
       "difficulty": "easy",
-      "cuisine": "русская",
+      "cuisine": "ru",
       "total_minutes": 35,
       "active_minutes": 30,
       "servings": 6,
@@ -8691,6 +12490,39 @@
           "text": "Разложите варенье по стерилизованным банкам.",
           "timer_seconds": null
         }
+      ],
+      "dish_group": "preserves",
+      "cook_minutes": 35,
+      "kcal_per_serving": 353,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lactose_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lenten"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegan"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegetarian"
+        },
+        {
+          "kind": "occasion",
+          "tag": "festive"
+        },
+        {
+          "kind": "occasion",
+          "tag": "for_guests"
+        }
       ]
     },
     {
@@ -8698,7 +12530,7 @@
       "title": "Лечо из кабачков",
       "dish_type": "preserve",
       "difficulty": "medium",
-      "cuisine": "домашняя",
+      "cuisine": "home",
       "total_minutes": 55,
       "active_minutes": 50,
       "servings": 6,
@@ -8769,6 +12601,47 @@
         {
           "text": "Добавьте сахар, соль и уксус, разложите по банкам.",
           "timer_seconds": null
+        }
+      ],
+      "dish_group": "preserves",
+      "cook_minutes": 55,
+      "kcal_per_serving": 89,
+      "tags": [
+        {
+          "kind": "dietary",
+          "tag": "gluten_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lactose_free"
+        },
+        {
+          "kind": "dietary",
+          "tag": "lenten"
+        },
+        {
+          "kind": "dietary",
+          "tag": "low_calorie"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegan"
+        },
+        {
+          "kind": "dietary",
+          "tag": "vegetarian"
+        },
+        {
+          "kind": "mood",
+          "tag": "light"
+        },
+        {
+          "kind": "occasion",
+          "tag": "festive"
+        },
+        {
+          "kind": "occasion",
+          "tag": "for_guests"
         }
       ]
     }

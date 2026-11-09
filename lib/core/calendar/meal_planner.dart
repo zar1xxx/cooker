@@ -2,6 +2,7 @@ import 'package:clock/clock.dart';
 import 'package:uuid/uuid.dart';
 
 import '../ai/ai_service.dart';
+import '../catalog/catalog_taxonomy.dart';
 import '../db/app_database.dart';
 import '../db/daos/history_dao.dart';
 import '../db/daos/ingredient_dao.dart';
@@ -518,10 +519,13 @@ class MealPlanner {
       title: aiDay.title,
       normalizedTitle: lowerTitle,
       dishType: dishType,
+      dishGroup: DishGroup.fromDishType(dishType),
       difficulty: difficulty,
       cuisine: 'домашняя',
       totalMinutes: 30,
       activeMinutes: 15,
+      cookMinutes: 30,
+      kcalPerServing: null,
       servings: 2,
       description: 'Рецепт от помощника для плана на месяц',
       source: RecipeSource.ai,

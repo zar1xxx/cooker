@@ -4,11 +4,13 @@ import 'package:drift_flutter/drift_flutter.dart';
 import 'package:flutter/foundation.dart' show debugPrint;
 import 'package:uuid/uuid.dart';
 
+import '../catalog/catalog_taxonomy.dart';
 import 'converters/json_converters.dart';
 import 'enums.dart';
 import 'seed_loader.dart';
 import 'tables/ai_requests.dart';
 import 'tables/cooked_entries.dart';
+import 'tables/feed_events.dart';
 import 'tables/feedback_events.dart';
 import 'tables/ingredients.dart';
 import 'tables/meal_plan_entries.dart';
@@ -16,6 +18,7 @@ import 'tables/pantry_items.dart';
 import 'tables/preference_profile.dart';
 import 'tables/recipe_ingredients.dart';
 import 'tables/recipe_steps.dart';
+import 'tables/recipe_tags.dart';
 import 'tables/recipes.dart';
 
 part 'app_database.g.dart';
@@ -27,9 +30,11 @@ part 'app_database.g.dart';
     Recipes,
     RecipeIngredients,
     RecipeSteps,
+    RecipeTags,
     CookedEntries,
     MealPlanEntries,
     FeedbackEvents,
+    FeedEvents,
     PreferenceProfile,
     AiRequests,
   ],
@@ -42,12 +47,41 @@ class AppDatabase extends _$AppDatabase {
   final bool seed;
 
   @override
-  int get schemaVersion => 1;
+  int get schemaVersion => 2;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
     onCreate: (Migrator m) async {
       await m.createAll();
+    },
+    onUpgrade: (Migrator m, int from, int to) async {
+      if (from < 2) {
+        // Add new columns to recipes table
+        await m.addColumn(recipes, recipes.dishGroup);
+        await m.addColumn(recipes, recipes.cookMinutes);
+        await m.addColumn(recipes, recipes.kcalPerServing);
+
+        // Create new tables for tags and feed interactions
+        await m.createTable(recipeTags);
+        await m.createTable(feedEvents);
+
+        // Backfill dish_group based on dish_type for existing recipes
+        await customStatement('''
+              UPDATE recipes SET dish_group = CASE dish_type
+                WHEN 'soup' THEN 'soup'
+                WHEN 'baking' THEN 'baking'
+                WHEN 'dessert' THEN 'dessert'
+                WHEN 'drink' THEN 'beverage'
+                WHEN 'preserve' THEN 'preserves'
+                WHEN 'salad' THEN 'salad_snack'
+                WHEN 'snack' THEN 'salad_snack'
+                WHEN 'side' THEN 'porridge_side'
+                WHEN 'breakfast' THEN 'egg_dairy'
+                WHEN 'main' THEN 'meat'
+                ELSE 'vegetable'
+              END
+            ''');
+      }
     },
     beforeOpen: (details) async {
       await customStatement('PRAGMA foreign_keys = ON');

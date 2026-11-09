@@ -177,7 +177,7 @@ void main() {
         // 1 signal of 1.0 at t=0: num = 1.0, den = 1.0 + 3 = 4.0 => 0.25
         expect(profile.dishTypeWeights['soup'], closeTo(0.25, 0.01));
         expect(profile.difficultyWeights['easy'], closeTo(0.25, 0.01));
-        expect(profile.cuisineWeights['русская'], closeTo(0.25, 0.01));
+        expect(profile.cuisineWeights['ru'], closeTo(0.25, 0.01));
 
         // Ingredients also received weights
         expect(profile.ingredientWeights.containsKey('chicken'), isTrue);

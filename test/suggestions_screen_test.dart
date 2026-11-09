@@ -1,4 +1,5 @@
 import 'package:chto_prigotovit/app/theme.dart';
+import 'package:chto_prigotovit/core/catalog/catalog_taxonomy.dart';
 import 'package:chto_prigotovit/core/db/app_database.dart';
 import 'package:chto_prigotovit/core/db/daos/recipe_dao.dart';
 import 'package:chto_prigotovit/core/db/enums.dart';
@@ -29,6 +30,7 @@ ScoredRecipe _dummyScored(
     title: title,
     normalizedTitle: title.toLowerCase(),
     dishType: dishType,
+    dishGroup: DishGroup.fromDishType(dishType),
     difficulty: difficulty,
     cuisine: 'русская',
     totalMinutes: totalMinutes,

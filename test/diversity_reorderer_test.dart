@@ -1,3 +1,4 @@
+import 'package:chto_prigotovit/core/catalog/catalog_taxonomy.dart';
 import 'package:chto_prigotovit/core/db/app_database.dart';
 import 'package:chto_prigotovit/core/db/daos/recipe_dao.dart';
 import 'package:chto_prigotovit/core/db/enums.dart';
@@ -20,6 +21,7 @@ ScoredRecipe _scored(
     title: id,
     normalizedTitle: id,
     dishType: dishType,
+    dishGroup: DishGroup.fromDishType(dishType),
     difficulty: Difficulty.easy,
     cuisine: 'русская',
     totalMinutes: 30,
@@ -354,6 +356,7 @@ void main() {
         title: 'Суп',
         normalizedTitle: 'суп',
         dishType: DishType.soup,
+        dishGroup: DishGroup.soup,
         difficulty: Difficulty.easy,
         cuisine: 'русская',
         totalMinutes: 30,
