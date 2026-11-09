@@ -3,6 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../core/adaptive/adaptive_provider.dart';
+import '../../core/adaptive/ui_profile.dart';
 import '../../core/ai/ai_failure.dart';
 import '../../core/ai/ai_router.dart';
 import '../../core/ai/ai_settings_service.dart';
@@ -403,6 +405,35 @@ class _AiSettingsScreenState extends ConsumerState<AiSettingsScreen> {
         child: ListView(
           padding: const EdgeInsets.all(16),
           children: [
+            // Appearance Link Card (R8-17)
+            Card(
+              elevation: 0,
+              color: theme.colorScheme.secondaryContainer.withValues(
+                alpha: 0.35,
+              ),
+              child: ListTile(
+                key: const Key('btn_open_appearance'),
+                leading: Icon(
+                  Icons.palette_outlined,
+                  color: theme.colorScheme.secondary,
+                  size: 28,
+                ),
+                title: Text(
+                  l10n.appearanceTitle,
+                  style: theme.textTheme.titleSmall?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                subtitle: Text(
+                  '${ref.watch(uiProfileProvider).mode == UiMode.simple ? l10n.modeSimpleTitle : l10n.modeFullTitle} • ${(ref.watch(uiProfileProvider).fontScale * 100).round()}%',
+                  style: theme.textTheme.bodySmall,
+                ),
+                trailing: const Icon(Icons.chevron_right),
+                onTap: () => context.push('/settings/appearance'),
+              ),
+            ),
+            const SizedBox(height: 12),
+
             // Taste Preferences Link Card
             Card(
               elevation: 0,

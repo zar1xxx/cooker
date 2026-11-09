@@ -1023,4 +1023,80 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get aiQrScannerSaveError =>
       'Не удалось сохранить настройки подключения';
+
+  @override
+  String get appearanceTitle => 'Внешний вид';
+
+  @override
+  String get modeOnboardingTitle => 'Как вам удобнее?';
+
+  @override
+  String get modeOnboardingSubtitle =>
+      'Режим можно изменить в любой момент в настройках';
+
+  @override
+  String get modeSimpleTitle => 'Просто и крупно';
+
+  @override
+  String get modeSimpleSubtitle =>
+      'Крупный текст, большие кнопки, только главное';
+
+  @override
+  String get modeFullTitle => 'Все возможности';
+
+  @override
+  String get modeFullSubtitle => 'Фильтры, жесты, статистика, компактный вид';
+
+  @override
+  String get modeSelectButton => 'Выбрать этот режим';
+
+  @override
+  String get modeDecideLater => 'Решу потом';
+
+  @override
+  String get appearanceModeSection => 'Режим интерфейса';
+
+  @override
+  String get appearanceFontScaleSection => 'Размер текста';
+
+  @override
+  String get appearanceDensitySection => 'Плотность элементов';
+
+  @override
+  String get appearanceDensitySpacious => 'Просторно';
+
+  @override
+  String get appearanceDensityCompact => 'Компактно';
+
+  @override
+  String get appearanceHaptic => 'Вибрация при нажатии';
+
+  @override
+  String get appearanceGestures => 'Жесты на карточках (свайпы)';
+
+  @override
+  String get appearancePreview => 'Образец карточки';
+
+  @override
+  String get modePromptTryFullTitle => 'Попробовать полный режим?';
+
+  @override
+  String get modePromptTryFullDesc =>
+      'Вы часто ищете и фильтруете блюда. В полном режиме доступны несколько фильтров сразу, сортировка и подробная статистика.';
+
+  @override
+  String get modePromptTrySimpleTitle => 'Попробовать режим «Просто»?';
+
+  @override
+  String get modePromptTrySimpleDesc =>
+      'На вашем телефоне крупный шрифт. В режиме «Просто» текст ещё крупнее, а кнопки больше.';
+
+  @override
+  String get modePromptSwitch => 'Переключить';
+
+  @override
+  String get modePromptLater => 'Не сейчас';
+
+  @override
+  String get modePromptNever => 'Больше не спрашивать';
 }

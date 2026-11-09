@@ -104,6 +104,9 @@ class UiProfileService {
 
   Future<File?> _resolveFile() async {
     if (_file != null) return _file;
+    if (Platform.environment.containsKey('FLUTTER_TEST')) {
+      return null;
+    }
     try {
       final dir = await getApplicationDocumentsDirectory();
       return File('${dir.path}/ui_profile.json');

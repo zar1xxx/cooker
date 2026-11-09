@@ -1929,6 +1929,150 @@ abstract class AppLocalizations {
   /// In ru, this message translates to:
   /// **'Не удалось сохранить настройки подключения'**
   String get aiQrScannerSaveError;
+
+  /// Заголовок экрана настроек внешнего вида
+  ///
+  /// In ru, this message translates to:
+  /// **'Внешний вид'**
+  String get appearanceTitle;
+
+  /// Заголовок экрана выбора режима при первом запуске
+  ///
+  /// In ru, this message translates to:
+  /// **'Как вам удобнее?'**
+  String get modeOnboardingTitle;
+
+  /// Подзаголовок выбора режима
+  ///
+  /// In ru, this message translates to:
+  /// **'Режим можно изменить в любой момент в настройках'**
+  String get modeOnboardingSubtitle;
+
+  /// Название простого режима
+  ///
+  /// In ru, this message translates to:
+  /// **'Просто и крупно'**
+  String get modeSimpleTitle;
+
+  /// Описание простого режима
+  ///
+  /// In ru, this message translates to:
+  /// **'Крупный текст, большие кнопки, только главное'**
+  String get modeSimpleSubtitle;
+
+  /// Название полного режима
+  ///
+  /// In ru, this message translates to:
+  /// **'Все возможности'**
+  String get modeFullTitle;
+
+  /// Описание полного режима
+  ///
+  /// In ru, this message translates to:
+  /// **'Фильтры, жесты, статистика, компактный вид'**
+  String get modeFullSubtitle;
+
+  /// Кнопка выбора режима
+  ///
+  /// In ru, this message translates to:
+  /// **'Выбрать этот режим'**
+  String get modeSelectButton;
+
+  /// Кнопка отложить выбор режима
+  ///
+  /// In ru, this message translates to:
+  /// **'Решу потом'**
+  String get modeDecideLater;
+
+  /// Секция выбора режима в настройках
+  ///
+  /// In ru, this message translates to:
+  /// **'Режим интерфейса'**
+  String get appearanceModeSection;
+
+  /// Секция масштаба шрифта
+  ///
+  /// In ru, this message translates to:
+  /// **'Размер текста'**
+  String get appearanceFontScaleSection;
+
+  /// Секция плотности элементов
+  ///
+  /// In ru, this message translates to:
+  /// **'Плотность элементов'**
+  String get appearanceDensitySection;
+
+  /// Просторная плотность
+  ///
+  /// In ru, this message translates to:
+  /// **'Просторно'**
+  String get appearanceDensitySpacious;
+
+  /// Компактная плотность
+  ///
+  /// In ru, this message translates to:
+  /// **'Компактно'**
+  String get appearanceDensityCompact;
+
+  /// Переключатель тактильного отклика
+  ///
+  /// In ru, this message translates to:
+  /// **'Вибрация при нажатии'**
+  String get appearanceHaptic;
+
+  /// Переключатель жестов
+  ///
+  /// In ru, this message translates to:
+  /// **'Жесты на карточках (свайпы)'**
+  String get appearanceGestures;
+
+  /// Секция живого превью
+  ///
+  /// In ru, this message translates to:
+  /// **'Образец карточки'**
+  String get appearancePreview;
+
+  /// Заголовок подсказки полного режима
+  ///
+  /// In ru, this message translates to:
+  /// **'Попробовать полный режим?'**
+  String get modePromptTryFullTitle;
+
+  /// Описание подсказки полного режима
+  ///
+  /// In ru, this message translates to:
+  /// **'Вы часто ищете и фильтруете блюда. В полном режиме доступны несколько фильтров сразу, сортировка и подробная статистика.'**
+  String get modePromptTryFullDesc;
+
+  /// Заголовок подсказки режима Просто
+  ///
+  /// In ru, this message translates to:
+  /// **'Попробовать режим «Просто»?'**
+  String get modePromptTrySimpleTitle;
+
+  /// Описание подсказки режима Просто
+  ///
+  /// In ru, this message translates to:
+  /// **'На вашем телефоне крупный шрифт. В режиме «Просто» текст ещё крупнее, а кнопки больше.'**
+  String get modePromptTrySimpleDesc;
+
+  /// Кнопка согласия переключения режима
+  ///
+  /// In ru, this message translates to:
+  /// **'Переключить'**
+  String get modePromptSwitch;
+
+  /// Кнопка отложить подсказку режима
+  ///
+  /// In ru, this message translates to:
+  /// **'Не сейчас'**
+  String get modePromptLater;
+
+  /// Кнопка больше не спрашивать о смене режима
+  ///
+  /// In ru, this message translates to:
+  /// **'Больше не спрашивать'**
+  String get modePromptNever;
 }
 
 class _AppLocalizationsDelegate

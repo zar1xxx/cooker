@@ -1396,5 +1396,101 @@
   "aiQrScannerSaveError": "Не удалось сохранить настройки подключения",
   "@aiQrScannerSaveError": {
     "description": "Сообщение об ошибке сохранения настроек подключения"
+  },
+  "appearanceTitle": "Внешний вид",
+  "@appearanceTitle": {
+    "description": "Заголовок экрана настроек внешнего вида"
+  },
+  "modeOnboardingTitle": "Как вам удобнее?",
+  "@modeOnboardingTitle": {
+    "description": "Заголовок экрана выбора режима при первом запуске"
+  },
+  "modeOnboardingSubtitle": "Режим можно изменить в любой момент в настройках",
+  "@modeOnboardingSubtitle": {
+    "description": "Подзаголовок выбора режима"
+  },
+  "modeSimpleTitle": "Просто и крупно",
+  "@modeSimpleTitle": {
+    "description": "Название простого режима"
+  },
+  "modeSimpleSubtitle": "Крупный текст, большие кнопки, только главное",
+  "@modeSimpleSubtitle": {
+    "description": "Описание простого режима"
+  },
+  "modeFullTitle": "Все возможности",
+  "@modeFullTitle": {
+    "description": "Название полного режима"
+  },
+  "modeFullSubtitle": "Фильтры, жесты, статистика, компактный вид",
+  "@modeFullSubtitle": {
+    "description": "Описание полного режима"
+  },
+  "modeSelectButton": "Выбрать этот режим",
+  "@modeSelectButton": {
+    "description": "Кнопка выбора режима"
+  },
+  "modeDecideLater": "Решу потом",
+  "@modeDecideLater": {
+    "description": "Кнопка отложить выбор режима"
+  },
+  "appearanceModeSection": "Режим интерфейса",
+  "@appearanceModeSection": {
+    "description": "Секция выбора режима в настройках"
+  },
+  "appearanceFontScaleSection": "Размер текста",
+  "@appearanceFontScaleSection": {
+    "description": "Секция масштаба шрифта"
+  },
+  "appearanceDensitySection": "Плотность элементов",
+  "@appearanceDensitySection": {
+    "description": "Секция плотности элементов"
+  },
+  "appearanceDensitySpacious": "Просторно",
+  "@appearanceDensitySpacious": {
+    "description": "Просторная плотность"
+  },
+  "appearanceDensityCompact": "Компактно",
+  "@appearanceDensityCompact": {
+    "description": "Компактная плотность"
+  },
+  "appearanceHaptic": "Вибрация при нажатии",
+  "@appearanceHaptic": {
+    "description": "Переключатель тактильного отклика"
+  },
+  "appearanceGestures": "Жесты на карточках (свайпы)",
+  "@appearanceGestures": {
+    "description": "Переключатель жестов"
+  },
+  "appearancePreview": "Образец карточки",
+  "@appearancePreview": {
+    "description": "Секция живого превью"
+  },
+  "modePromptTryFullTitle": "Попробовать полный режим?",
+  "@modePromptTryFullTitle": {
+    "description": "Заголовок подсказки полного режима"
+  },
+  "modePromptTryFullDesc": "Вы часто ищете и фильтруете блюда. В полном режиме доступны несколько фильтров сразу, сортировка и подробная статистика.",
+  "@modePromptTryFullDesc": {
+    "description": "Описание подсказки полного режима"
+  },
+  "modePromptTrySimpleTitle": "Попробовать режим «Просто»?",
+  "@modePromptTrySimpleTitle": {
+    "description": "Заголовок подсказки режима Просто"
+  },
+  "modePromptTrySimpleDesc": "На вашем телефоне крупный шрифт. В режиме «Просто» текст ещё крупнее, а кнопки больше.",
+  "@modePromptTrySimpleDesc": {
+    "description": "Описание подсказки режима Просто"
+  },
+  "modePromptSwitch": "Переключить",
+  "@modePromptSwitch": {
+    "description": "Кнопка согласия переключения режима"
+  },
+  "modePromptLater": "Не сейчас",
+  "@modePromptLater": {
+    "description": "Кнопка отложить подсказку режима"
+  },
+  "modePromptNever": "Больше не спрашивать",
+  "@modePromptNever": {
+    "description": "Кнопка больше не спрашивать о смене режима"
   }
 }
