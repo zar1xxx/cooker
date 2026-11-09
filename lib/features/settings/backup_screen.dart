@@ -173,7 +173,11 @@ class _BackupScreenState extends ConsumerState<BackupScreen> {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Icon(Icons.security, size: 32, color: Colors.green),
+                  Icon(
+                    Icons.security,
+                    size: 32,
+                    color: theme.colorScheme.primary,
+                  ),
                   const SizedBox(width: 12),
                   Expanded(
                     child: Text(
@@ -223,19 +227,25 @@ class _BackupScreenState extends ConsumerState<BackupScreen> {
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: Colors.green.shade50,
+                color: theme.colorScheme.primaryContainer,
                 borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: Colors.green.shade200),
+                border: Border.all(
+                  color: theme.colorScheme.primary.withValues(alpha: 0.2),
+                ),
               ),
               child: Row(
                 children: [
-                  const Icon(Icons.check_circle, color: Colors.green, size: 20),
+                  Icon(
+                    Icons.check_circle,
+                    color: theme.colorScheme.onPrimaryContainer,
+                    size: 20,
+                  ),
                   const SizedBox(width: 8),
                   Expanded(
                     child: Text(
                       _lastExportSummary!,
                       style: theme.textTheme.bodyMedium?.copyWith(
-                        color: Colors.green.shade900,
+                        color: theme.colorScheme.onPrimaryContainer,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
@@ -258,7 +268,9 @@ class _BackupScreenState extends ConsumerState<BackupScreen> {
           const SizedBox(height: 4),
           Text(
             l10n.backupImportSubtitle,
-            style: theme.textTheme.bodySmall?.copyWith(color: Colors.grey[700]),
+            style: theme.textTheme.bodySmall?.copyWith(
+              color: theme.colorScheme.onSurfaceVariant,
+            ),
           ),
           const SizedBox(height: 12),
 

@@ -582,9 +582,9 @@ class _AiDiagnosticsScreenState extends ConsumerState<AiDiagnosticsScreen> {
   Widget _buildStepIcon(DiagnosticStepStatus status, ThemeData theme) {
     switch (status) {
       case DiagnosticStepStatus.success:
-        return const Icon(
+        return Icon(
           Icons.check_circle_rounded,
-          color: Colors.green,
+          color: theme.colorScheme.primary,
           size: 28,
         );
       case DiagnosticStepStatus.failure:
@@ -621,13 +621,13 @@ class _AiDiagnosticsScreenState extends ConsumerState<AiDiagnosticsScreen> {
 
     switch (status) {
       case 'ok':
-        bg = Colors.green.withValues(alpha: 0.15);
-        fg = Colors.green.shade800;
+        bg = theme.colorScheme.primaryContainer;
+        fg = theme.colorScheme.onPrimaryContainer;
         label = 'Успех';
         break;
       case 'rejected':
-        bg = Colors.orange.withValues(alpha: 0.15);
-        fg = Colors.orange.shade900;
+        bg = theme.colorScheme.secondaryContainer;
+        fg = theme.colorScheme.onSecondaryContainer;
         label = 'Отклонено';
         break;
       case 'error':

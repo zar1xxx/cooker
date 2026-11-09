@@ -19,11 +19,6 @@ class RecipeScreen extends ConsumerStatefulWidget {
 }
 
 class _RecipeScreenState extends ConsumerState<RecipeScreen> {
-  static const Color _favoriteRed = Color(0xFFC0392B);
-  static const Color _availableGreen = Color(0xFF2E7D32);
-  static const Color _tipYellow = Color(0xFFF9A825);
-  static const Color _tipIconOrange = Color(0xFFD84315);
-
   int? _customServings;
   bool? _isFavorite;
 
@@ -122,7 +117,7 @@ class _RecipeScreenState extends ConsumerState<RecipeScreen> {
               IconButton(
                 icon: Icon(
                   isFav ? Icons.favorite : Icons.favorite_border,
-                  color: isFav ? _favoriteRed : null,
+                  color: isFav ? theme.colorScheme.error : null,
                   size: 28,
                 ),
                 tooltip: isFav ? l10n.recipeFavoriteIn : l10n.recipeFavoriteAdd,
@@ -206,7 +201,7 @@ class _RecipeScreenState extends ConsumerState<RecipeScreen> {
                       child: OutlinedButton.icon(
                         icon: Icon(
                           isFav ? Icons.favorite : Icons.favorite_border,
-                          color: isFav ? _favoriteRed : null,
+                          color: isFav ? theme.colorScheme.error : null,
                           size: 24,
                         ),
                         label: Text(
@@ -583,13 +578,13 @@ class _RecipeScreenState extends ConsumerState<RecipeScreen> {
     return Card(
       elevation: 0,
       color: isAvailable
-          ? _availableGreen.withValues(alpha: 0.1)
+          ? theme.colorScheme.primaryContainer.withValues(alpha: 0.5)
           : theme.colorScheme.surfaceContainerLow,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
         side: BorderSide(
           color: isAvailable
-              ? _availableGreen.withValues(alpha: 0.4)
+              ? theme.colorScheme.primary.withValues(alpha: 0.4)
               : theme.colorScheme.outlineVariant.withValues(alpha: 0.5),
         ),
       ),
@@ -602,7 +597,9 @@ class _RecipeScreenState extends ConsumerState<RecipeScreen> {
               isAvailable
                   ? Icons.check_circle_rounded
                   : Icons.radio_button_unchecked,
-              color: isAvailable ? _availableGreen : theme.colorScheme.outline,
+              color: isAvailable
+                  ? theme.colorScheme.primary
+                  : theme.colorScheme.outline,
               size: 26,
             ),
             const SizedBox(width: 12),
@@ -620,7 +617,7 @@ class _RecipeScreenState extends ConsumerState<RecipeScreen> {
                     statusText,
                     style: theme.textTheme.bodyMedium?.copyWith(
                       color: isAvailable
-                          ? _availableGreen
+                          ? theme.colorScheme.primary
                           : theme.colorScheme.onSurfaceVariant,
                     ),
                   ),
@@ -760,16 +757,18 @@ class _RecipeScreenState extends ConsumerState<RecipeScreen> {
               Container(
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
-                  color: _tipYellow.withValues(alpha: 0.15),
+                  color: theme.colorScheme.tertiaryContainer,
                   borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: _tipYellow.withValues(alpha: 0.5)),
+                  border: Border.all(
+                    color: theme.colorScheme.tertiary.withValues(alpha: 0.3),
+                  ),
                 ),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Icon(
+                    Icon(
                       Icons.lightbulb_outline,
-                      color: _tipIconOrange,
+                      color: theme.colorScheme.onTertiaryContainer,
                       size: 22,
                     ),
                     const SizedBox(width: 8),
@@ -777,7 +776,7 @@ class _RecipeScreenState extends ConsumerState<RecipeScreen> {
                       child: Text(
                         '${l10n.recipeTipPrefix}$tip',
                         style: theme.textTheme.bodyMedium?.copyWith(
-                          color: theme.colorScheme.onSurface,
+                          color: theme.colorScheme.onTertiaryContainer,
                           fontWeight: FontWeight.w500,
                         ),
                       ),

@@ -300,7 +300,7 @@ class _TastePreferencesScreenState
             l10n.tasteLikedSectionTitle,
             style: theme.textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
-              color: Colors.green.shade800,
+              color: theme.colorScheme.primary,
             ),
           ),
           const SizedBox(height: 8),
@@ -309,7 +309,9 @@ class _TastePreferencesScreenState
               padding: const EdgeInsets.symmetric(vertical: 8),
               child: Text(
                 l10n.tasteLikedEmpty,
-                style: theme.textTheme.bodyMedium?.copyWith(color: Colors.grey),
+                style: theme.textTheme.bodyMedium?.copyWith(
+                  color: theme.colorScheme.onSurfaceVariant,
+                ),
               ),
             )
           else
@@ -319,19 +321,22 @@ class _TastePreferencesScreenState
               children: liked.map((e) {
                 final weightStr = '+${e.value.toStringAsFixed(2)}';
                 return Chip(
-                  avatar: const Icon(
+                  avatar: Icon(
                     Icons.thumb_up_alt_outlined,
                     size: 18,
-                    color: Colors.green,
+                    color: theme.colorScheme.onPrimaryContainer,
                   ),
                   label: Text(
                     '${_formatFeature(e.key)} ($weightStr)',
                     style: theme.textTheme.bodyMedium?.copyWith(
                       fontWeight: FontWeight.w600,
+                      color: theme.colorScheme.onPrimaryContainer,
                     ),
                   ),
-                  backgroundColor: Colors.green.shade50,
-                  side: BorderSide(color: Colors.green.shade200),
+                  backgroundColor: theme.colorScheme.primaryContainer,
+                  side: BorderSide(
+                    color: theme.colorScheme.primary.withValues(alpha: 0.2),
+                  ),
                 );
               }).toList(),
             ),
@@ -342,7 +347,7 @@ class _TastePreferencesScreenState
             l10n.tasteDislikedSectionTitle,
             style: theme.textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
-              color: Colors.deepOrange.shade800,
+              color: theme.colorScheme.error,
             ),
           ),
           const SizedBox(height: 8),
@@ -351,7 +356,9 @@ class _TastePreferencesScreenState
               padding: const EdgeInsets.symmetric(vertical: 8),
               child: Text(
                 l10n.tasteDislikedEmpty,
-                style: theme.textTheme.bodyMedium?.copyWith(color: Colors.grey),
+                style: theme.textTheme.bodyMedium?.copyWith(
+                  color: theme.colorScheme.onSurfaceVariant,
+                ),
               ),
             )
           else
@@ -361,19 +368,22 @@ class _TastePreferencesScreenState
               children: disliked.map((e) {
                 final weightStr = e.value.toStringAsFixed(2);
                 return Chip(
-                  avatar: const Icon(
+                  avatar: Icon(
                     Icons.thumb_down_alt_outlined,
                     size: 18,
-                    color: Colors.deepOrange,
+                    color: theme.colorScheme.onErrorContainer,
                   ),
                   label: Text(
                     '${_formatFeature(e.key)} ($weightStr)',
                     style: theme.textTheme.bodyMedium?.copyWith(
                       fontWeight: FontWeight.w600,
+                      color: theme.colorScheme.onErrorContainer,
                     ),
                   ),
-                  backgroundColor: Colors.deepOrange.shade50,
-                  side: BorderSide(color: Colors.deepOrange.shade200),
+                  backgroundColor: theme.colorScheme.errorContainer,
+                  side: BorderSide(
+                    color: theme.colorScheme.error.withValues(alpha: 0.2),
+                  ),
                 );
               }).toList(),
             ),
@@ -392,7 +402,9 @@ class _TastePreferencesScreenState
               padding: const EdgeInsets.symmetric(vertical: 8),
               child: Text(
                 l10n.tasteTopDishesEmpty,
-                style: theme.textTheme.bodyMedium?.copyWith(color: Colors.grey),
+                style: theme.textTheme.bodyMedium?.copyWith(
+                  color: theme.colorScheme.onSurfaceVariant,
+                ),
               ),
             )
           else
@@ -403,7 +415,11 @@ class _TastePreferencesScreenState
                   padding: const EdgeInsets.symmetric(vertical: 4),
                   child: Row(
                     children: [
-                      const Icon(Icons.star, color: Colors.amber, size: 22),
+                      Icon(
+                        Icons.star,
+                        color: theme.colorScheme.secondary,
+                        size: 22,
+                      ),
                       const SizedBox(width: 8),
                       Expanded(
                         child: Text(
@@ -452,7 +468,9 @@ class _TastePreferencesScreenState
           const SizedBox(height: 4),
           Text(
             l10n.tasteAllergiesSubtitle,
-            style: theme.textTheme.bodySmall?.copyWith(color: Colors.grey[700]),
+            style: theme.textTheme.bodySmall?.copyWith(
+              color: theme.colorScheme.onSurfaceVariant,
+            ),
           ),
           const SizedBox(height: 12),
           if (allergies.isEmpty)
@@ -460,7 +478,9 @@ class _TastePreferencesScreenState
               padding: const EdgeInsets.symmetric(vertical: 4),
               child: Text(
                 l10n.tasteAllergiesEmpty,
-                style: theme.textTheme.bodyMedium?.copyWith(color: Colors.grey),
+                style: theme.textTheme.bodyMedium?.copyWith(
+                  color: theme.colorScheme.onSurfaceVariant,
+                ),
               ),
             )
           else
@@ -519,7 +539,9 @@ class _TastePreferencesScreenState
           const SizedBox(height: 4),
           Text(
             l10n.tasteExclusionsSubtitle,
-            style: theme.textTheme.bodySmall?.copyWith(color: Colors.grey[700]),
+            style: theme.textTheme.bodySmall?.copyWith(
+              color: theme.colorScheme.onSurfaceVariant,
+            ),
           ),
           const SizedBox(height: 12),
           if (exclusions.isEmpty)
@@ -527,7 +549,9 @@ class _TastePreferencesScreenState
               padding: const EdgeInsets.symmetric(vertical: 4),
               child: Text(
                 l10n.tasteExclusionsEmpty,
-                style: theme.textTheme.bodyMedium?.copyWith(color: Colors.grey),
+                style: theme.textTheme.bodyMedium?.copyWith(
+                  color: theme.colorScheme.onSurfaceVariant,
+                ),
               ),
             )
           else
@@ -582,7 +606,9 @@ class _TastePreferencesScreenState
           const SizedBox(height: 4),
           Text(
             l10n.tasteServingsSubtitle,
-            style: theme.textTheme.bodySmall?.copyWith(color: Colors.grey[700]),
+            style: theme.textTheme.bodySmall?.copyWith(
+              color: theme.colorScheme.onSurfaceVariant,
+            ),
           ),
           const SizedBox(height: 12),
           SizedBox(
@@ -708,7 +734,9 @@ class _IngredientPickerSheetState extends State<_IngredientPickerSheet> {
           if (_query.isEmpty && widget.quickPicks.isNotEmpty) ...[
             Text(
               l10n.tastePopularSection,
-              style: theme.textTheme.titleSmall?.copyWith(color: Colors.grey),
+              style: theme.textTheme.titleSmall?.copyWith(
+                color: theme.colorScheme.onSurfaceVariant,
+              ),
             ),
             const SizedBox(height: 8),
             Wrap(

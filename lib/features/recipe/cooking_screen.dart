@@ -289,7 +289,7 @@ class _CookingScreenState extends ConsumerState<CookingScreen> {
                                       ? Icons.star_rounded
                                       : Icons.star_outline_rounded,
                                   color: star <= (selectedRating ?? 0)
-                                      ? const Color(0xFFF9A825)
+                                      ? theme.colorScheme.secondary
                                       : theme.colorScheme.outlineVariant,
                                 ),
                                 onPressed: () {
@@ -309,7 +309,7 @@ class _CookingScreenState extends ConsumerState<CookingScreen> {
                         ratingLabel(selectedRating),
                         style: theme.textTheme.titleMedium?.copyWith(
                           fontWeight: FontWeight.bold,
-                          color: const Color(0xFFE65100),
+                          color: theme.colorScheme.primary,
                         ),
                         textAlign: TextAlign.center,
                       ),
@@ -567,20 +567,20 @@ class _CookingScreenState extends ConsumerState<CookingScreen> {
                           Container(
                             padding: const EdgeInsets.all(16),
                             decoration: BoxDecoration(
-                              color: const Color(0xFFF9A825)
-                                  .withValues(alpha: 0.15),
+                              color: theme.colorScheme.tertiaryContainer,
                               borderRadius: BorderRadius.circular(16),
                               border: Border.all(
-                                color: const Color(0xFFF9A825)
-                                    .withValues(alpha: 0.6),
+                                color: theme.colorScheme.tertiary.withValues(
+                                  alpha: 0.3,
+                                ),
                               ),
                             ),
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const Icon(
+                                Icon(
                                   Icons.lightbulb_outline,
-                                  color: Color(0xFFD84315),
+                                  color: theme.colorScheme.onTertiaryContainer,
                                   size: 26,
                                 ),
                                 const SizedBox(width: 12),
@@ -591,6 +591,9 @@ class _CookingScreenState extends ConsumerState<CookingScreen> {
                                         ?.copyWith(
                                           fontWeight: FontWeight.w500,
                                           height: 1.3,
+                                          color: theme
+                                              .colorScheme
+                                              .onTertiaryContainer,
                                         ),
                                   ),
                                 ),
@@ -651,7 +654,7 @@ class _CookingScreenState extends ConsumerState<CookingScreen> {
                     color: theme.colorScheme.surface,
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withValues(alpha: 0.05),
+                        color: theme.colorScheme.shadow.withValues(alpha: 0.08),
                         blurRadius: 4,
                         offset: const Offset(0, -2),
                       ),
@@ -691,9 +694,7 @@ class _CookingScreenState extends ConsumerState<CookingScreen> {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(16),
                             ),
-                            backgroundColor: isLast
-                                ? const Color(0xFF2E7D32)
-                                : theme.colorScheme.primary,
+                            backgroundColor: theme.colorScheme.primary,
                           ),
                           icon: Icon(
                             isLast
@@ -759,13 +760,13 @@ class _CookingScreenState extends ConsumerState<CookingScreen> {
     return Card(
       elevation: 0,
       color: isDone
-          ? const Color(0xFF2E7D32).withValues(alpha: 0.15)
+          ? theme.colorScheme.primaryContainer
           : theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
         side: BorderSide(
           color: isDone
-              ? const Color(0xFF2E7D32)
+              ? theme.colorScheme.primary
               : isRunning
               ? theme.colorScheme.primary
               : theme.colorScheme.outlineVariant,
@@ -783,7 +784,7 @@ class _CookingScreenState extends ConsumerState<CookingScreen> {
                 fontWeight: FontWeight.bold,
                 fontFamily: 'monospace',
                 color: isDone
-                    ? const Color(0xFF2E7D32)
+                    ? theme.colorScheme.onPrimaryContainer
                     : theme.colorScheme.primary,
               ),
             ),
@@ -800,7 +801,7 @@ class _CookingScreenState extends ConsumerState<CookingScreen> {
                 l10n.cookingTimerDone,
                 style: theme.textTheme.titleLarge?.copyWith(
                   fontWeight: FontWeight.bold,
-                  color: const Color(0xFF2E7D32),
+                  color: theme.colorScheme.onPrimaryContainer,
                 ),
               ),
             ],

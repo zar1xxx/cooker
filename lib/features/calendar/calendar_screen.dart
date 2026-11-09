@@ -251,7 +251,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                                       size: 16,
                                     ),
                                   const SizedBox(width: 3),
-                                  _buildStatusBadge(status),
+                                  _buildStatusBadge(status, theme),
                                   if (locked) ...[
                                     const SizedBox(width: 3),
                                     Icon(
@@ -309,12 +309,12 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                         ? null
                         : () => _handleMakeMonthPlan(context),
                     icon: _isGenerating
-                        ? const SizedBox(
+                        ? SizedBox(
                             width: 24,
                             height: 24,
                             child: CircularProgressIndicator(
                               strokeWidth: 2,
-                              color: Colors.white,
+                              color: theme.colorScheme.onPrimary,
                             ),
                           )
                         : const Icon(Icons.auto_awesome, size: 28),
@@ -352,19 +352,27 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
     );
   }
 
-  Widget _buildStatusBadge(MealPlanStatus status) {
+  Widget _buildStatusBadge(MealPlanStatus status, ThemeData theme) {
     switch (status) {
       case MealPlanStatus.cooked:
-        return const Icon(Icons.check_circle, size: 14, color: Colors.green);
+        return Icon(
+          Icons.check_circle,
+          size: 14,
+          color: theme.colorScheme.primary,
+        );
       case MealPlanStatus.skipped:
-        return const Icon(Icons.remove_circle, size: 14, color: Colors.orange);
+        return Icon(
+          Icons.remove_circle,
+          size: 14,
+          color: theme.colorScheme.secondary,
+        );
       case MealPlanStatus.planned:
         return Container(
           width: 7,
           height: 7,
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: Colors.blue,
+            color: theme.colorScheme.tertiary,
           ),
         );
     }
@@ -543,7 +551,7 @@ class _SelectedDayMealCard extends ConsumerWidget {
                     avatar: const Icon(Icons.speed, size: 18),
                     label: Text(_difficultyName(l10n, recipe.difficulty)),
                   ),
-                  _buildStatusChip(entry.status, l10n),
+                  _buildStatusChip(entry.status, l10n, theme),
                   if (entry.locked)
                     Chip(
                       avatar: const Icon(Icons.lock, size: 16),
@@ -581,14 +589,14 @@ class _SelectedDayMealCard extends ConsumerWidget {
                         vertical: 8,
                       ),
                       decoration: BoxDecoration(
-                        color: Colors.green.withValues(alpha: 0.1),
+                        color: theme.colorScheme.primaryContainer,
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: Row(
                         children: [
-                          const Icon(
+                          Icon(
                             Icons.check_circle,
-                            color: Colors.green,
+                            color: theme.colorScheme.onPrimaryContainer,
                             size: 20,
                           ),
                           const SizedBox(width: 8),
@@ -596,7 +604,7 @@ class _SelectedDayMealCard extends ConsumerWidget {
                             child: Text(
                               l10n.calendarAllIngredientsAvailable,
                               style: theme.textTheme.bodyMedium?.copyWith(
-                                color: Colors.green.shade800,
+                                color: theme.colorScheme.onPrimaryContainer,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -611,7 +619,7 @@ class _SelectedDayMealCard extends ConsumerWidget {
                         vertical: 8,
                       ),
                       decoration: BoxDecoration(
-                        color: Colors.orange.withValues(alpha: 0.1),
+                        color: theme.colorScheme.secondaryContainer,
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: Column(
@@ -619,9 +627,9 @@ class _SelectedDayMealCard extends ConsumerWidget {
                         children: [
                           Row(
                             children: [
-                              const Icon(
+                              Icon(
                                 Icons.shopping_basket_outlined,
-                                color: Colors.orange,
+                                color: theme.colorScheme.onSecondaryContainer,
                                 size: 20,
                               ),
                               const SizedBox(width: 8),
@@ -634,7 +642,8 @@ class _SelectedDayMealCard extends ConsumerWidget {
                                             : ''),
                                   ),
                                   style: theme.textTheme.bodyMedium?.copyWith(
-                                    color: Colors.orange.shade900,
+                                    color:
+                                        theme.colorScheme.onSecondaryContainer,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
@@ -747,18 +756,18 @@ class _SelectedDayMealCard extends ConsumerWidget {
                 const SizedBox(height: 8),
                 OutlinedButton.icon(
                   onPressed: () => onStatusChange(entry, MealPlanStatus.cooked),
-                  icon: const Icon(
+                  icon: Icon(
                     Icons.check_circle_outline,
-                    color: Colors.green,
+                    color: theme.colorScheme.primary,
                     size: 22,
                   ),
                   label: Text(
                     l10n.calendarMarkCooked,
-                    style: const TextStyle(color: Colors.green),
+                    style: TextStyle(color: theme.colorScheme.primary),
                   ),
                   style: OutlinedButton.styleFrom(
                     minimumSize: const Size(double.infinity, 56),
-                    side: const BorderSide(color: Colors.green),
+                    side: BorderSide(color: theme.colorScheme.primary),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
@@ -800,29 +809,53 @@ class _SelectedDayMealCard extends ConsumerWidget {
     );
   }
 
-  Widget _buildStatusChip(MealPlanStatus status, AppLocalizations l10n) {
+  Widget _buildStatusChip(
+    MealPlanStatus status,
+    AppLocalizations l10n,
+    ThemeData theme,
+  ) {
     switch (status) {
       case MealPlanStatus.cooked:
         return Chip(
-          avatar: const Icon(Icons.check_circle, size: 16, color: Colors.green),
-          label: Text(l10n.calendarStatusCooked),
-          backgroundColor: Colors.green.withValues(alpha: 0.12),
+          avatar: Icon(
+            Icons.check_circle,
+            size: 16,
+            color: theme.colorScheme.onPrimaryContainer,
+          ),
+          label: Text(
+            l10n.calendarStatusCooked,
+            style: TextStyle(color: theme.colorScheme.onPrimaryContainer),
+          ),
+          backgroundColor: theme.colorScheme.primaryContainer,
+          side: BorderSide.none,
         );
       case MealPlanStatus.skipped:
         return Chip(
-          avatar: const Icon(
+          avatar: Icon(
             Icons.remove_circle,
             size: 16,
-            color: Colors.orange,
+            color: theme.colorScheme.onSecondaryContainer,
           ),
-          label: Text(l10n.calendarStatusSkipped),
-          backgroundColor: Colors.orange.withValues(alpha: 0.12),
+          label: Text(
+            l10n.calendarStatusSkipped,
+            style: TextStyle(color: theme.colorScheme.onSecondaryContainer),
+          ),
+          backgroundColor: theme.colorScheme.secondaryContainer,
+          side: BorderSide.none,
         );
       case MealPlanStatus.planned:
         return Chip(
-          avatar: const Icon(Icons.schedule, size: 16, color: Colors.blue),
-          label: Text(l10n.calendarStatusPlanned),
-          backgroundColor: Colors.blue.withValues(alpha: 0.12),
+          avatar: Icon(
+            Icons.schedule,
+            size: 16,
+            color: theme.colorScheme.onTertiaryContainer,
+          ),
+          label: Text(
+            l10n.calendarStatusPlanned,
+            style: TextStyle(color: theme.colorScheme.onTertiaryContainer),
+          ),
+          backgroundColor: theme.colorScheme.tertiaryContainer,
+          side: BorderSide.none,
         );
     }
   }

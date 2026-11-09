@@ -86,14 +86,14 @@ class _QrScannerScreenState extends ConsumerState<QrScannerScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(l10n.aiQrScannerConnected(result.host)),
-            backgroundColor: Colors.green.shade800,
+            backgroundColor: Theme.of(context).colorScheme.primary,
           ),
         );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(l10n.aiQrScannerSavedNotResponding),
-            backgroundColor: Colors.orange.shade800,
+            backgroundColor: Theme.of(context).colorScheme.secondary,
             duration: const Duration(seconds: 4),
           ),
         );

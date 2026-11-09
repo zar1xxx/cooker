@@ -146,8 +146,8 @@ class _HistoryScreenState extends ConsumerState<HistoryScreen> {
                             filled ? Icons.star : Icons.star_border,
                             size: 38,
                             color: filled
-                                ? Colors.amber[700]
-                                : Colors.grey[400],
+                                ? theme.colorScheme.secondary
+                                : theme.colorScheme.outlineVariant,
                           ),
                           tooltip: '$starValue',
                           onPressed: () {
@@ -469,10 +469,10 @@ class _HistoryScreenState extends ConsumerState<HistoryScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Icon(
+                Icon(
                   Icons.error_outline,
                   size: 48,
-                  color: Colors.redAccent,
+                  color: theme.colorScheme.error,
                 ),
                 const SizedBox(height: 16),
                 Text(
@@ -583,7 +583,7 @@ class _MonthSummaryCard extends ConsumerWidget {
                         child: _MetricCard(
                           icon: Icons.auto_awesome,
                           label: l10n.historySummaryNew(summary.newDishesCount),
-                          color: Colors.orange[800]!,
+                          color: theme.colorScheme.secondary,
                         ),
                       ),
                     ],
@@ -601,7 +601,11 @@ class _MonthSummaryCard extends ConsumerWidget {
                     ),
                     child: Row(
                       children: [
-                        Icon(Icons.star, size: 20, color: Colors.amber[700]),
+                        Icon(
+                          Icons.star,
+                          size: 20,
+                          color: theme.colorScheme.secondary,
+                        ),
                         const SizedBox(width: 8),
                         Expanded(
                           child: Text(
@@ -965,8 +969,8 @@ class _HistoryEntryCard extends StatelessWidget {
                                 filled ? Icons.star : Icons.star_border,
                                 size: 24,
                                 color: filled
-                                    ? Colors.amber[700]
-                                    : Colors.grey[400],
+                                    ? theme.colorScheme.secondary
+                                    : theme.colorScheme.outlineVariant,
                               );
                             }),
                           ),
@@ -1457,7 +1461,9 @@ class _AddCookedDishSheetState extends State<_AddCookedDishSheet> {
                     icon: Icon(
                       filled ? Icons.star : Icons.star_border,
                       size: 38,
-                      color: filled ? Colors.amber[700] : Colors.grey[400],
+                      color: filled
+                          ? theme.colorScheme.secondary
+                          : theme.colorScheme.outlineVariant,
                     ),
                     tooltip: '$starValue',
                     onPressed: () {

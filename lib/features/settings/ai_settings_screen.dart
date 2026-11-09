@@ -441,9 +441,9 @@ class _AiSettingsScreenState extends ConsumerState<AiSettingsScreen> {
                 alpha: 0.4,
               ),
               child: ListTile(
-                leading: const Icon(
+                leading: Icon(
                   Icons.favorite,
-                  color: Colors.deepOrange,
+                  color: theme.colorScheme.secondary,
                   size: 28,
                 ),
                 title: Text(
@@ -467,9 +467,9 @@ class _AiSettingsScreenState extends ConsumerState<AiSettingsScreen> {
               elevation: 0,
               color: theme.colorScheme.tertiaryContainer.withValues(alpha: 0.4),
               child: ListTile(
-                leading: const Icon(
+                leading: Icon(
                   Icons.settings_backup_restore,
-                  color: Colors.teal,
+                  color: theme.colorScheme.tertiary,
                   size: 28,
                 ),
                 title: Text(
@@ -840,8 +840,8 @@ class _AiSettingsScreenState extends ConsumerState<AiSettingsScreen> {
                                   ? Icons.check_circle
                                   : Icons.error_outline,
                               color: _pcStatus == l10n.aiSettingsStatusPcOk
-                                  ? Colors.green
-                                  : Colors.orange,
+                                  ? theme.colorScheme.primary
+                                  : theme.colorScheme.error,
                             ),
                             const SizedBox(width: 8),
                             Expanded(
@@ -864,8 +864,8 @@ class _AiSettingsScreenState extends ConsumerState<AiSettingsScreen> {
                               color:
                                   _gigaChatStatus ==
                                       l10n.aiSettingsStatusGigaChatOk
-                                  ? Colors.green
-                                  : Colors.grey,
+                                  ? theme.colorScheme.primary
+                                  : theme.colorScheme.outline,
                             ),
                             const SizedBox(width: 8),
                             Expanded(

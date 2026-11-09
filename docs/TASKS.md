@@ -407,10 +407,10 @@
 
 ### Блок A. Визуальные баги
 
-- [ ] **R8-01** **Контраст и тема.**
+- [x] **R8-01** **Контраст и тема.**
     - Найти все места, где цвет текста или фона задан напрямую (`Colors.*`, `Color(0x…)`) вместо `Theme.of(context).colorScheme`. Заменить на роли схемы: чип «нелюбимое» — `errorContainer` / `onErrorContainer`, «любимое» — `primaryContainer` / `onPrimaryContainer`.
     - Тест контраста: для каждой пары «текст/фон» в светлой и тёмной теме отношение контраста ≥ 4.5:1 (WCAG AA). Добавить хелпер `contrastRatio()` в тест и проверить все чипы, плашки, баннеры, кнопки.
-    - Golden-тесты экрана вкусов в светлой и тёмной теме.
+    - Golden-тесты экрана вкусов в светлой и тёмной теме. Выполнено: устранены хардкодные цвета в `taste_preferences_screen.dart`, `recipe_screen.dart`, `cooking_screen.dart`, `calendar_screen.dart`, `today_screen.dart`, `history_screen.dart`, `ai_settings_screen.dart`, `backup_screen.dart`, `ai_diagnostics_screen.dart`, `pantry_screen.dart`; добавлен статический аудит в `theme_contrast_test.dart` и хелпер `contrastRatio()`, проверены все роли ColorScheme и компоненты (чипы, плашки, кнопки), сгенерированы golden-скриншоты экрана вкусов в светлой и тёмной темах (`docs/reports/img/taste_preferences_light.png`, `dark.png`).
 - [ ] **R8-02** **Экран «Что приложение знает обо мне».**
     - Убрать числа «(-0.11)». Вместо них слова по силе: «немного», «заметно», «сильно» (пороги в константах).
     - Объяснить, откуда минус: под каждым чипом мелко «вы 3 раза выбрали „Другое блюдо“» или «оценка 2 за борщ».

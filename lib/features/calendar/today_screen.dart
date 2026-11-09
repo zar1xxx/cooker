@@ -259,7 +259,7 @@ class _TodayScreenState extends ConsumerState<TodayScreen> {
                         ),
                       ),
                     ),
-                    _buildStatusChip(entry.status, l10n),
+                    _buildStatusChip(entry.status, l10n, theme),
                   ],
                 ),
 
@@ -305,14 +305,14 @@ class _TodayScreenState extends ConsumerState<TodayScreen> {
                         vertical: 8,
                       ),
                       decoration: BoxDecoration(
-                        color: Colors.green.withValues(alpha: 0.1),
+                        color: theme.colorScheme.primaryContainer,
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: Row(
                         children: [
-                          const Icon(
+                          Icon(
                             Icons.check_circle,
-                            color: Colors.green,
+                            color: theme.colorScheme.onPrimaryContainer,
                             size: 20,
                           ),
                           const SizedBox(width: 8),
@@ -320,7 +320,7 @@ class _TodayScreenState extends ConsumerState<TodayScreen> {
                             child: Text(
                               l10n.calendarAllIngredientsAvailable,
                               style: theme.textTheme.bodyMedium?.copyWith(
-                                color: Colors.green.shade800,
+                                color: theme.colorScheme.onPrimaryContainer,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -335,7 +335,7 @@ class _TodayScreenState extends ConsumerState<TodayScreen> {
                         vertical: 8,
                       ),
                       decoration: BoxDecoration(
-                        color: Colors.orange.withValues(alpha: 0.1),
+                        color: theme.colorScheme.secondaryContainer,
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: Column(
@@ -343,9 +343,9 @@ class _TodayScreenState extends ConsumerState<TodayScreen> {
                         children: [
                           Row(
                             children: [
-                              const Icon(
+                              Icon(
                                 Icons.shopping_basket_outlined,
-                                color: Colors.orange,
+                                color: theme.colorScheme.onSecondaryContainer,
                                 size: 20,
                               ),
                               const SizedBox(width: 8),
@@ -358,7 +358,8 @@ class _TodayScreenState extends ConsumerState<TodayScreen> {
                                             : ''),
                                   ),
                                   style: theme.textTheme.bodyMedium?.copyWith(
-                                    color: Colors.orange.shade900,
+                                    color:
+                                        theme.colorScheme.onSecondaryContainer,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
@@ -587,29 +588,53 @@ class _TodayScreenState extends ConsumerState<TodayScreen> {
     );
   }
 
-  Widget _buildStatusChip(MealPlanStatus status, AppLocalizations l10n) {
+  Widget _buildStatusChip(
+    MealPlanStatus status,
+    AppLocalizations l10n,
+    ThemeData theme,
+  ) {
     switch (status) {
       case MealPlanStatus.cooked:
         return Chip(
-          avatar: const Icon(Icons.check_circle, size: 16, color: Colors.green),
-          label: Text(l10n.calendarStatusCooked),
-          backgroundColor: Colors.green.withValues(alpha: 0.12),
+          avatar: Icon(
+            Icons.check_circle,
+            size: 16,
+            color: theme.colorScheme.onPrimaryContainer,
+          ),
+          label: Text(
+            l10n.calendarStatusCooked,
+            style: TextStyle(color: theme.colorScheme.onPrimaryContainer),
+          ),
+          backgroundColor: theme.colorScheme.primaryContainer,
+          side: BorderSide.none,
         );
       case MealPlanStatus.skipped:
         return Chip(
-          avatar: const Icon(
+          avatar: Icon(
             Icons.remove_circle,
             size: 16,
-            color: Colors.orange,
+            color: theme.colorScheme.onSecondaryContainer,
           ),
-          label: Text(l10n.calendarStatusSkipped),
-          backgroundColor: Colors.orange.withValues(alpha: 0.12),
+          label: Text(
+            l10n.calendarStatusSkipped,
+            style: TextStyle(color: theme.colorScheme.onSecondaryContainer),
+          ),
+          backgroundColor: theme.colorScheme.secondaryContainer,
+          side: BorderSide.none,
         );
       case MealPlanStatus.planned:
         return Chip(
-          avatar: const Icon(Icons.schedule, size: 16, color: Colors.blue),
-          label: Text(l10n.calendarStatusPlanned),
-          backgroundColor: Colors.blue.withValues(alpha: 0.12),
+          avatar: Icon(
+            Icons.schedule,
+            size: 16,
+            color: theme.colorScheme.onTertiaryContainer,
+          ),
+          label: Text(
+            l10n.calendarStatusPlanned,
+            style: TextStyle(color: theme.colorScheme.onTertiaryContainer),
+          ),
+          backgroundColor: theme.colorScheme.tertiaryContainer,
+          side: BorderSide.none,
         );
     }
   }

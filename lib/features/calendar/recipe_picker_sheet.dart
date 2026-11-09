@@ -192,7 +192,11 @@ class _RecipePickerSheetState extends State<RecipePickerSheet> {
                 },
               ),
               FilterChip(
-                avatar: const Icon(Icons.star, size: 16, color: Colors.amber),
+                avatar: Icon(
+                  Icons.star,
+                  size: 16,
+                  color: theme.colorScheme.secondary,
+                ),
                 label: const Text('Избранные'),
                 selected: _filterFavorites,
                 onSelected: (val) {
@@ -204,10 +208,10 @@ class _RecipePickerSheetState extends State<RecipePickerSheet> {
               ),
               if (widget.pantry.isNotEmpty)
                 FilterChip(
-                  avatar: const Icon(
+                  avatar: Icon(
                     Icons.check_circle_outline,
                     size: 16,
-                    color: Colors.green,
+                    color: theme.colorScheme.primary,
                   ),
                   label: const Text('Есть дома'),
                   selected: _filterAvailable,
@@ -259,9 +263,9 @@ class _RecipePickerSheetState extends State<RecipePickerSheet> {
                           '${dishTypeName(recipe.dishType, l10n)} · ${recipe.totalMinutes} мин · ${difficultyName(l10n, recipe.difficulty)}',
                         ),
                         trailing: recipe.isFavorite
-                            ? const Icon(
+                            ? Icon(
                                 Icons.star,
-                                color: Colors.amber,
+                                color: theme.colorScheme.secondary,
                                 size: 22,
                               )
                             : null,
