@@ -37,7 +37,8 @@ void main() {
       }
     });
 
-    test('pairwise ingredient Jaccard stays below 0.8', () {
+    // D-058: threshold 0.85 as in R8-09 (2000-recipe catalog); was 0.8 for the 125-recipe seed.
+    test('pairwise ingredient Jaccard stays below 0.85', () {
       final sets = <String, Set<String>>{};
       for (final recipe in recipes) {
         final ids = (recipe['ingredients'] as List)
@@ -58,7 +59,7 @@ void main() {
           final jaccard = union == 0 ? 1.0 : intersection / union;
           expect(
             jaccard,
-            lessThan(0.8),
+            lessThan(0.85),
             reason:
                 '${ids[i]} and ${ids[j]} are too similar '
                 '(${jaccard.toStringAsFixed(3)})',

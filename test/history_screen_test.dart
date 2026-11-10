@@ -58,10 +58,9 @@ void main() {
       expect(find.text('История'), findsOneWidget);
       expect(find.text('Вы ещё ничего не приготовили'), findsOneWidget);
       expect(find.text('Подобрать рецепт'), findsOneWidget);
-      expect(
-        find.text('Записать блюдо'),
-        findsNWidgets(2),
-      ); // in empty body and in FAB
+      // Only the button in the empty body: the FAB is hidden while empty.
+      expect(find.text('Записать блюдо'), findsOneWidget);
+      expect(find.byType(FloatingActionButton), findsNothing);
       expect(find.byIcon(Icons.auto_stories_outlined), findsOneWidget);
     });
 
@@ -279,10 +278,8 @@ void main() {
         await tester.pumpWidget(_createHistoryTestWidget(db));
         await tester.pumpAndSettle();
 
-        // Open add dish dialog via FAB
-        await tester.tap(
-          find.widgetWithText(FloatingActionButton, 'Записать блюдо'),
-        );
+        // Open add dish dialog via the button of the empty history view
+        await tester.tap(find.widgetWithText(OutlinedButton, 'Записать блюдо'));
         await tester.pumpAndSettle();
 
         expect(find.text('Записать приготовленное'), findsOneWidget);

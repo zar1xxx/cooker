@@ -42,6 +42,8 @@ class Cuisine {
     'de': 'Немецкая',
     'uk': 'Британская',
     'us': 'Американская',
+    'pl': 'Польская',
+    'lt': 'Литовская',
   };
 
   /// Returns localized Russian name for any cuisine code, falling back to upper-case code.

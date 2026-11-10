@@ -132,18 +132,26 @@ class IngredientNormalizer {
     }
 
     // Fuzzy match for typos: Levenshtein ≤ 2.
+    // Short words allow one typo, long words two; very short stems are not
+    // compared at all, otherwise «борщ» matched «порей».
     _Candidate? best;
     var bestDistance = 3;
     for (final candidate in _fuzzyCandidates) {
+      if (candidate.stemmed.length < 4) continue;
       for (final token in queryTokens) {
+        if (token.length < 4) continue;
+        final allowed = token.length >= 7 ? 2 : 1;
+        if ((token.length - candidate.stemmed.length).abs() > allowed) {
+          continue;
+        }
         final distance = _levenshtein(token, candidate.stemmed);
-        if (distance < bestDistance) {
+        if (distance <= allowed && distance < bestDistance) {
           bestDistance = distance;
           best = candidate;
         }
       }
     }
-    if (best != null && bestDistance <= 2) return best.id;
+    if (best != null) return best.id;
 
     return null;
   }

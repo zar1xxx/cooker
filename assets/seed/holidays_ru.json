@@ -1,0 +1,192 @@
+{
+  "version": 1,
+  "source": "docs/reports/R7_RESEARCH.md (ТК РФ ст. 112; Православный церковный календарь, patriarchia.ru)",
+  "note": "Даты Пасхи считаются в коде (Александрийская пасхалия, +13 дней). Смещения в днях от Пасхи P.",
+  "occasions": [
+    {
+      "code": "new_year",
+      "name": "Новый год",
+      "type": "holiday",
+      "hint": "Праздничный стол: оливье, холодец, запечённое мясо, мандарины",
+      "kind": "fixed",
+      "month": 1,
+      "day": 1
+    },
+    {
+      "code": "christmas",
+      "name": "Рождество Христово",
+      "type": "holiday",
+      "hint": "Сочельник постный, на Рождество — праздничный стол с мясом и пирогами",
+      "kind": "fixed",
+      "month": 1,
+      "day": 7
+    },
+    {
+      "code": "defender_day",
+      "name": "День защитника Отечества",
+      "type": "holiday",
+      "hint": "Сытные мясные блюда, пироги, закуски для застолья",
+      "kind": "fixed",
+      "month": 2,
+      "day": 23
+    },
+    {
+      "code": "womens_day",
+      "name": "Международный женский день",
+      "type": "holiday",
+      "hint": "Торты, десерты, лёгкие закуски и салаты",
+      "kind": "fixed",
+      "month": 3,
+      "day": 8
+    },
+    {
+      "code": "labour_day",
+      "name": "Праздник Весны и Труда",
+      "type": "holiday",
+      "hint": "Шашлык, блюда на природу, свежие салаты",
+      "kind": "fixed",
+      "month": 5,
+      "day": 1
+    },
+    {
+      "code": "victory_day",
+      "name": "День Победы",
+      "type": "holiday",
+      "hint": "Простые блюда на природе, походная каша, пироги",
+      "kind": "fixed",
+      "month": 5,
+      "day": 9
+    },
+    {
+      "code": "russia_day",
+      "name": "День России",
+      "type": "holiday",
+      "hint": "Блюда русской кухни, выпечка, блюда на природу",
+      "kind": "fixed",
+      "month": 6,
+      "day": 12
+    },
+    {
+      "code": "unity_day",
+      "name": "День народного единства",
+      "type": "holiday",
+      "hint": "Блюда русской кухни, пироги, домашняя выпечка",
+      "kind": "fixed",
+      "month": 11,
+      "day": 4
+    },
+    {
+      "code": "annunciation",
+      "name": "Благовещение",
+      "type": "feast",
+      "hint": "В пост в этот день разрешена рыба",
+      "kind": "fixed",
+      "month": 4,
+      "day": 7
+    },
+    {
+      "code": "apple_spas",
+      "name": "Яблочный Спас",
+      "type": "feast",
+      "hint": "В пост в этот день разрешена рыба; яблоки, яблочные пироги и варенье",
+      "kind": "fixed",
+      "month": 8,
+      "day": 19
+    },
+    {
+      "code": "meatfare_sunday",
+      "name": "Мясопустное воскресенье",
+      "type": "feast",
+      "hint": "Последний день с мясом перед Масленицей; мясо нельзя, блины можно",
+      "kind": "easter",
+      "start_offset": -56,
+      "end_offset": -56
+    },
+    {
+      "code": "maslenitsa",
+      "name": "Масленица (сырная седмица)",
+      "type": "holiday",
+      "hint": "Блины, сыр, творог, рыба; мяса нет",
+      "kind": "easter",
+      "start_offset": -55,
+      "end_offset": -49
+    },
+    {
+      "code": "great_lent",
+      "name": "Великий пост",
+      "type": "fast",
+      "hint": "Постное: без мяса, молока и яиц; рыба по большим праздникам",
+      "kind": "easter",
+      "start_offset": -48,
+      "end_offset": -1
+    },
+    {
+      "code": "palm_sunday",
+      "name": "Вербное воскресенье",
+      "type": "feast",
+      "hint": "В Великий пост в этот день разрешена рыба",
+      "kind": "easter",
+      "start_offset": -7,
+      "end_offset": -7
+    },
+    {
+      "code": "easter",
+      "name": "Пасха",
+      "type": "holiday",
+      "hint": "Куличи, пасха из творога, крашеные яйца, мясные блюда",
+      "kind": "easter",
+      "start_offset": 0,
+      "end_offset": 0
+    },
+    {
+      "code": "bright_week",
+      "name": "Светлая седмица",
+      "type": "feast",
+      "hint": "Пост закончился: куличи, творожная пасха, яйца, мясо",
+      "kind": "easter",
+      "start_offset": 1,
+      "end_offset": 6
+    },
+    {
+      "code": "trinity",
+      "name": "Троица",
+      "type": "holiday",
+      "hint": "Пироги, блюда на природе, зелень",
+      "kind": "easter",
+      "start_offset": 49,
+      "end_offset": 49
+    },
+    {
+      "code": "peter_fast",
+      "name": "Петров пост",
+      "type": "fast",
+      "hint": "Постное: без мяса и молока, по некоторым дням рыба",
+      "kind": "easter_to_fixed",
+      "start_offset": 57,
+      "end_month": 7,
+      "end_day": 11
+    },
+    {
+      "code": "dormition_fast",
+      "name": "Успенский пост",
+      "type": "fast",
+      "hint": "Постное: без мяса и молока, по некоторым дням рыба",
+      "kind": "fixed_range",
+      "start_month": 8,
+      "start_day": 14,
+      "end_month": 8,
+      "end_day": 27
+    },
+    {
+      "code": "nativity_fast",
+      "name": "Рождественский пост",
+      "type": "fast",
+      "hint": "Постное: без мяса и молока, по некоторым дням рыба",
+      "kind": "fixed_range",
+      "start_month": 11,
+      "start_day": 28,
+      "end_month": 1,
+      "end_day": 6
+    }
+  ]
+}

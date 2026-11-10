@@ -47,7 +47,7 @@ class AppDatabase extends _$AppDatabase {
   final bool seed;
 
   @override
-  int get schemaVersion => 2;
+  int get schemaVersion => 3;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -73,21 +73,28 @@ class AppDatabase extends _$AppDatabase {
                 WHEN 'dessert' THEN 'dessert'
                 WHEN 'drink' THEN 'beverage'
                 WHEN 'preserve' THEN 'preserves'
-                WHEN 'salad' THEN 'salad_snack'
-                WHEN 'snack' THEN 'salad_snack'
-                WHEN 'side' THEN 'porridge_side'
-                WHEN 'breakfast' THEN 'egg_dairy'
+                WHEN 'salad' THEN 'saladSnack'
+                WHEN 'snack' THEN 'saladSnack'
+                WHEN 'side' THEN 'porridgeSide'
+                WHEN 'breakfast' THEN 'eggDairy'
                 WHEN 'main' THEN 'meat'
                 ELSE 'vegetable'
               END
             ''');
+      }
+      if (from < 3) {
+        // The v2 backfill wrote snake_case ids ('salad_snack'), but drift's
+        // textEnum stores the Dart enum name ('saladSnack'). Repair them.
+        await repairDishGroupValues();
       }
     },
     beforeOpen: (details) async {
       await customStatement('PRAGMA foreign_keys = ON');
       // Self-healing seed: if the first launch failed halfway, the next launch
       // fills the empty table. Errors are reported, never swallowed.
-      if (seed && await _isIngredientsEmpty()) {
+      // After an upgrade the bundled catalog is reloaded too, so old installs
+      // receive new recipes (existing user data is kept by the loader).
+      if (seed && (await _isIngredientsEmpty() || details.hadUpgrade)) {
         try {
           await const SeedLoader().loadSeedData(this);
         } catch (error, stackTrace) {
@@ -97,6 +104,20 @@ class AppDatabase extends _$AppDatabase {
       }
     },
   );
+
+  /// Converts snake_case dish group ids written by the old v2 migration
+  /// into the enum names drift reads back.
+  Future<void> repairDishGroupValues() async {
+    await customStatement('''
+      UPDATE recipes SET dish_group = CASE dish_group
+        WHEN 'salad_snack' THEN 'saladSnack'
+        WHEN 'porridge_side' THEN 'porridgeSide'
+        WHEN 'egg_dairy' THEN 'eggDairy'
+        WHEN 'fish_seafood' THEN 'fishSeafood'
+        ELSE dish_group
+      END
+    ''');
+  }
 
   Future<bool> _isIngredientsEmpty() async {
     final row = await customSelect('SELECT COUNT(*) AS c FROM ingredients')

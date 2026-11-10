@@ -179,10 +179,16 @@ void main() {
 
         // Bottom sheet open with search
         expect(find.byType(TextField), findsOneWidget);
-        expect(find.text('Борщ с говядиной'), findsOneWidget);
+
+        // The catalog has ~2000 recipes and the list is lazy: search first.
+        await tester.enterText(find.byType(TextField), 'Борщ с говядиной');
+        await tester.pumpAndSettle();
+        // The first match is the text typed into the field, the last one is the list item.
+        final borschtItem = find.text('Борщ с говядиной').last;
+        expect(borschtItem, findsOneWidget);
 
         // Select borscht
-        await tester.tap(find.text('Борщ с говядиной'));
+        await tester.tap(borschtItem);
         await tester.pumpAndSettle();
 
         final entry = await planDao.getEntryForDate(dateStr);

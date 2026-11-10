@@ -1,0 +1,2649 @@
+{
+ "version": 1,
+ "note": "Сроки хранения приблизительные; ориентир для подсказок, не гарантия безопасности.",
+ "items": {
+  "potato": {
+   "storage": "pantry",
+   "shelf_days": 60,
+   "substitutes": [
+    "sweet_potato",
+    "turnip"
+   ],
+   "tip": "Хранить в тёмном прохладном месте и не рядом с луком.",
+   "approx": true
+  },
+  "onion": {
+   "storage": "pantry",
+   "shelf_days": 60,
+   "substitutes": [
+    "red_onion",
+    "leek"
+   ],
+   "tip": "Хранить сухим и в проветриваемом месте, отдельно от картофеля.",
+   "approx": true
+  },
+  "red_onion": {
+   "storage": "pantry",
+   "shelf_days": 45,
+   "substitutes": [
+    "onion",
+    "green_onion"
+   ],
+   "tip": "Хорош сырым в салатах: мягче по вкусу, чем репчатый.",
+   "approx": true
+  },
+  "carrot": {
+   "storage": "fridge",
+   "shelf_days": 30,
+   "substitutes": [
+    "parsnip",
+    "sweet_potato"
+   ],
+   "tip": "Срежьте ботву, иначе корнеплод быстро вянет.",
+   "approx": true
+  },
+  "beet": {
+   "storage": "fridge",
+   "shelf_days": 30,
+   "substitutes": [
+    "carrot"
+   ],
+   "tip": "Варите в кожуре, чтобы сохранить цвет и вкус.",
+   "approx": true
+  },
+  "cabbage": {
+   "storage": "fridge",
+   "shelf_days": 60,
+   "substitutes": [
+    "red_cabbage",
+    "cauliflower"
+   ],
+   "tip": "Верхние листья снимите перед использованием, они защищают кочан.",
+   "approx": true
+  },
+  "red_cabbage": {
+   "storage": "fridge",
+   "shelf_days": 45,
+   "substitutes": [
+    "cabbage"
+   ],
+   "tip": "Капля уксуса или лимонного сока сохранит яркий цвет.",
+   "approx": true
+  },
+  "cauliflower": {
+   "storage": "fridge",
+   "shelf_days": 10,
+   "substitutes": [
+    "broccoli",
+    "cabbage"
+   ],
+   "tip": "Разберите на соцветия и промойте в подсоленной воде.",
+   "approx": true
+  },
+  "broccoli": {
+   "storage": "fridge",
+   "shelf_days": 7,
+   "substitutes": [
+    "cauliflower",
+    "green_beans"
+   ],
+   "tip": "Не переваривайте: хватит 3–5 минут, чтобы остался хруст.",
+   "approx": true
+  },
+  "kohlrabi": {
+   "storage": "fridge",
+   "shelf_days": 21,
+   "substitutes": [
+    "cabbage",
+    "turnip"
+   ],
+   "tip": "Перед использованием очистите толстую кожицу.",
+   "approx": true
+  },
+  "brussels_sprouts": {
+   "storage": "fridge",
+   "shelf_days": 10,
+   "substitutes": [
+    "broccoli",
+    "cabbage"
+   ],
+   "tip": "Надрежьте основание кочешка крест-накрест, чтобы проварился равномерно.",
+   "approx": true
+  },
+  "zucchini": {
+   "storage": "fridge",
+   "shelf_days": 10,
+   "substitutes": [
+    "pattypan",
+    "eggplant"
+   ],
+   "tip": "У молодых кабачков тонкая кожура и мелкие семена, чистить не нужно.",
+   "approx": true
+  },
+  "squash": {
+   "storage": "pantry",
+   "shelf_days": 90,
+   "substitutes": [
+    "sweet_potato",
+    "carrot"
+   ],
+   "tip": "Целая тыква хранится месяцами в прохладе, нарезанную держите в холодильнике.",
+   "approx": true
+  },
+  "pattypan": {
+   "storage": "fridge",
+   "shelf_days": 10,
+   "substitutes": [
+    "zucchini"
+   ],
+   "tip": "Маленькие патиссоны удобно запекать целиком.",
+   "approx": true
+  },
+  "cucumber": {
+   "storage": "fridge",
+   "shelf_days": 7,
+   "substitutes": [
+    "zucchini",
+    "radish"
+   ],
+   "tip": "Не хранить рядом с помидорами: они быстрее портятся.",
+   "approx": true
+  },
+  "tomato": {
+   "storage": "pantry",
+   "shelf_days": 7,
+   "substitutes": [
+    "cherry_tomato",
+    "tomatoes_canned"
+   ],
+   "tip": "Недозрелые держите при комнатной температуре, не в холодильнике.",
+   "approx": true
+  },
+  "cherry_tomato": {
+   "storage": "fridge",
+   "shelf_days": 7,
+   "substitutes": [
+    "tomato"
+   ],
+   "tip": "Подходят для запекания и салатов, режутся пополам.",
+   "approx": true
+  },
+  "bell_pepper": {
+   "storage": "fridge",
+   "shelf_days": 10,
+   "substitutes": [
+    "tomato",
+    "chili_pepper"
+   ],
+   "tip": "Для очистки кожицы запеките, потом накройте плёнкой на 10 минут.",
+   "approx": true
+  },
+  "chili_pepper": {
+   "storage": "fridge",
+   "shelf_days": 14,
+   "substitutes": [
+    "red_pepper",
+    "paprika"
+   ],
+   "tip": "Острота в семенах и перегородках; уберите их, чтобы смягчить.",
+   "approx": true
+  },
+  "eggplant": {
+   "storage": "fridge",
+   "shelf_days": 7,
+   "substitutes": [
+    "zucchini",
+    "mushrooms"
+   ],
+   "tip": "Посолите нарезку на 15 минут, чтобы ушла горечь.",
+   "approx": true
+  },
+  "radish": {
+   "storage": "fridge",
+   "shelf_days": 10,
+   "substitutes": [
+    "daikon",
+    "cucumber"
+   ],
+   "tip": "Срежьте ботву, редис дольше останется хрустящим.",
+   "approx": true
+  },
+  "daikon": {
+   "storage": "fridge",
+   "shelf_days": 14,
+   "substitutes": [
+    "radish",
+    "turnip"
+   ],
+   "tip": "Мягче редьки по вкусу, хорош в салатах.",
+   "approx": true
+  },
+  "turnip": {
+   "storage": "fridge",
+   "shelf_days": 30,
+   "substitutes": [
+    "potato",
+    "kohlrabi"
+   ],
+   "tip": "Мелкую репу можно не чистить, достаточно вымыть.",
+   "approx": true
+  },
+  "celery": {
+   "storage": "fridge",
+   "shelf_days": 14,
+   "substitutes": [
+    "celery_root",
+    "parsley_root"
+   ],
+   "tip": "Завернув в фольгу, стебли дольше остаются хрустящими.",
+   "approx": true
+  },
+  "celery_root": {
+   "storage": "fridge",
+   "shelf_days": 60,
+   "substitutes": [
+    "celery",
+    "parsley_root"
+   ],
+   "tip": "Нарезанный корень темнеет, сбрызните лимонным соком.",
+   "approx": true
+  },
+  "parsley_root": {
+   "storage": "fridge",
+   "shelf_days": 30,
+   "substitutes": [
+    "celery_root",
+    "parsnip"
+   ],
+   "tip": "Придаёт бульону аромат; кладите целиком и вынимайте.",
+   "approx": true
+  },
+  "leek": {
+   "storage": "fridge",
+   "shelf_days": 14,
+   "substitutes": [
+    "onion",
+    "green_onion"
+   ],
+   "tip": "Тщательно промойте: между слоями застревает песок.",
+   "approx": true
+  },
+  "garlic": {
+   "storage": "pantry",
+   "shelf_days": 90,
+   "substitutes": [
+    "ginger"
+   ],
+   "tip": "Хранить сухим, не в холодильнике; проросший чеснок горчит.",
+   "approx": true
+  },
+  "spinach": {
+   "storage": "fridge",
+   "shelf_days": 5,
+   "substitutes": [
+    "arugula",
+    "sorrel"
+   ],
+   "tip": "Промойте и обсушите, при готовке объём уменьшается в разы.",
+   "approx": true
+  },
+  "lettuce": {
+   "storage": "fridge",
+   "shelf_days": 5,
+   "substitutes": [
+    "arugula",
+    "spinach"
+   ],
+   "tip": "Рвите руками, а не режьте, чтобы листья не темнели.",
+   "approx": true
+  },
+  "arugula": {
+   "storage": "fridge",
+   "shelf_days": 4,
+   "substitutes": [
+    "spinach",
+    "lettuce"
+   ],
+   "tip": "Добавляйте в самом конце, от жара теряет вкус.",
+   "approx": true
+  },
+  "sorrel": {
+   "storage": "fridge",
+   "shelf_days": 5,
+   "substitutes": [
+    "spinach"
+   ],
+   "tip": "Даёт кислинку супам; быстро разваривается, кладите в конце.",
+   "approx": true
+  },
+  "green_peas": {
+   "storage": "freezer",
+   "shelf_days": 365,
+   "substitutes": [
+    "peas_canned",
+    "green_beans"
+   ],
+   "tip": "Замороженный горошек не размораживайте, сразу кладите в блюдо."
+  },
+  "green_beans": {
+   "storage": "freezer",
+   "shelf_days": 365,
+   "substitutes": [
+    "green_peas",
+    "broccoli"
+   ],
+   "tip": "Обрежьте кончики и варите 5–7 минут."
+  },
+  "corn": {
+   "storage": "fridge",
+   "shelf_days": 5,
+   "substitutes": [
+    "corn_canned"
+   ],
+   "tip": "Варите в початках 15–20 минут, соль добавляйте в конце.",
+   "approx": true
+  },
+  "asparagus": {
+   "storage": "fridge",
+   "shelf_days": 5,
+   "substitutes": [
+    "green_beans",
+    "broccoli"
+   ],
+   "tip": "Обломите жёсткое основание, оно само ломается в нужном месте.",
+   "approx": true
+  },
+  "sweet_potato": {
+   "storage": "pantry",
+   "shelf_days": 30,
+   "substitutes": [
+    "squash",
+    "potato"
+   ],
+   "tip": "Не храните в холодильнике: корнеплод портится от холода.",
+   "approx": true
+  },
+  "avocado": {
+   "storage": "pantry",
+   "shelf_days": 5,
+   "substitutes": [
+    "cream_cheese"
+   ],
+   "tip": "Дозревает при комнатной температуре; спелый можно убрать в холодильник.",
+   "approx": true
+  },
+  "olives": {
+   "storage": "pantry",
+   "shelf_days": 365,
+   "substitutes": [
+    "capers",
+    "pickles"
+   ],
+   "tip": "После вскрытия банки держите в рассоле в холодильнике."
+  },
+  "capers": {
+   "storage": "fridge",
+   "shelf_days": 180,
+   "substitutes": [
+    "olives",
+    "pickles"
+   ],
+   "tip": "Перед использованием ополосните от рассола.",
+   "approx": true
+  },
+  "sauerkraut": {
+   "storage": "fridge",
+   "shelf_days": 60,
+   "substitutes": [
+    "pickles"
+   ],
+   "tip": "Храните под рассолом, не допуская плесени сверху.",
+   "approx": true
+  },
+  "pickles": {
+   "storage": "fridge",
+   "shelf_days": 30,
+   "substitutes": [
+    "sauerkraut"
+   ],
+   "tip": "Соль в рассоле значительна: не досаливайте блюдо.",
+   "approx": true
+  },
+  "seaweed": {
+   "storage": "fridge",
+   "shelf_days": 14,
+   "substitutes": [
+    "pickles"
+   ],
+   "tip": "Консервированную держите в холодильнике после вскрытия.",
+   "approx": true
+  },
+  "artichoke": {
+   "storage": "fridge",
+   "shelf_days": 5,
+   "substitutes": [
+    "asparagus"
+   ],
+   "tip": "Съедобны основания листьев и сердцевина.",
+   "approx": true
+  },
+  "parsnip": {
+   "storage": "fridge",
+   "shelf_days": 30,
+   "substitutes": [
+    "carrot",
+    "celery_root"
+   ],
+   "tip": "Сладковатый вкус, хорош в супах и пюре.",
+   "approx": true
+  },
+  "rhubarb": {
+   "storage": "fridge",
+   "shelf_days": 7,
+   "substitutes": [
+    "apple"
+   ],
+   "tip": "Используйте только стебли; листья ядовиты.",
+   "approx": true
+  },
+  "horseradish_root": {
+   "storage": "fridge",
+   "shelf_days": 30,
+   "substitutes": [
+    "horseradish",
+    "mustard"
+   ],
+   "tip": "Трите на хорошо проветриваемой кухне: сильно щиплет глаза.",
+   "approx": true
+  },
+  "Jerusalem_artichoke": {
+   "storage": "fridge",
+   "shelf_days": 14,
+   "substitutes": [
+    "potato",
+    "celery_root"
+   ],
+   "tip": "Тонкую кожицу достаточно хорошо вымыть щёткой.",
+   "approx": true
+  },
+  "apple": {
+   "storage": "fridge",
+   "shelf_days": 30,
+   "substitutes": [
+    "pear"
+   ],
+   "tip": "Яблоки лучше хранить отдельно: они ускоряют созревание других плодов.",
+   "approx": true
+  },
+  "pear": {
+   "storage": "fridge",
+   "shelf_days": 14,
+   "substitutes": [
+    "apple"
+   ],
+   "tip": "Дозревают при комнатной температуре, затем в холод.",
+   "approx": true
+  },
+  "banana": {
+   "storage": "pantry",
+   "shelf_days": 5,
+   "substitutes": [
+    "apple"
+   ],
+   "tip": "В холодильнике кожица темнеет, но мякоть остаётся годной.",
+   "approx": true
+  },
+  "orange": {
+   "storage": "fridge",
+   "shelf_days": 21,
+   "substitutes": [
+    "mandarin",
+    "grapefruit"
+   ],
+   "tip": "Цедру снимайте до очистки, пока плод целый.",
+   "approx": true
+  },
+  "mandarin": {
+   "storage": "fridge",
+   "shelf_days": 21,
+   "substitutes": [
+    "orange"
+   ],
+   "tip": "Выбирайте тяжёлые для размера: они сочнее.",
+   "approx": true
+  },
+  "lemon": {
+   "storage": "fridge",
+   "shelf_days": 30,
+   "substitutes": [
+    "lime",
+    "apple_vinegar"
+   ],
+   "tip": "Перед выжиманием прокатите по столу, выйдет больше сока.",
+   "approx": true
+  },
+  "lime": {
+   "storage": "fridge",
+   "shelf_days": 21,
+   "substitutes": [
+    "lemon"
+   ],
+   "tip": "Сок добавляйте в конце, он горчит от нагрева.",
+   "approx": true
+  },
+  "grapefruit": {
+   "storage": "fridge",
+   "shelf_days": 21,
+   "substitutes": [
+    "orange"
+   ],
+   "tip": "Удалите белые плёнки, они горькие.",
+   "approx": true
+  },
+  "peach": {
+   "storage": "fridge",
+   "shelf_days": 5,
+   "substitutes": [
+    "apricot",
+    "plum"
+   ],
+   "tip": "Спелый персик мягко поддаётся при нажатии у черешка.",
+   "approx": true
+  },
+  "apricot": {
+   "storage": "fridge",
+   "shelf_days": 5,
+   "substitutes": [
+    "peach",
+    "plum"
+   ],
+   "tip": "Хорошо подходит для компотов и пирогов.",
+   "approx": true
+  },
+  "plum": {
+   "storage": "fridge",
+   "shelf_days": 7,
+   "substitutes": [
+    "apricot",
+    "prunes"
+   ],
+   "tip": "Налёт на кожице естественный, его не нужно смывать заранее.",
+   "approx": true
+  },
+  "cherry": {
+   "storage": "freezer",
+   "shelf_days": 365,
+   "substitutes": [
+    "sweet_cherry",
+    "cranberry"
+   ],
+   "tip": "Косточки удаляйте перед замораживанием."
+  },
+  "sweet_cherry": {
+   "storage": "fridge",
+   "shelf_days": 5,
+   "substitutes": [
+    "cherry",
+    "grape"
+   ],
+   "tip": "Мойте непосредственно перед едой.",
+   "approx": true
+  },
+  "grape": {
+   "storage": "fridge",
+   "shelf_days": 10,
+   "substitutes": [
+    "sweet_cherry"
+   ],
+   "tip": "Не мойте до хранения: влага ускоряет порчу.",
+   "approx": true
+  },
+  "strawberry": {
+   "storage": "fridge",
+   "shelf_days": 3,
+   "substitutes": [
+    "raspberry",
+    "blueberry"
+   ],
+   "tip": "Мойте перед употреблением, без плодоножки.",
+   "approx": true
+  },
+  "raspberry": {
+   "storage": "fridge",
+   "shelf_days": 3,
+   "substitutes": [
+    "blackberry",
+    "strawberry"
+   ],
+   "tip": "Очень нежная; для заморозки разложите ягоды россыпью.",
+   "approx": true
+  },
+  "blackberry": {
+   "storage": "fridge",
+   "shelf_days": 4,
+   "substitutes": [
+    "raspberry",
+    "blueberry"
+   ],
+   "tip": "Подходит для начинки пирогов.",
+   "approx": true
+  },
+  "blueberry": {
+   "storage": "fridge",
+   "shelf_days": 10,
+   "substitutes": [
+    "blackberry",
+    "currant_black"
+   ],
+   "tip": "Хорошо замораживается без потери формы.",
+   "approx": true
+  },
+  "cranberry": {
+   "storage": "freezer",
+   "shelf_days": 365,
+   "substitutes": [
+    "cherry",
+    "currant_red"
+   ],
+   "tip": "Кислая ягода, хороша для морсов и соусов."
+  },
+  "currant_black": {
+   "storage": "freezer",
+   "shelf_days": 365,
+   "substitutes": [
+    "blueberry",
+    "blackberry"
+   ],
+   "tip": "Богата витамином C, лучше замораживать свежей."
+  },
+  "currant_red": {
+   "storage": "freezer",
+   "shelf_days": 365,
+   "substitutes": [
+    "cranberry",
+    "gooseberry"
+   ],
+   "tip": "Мелкие веточки можно не обрывать, пока ягода в сетке."
+  },
+  "gooseberry": {
+   "storage": "freezer",
+   "shelf_days": 365,
+   "substitutes": [
+    "currant_red",
+    "plum"
+   ],
+   "tip": "Обрежьте «хвостики» ножницами перед варкой."
+  },
+  "watermelon": {
+   "storage": "pantry",
+   "shelf_days": 14,
+   "substitutes": [
+    "melon"
+   ],
+   "tip": "Нарезанный арбуз закрывайте плёнкой и держите в холодильнике 2–3 дня.",
+   "approx": true
+  },
+  "melon": {
+   "storage": "pantry",
+   "shelf_days": 10,
+   "substitutes": [
+    "watermelon",
+    "pear"
+   ],
+   "tip": "Спелая дыня пахнет у плодоножки.",
+   "approx": true
+  },
+  "kiwi": {
+   "storage": "fridge",
+   "shelf_days": 14,
+   "substitutes": [
+    "pineapple",
+    "strawberry"
+   ],
+   "tip": "Содержит фермент, который сворачивает молоко и желатин.",
+   "approx": true
+  },
+  "pineapple": {
+   "storage": "fridge",
+   "shelf_days": 5,
+   "substitutes": [
+    "orange",
+    "kiwi"
+   ],
+   "tip": "Свежий ананас не годится для желе из-за фермента.",
+   "approx": true
+  },
+  "pomegranate": {
+   "storage": "fridge",
+   "shelf_days": 30,
+   "substitutes": [
+    "cranberry",
+    "cherry"
+   ],
+   "tip": "Разрезайте и разбирайте зёрна в миске с водой.",
+   "approx": true
+  },
+  "persimmon": {
+   "storage": "fridge",
+   "shelf_days": 7,
+   "substitutes": [
+    "apricot",
+    "banana"
+   ],
+   "tip": "Вяжущий вкус уходит у вполне мягких плодов.",
+   "approx": true
+  },
+  "fig": {
+   "storage": "fridge",
+   "shelf_days": 3,
+   "substitutes": [
+    "dates",
+    "dried_apricots"
+   ],
+   "tip": "Очень нежный, хранить не дольше нескольких дней.",
+   "approx": true
+  },
+  "dates": {
+   "storage": "pantry",
+   "shelf_days": 180,
+   "substitutes": [
+    "prunes",
+    "raisins"
+   ],
+   "tip": "Косточки удалите перед добавлением в блюдо.",
+   "approx": true
+  },
+  "prunes": {
+   "storage": "pantry",
+   "shelf_days": 180,
+   "substitutes": [
+    "dried_apricots",
+    "dates"
+   ],
+   "tip": "Если жёсткий, залейте горячей водой на 10 минут.",
+   "approx": true
+  },
+  "raisins": {
+   "storage": "pantry",
+   "shelf_days": 180,
+   "substitutes": [
+    "dried_fruits",
+    "dates"
+   ],
+   "tip": "Перед выпечкой запарьте в тёплой воде.",
+   "approx": true
+  },
+  "dried_apricots": {
+   "storage": "pantry",
+   "shelf_days": 180,
+   "substitutes": [
+    "prunes",
+    "raisins"
+   ],
+   "tip": "Промойте и замочите на 15 минут.",
+   "approx": true
+  },
+  "dried_fruits": {
+   "storage": "pantry",
+   "shelf_days": 180,
+   "substitutes": [
+    "raisins",
+    "prunes"
+   ],
+   "tip": "Храните в плотно закрытой банке.",
+   "approx": true
+  },
+  "coconut": {
+   "storage": "pantry",
+   "shelf_days": 60,
+   "substitutes": [
+    "coconut_flakes"
+   ],
+   "tip": "Спелый кокос шумит жидкостью, если его встряхнуть.",
+   "approx": true
+  },
+  "meat": {
+   "storage": "fridge",
+   "shelf_days": 3,
+   "substitutes": [
+    "beef",
+    "pork"
+   ],
+   "tip": "Сырое мясо держите на нижней полке холодильника.",
+   "approx": true
+  },
+  "beef": {
+   "storage": "fridge",
+   "shelf_days": 3,
+   "substitutes": [
+    "veal",
+    "pork"
+   ],
+   "tip": "Для долгого хранения заморозьте порционно.",
+   "approx": true
+  },
+  "beef_stew": {
+   "storage": "pantry",
+   "shelf_days": 730,
+   "substitutes": [
+    "beef"
+   ],
+   "tip": "Консервы после вскрытия переложите в холодильник и съешьте за 2 дня."
+  },
+  "veal": {
+   "storage": "fridge",
+   "shelf_days": 3,
+   "substitutes": [
+    "beef",
+    "chicken"
+   ],
+   "tip": "Готовится быстро, не передерживайте на огне.",
+   "approx": true
+  },
+  "pork": {
+   "storage": "fridge",
+   "shelf_days": 3,
+   "substitutes": [
+    "beef",
+    "chicken"
+   ],
+   "tip": "Готовьте до полной готовности, внутри не должно быть розового сока.",
+   "approx": true
+  },
+  "pork_ribs": {
+   "storage": "fridge",
+   "shelf_days": 3,
+   "substitutes": [
+    "pork"
+   ],
+   "tip": "Тушите медленно, чтобы мясо отходило от косточки.",
+   "approx": true
+  },
+  "bacon": {
+   "storage": "fridge",
+   "shelf_days": 7,
+   "substitutes": [
+    "ham",
+    "sausage"
+   ],
+   "tip": "Вскрытую упаковку закройте и съешьте за несколько дней.",
+   "approx": true
+  },
+  "ham": {
+   "storage": "fridge",
+   "shelf_days": 7,
+   "substitutes": [
+    "sausage",
+    "chicken_fillet"
+   ],
+   "tip": "Нарезанная ветчина быстро сохнет, храните закрытой.",
+   "approx": true
+  },
+  "sausage": {
+   "storage": "fridge",
+   "shelf_days": 10,
+   "substitutes": [
+    "ham",
+    "frankfurters"
+   ],
+   "tip": "Вскрытую колбасу заворачивайте в пергамент.",
+   "approx": true
+  },
+  "frankfurters": {
+   "storage": "fridge",
+   "shelf_days": 5,
+   "substitutes": [
+    "sausage"
+   ],
+   "tip": "Достаточно прогреть в горячей воде 5 минут.",
+   "approx": true
+  },
+  "minced_meat": {
+   "storage": "fridge",
+   "shelf_days": 2,
+   "substitutes": [
+    "minced_beef",
+    "minced_pork"
+   ],
+   "tip": "Готовьте в день покупки или заморозьте.",
+   "approx": true
+  },
+  "minced_pork": {
+   "storage": "fridge",
+   "shelf_days": 2,
+   "substitutes": [
+    "minced_meat",
+    "minced_chicken"
+   ],
+   "tip": "Жирнее говяжьего, котлеты получаются сочнее.",
+   "approx": true
+  },
+  "minced_beef": {
+   "storage": "fridge",
+   "shelf_days": 2,
+   "substitutes": [
+    "minced_pork",
+    "minced_chicken"
+   ],
+   "tip": "Не пересушивайте, добавьте лук или хлеб.",
+   "approx": true
+  },
+  "minced_chicken": {
+   "storage": "fridge",
+   "shelf_days": 2,
+   "substitutes": [
+    "minced_meat",
+    "turkey_fillet"
+   ],
+   "tip": "Нежирный, добавьте в фарш немного лука для сочности.",
+   "approx": true
+  },
+  "liver": {
+   "storage": "fridge",
+   "shelf_days": 2,
+   "substitutes": [
+    "liver_chicken",
+    "heart"
+   ],
+   "tip": "Перед готовкой замочите в молоке на 30 минут.",
+   "approx": true
+  },
+  "liver_chicken": {
+   "storage": "fridge",
+   "shelf_days": 2,
+   "substitutes": [
+    "liver"
+   ],
+   "tip": "Жарьте недолго, иначе станет жёсткой.",
+   "approx": true
+  },
+  "heart": {
+   "storage": "fridge",
+   "shelf_days": 2,
+   "substitutes": [
+    "liver",
+    "tongue"
+   ],
+   "tip": "Требует долгого тушения до мягкости.",
+   "approx": true
+  },
+  "tongue": {
+   "storage": "fridge",
+   "shelf_days": 3,
+   "substitutes": [
+    "heart",
+    "beef"
+   ],
+   "tip": "Варите 2–3 часа, затем сразу очищайте от кожицы.",
+   "approx": true
+  },
+  "lamb": {
+   "storage": "fridge",
+   "shelf_days": 3,
+   "substitutes": [
+    "beef",
+    "pork"
+   ],
+   "tip": "Тушите долго; жир придаёт характерный запах.",
+   "approx": true
+  },
+  "rabbit": {
+   "storage": "fridge",
+   "shelf_days": 2,
+   "substitutes": [
+    "chicken",
+    "turkey"
+   ],
+   "tip": "Предварительно замочите в воде или молоке на пару часов.",
+   "approx": true
+  },
+  "lard": {
+   "storage": "fridge",
+   "shelf_days": 90,
+   "substitutes": [
+    "sunflower_oil",
+    "butter"
+   ],
+   "tip": "Солёное сало хранят в холодильнике или морозилке.",
+   "approx": true
+  },
+  "chicken": {
+   "storage": "fridge",
+   "shelf_days": 2,
+   "substitutes": [
+    "turkey",
+    "chicken_thigh"
+   ],
+   "tip": "Готовьте до тех пор, пока сок не станет прозрачным.",
+   "approx": true
+  },
+  "chicken_fillet": {
+   "storage": "fridge",
+   "shelf_days": 2,
+   "substitutes": [
+    "turkey_fillet"
+   ],
+   "tip": "Не пересушивайте: слегка отбейте, чтобы готовилось равномерно.",
+   "approx": true
+  },
+  "chicken_thigh": {
+   "storage": "fridge",
+   "shelf_days": 2,
+   "substitutes": [
+    "chicken_fillet",
+    "chicken_wings"
+   ],
+   "tip": "Сочнее грудки и лучше подходит для тушения.",
+   "approx": true
+  },
+  "chicken_wings": {
+   "storage": "fridge",
+   "shelf_days": 2,
+   "substitutes": [
+    "chicken_thigh"
+   ],
+   "tip": "Хорошо запекаются с маринадом.",
+   "approx": true
+  },
+  "turkey": {
+   "storage": "fridge",
+   "shelf_days": 2,
+   "substitutes": [
+    "chicken"
+   ],
+   "tip": "Нежирная, требует аккуратного нагрева.",
+   "approx": true
+  },
+  "turkey_fillet": {
+   "storage": "fridge",
+   "shelf_days": 2,
+   "substitutes": [
+    "chicken_fillet"
+   ],
+   "tip": "Нарезайте поперёк волокон.",
+   "approx": true
+  },
+  "duck": {
+   "storage": "fridge",
+   "shelf_days": 2,
+   "substitutes": [
+    "goose",
+    "chicken"
+   ],
+   "tip": "Перед запеканием проколите кожу, чтобы вышел жир.",
+   "approx": true
+  },
+  "goose": {
+   "storage": "fridge",
+   "shelf_days": 2,
+   "substitutes": [
+    "duck"
+   ],
+   "tip": "Запекают долго, периодически поливая жиром.",
+   "approx": true
+  },
+  "fish": {
+   "storage": "fridge",
+   "shelf_days": 2,
+   "substitutes": [
+    "cod",
+    "pollock"
+   ],
+   "tip": "Свежая рыба пахнет водой, а не рыбой.",
+   "approx": true
+  },
+  "seafood": {
+   "storage": "freezer",
+   "shelf_days": 180,
+   "substitutes": [
+    "shrimp",
+    "squid"
+   ],
+   "tip": "Размораживайте медленно в холодильнике.",
+   "approx": true
+  },
+  "pollock": {
+   "storage": "fridge",
+   "shelf_days": 2,
+   "substitutes": [
+    "cod",
+    "hake"
+   ],
+   "tip": "Хорош для запекания и котлет.",
+   "approx": true
+  },
+  "cod": {
+   "storage": "fridge",
+   "shelf_days": 2,
+   "substitutes": [
+    "pollock",
+    "hake"
+   ],
+   "tip": "Мясо плотное, не разваливается при готовке.",
+   "approx": true
+  },
+  "hake": {
+   "storage": "fridge",
+   "shelf_days": 2,
+   "substitutes": [
+    "cod",
+    "pollock"
+   ],
+   "tip": "Нежная мякоть, готовится быстро.",
+   "approx": true
+  },
+  "salmon": {
+   "storage": "fridge",
+   "shelf_days": 2,
+   "substitutes": [
+    "trout"
+   ],
+   "tip": "Не передерживайте на огне, чтобы не стал сухим.",
+   "approx": true
+  },
+  "trout": {
+   "storage": "fridge",
+   "shelf_days": 2,
+   "substitutes": [
+    "salmon"
+   ],
+   "tip": "Подходит для запекания и лёгкой засолки.",
+   "approx": true
+  },
+  "herring": {
+   "storage": "fridge",
+   "shelf_days": 10,
+   "substitutes": [
+    "mackerel"
+   ],
+   "tip": "Солёную держите в рассоле в холодильнике.",
+   "approx": true
+  },
+  "mackerel": {
+   "storage": "fridge",
+   "shelf_days": 2,
+   "substitutes": [
+    "herring",
+    "salmon"
+   ],
+   "tip": "Жирная рыба, отлично запекается.",
+   "approx": true
+  },
+  "pike": {
+   "storage": "fridge",
+   "shelf_days": 2,
+   "substitutes": [
+    "perch",
+    "cod"
+   ],
+   "tip": "Хороша в форшмаке и котлетах.",
+   "approx": true
+  },
+  "perch": {
+   "storage": "fridge",
+   "shelf_days": 2,
+   "substitutes": [
+    "pike",
+    "cod"
+   ],
+   "tip": "Мелкие кости, перед готовкой очистите от чешуи.",
+   "approx": true
+  },
+  "carp": {
+   "storage": "fridge",
+   "shelf_days": 2,
+   "substitutes": [
+    "catfish",
+    "pike"
+   ],
+   "tip": "Перед готовкой удалите тину замачиванием в солёной воде.",
+   "approx": true
+  },
+  "catfish": {
+   "storage": "fridge",
+   "shelf_days": 2,
+   "substitutes": [
+    "carp",
+    "cod"
+   ],
+   "tip": "Мясо жирное, подходит для запекания.",
+   "approx": true
+  },
+  "shrimp": {
+   "storage": "freezer",
+   "shelf_days": 180,
+   "substitutes": [
+    "squid",
+    "mussels"
+   ],
+   "tip": "Варите 2–3 минуты, дольше станут резиновыми.",
+   "approx": true
+  },
+  "squid": {
+   "storage": "freezer",
+   "shelf_days": 180,
+   "substitutes": [
+    "shrimp"
+   ],
+   "tip": "Варите 2–3 минуты или тушите 30 минут, иначе будет жёстким.",
+   "approx": true
+  },
+  "mussels": {
+   "storage": "freezer",
+   "shelf_days": 180,
+   "substitutes": [
+    "shrimp",
+    "squid"
+   ],
+   "tip": "Закрытые после варки раковины выбрасывайте.",
+   "approx": true
+  },
+  "crab_sticks": {
+   "storage": "fridge",
+   "shelf_days": 14,
+   "substitutes": [
+    "shrimp"
+   ],
+   "tip": "Размороженные используйте в течение суток.",
+   "approx": true
+  },
+  "egg": {
+   "storage": "fridge",
+   "shelf_days": 28,
+   "substitutes": [],
+   "tip": "Свежесть проверьте в воде: свежее яйцо тонет.",
+   "approx": true
+  },
+  "milk": {
+   "storage": "fridge",
+   "shelf_days": 5,
+   "substitutes": [
+    "powdered_milk",
+    "kefir"
+   ],
+   "tip": "После вскрытия съесть за 3–5 дней.",
+   "approx": true
+  },
+  "kefir": {
+   "storage": "fridge",
+   "shelf_days": 7,
+   "substitutes": [
+    "yogurt",
+    "buttermilk"
+   ],
+   "tip": "Подходит для блинов и теста вместо молока.",
+   "approx": true
+  },
+  "yogurt": {
+   "storage": "fridge",
+   "shelf_days": 10,
+   "substitutes": [
+    "kefir",
+    "sour_cream"
+   ],
+   "tip": "Без добавок и сахара его можно использовать в соусах.",
+   "approx": true
+  },
+  "sour_cream": {
+   "storage": "fridge",
+   "shelf_days": 10,
+   "substitutes": [
+    "yogurt",
+    "cream"
+   ],
+   "tip": "Добавляйте в конце, чтобы не свернулась.",
+   "approx": true
+  },
+  "cream": {
+   "storage": "fridge",
+   "shelf_days": 7,
+   "substitutes": [
+    "milk",
+    "sour_cream"
+   ],
+   "tip": "Нагревайте осторожно, не доводя до кипения.",
+   "approx": true
+  },
+  "butter": {
+   "storage": "fridge",
+   "shelf_days": 60,
+   "substitutes": [
+    "sunflower_oil"
+   ],
+   "tip": "Держите в холодильнике, лишнее можно заморозить.",
+   "approx": true
+  },
+  "cheese": {
+   "storage": "fridge",
+   "shelf_days": 14,
+   "substitutes": [
+    "hard_cheese",
+    "processed_cheese"
+   ],
+   "tip": "Заворачивайте в пергамент, не в плёнку.",
+   "approx": true
+  },
+  "hard_cheese": {
+   "storage": "fridge",
+   "shelf_days": 30,
+   "substitutes": [
+    "cheese",
+    "parmesan"
+   ],
+   "tip": "Если зачерствел, натрите и используйте в запеканке.",
+   "approx": true
+  },
+  "processed_cheese": {
+   "storage": "fridge",
+   "shelf_days": 30,
+   "substitutes": [
+    "cheese",
+    "cream_cheese"
+   ],
+   "tip": "Для натирания слегка охладите в морозилке.",
+   "approx": true
+  },
+  "cottage_cheese": {
+   "storage": "fridge",
+   "shelf_days": 5,
+   "substitutes": [
+    "cream_cheese",
+    "yogurt"
+   ],
+   "tip": "Для сырников отожмите лишнюю сыворотку.",
+   "approx": true
+  },
+  "feta": {
+   "storage": "fridge",
+   "shelf_days": 14,
+   "substitutes": [
+    "mozzarella",
+    "cheese"
+   ],
+   "tip": "Держите в рассоле.",
+   "approx": true
+  },
+  "mozzarella": {
+   "storage": "fridge",
+   "shelf_days": 7,
+   "substitutes": [
+    "feta",
+    "cheese"
+   ],
+   "tip": "Рассол не выливайте до использования.",
+   "approx": true
+  },
+  "parmesan": {
+   "storage": "fridge",
+   "shelf_days": 60,
+   "substitutes": [
+    "hard_cheese"
+   ],
+   "tip": "Корку не выбрасывайте: она хороша в супах.",
+   "approx": true
+  },
+  "cream_cheese": {
+   "storage": "fridge",
+   "shelf_days": 14,
+   "substitutes": [
+    "cottage_cheese",
+    "sour_cream"
+   ],
+   "tip": "Вскрытый контейнер плотно закройте.",
+   "approx": true
+  },
+  "condensed_milk": {
+   "storage": "pantry",
+   "shelf_days": 365,
+   "substitutes": [
+    "sugar",
+    "cream"
+   ],
+   "tip": "Вскрытую банку переложите в стеклянную посуду в холодильник."
+  },
+  "curdled_milk": {
+   "storage": "fridge",
+   "shelf_days": 7,
+   "substitutes": [
+    "kefir",
+    "yogurt"
+   ],
+   "tip": "Подходит для выпечки и как напиток.",
+   "approx": true
+  },
+  "buttermilk": {
+   "storage": "fridge",
+   "shelf_days": 7,
+   "substitutes": [
+    "kefir"
+   ],
+   "tip": "Даёт выпечке нежную мякоть.",
+   "approx": true
+  },
+  "ice_cream": {
+   "storage": "freezer",
+   "shelf_days": 90,
+   "substitutes": [
+    "yogurt"
+   ],
+   "tip": "Повторно не замораживайте после оттаивания.",
+   "approx": true
+  },
+  "powdered_milk": {
+   "storage": "pantry",
+   "shelf_days": 365,
+   "substitutes": [
+    "milk"
+   ],
+   "tip": "Разводите водой по инструкции на упаковке."
+  },
+  "whey": {
+   "storage": "fridge",
+   "shelf_days": 5,
+   "substitutes": [
+    "kefir",
+    "water"
+   ],
+   "tip": "Хороша для теста на блины и хлеб.",
+   "approx": true
+  },
+  "tofu": {
+   "storage": "fridge",
+   "shelf_days": 7,
+   "substitutes": [
+    "cottage_cheese"
+   ],
+   "tip": "Лишнюю влагу отожмите перед жаркой.",
+   "approx": true
+  },
+  "rice": {
+   "storage": "pantry",
+   "shelf_days": 365,
+   "substitutes": [
+    "round_rice",
+    "basmati_rice"
+   ],
+   "tip": "Промывайте до прозрачной воды."
+  },
+  "round_rice": {
+   "storage": "pantry",
+   "shelf_days": 365,
+   "substitutes": [
+    "rice"
+   ],
+   "tip": "Подходит для каш, рисовых запеканок и плова."
+  },
+  "basmati_rice": {
+   "storage": "pantry",
+   "shelf_days": 365,
+   "substitutes": [
+    "rice"
+   ],
+   "tip": "Замочите на 30 минут для рассыпчатости."
+  },
+  "buckwheat": {
+   "storage": "pantry",
+   "shelf_days": 365,
+   "substitutes": [
+    "millet",
+    "pearl_barley"
+   ],
+   "tip": "Перед варкой перебирайте и можно обжарить."
+  },
+  "oatmeal": {
+   "storage": "pantry",
+   "shelf_days": 180,
+   "substitutes": [
+    "rolled_oats",
+    "semolina"
+   ],
+   "tip": "Варите на молоке или воде 10–15 минут.",
+   "approx": true
+  },
+  "rolled_oats": {
+   "storage": "pantry",
+   "shelf_days": 180,
+   "substitutes": [
+    "oatmeal"
+   ],
+   "tip": "Хлопья мгновенного приготовления просто залейте кипятком.",
+   "approx": true
+  },
+  "semolina": {
+   "storage": "pantry",
+   "shelf_days": 365,
+   "substitutes": [
+    "oatmeal",
+    "millet"
+   ],
+   "tip": "Всыпайте тонкой струйкой при помешивании."
+  },
+  "millet": {
+   "storage": "pantry",
+   "shelf_days": 365,
+   "substitutes": [
+    "buckwheat",
+    "rice"
+   ],
+   "tip": "Обязательно промойте горячей водой, чтобы убрать горчинку."
+  },
+  "barley": {
+   "storage": "pantry",
+   "shelf_days": 365,
+   "substitutes": [
+    "pearl_barley",
+    "rice"
+   ],
+   "tip": "Перед варкой замочите на несколько часов."
+  },
+  "pearl_barley": {
+   "storage": "pantry",
+   "shelf_days": 365,
+   "substitutes": [
+    "barley",
+    "buckwheat"
+   ],
+   "tip": "Замочите на ночь, так она сварится быстрее."
+  },
+  "cornmeal": {
+   "storage": "pantry",
+   "shelf_days": 365,
+   "substitutes": [
+    "semolina",
+    "millet"
+   ],
+   "tip": "Для мамалыги варите, помешивая, 25–30 минут."
+  },
+  "couscous": {
+   "storage": "pantry",
+   "shelf_days": 365,
+   "substitutes": [
+    "bulgur",
+    "rice"
+   ],
+   "tip": "Достаточно залить кипятком и накрыть на 5 минут."
+  },
+  "bulgur": {
+   "storage": "pantry",
+   "shelf_days": 365,
+   "substitutes": [
+    "couscous",
+    "rice"
+   ],
+   "tip": "Подходит для плова и салатов."
+  },
+  "quinoa": {
+   "storage": "pantry",
+   "shelf_days": 365,
+   "substitutes": [
+    "bulgur",
+    "rice"
+   ],
+   "tip": "Промойте, чтобы убрать горький налёт."
+  },
+  "pasta": {
+   "storage": "pantry",
+   "shelf_days": 730,
+   "substitutes": [
+    "spaghetti",
+    "noodles"
+   ],
+   "tip": "Варите в большом объёме подсоленной воды."
+  },
+  "spaghetti": {
+   "storage": "pantry",
+   "shelf_days": 730,
+   "substitutes": [
+    "pasta",
+    "vermicelli"
+   ],
+   "tip": "Не ломайте: погружайте, пока не размягчится."
+  },
+  "vermicelli": {
+   "storage": "pantry",
+   "shelf_days": 730,
+   "substitutes": [
+    "noodles",
+    "pasta"
+   ],
+   "tip": "Варится 3–5 минут, следите чтобы не разварилась."
+  },
+  "noodles": {
+   "storage": "pantry",
+   "shelf_days": 730,
+   "substitutes": [
+    "vermicelli",
+    "pasta"
+   ],
+   "tip": "Яичная лапша варится быстро."
+  },
+  "lasagna_sheets": {
+   "storage": "pantry",
+   "shelf_days": 730,
+   "substitutes": [
+    "pasta"
+   ],
+   "tip": "Многие виды не требуют предварительной варки."
+  },
+  "flour": {
+   "storage": "pantry",
+   "shelf_days": 365,
+   "substitutes": [
+    "wholegrain_flour",
+    "rye_flour"
+   ],
+   "tip": "Для выпечки просейте муку."
+  },
+  "rye_flour": {
+   "storage": "pantry",
+   "shelf_days": 365,
+   "substitutes": [
+    "wholegrain_flour",
+    "flour"
+   ],
+   "tip": "Тесто получается более плотным и кислым."
+  },
+  "wholegrain_flour": {
+   "storage": "pantry",
+   "shelf_days": 180,
+   "substitutes": [
+    "flour",
+    "rye_flour"
+   ],
+   "tip": "Из-за масел портится быстрее белой муки.",
+   "approx": true
+  },
+  "starch": {
+   "storage": "pantry",
+   "shelf_days": 730,
+   "substitutes": [
+    "flour"
+   ],
+   "tip": "Разводите в холодной воде, затем вливайте в горячее."
+  },
+  "breadcrumbs": {
+   "storage": "pantry",
+   "shelf_days": 365,
+   "substitutes": [
+    "flour",
+    "bread"
+   ],
+   "tip": "Можно приготовить из подсушенного хлеба."
+  },
+  "bread": {
+   "storage": "pantry",
+   "shelf_days": 5,
+   "substitutes": [
+    "white_bread",
+    "black_bread"
+   ],
+   "tip": "Хранить в хлебнице, а лишнее нарезать и заморозить.",
+   "approx": true
+  },
+  "white_bread": {
+   "storage": "pantry",
+   "shelf_days": 5,
+   "substitutes": [
+    "bread",
+    "pita"
+   ],
+   "tip": "Подсушенный хлеб годится для гренок и сухарей.",
+   "approx": true
+  },
+  "black_bread": {
+   "storage": "pantry",
+   "shelf_days": 5,
+   "substitutes": [
+    "bread"
+   ],
+   "tip": "Дольше сохраняет свежесть, чем пшеничный.",
+   "approx": true
+  },
+  "lavash": {
+   "storage": "pantry",
+   "shelf_days": 7,
+   "substitutes": [
+    "pita",
+    "tortilla"
+   ],
+   "tip": "Чтобы не крошился, слегка сбрызните водой и прикройте.",
+   "approx": true
+  },
+  "pita": {
+   "storage": "pantry",
+   "shelf_days": 7,
+   "substitutes": [
+    "lavash",
+    "tortilla"
+   ],
+   "tip": "Подогрейте перед подачей, так она раскрывается.",
+   "approx": true
+  },
+  "tortilla": {
+   "storage": "pantry",
+   "shelf_days": 14,
+   "substitutes": [
+    "lavash",
+    "pita"
+   ],
+   "tip": "Подогрейте на сухой сковороде.",
+   "approx": true
+  },
+  "beans_dry": {
+   "storage": "pantry",
+   "shelf_days": 730,
+   "substitutes": [
+    "beans_red",
+    "beans_white"
+   ],
+   "tip": "Замачивайте на ночь и варите до мягкости."
+  },
+  "beans_red": {
+   "storage": "pantry",
+   "shelf_days": 730,
+   "substitutes": [
+    "beans_white",
+    "beans_canned"
+   ],
+   "tip": "Обязательно проварите не менее 10 минут на сильном огне."
+  },
+  "beans_white": {
+   "storage": "pantry",
+   "shelf_days": 730,
+   "substitutes": [
+    "beans_red",
+    "beans_canned"
+   ],
+   "tip": "Не солите в начале варки, иначе будет жёсткой."
+  },
+  "chickpeas_dry": {
+   "storage": "pantry",
+   "shelf_days": 730,
+   "substitutes": [
+    "chickpeas_canned",
+    "beans_white"
+   ],
+   "tip": "Замачивайте 8–12 часов, варите около часа."
+  },
+  "lentils_red": {
+   "storage": "pantry",
+   "shelf_days": 730,
+   "substitutes": [
+    "lentils_green"
+   ],
+   "tip": "Не требует замачивания, варится 15–20 минут."
+  },
+  "lentils_green": {
+   "storage": "pantry",
+   "shelf_days": 730,
+   "substitutes": [
+    "lentils_red"
+   ],
+   "tip": "Дольше сохраняет форму, подходит для салатов."
+  },
+  "peas_dry": {
+   "storage": "pantry",
+   "shelf_days": 730,
+   "substitutes": [
+    "lentils_red",
+    "beans_white"
+   ],
+   "tip": "Замочите на ночь, так она быстрее разварится."
+  },
+  "soybeans": {
+   "storage": "pantry",
+   "shelf_days": 730,
+   "substitutes": [
+    "beans_white",
+    "tofu"
+   ],
+   "tip": "Всегда проваривайте, сырая соя вредна."
+  },
+  "mung_beans": {
+   "storage": "pantry",
+   "shelf_days": 730,
+   "substitutes": [
+    "lentils_green"
+   ],
+   "tip": "Замочите на 2–3 часа, потом варите 20 минут."
+  },
+  "azuki": {
+   "storage": "pantry",
+   "shelf_days": 730,
+   "substitutes": [
+    "beans_red"
+   ],
+   "tip": "Хорошо подходит для каш и десертов."
+  },
+  "mushrooms": {
+   "storage": "fridge",
+   "shelf_days": 5,
+   "substitutes": [
+    "champignon"
+   ],
+   "tip": "Не мойте надолго: грибы впитывают воду.",
+   "approx": true
+  },
+  "champignon": {
+   "storage": "fridge",
+   "shelf_days": 7,
+   "substitutes": [
+    "oyster_mushroom",
+    "mushrooms"
+   ],
+   "tip": "Храните в бумажном пакете, а не в полиэтилене.",
+   "approx": true
+  },
+  "oyster_mushroom": {
+   "storage": "fridge",
+   "shelf_days": 5,
+   "substitutes": [
+    "champignon"
+   ],
+   "tip": "Ножки жёсткие, лучше нарезать мелко.",
+   "approx": true
+  },
+  "forest_mushrooms": {
+   "storage": "fridge",
+   "shelf_days": 2,
+   "substitutes": [
+    "champignon"
+   ],
+   "tip": "Тщательно переберите и проварите.",
+   "approx": true
+  },
+  "porcini": {
+   "storage": "fridge",
+   "shelf_days": 3,
+   "substitutes": [
+    "champignon",
+    "forest_mushrooms"
+   ],
+   "tip": "Сушёные белые грибы замочите на 30 минут.",
+   "approx": true
+  },
+  "chanterelles": {
+   "storage": "fridge",
+   "shelf_days": 3,
+   "substitutes": [
+    "champignon"
+   ],
+   "tip": "Перед жаркой слегка отварите, чтобы ушла горечь.",
+   "approx": true
+  },
+  "honey_mushrooms": {
+   "storage": "fridge",
+   "shelf_days": 2,
+   "substitutes": [
+    "champignon"
+   ],
+   "tip": "Обязательно отваривайте не менее 20 минут.",
+   "approx": true
+  },
+  "shiitake": {
+   "storage": "fridge",
+   "shelf_days": 7,
+   "substitutes": [
+    "champignon",
+    "oyster_mushroom"
+   ],
+   "tip": "Ножки жёсткие, их обычно удаляют.",
+   "approx": true
+  },
+  "tomatoes_canned": {
+   "storage": "pantry",
+   "shelf_days": 730,
+   "substitutes": [
+    "tomato",
+    "tomato_sauce"
+   ],
+   "tip": "Вскрытую банку переложите в стеклянную посуду."
+  },
+  "tomato_paste": {
+   "storage": "fridge",
+   "shelf_days": 14,
+   "substitutes": [
+    "tomato_sauce",
+    "ketchup"
+   ],
+   "tip": "После вскрытия переложите в стекло или заморозьте порции.",
+   "approx": true
+  },
+  "tomato_sauce": {
+   "storage": "fridge",
+   "shelf_days": 14,
+   "substitutes": [
+    "tomato_paste",
+    "ketchup"
+   ],
+   "tip": "Вскрытую упаковку держите в холодильнике.",
+   "approx": true
+  },
+  "peas_canned": {
+   "storage": "pantry",
+   "shelf_days": 730,
+   "substitutes": [
+    "green_peas"
+   ],
+   "tip": "Жидкость из банки можно слить, она часто солёная."
+  },
+  "corn_canned": {
+   "storage": "pantry",
+   "shelf_days": 730,
+   "substitutes": [
+    "corn"
+   ],
+   "tip": "Слейте жидкость перед использованием."
+  },
+  "beans_canned": {
+   "storage": "pantry",
+   "shelf_days": 730,
+   "substitutes": [
+    "beans_white",
+    "beans_red"
+   ],
+   "tip": "Промойте, чтобы убрать лишний крахмал."
+  },
+  "chickpeas_canned": {
+   "storage": "pantry",
+   "shelf_days": 730,
+   "substitutes": [
+    "chickpeas_dry",
+    "beans_canned"
+   ],
+   "tip": "Жидкость можно использовать как заменитель яичного белка."
+  },
+  "tuna_canned": {
+   "storage": "pantry",
+   "shelf_days": 730,
+   "substitutes": [
+    "saury_canned",
+    "sardines_canned"
+   ],
+   "tip": "Вскрытую банку переложите в стекло."
+  },
+  "saury_canned": {
+   "storage": "pantry",
+   "shelf_days": 730,
+   "substitutes": [
+    "tuna_canned",
+    "sardines_canned"
+   ],
+   "tip": "Хороша в салатах и супах."
+  },
+  "sardines_canned": {
+   "storage": "pantry",
+   "shelf_days": 730,
+   "substitutes": [
+    "saury_canned",
+    "tuna_canned"
+   ],
+   "tip": "Мелкие косточки съедобны и полезны."
+  },
+  "coconut_milk": {
+   "storage": "pantry",
+   "shelf_days": 730,
+   "substitutes": [
+    "cream",
+    "milk"
+   ],
+   "tip": "Перед использованием встряхните банку."
+  },
+  "jam": {
+   "storage": "pantry",
+   "shelf_days": 365,
+   "substitutes": [
+    "honey",
+    "sugar"
+   ],
+   "tip": "Вскрытое варенье храните в прохладном месте."
+  },
+  "preserves": {
+   "storage": "pantry",
+   "shelf_days": 365,
+   "substitutes": [],
+   "tip": "Вскрытые консервы держите в холодильнике."
+  },
+  "mushrooms_canned": {
+   "storage": "pantry",
+   "shelf_days": 730,
+   "substitutes": [
+    "champignon"
+   ],
+   "tip": "Рассол слейте и промойте грибы."
+  },
+  "artichokes_canned": {
+   "storage": "pantry",
+   "shelf_days": 730,
+   "substitutes": [
+    "asparagus"
+   ],
+   "tip": "Подходят для салатов и пиццы."
+  },
+  "lecho": {
+   "storage": "pantry",
+   "shelf_days": 365,
+   "substitutes": [
+    "tomato",
+    "bell_pepper"
+   ],
+   "tip": "Можно подавать как закуску или гарнир."
+  },
+  "salt": {
+   "storage": "pantry",
+   "shelf_days": 3650,
+   "substitutes": [],
+   "tip": "Добавляйте понемногу и пробуйте."
+  },
+  "water": {
+   "storage": "pantry",
+   "shelf_days": 1,
+   "substitutes": [],
+   "tip": "Для питья и готовки лучше фильтрованная.",
+   "approx": true
+  },
+  "sugar": {
+   "storage": "pantry",
+   "shelf_days": 3650,
+   "substitutes": [
+    "honey",
+    "syrup"
+   ],
+   "tip": "Хранить в сухом месте, иначе слёживается."
+  },
+  "black_pepper": {
+   "storage": "pantry",
+   "shelf_days": 730,
+   "substitutes": [
+    "white_pepper",
+    "red_pepper"
+   ],
+   "tip": "Свежемолотый ароматнее готового."
+  },
+  "sunflower_oil": {
+   "storage": "pantry",
+   "shelf_days": 365,
+   "substitutes": [
+    "olive_oil"
+   ],
+   "tip": "Хранить в тёмном месте, после вскрытия 3–4 месяца."
+  },
+  "olive_oil": {
+   "storage": "pantry",
+   "shelf_days": 365,
+   "substitutes": [
+    "sunflower_oil"
+   ],
+   "tip": "Для салатов лучше нерафинированное."
+  },
+  "white_pepper": {
+   "storage": "pantry",
+   "shelf_days": 730,
+   "substitutes": [
+    "black_pepper"
+   ],
+   "tip": "Мягче чёрного, подходит для светлых соусов."
+  },
+  "red_pepper": {
+   "storage": "pantry",
+   "shelf_days": 730,
+   "substitutes": [
+    "chili_pepper",
+    "paprika"
+   ],
+   "tip": "Кладите осторожно, он очень острый."
+  },
+  "paprika": {
+   "storage": "pantry",
+   "shelf_days": 730,
+   "substitutes": [
+    "red_pepper"
+   ],
+   "tip": "Не пережаривайте, становится горькой."
+  },
+  "bay_leaf": {
+   "storage": "pantry",
+   "shelf_days": 730,
+   "substitutes": [],
+   "tip": "Вынимайте из блюда перед подачей."
+  },
+  "cinnamon": {
+   "storage": "pantry",
+   "shelf_days": 730,
+   "substitutes": [
+    "vanilla",
+    "nutmeg"
+   ],
+   "tip": "Подходит для выпечки и каш."
+  },
+  "cloves": {
+   "storage": "pantry",
+   "shelf_days": 730,
+   "substitutes": [
+    "cinnamon",
+    "nutmeg"
+   ],
+   "tip": "Очень ароматная, достаточно 2–3 бутонов."
+  },
+  "nutmeg": {
+   "storage": "pantry",
+   "shelf_days": 730,
+   "substitutes": [
+    "cinnamon",
+    "cloves"
+   ],
+   "tip": "Лучше натирать свежим."
+  },
+  "ginger": {
+   "storage": "fridge",
+   "shelf_days": 21,
+   "substitutes": [
+    "cinnamon",
+    "turmeric"
+   ],
+   "tip": "Свежий корень можно заморозить и тереть мёрзлым.",
+   "approx": true
+  },
+  "turmeric": {
+   "storage": "pantry",
+   "shelf_days": 730,
+   "substitutes": [
+    "curry_powder",
+    "paprika"
+   ],
+   "tip": "Даёт блюду жёлтый цвет и мягкий вкус."
+  },
+  "coriander": {
+   "storage": "pantry",
+   "shelf_days": 730,
+   "substitutes": [
+    "cumin",
+    "cilantro"
+   ],
+   "tip": "Молотую кладите в самом начале жарки."
+  },
+  "cumin": {
+   "storage": "pantry",
+   "shelf_days": 730,
+   "substitutes": [
+    "coriander",
+    "curry_powder"
+   ],
+   "tip": "Прогрейте в сухой сковороде для аромата."
+  },
+  "mustard_seeds": {
+   "storage": "pantry",
+   "shelf_days": 730,
+   "substitutes": [
+    "mustard"
+   ],
+   "tip": "Хороши в маринадах и квашеной капусте."
+  },
+  "cardamom": {
+   "storage": "pantry",
+   "shelf_days": 730,
+   "substitutes": [
+    "cinnamon",
+    "cloves"
+   ],
+   "tip": "Раздавите коробочку перед использованием."
+  },
+  "vanilla": {
+   "storage": "pantry",
+   "shelf_days": 730,
+   "substitutes": [
+    "vanilla_sugar"
+   ],
+   "tip": "Стручок можно использовать повторно."
+  },
+  "vanilla_sugar": {
+   "storage": "pantry",
+   "shelf_days": 730,
+   "substitutes": [
+    "vanilla",
+    "sugar"
+   ],
+   "tip": "Один пакетик заменяет щепотку ванили."
+  },
+  "baking_soda": {
+   "storage": "pantry",
+   "shelf_days": 730,
+   "substitutes": [
+    "baking_powder"
+   ],
+   "tip": "Гасите уксусом или кислой средой."
+  },
+  "baking_powder": {
+   "storage": "pantry",
+   "shelf_days": 365,
+   "substitutes": [
+    "baking_soda"
+   ],
+   "tip": "Просейте с мукой, в сыром виде не храните."
+  },
+  "yeast": {
+   "storage": "pantry",
+   "shelf_days": 180,
+   "substitutes": [],
+   "tip": "Сухие дрожжи после вскрытия держите в холодильнике.",
+   "approx": true
+  },
+  "vinegar": {
+   "storage": "pantry",
+   "shelf_days": 730,
+   "substitutes": [
+    "apple_vinegar",
+    "lemon"
+   ],
+   "tip": "Разводите водой перед использованием."
+  },
+  "apple_vinegar": {
+   "storage": "pantry",
+   "shelf_days": 730,
+   "substitutes": [
+    "vinegar",
+    "lemon"
+   ],
+   "tip": "Мягче столового, подходит для салатов."
+  },
+  "soy_sauce": {
+   "storage": "pantry",
+   "shelf_days": 730,
+   "substitutes": [
+    "salt"
+   ],
+   "tip": "Уже солёный, соль добавляйте осторожно."
+  },
+  "ketchup": {
+   "storage": "pantry",
+   "shelf_days": 365,
+   "substitutes": [
+    "tomato_sauce",
+    "tomato_paste"
+   ],
+   "tip": "После вскрытия храните в холодильнике."
+  },
+  "mayonnaise": {
+   "storage": "fridge",
+   "shelf_days": 60,
+   "substitutes": [
+    "sour_cream",
+    "yogurt"
+   ],
+   "tip": "После вскрытия храните в холодильнике.",
+   "approx": true
+  },
+  "mustard": {
+   "storage": "fridge",
+   "shelf_days": 90,
+   "substitutes": [
+    "horseradish",
+    "mustard_seeds"
+   ],
+   "tip": "Прикрывайте крышкой, чтобы не сохла.",
+   "approx": true
+  },
+  "horseradish": {
+   "storage": "fridge",
+   "shelf_days": 60,
+   "substitutes": [
+    "mustard",
+    "horseradish_root"
+   ],
+   "tip": "Острота ослабевает со временем.",
+   "approx": true
+  },
+  "adjika": {
+   "storage": "fridge",
+   "shelf_days": 60,
+   "substitutes": [
+    "chili_pepper",
+    "tomato_paste"
+   ],
+   "tip": "Очень острая, добавляйте по чуть-чуть.",
+   "approx": true
+  },
+  "broth_cube": {
+   "storage": "pantry",
+   "shelf_days": 365,
+   "substitutes": [
+    "salt"
+   ],
+   "tip": "Содержит много соли, соль в блюдо вносите после."
+  },
+  "curry_powder": {
+   "storage": "pantry",
+   "shelf_days": 730,
+   "substitutes": [
+    "turmeric",
+    "cumin"
+   ],
+   "tip": "Прогрейте в масле, чтобы раскрыть аромат."
+  },
+  "sesame_oil": {
+   "storage": "pantry",
+   "shelf_days": 365,
+   "substitutes": [
+    "olive_oil"
+   ],
+   "tip": "Добавляйте в конце, от нагрева теряет аромат."
+  },
+  "nuts": {
+   "storage": "pantry",
+   "shelf_days": 180,
+   "substitutes": [
+    "walnut",
+    "almond"
+   ],
+   "tip": "Храните в закрытой банке в сухом прохладном месте.",
+   "approx": true
+  },
+  "walnut": {
+   "storage": "pantry",
+   "shelf_days": 180,
+   "substitutes": [
+    "hazelnut",
+    "almond"
+   ],
+   "tip": "Прогрейте на сухой сковороде для аромата.",
+   "approx": true
+  },
+  "almond": {
+   "storage": "pantry",
+   "shelf_days": 365,
+   "substitutes": [
+    "hazelnut",
+    "cashew"
+   ],
+   "tip": "Чтобы снять кожицу, залейте кипятком на минуту."
+  },
+  "hazelnut": {
+   "storage": "pantry",
+   "shelf_days": 180,
+   "substitutes": [
+    "almond",
+    "walnut"
+   ],
+   "tip": "Хорошо сочетается с шоколадом.",
+   "approx": true
+  },
+  "cashew": {
+   "storage": "pantry",
+   "shelf_days": 180,
+   "substitutes": [
+    "almond"
+   ],
+   "tip": "Мягкий вкус, хорош в соусах.",
+   "approx": true
+  },
+  "pistachio": {
+   "storage": "pantry",
+   "shelf_days": 180,
+   "substitutes": [
+    "almond"
+   ],
+   "tip": "Лучше покупать неочищенные и чистить сразу.",
+   "approx": true
+  },
+  "peanut": {
+   "storage": "pantry",
+   "shelf_days": 180,
+   "substitutes": [
+    "almond",
+    "hazelnut"
+   ],
+   "tip": "Сырой арахис прожарьте перед использованием.",
+   "approx": true
+  },
+  "pine_nuts": {
+   "storage": "pantry",
+   "shelf_days": 120,
+   "substitutes": [
+    "cashew",
+    "walnut"
+   ],
+   "tip": "Быстро горкнут, держите в холодильнике.",
+   "approx": true
+  },
+  "sunflower_seeds": {
+   "storage": "pantry",
+   "shelf_days": 180,
+   "substitutes": [
+    "pumpkin_seeds"
+   ],
+   "tip": "Жарьте на сухой сковороде.",
+   "approx": true
+  },
+  "pumpkin_seeds": {
+   "storage": "pantry",
+   "shelf_days": 180,
+   "substitutes": [
+    "sunflower_seeds"
+   ],
+   "tip": "Подходят для салатов и выпечки.",
+   "approx": true
+  },
+  "sesame": {
+   "storage": "pantry",
+   "shelf_days": 365,
+   "substitutes": [
+    "poppy_seeds"
+   ],
+   "tip": "Обжарьте на сухой сковороде до золотистого цвета."
+  },
+  "poppy_seeds": {
+   "storage": "pantry",
+   "shelf_days": 365,
+   "substitutes": [
+    "sesame"
+   ],
+   "tip": "Для начинки запарьте кипятком и разотрите."
+  },
+  "coconut_flakes": {
+   "storage": "pantry",
+   "shelf_days": 180,
+   "substitutes": [
+    "coconut"
+   ],
+   "tip": "Закрывайте упаковку, иначе набирает влагу.",
+   "approx": true
+  },
+  "honey": {
+   "storage": "pantry",
+   "shelf_days": 730,
+   "substitutes": [
+    "sugar",
+    "syrup"
+   ],
+   "tip": "Не нагревайте выше 40 градусов, чтобы сохранить свойства."
+  },
+  "chocolate": {
+   "storage": "pantry",
+   "shelf_days": 365,
+   "substitutes": [
+    "cocoa"
+   ],
+   "tip": "Растапливайте на водяной бане."
+  },
+  "cocoa": {
+   "storage": "pantry",
+   "shelf_days": 365,
+   "substitutes": [
+    "chocolate"
+   ],
+   "tip": "Просейте перед добавлением в тесто."
+  },
+  "caramel": {
+   "storage": "pantry",
+   "shelf_days": 365,
+   "substitutes": [
+    "sugar"
+   ],
+   "tip": "Храните в сухом месте."
+  },
+  "halva": {
+   "storage": "pantry",
+   "shelf_days": 90,
+   "substitutes": [
+    "honey",
+    "nuts"
+   ],
+   "tip": "Вскрытую держите в закрытой посуде.",
+   "approx": true
+  },
+  "marshmallow": {
+   "storage": "pantry",
+   "shelf_days": 30,
+   "substitutes": [
+    "cookies"
+   ],
+   "tip": "Не хранить во влажном месте.",
+   "approx": true
+  },
+  "cookies": {
+   "storage": "pantry",
+   "shelf_days": 60,
+   "substitutes": [
+    "gingerbread"
+   ],
+   "tip": "Закрывайте упаковку, чтобы не отсырело.",
+   "approx": true
+  },
+  "gingerbread": {
+   "storage": "pantry",
+   "shelf_days": 60,
+   "substitutes": [
+    "cookies"
+   ],
+   "tip": "Мягкие пряники сохраняют свежесть в закрытой коробке.",
+   "approx": true
+  },
+  "syrup": {
+   "storage": "pantry",
+   "shelf_days": 365,
+   "substitutes": [
+    "honey",
+    "sugar"
+   ],
+   "tip": "Хранить в сухом месте, после вскрытия в холодильнике."
+  },
+  "parsley": {
+   "storage": "fridge",
+   "shelf_days": 7,
+   "substitutes": [
+    "dill",
+    "cilantro"
+   ],
+   "tip": "Поставьте пучок в воду, как цветы, и накройте пакетом.",
+   "approx": true
+  },
+  "dill": {
+   "storage": "fridge",
+   "shelf_days": 7,
+   "substitutes": [
+    "parsley"
+   ],
+   "tip": "Лучше добавлять в конце, чтобы сохранить аромат.",
+   "approx": true
+  },
+  "cilantro": {
+   "storage": "fridge",
+   "shelf_days": 7,
+   "substitutes": [
+    "parsley",
+    "coriander"
+   ],
+   "tip": "Не всем нравится вкус, добавляйте осторожно.",
+   "approx": true
+  },
+  "basil": {
+   "storage": "pantry",
+   "shelf_days": 5,
+   "substitutes": [
+    "oregano",
+    "parsley"
+   ],
+   "tip": "Не любит холода, хранить в воде при комнатной температуре.",
+   "approx": true
+  },
+  "green_onion": {
+   "storage": "fridge",
+   "shelf_days": 7,
+   "substitutes": [
+    "leek",
+    "onion"
+   ],
+   "tip": "Белую часть кладите в готовку, зелёную в салаты.",
+   "approx": true
+  },
+  "mint": {
+   "storage": "fridge",
+   "shelf_days": 7,
+   "substitutes": [
+    "basil",
+    "lemon"
+   ],
+   "tip": "Подходит для напитков и десертов.",
+   "approx": true
+  },
+  "oregano": {
+   "storage": "pantry",
+   "shelf_days": 730,
+   "substitutes": [
+    "basil",
+    "thyme"
+   ],
+   "tip": "Сушёный ароматнее свежего, кладите меньше."
+  },
+  "thyme": {
+   "storage": "fridge",
+   "shelf_days": 14,
+   "substitutes": [
+    "oregano",
+    "rosemary"
+   ],
+   "tip": "Веточки кладите целиком, затем вынимайте.",
+   "approx": true
+  },
+  "rosemary": {
+   "storage": "fridge",
+   "shelf_days": 14,
+   "substitutes": [
+    "thyme",
+    "oregano"
+   ],
+   "tip": "Сильный аромат, не переборщите.",
+   "approx": true
+  },
+  "tarragon": {
+   "storage": "fridge",
+   "shelf_days": 7,
+   "substitutes": [
+    "basil",
+    "dill"
+   ],
+   "tip": "Даёт анисовый оттенок напиткам и соусам.",
+   "approx": true
+  },
+  "nettle": {
+   "storage": "fridge",
+   "shelf_days": 3,
+   "substitutes": [
+    "spinach",
+    "sorrel"
+   ],
+   "tip": "Перед использованием ошпарьте кипятком.",
+   "approx": true
+  },
+  "microgreens": {
+   "storage": "fridge",
+   "shelf_days": 5,
+   "substitutes": [
+    "arugula",
+    "lettuce"
+   ],
+   "tip": "Срезайте перед подачей, свежесть теряется быстро.",
+   "approx": true
+  }
+ }
+}

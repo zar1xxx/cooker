@@ -34,6 +34,16 @@ final GoRouter appRouter = GoRouter(
       builder: (context, state) => const SuggestionsScreen(),
     ),
     GoRoute(
+      path: '/statistics',
+      parentNavigatorKey: rootNavigatorKey,
+      builder: (context, state) => const StatisticsScreen(),
+    ),
+    GoRoute(
+      path: '/stats',
+      parentNavigatorKey: rootNavigatorKey,
+      builder: (context, state) => const StatisticsScreen(),
+    ),
+    GoRoute(
       path: '/settings/ai',
       parentNavigatorKey: rootNavigatorKey,
       builder: (context, state) => const AiSettingsScreen(),
@@ -131,14 +141,6 @@ final GoRouter appRouter = GoRouter(
             GoRoute(
               path: '/history',
               builder: (context, state) => const HistoryScreen(),
-            ),
-          ],
-        ),
-        StatefulShellBranch(
-          routes: [
-            GoRoute(
-              path: '/stats',
-              builder: (context, state) => const StatisticsScreen(),
             ),
           ],
         ),

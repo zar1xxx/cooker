@@ -90,6 +90,7 @@ flutter:
 
   assets:
     - assets/seed/
+    - assets/seed/recipes/
     - assets/ai/
     - assets/ai/schemas/
     - assets/ai/prompts/
@@ -99,6 +100,8 @@ flutter:
     - assets/images/placeholders/
     - assets/images/states/
     - assets/images/cooking/
+    - assets/images/sections/
+    - assets/images/badges/
 
   # To add assets to your application, add an assets section, like this:
   # assets:

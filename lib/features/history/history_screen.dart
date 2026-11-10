@@ -270,19 +270,21 @@ class _HistoryScreenState extends ConsumerState<HistoryScreen> {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: _showAddDishDialog,
-        icon: const Icon(Icons.add, size: 28),
-        label: Text(
-          l10n.historyAddButton,
-          // The explicit text style overrides the FAB foreground, so the
-          // color must be set here, or the label is dark on dark green.
-          style: theme.textTheme.titleMedium?.copyWith(
-            fontWeight: FontWeight.bold,
-            color: theme.colorScheme.onPrimary,
-          ),
-        ),
-      ),
+      floatingActionButton: (historyAsync.value?.isEmpty ?? true)
+          ? null
+          : FloatingActionButton.extended(
+              onPressed: _showAddDishDialog,
+              icon: const Icon(Icons.add, size: 28),
+              label: Text(
+                l10n.historyAddButton,
+                // The explicit text style overrides the FAB foreground, so the
+                // color must be set here, or the label is dark on dark green.
+                style: theme.textTheme.titleMedium?.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: theme.colorScheme.onPrimary,
+                ),
+              ),
+            ),
       body: historyAsync.when(
         data: (allEntries) {
           if (allEntries.isEmpty) {

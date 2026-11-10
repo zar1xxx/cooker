@@ -56,11 +56,11 @@ void main() {
       // 2. Open AppDatabase with schemaVersion 2 to trigger migration
       final db = AppDatabase(NativeDatabase(dbFile), seed: false);
 
-      // Verify schema version is now 2
+      // Verify schema version is now 3
       final versionResult = await db
           .customSelect('PRAGMA user_version;')
           .getSingle();
-      expect(versionResult.read<int>('user_version'), equals(2));
+      expect(versionResult.read<int>('user_version'), equals(3));
 
       // 3. Verify recipes table has new columns and backfilled dish_group
       final rows = await db.select(db.recipes).get();

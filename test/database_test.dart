@@ -1,3 +1,4 @@
+import 'package:chto_prigotovit/core/catalog/dish_group.dart';
 import 'package:chto_prigotovit/core/db/app_database.dart';
 import 'package:chto_prigotovit/core/db/enums.dart';
 import 'package:drift/drift.dart' hide isNull;
@@ -16,8 +17,37 @@ void main() {
   });
 
   group('Database tests (S0-05 / TZ 4.1)', () {
-    test('schema version is 2', () {
-      expect(db.schemaVersion, 2);
+    test('repairDishGroupValues fixes snake_case ids from the v2 migration', () async {
+      final local = AppDatabase(NativeDatabase.memory(), seed: false);
+      addTearDown(local.close);
+      final recipe = await local
+          .into(local.recipes)
+          .insertReturning(
+            RecipesCompanion.insert(
+              title: 'Салат',
+              normalizedTitle: 'салат',
+              dishType: DishType.salad,
+              difficulty: Difficulty.easy,
+              cuisine: 'русская',
+              totalMinutes: 10,
+              activeMinutes: 10,
+              description: 'Тест',
+              source: RecipeSource.seed,
+              fingerprint: 'salad:test',
+            ),
+          );
+      await local.customStatement(
+        "UPDATE recipes SET dish_group = 'salad_snack' WHERE id = '${recipe.id}'",
+      );
+      await local.repairDishGroupValues();
+      final row = await (local.select(
+        local.recipes,
+      )..where((t) => t.id.equals(recipe.id))).getSingle();
+      expect(row.dishGroup, DishGroup.saladSnack);
+    });
+
+    test('schema version is 3', () {
+      expect(db.schemaVersion, 3);
     });
 
     test(
