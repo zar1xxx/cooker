@@ -32,6 +32,7 @@ class AiChatRequest {
     this.timeout,
     this.jsonSchema,
     this.schemaName,
+    this.disableReasoning = false,
   });
 
   final List<AiChatMessage> messages;
@@ -41,6 +42,7 @@ class AiChatRequest {
   final Duration? timeout;
   final Map<String, dynamic>? jsonSchema;
   final String? schemaName;
+  final bool disableReasoning;
 }
 
 class AiCompletionResponse {
@@ -52,6 +54,7 @@ class AiCompletionResponse {
     this.promptTokens = 0,
     this.completionTokens = 0,
     this.totalTokens = 0,
+    this.reasoningTokens,
     this.duration = Duration.zero,
     this.timeToFirstToken,
   });
@@ -63,6 +66,7 @@ class AiCompletionResponse {
   final int promptTokens;
   final int completionTokens;
   final int totalTokens;
+  final int? reasoningTokens;
   final Duration duration;
   final Duration? timeToFirstToken;
 

@@ -39,6 +39,31 @@ AiService (suggest_dishes / full_recipe / month_plan)
 - Модели < 7B плохо держат структурированный вывод — валидатор всё равно обязателен.
 - Android блокирует `http://` по умолчанию. В `network_security_config.xml` нельзя задать диапазон IP, а адрес ПК заранее неизвестен. Поэтому: `cleartextTrafficPermitted="true"` в `<base-config>`, **и** код гарантирует, что `http://` используется только для частных адресов (`10.*`, `172.16–31.*`, `192.168.*`) — проверка в `LmStudioProvider` + юнит-тест; все облачные URL только `https://` (тест на конфиг GigaChat). Запиши это решение в DECISIONS.
 
+### Отключение reasoning / рассуждений модели (R8-06)
+
+Для рассуждающих моделей (Qwen 2.5/3, DeepSeek-R1, Ornith и др.) рассуждения можно отключить:
+1. **Шаблон Jinja в настройках модели LM Studio (основной надёжный способ):**
+   В LM Studio: вкладка модели -> боковая панель Inference -> Prompt Template (Jinja) -> в самое начало шаблона добавить:
+   `{%- set enable_thinking = false %}`
+   После этого перезагрузить модель.
+   Источник: https://lmstudio.ai/docs/developer/openai-compat, https://huggingface.co/docs/transformers/main/en/chat_templating
+2. **Переключатель в интерфейсе LM Studio:**
+   Для моделей из официального каталога со встроенной поддержкой reasoning в боковой панели доступен переключатель «Enable Thinking».
+3. **Параметры API-запроса (`POST /v1/chat/completions`):**
+   Приложение передаёт:
+   ```json
+   {
+     "chat_template_kwargs": {
+       "enable_thinking": false
+     },
+     "reasoning_effort": "none"
+   }
+   ```
+   Если backend поддерживает `chat_template_kwargs` или `reasoning_effort` (OpenAI / vLLM / llama.cpp), reasoning отключается на уровне запроса.
+   Источник: https://lmstudio.ai/docs/developer/openai-compat/reasoning, https://platform.openai.com/docs/guides/reasoning
+4. **Директива в промпте:**
+   Для моделей семейства Qwen/Ornith в системный промпт добавляется прямое указание: не генерировать теги `<think>` и цепочки рассуждений, отвечать сразу валидным JSON.
+
 ## Поиск ПК (`PcDiscovery`)
 
 1. IP телефона и маска — `network_info_plus` (`getWifiIP()`), подсеть считаем /24.

@@ -794,6 +794,43 @@ void main() {
           await controller.close();
         }
       });
+
+      test('R8-06: disableReasoning adds chat_template_kwargs and reasoning_effort', () async {
+        final dio = Dio();
+        Map<String, dynamic>? capturedBody;
+
+        dio.httpClientAdapter = MockHttpClientAdapter((options) async {
+          if (options.path.endsWith('/v1/chat/completions')) {
+            capturedBody = options.data as Map<String, dynamic>?;
+            final sseData =
+                'data: {"choices":[{"delta":{"content":"{\\"dishes\\":[]}"}}],"usage":{"prompt_tokens":10,"completion_tokens":20,"total_tokens":30,"completion_tokens_details":{"reasoning_tokens":5}}}\n\ndata: [DONE]\n\n';
+            return _createSseResponse(Stream.value(utf8.encode(sseData)));
+          }
+          throw DioException(requestOptions: options);
+        });
+
+        final provider = LmStudioProvider(
+          baseUrl: 'http://192.168.1.100:1234',
+          model: 'ornith-1.5-35b-a3b',
+          dio: dio,
+        );
+
+        final response = await provider.chat(
+          const AiChatRequest(
+            messages: [AiChatMessage.user('Быстрый список блюд')],
+            disableReasoning: true,
+          ),
+        );
+
+        expect(capturedBody, isNotNull);
+        expect(capturedBody!['reasoning_effort'], equals('none'));
+        expect(
+          capturedBody!['chat_template_kwargs'],
+          equals({'enable_thinking': false}),
+        );
+        expect(response.reasoningTokens, equals(5));
+        expect(response.rawContent, contains('dishes'));
+      });
     });
   });
 }

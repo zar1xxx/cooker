@@ -202,6 +202,7 @@ class AiService {
       jsonSchema: schema,
       schemaName: 'suggest_dishes',
       maxTokens: AiMaxTokens.suggestDishes,
+      disableReasoning: true,
       timeout: activeProvider.name == 'lm_studio'
           ? const Duration(seconds: 45)
           : const Duration(seconds: 30),
@@ -269,6 +270,7 @@ class AiService {
         jsonSchema: schema,
         schemaName: 'suggest_dishes',
         maxTokens: AiMaxTokens.suggestDishes,
+        disableReasoning: true,
         timeout: const Duration(seconds: 45),
       );
 

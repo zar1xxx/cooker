@@ -236,6 +236,11 @@ class LmStudioProvider implements AiProvider {
       body['stream_options'] = {'include_usage': true};
     }
 
+    if (request.disableReasoning) {
+      body['chat_template_kwargs'] = {'enable_thinking': false};
+      body['reasoning_effort'] = 'none';
+    }
+
     if (request.maxTokens != null) {
       body['max_tokens'] = request.maxTokens;
     }
@@ -467,6 +472,7 @@ class LmStudioProvider implements AiProvider {
     int promptTokens = 0;
     int completionTokens = 0;
     int totalTokens = 0;
+    int? reasoningTokens;
     Duration? timeToFirstToken;
 
     final stopwatch = Stopwatch()..start();
@@ -605,6 +611,12 @@ class LmStudioProvider implements AiProvider {
                     completionTokens;
                 totalTokens =
                     (usage['total_tokens'] as num?)?.toInt() ?? totalTokens;
+                final details = usage['completion_tokens_details'];
+                if (details is Map) {
+                  reasoningTokens =
+                      (details['reasoning_tokens'] as num?)?.toInt() ??
+                      reasoningTokens;
+                }
               }
             }
           } catch (_) {
@@ -652,6 +664,7 @@ class LmStudioProvider implements AiProvider {
         promptTokens: promptTokens,
         completionTokens: completionTokens,
         totalTokens: totalTokens,
+        reasoningTokens: reasoningTokens,
         duration: stopwatch.elapsed,
         timeToFirstToken: timeToFirstToken,
       );

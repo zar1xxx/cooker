@@ -439,9 +439,10 @@
     - «Время полного ответа» — третьей строкой.
     - Запись в диагностике: модель, контекст, parallel (из `/api/v0/models`), признак «модель рассуждающая».
     - Выполнено: в `LmStudioProvider` добавлены методы `ping` (чистый сетевой замер через GET /v1/models в мс) и `getLoadedModelInfo` (структура `LmStudioModelInfo` с `id`, `contextLength`, `parallel`, `isReasoning` из `/api/v0/models` с fallback на `/api/v1/models`); в `AiDiagnosticsScreen` шаг 4 теперь измеряет чистый сетевой пинг («Пинг: X мс»), шаг 5 выводит метаданные модели («Модель», «Контекст: N, parallel: M», «Тип: рассуждающая модель»), а шаг 8 выполняет потоковый запрос и выводит отдельными строками TTFT и скорость (ток/с) и время полного ответа; добавлены unit и widget тесты в `test/ai_diagnostics_screen_test.dart`, всего 825 тестов GREEN.
-- [ ] **R8-06** **Выключить рассуждение модели там, где оно не нужно.**
+- [x] **R8-06** **Выключить рассуждение модели там, где оно не нужно.**
     - Найти официальный способ отключить reasoning для запросов к LM Studio.
     - Замер до/после через `tool\run_ai_smoke_x3.bat`: TTFT, время полного ответа, число токенов `reasoning`. Цель: TTFT < 1 с, список блюд < 5 с.
+    - Выполнено: исследован официальный механизм отключения reasoning для LM Studio / Qwen / DeepSeek-R1 / Ornith (документировано в `skills/ai-integration/SKILL.md`: через Jinja-шаблон `{%- set enable_thinking = false %}` и UI-переключатель «Enable Thinking», а также через параметры API `chat_template_kwargs: {'enable_thinking': false}` и `reasoning_effort: 'none'`); параметр `disableReasoning` добавлен в `AiChatRequest`, поддержан в `LmStudioProvider._buildChatBody` и включён в `AiService.suggestDishes`; поддержан учёт `reasoningTokens` из `completion_tokens_details.reasoning_tokens`; добавлены тесты в `test/lm_studio_provider_test.dart` (826 тестов GREEN); сервер LM Studio на ПК сейчас остановлен владельцем (проверено, порты 1234/1235 закрыты, согласно правилу 2 агент сервер не запускает) — живой бенчмарк `run_ai_smoke_x3.bat` ожидает запуска владельцем.
 - [ ] **R8-07** **Меньше токенов на запрос.**
     - Подбор блюд: ИИ возвращает только короткие карточки (название, тип, время, сложность, 3–5 главных продуктов, одна фраза «почему»). Без шагов и количеств. Цель ≤ 250 токенов на 5 блюд.
     - Полный рецепт генерируется только при открытии карточки, потоково.
