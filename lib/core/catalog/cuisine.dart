@@ -50,6 +50,10 @@ class Cuisine {
     return _knownTitles[lower] ?? code.toUpperCase();
   }
 
+  /// Whether the given cuisine code is recognized in the catalogue.
+  static bool isKnown(String code) =>
+      _knownTitles.containsKey(code.trim().toLowerCase());
+
   /// Normalizes cuisine code. Empty/null defaults to 'home'.
   static String normalize(String? code) {
     if (code == null) return 'home';
