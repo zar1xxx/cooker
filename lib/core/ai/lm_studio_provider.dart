@@ -40,6 +40,20 @@ bool isPrivateOrLocalHost(String host) {
   return false;
 }
 
+class LmStudioModelInfo {
+  final String id;
+  final int? contextLength;
+  final int? parallel;
+  final bool isReasoning;
+
+  const LmStudioModelInfo({
+    required this.id,
+    this.contextLength,
+    this.parallel,
+    this.isReasoning = false,
+  });
+}
+
 class LmStudioProvider implements AiProvider {
   LmStudioProvider({
     required this.baseUrl,
@@ -265,6 +279,114 @@ class LmStudioProvider implements AiProvider {
           .toList();
     }
     return [];
+  }
+
+  /// Measures pure network round-trip time to LM Studio via `GET /v1/models` in milliseconds.
+  Future<int> ping({Duration timeout = const Duration(seconds: 3)}) async {
+    final sw = Stopwatch()..start();
+    await getModels(timeout: timeout);
+    sw.stop();
+    return sw.elapsedMilliseconds;
+  }
+
+  /// Queries LM Studio for loaded model details (context length, parallel, reasoning flag).
+  Future<LmStudioModelInfo?> getLoadedModelInfo({
+    Duration timeout = const Duration(seconds: 3),
+  }) async {
+    final cleanBase = sanitizeBaseUrl(baseUrl);
+    _validateUrl(cleanBase);
+
+    // 1. Try GET /api/v0/models
+    try {
+      final response = await _dio.get<Map<String, dynamic>>(
+        '$cleanBase/api/v0/models',
+        options: _buildOptions(timeout: timeout),
+      );
+      final data = response.data?['data'];
+      if (data is List) {
+        for (final m in data.whereType<Map<dynamic, dynamic>>()) {
+          final state = m['state'] as String?;
+          if (state == 'loaded') {
+            final id = (m['id'] as String?) ?? '';
+            final ctx =
+                (m['loaded_context_length'] as num?)?.toInt() ??
+                (m['max_context_length'] as num?)?.toInt();
+            final parallel =
+                (m['parallel'] as num?)?.toInt() ??
+                (m['parallelism'] as num?)?.toInt() ??
+                ((m['instances'] as List?)?.length) ??
+                1;
+            final isReasoning = RegExp(
+              r'(ornith|deepseek-r1|qwq|thinking|reason)',
+              caseSensitive: false,
+            ).hasMatch(id);
+            return LmStudioModelInfo(
+              id: id,
+              contextLength: ctx,
+              parallel: parallel,
+              isReasoning: isReasoning,
+            );
+          }
+        }
+      }
+    } catch (_) {
+      // Fall through
+    }
+
+    // 2. Try GET /api/v1/models
+    try {
+      final response = await _dio.get<Map<String, dynamic>>(
+        '$cleanBase/api/v1/models',
+        options: _buildOptions(timeout: timeout),
+      );
+      final models = response.data?['models'];
+      if (models is List) {
+        for (final m in models.whereType<Map<dynamic, dynamic>>()) {
+          final instances = m['loaded_instances'];
+          if (instances is List && instances.isNotEmpty) {
+            final first = instances.first;
+            final id =
+                (first is Map ? first['id'] : null) as String? ??
+                (m['key'] as String?) ??
+                '';
+            final ctx = first is Map
+                ? (first['context_length'] as num?)?.toInt()
+                : null;
+            final parallel = instances.length;
+            final isReasoning = RegExp(
+              r'(ornith|deepseek-r1|qwq|thinking|reason)',
+              caseSensitive: false,
+            ).hasMatch(id);
+            return LmStudioModelInfo(
+              id: id,
+              contextLength: ctx,
+              parallel: parallel,
+              isReasoning: isReasoning,
+            );
+          }
+        }
+      }
+    } catch (_) {
+      // Fall through
+    }
+
+    // 3. Fallback to /v1/models
+    final models = await getModels(timeout: timeout);
+    if (models.isNotEmpty) {
+      final id = models.first;
+      final isReasoning = RegExp(
+        r'(ornith|deepseek-r1|qwq|thinking|reason)',
+        caseSensitive: false,
+      ).hasMatch(id);
+      return LmStudioModelInfo(
+        id: id,
+        contextLength: null,
+        parallel: 1,
+        isReasoning: isReasoning,
+      );
+    }
+
+    return null;
   }
 
   @override

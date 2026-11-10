@@ -1,11 +1,14 @@
 import 'dart:convert';
+import 'dart:typed_data';
 
+import 'package:chto_prigotovit/core/ai/lm_studio_provider.dart';
 import 'package:chto_prigotovit/core/ai/pc_discovery.dart';
 import 'package:chto_prigotovit/core/db/app_database.dart';
 import 'package:chto_prigotovit/core/providers.dart';
 import 'package:chto_prigotovit/features/settings/ai_diagnostics_screen.dart';
 import 'package:chto_prigotovit/l10n/app_localizations.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:dio/dio.dart';
 import 'package:drift/drift.dart' as drift;
 import 'package:drift/native.dart';
 import 'package:flutter/material.dart';
@@ -252,4 +255,188 @@ void main() {
 
     expect(find.text('Телефон подключён к Wi-Fi'), findsOneWidget);
   });
+
+  group('R8-05 Diagnostics: network ping, model metadata, TTFT, speed', () {
+    test(
+      'LmStudioProvider.ping measures pure GET /v1/models network time',
+      () async {
+        final dio = Dio();
+        dio.httpClientAdapter = _MockAdapter((options) async {
+          expect(options.path, endsWith('/v1/models'));
+          return ResponseBody.fromString(
+            jsonEncode({
+              'data': [
+                {'id': 'ornith-1.5-35b-a3b'},
+              ],
+            }),
+            200,
+            headers: {
+              Headers.contentTypeHeader: [Headers.jsonContentType],
+            },
+          );
+        });
+
+        final provider = LmStudioProvider(
+          baseUrl: 'http://192.168.1.55:1235',
+          dio: dio,
+        );
+        final pingMs = await provider.ping();
+        expect(pingMs, isNonNegative);
+      },
+    );
+
+    test('LmStudioProvider.getLoadedModelInfo extracts context, parallel, reasoning', () async {
+      final dio = Dio();
+      dio.httpClientAdapter = _MockAdapter((options) async {
+        if (options.path.endsWith('/api/v0/models')) {
+          return ResponseBody.fromString(
+            jsonEncode({
+              'data': [
+                {
+                  'id': 'ornith-1.5-35b-a3b',
+                  'state': 'loaded',
+                  'loaded_context_length': 8192,
+                  'parallel': 2,
+                },
+              ],
+            }),
+            200,
+            headers: {
+              Headers.contentTypeHeader: [Headers.jsonContentType],
+            },
+          );
+        }
+        return ResponseBody.fromString('{}', 404);
+      });
+
+      final provider = LmStudioProvider(
+        baseUrl: 'http://192.168.1.55:1235',
+        dio: dio,
+      );
+      final info = await provider.getLoadedModelInfo();
+      expect(info, isNotNull);
+      expect(info!.id, 'ornith-1.5-35b-a3b');
+      expect(info.contextLength, 8192);
+      expect(info.parallel, 2);
+      expect(info.isReasoning, isTrue);
+    });
+
+    testWidgets(
+      'diagnostic screen separates network ping, model info, and streaming TTFT/speed',
+      (tester) async {
+        tester.view.physicalSize = const Size(1080, 3000);
+        tester.view.devicePixelRatio = 1.0;
+        addTearDown(() {
+          tester.view.resetPhysicalSize();
+          tester.view.resetDevicePixelRatio();
+        });
+
+        final dio = Dio();
+        dio.httpClientAdapter = _MockAdapter((options) async {
+          if (options.path.endsWith('/v1/models')) {
+            return ResponseBody.fromString(
+              jsonEncode({
+                'data': [
+                  {'id': 'ornith-1.5-35b-a3b'},
+                ],
+              }),
+              200,
+              headers: {
+                Headers.contentTypeHeader: [Headers.jsonContentType],
+              },
+            );
+          }
+          if (options.path.endsWith('/api/v0/models')) {
+            return ResponseBody.fromString(
+              jsonEncode({
+                'data': [
+                  {
+                    'id': 'ornith-1.5-35b-a3b',
+                    'state': 'loaded',
+                    'loaded_context_length': 8192,
+                    'parallel': 2,
+                  },
+                ],
+              }),
+              200,
+              headers: {
+                Headers.contentTypeHeader: [Headers.jsonContentType],
+              },
+            );
+          }
+          if (options.path.endsWith('/v1/chat/completions')) {
+            // SSE stream response
+            final sseData = [
+              'data: {"choices":[{"delta":{"role":"assistant","content":"го"}}]}\n\n',
+              'data: {"choices":[{"delta":{"content":"тов"}}],"usage":{"prompt_tokens":10,"completion_tokens":2,"total_tokens":12}}\n\n',
+              'data: [DONE]\n\n',
+            ].join();
+            return ResponseBody.fromString(
+              sseData,
+              200,
+              headers: {
+                Headers.contentTypeHeader: ['text/event-stream'],
+              },
+            );
+          }
+          return ResponseBody.fromString('{}', 404);
+        });
+
+        await tester.pumpWidget(
+          ProviderScope(
+            overrides: [
+              databaseProvider.overrideWithValue(db),
+              connectivityProvider.overrideWithValue(fakeConnectivity),
+              networkInfoProvider.overrideWithValue(fakeNetworkInfo),
+              pcDiscoveryProvider.overrideWithValue(fakePcDiscovery),
+              lmStudioDioProvider.overrideWithValue(dio),
+            ],
+            child: const MaterialApp(
+              localizationsDelegates: AppLocalizations.localizationsDelegates,
+              supportedLocales: AppLocalizations.supportedLocales,
+              locale: Locale('ru'),
+              home: AiDiagnosticsScreen(),
+            ),
+          ),
+        );
+        await tester.pumpAndSettle();
+
+        // Step 4: Network Ping
+        expect(find.textContaining('Пинг:'), findsOneWidget);
+
+        // Step 5: Model Metadata
+        expect(
+          find.textContaining('Модель: ornith-1.5-35b-a3b'),
+          findsOneWidget,
+        );
+        expect(
+          find.textContaining('Контекст: 8192, parallel: 2'),
+          findsOneWidget,
+        );
+        expect(find.textContaining('Тип: рассуждающая модель'), findsOneWidget);
+
+        // Step 8: Test Query with separate TTFT and Total Time
+        expect(
+          find.textContaining('Время первого слова (TTFT):'),
+          findsOneWidget,
+        );
+        expect(find.textContaining('Время полного ответа:'), findsOneWidget);
+      },
+    );
+  });
+}
+
+class _MockAdapter implements HttpClientAdapter {
+  _MockAdapter(this.handler);
+  final Future<ResponseBody> Function(RequestOptions options) handler;
+
+  @override
+  Future<ResponseBody> fetch(
+    RequestOptions options,
+    Stream<Uint8List>? requestStream,
+    Future<void>? cancelFuture,
+  ) => handler(options);
+
+  @override
+  void close({bool force = false}) {}
 }

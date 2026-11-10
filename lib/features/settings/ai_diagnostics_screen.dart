@@ -78,7 +78,7 @@ class _AiDiagnosticsScreenState extends ConsumerState<AiDiagnosticsScreen> {
       DiagnosticStepItem(id: 'wifi', title: '1. Wi-Fi подключение'),
       DiagnosticStepItem(id: 'phone_ip', title: '2. Адрес телефона в сети'),
       DiagnosticStepItem(id: 'pc_found', title: '3. Поиск компьютера (ПК)'),
-      DiagnosticStepItem(id: 'lm_studio', title: '4. Ответ LM Studio'),
+      DiagnosticStepItem(id: 'lm_studio', title: '4. Ответ LM Studio (сеть)'),
       DiagnosticStepItem(id: 'model_loaded', title: '5. Загруженная модель'),
       DiagnosticStepItem(id: 'gigachat_key', title: '6. Ключ GigaChat'),
       DiagnosticStepItem(
@@ -262,15 +262,16 @@ class _AiDiagnosticsScreenState extends ConsumerState<AiDiagnosticsScreen> {
       );
     }
 
-    // --- 4. LM Studio Responding ---
+    // --- 4. LM Studio Network Ping ---
     _updateStep(
       'lm_studio',
       (s) => s.copyWith(
         status: DiagnosticStepStatus.running,
-        message: 'Проверка ответа LM Studio...',
+        message: 'Замер сетевой задержки (пинг)...',
       ),
     );
-    List<String> loadedModels = [];
+    LmStudioModelInfo? modelInfo;
+    int? pingMs;
     if (pcHost != null) {
       try {
         final lm = LmStudioProvider(
@@ -280,13 +281,17 @@ class _AiDiagnosticsScreenState extends ConsumerState<AiDiagnosticsScreen> {
               : null,
           dio: ref.read(lmStudioDioProvider),
         );
-        loadedModels = await lm.getModels(timeout: const Duration(seconds: 3));
+        pingMs = await lm.ping(timeout: const Duration(seconds: 3));
+        modelInfo = await lm.getLoadedModelInfo(
+          timeout: const Duration(seconds: 3),
+        );
         lmStudioOk = true;
         _updateStep(
           'lm_studio',
           (s) => s.copyWith(
             status: DiagnosticStepStatus.success,
-            message: 'LM Studio отвечает на порту $pcPort',
+            message: 'Пинг: $pingMs мс (порт $pcPort)',
+            details: 'Время ответа сервера LM Studio по сети (GET /v1/models). В норме 10–100 мс по Wi-Fi.',
           ),
         );
       } catch (e) {
@@ -309,29 +314,30 @@ class _AiDiagnosticsScreenState extends ConsumerState<AiDiagnosticsScreen> {
       );
     }
 
-    // --- 5. Model Loaded ---
+    // --- 5. Model Loaded & Metadata ---
     _updateStep(
       'model_loaded',
       (s) => s.copyWith(
         status: DiagnosticStepStatus.running,
-        message: 'Проверка загруженных моделей...',
+        message: 'Проверка загруженной модели...',
       ),
     );
     if (lmStudioOk) {
-      if (loadedModels.isNotEmpty) {
-        final nonEmbed = loadedModels.where(
-          (m) => !m.toLowerCase().contains('embed'),
-        );
-        activeModel =
-            settings.lmStudioModel.isNotEmpty &&
-                loadedModels.contains(settings.lmStudioModel)
-            ? settings.lmStudioModel
-            : (nonEmbed.isNotEmpty ? nonEmbed.first : loadedModels.first);
+      if (modelInfo != null && modelInfo.id.isNotEmpty) {
+        activeModel = modelInfo.id;
+        final lines = <String>[
+          'Модель: ${modelInfo.id}',
+          'Контекст: ${modelInfo.contextLength ?? "по умолчанию"}, parallel: ${modelInfo.parallel ?? 1}',
+          modelInfo.isReasoning
+              ? 'Тип: рассуждающая модель'
+              : 'Тип: стандартная модель',
+        ];
         _updateStep(
           'model_loaded',
           (s) => s.copyWith(
             status: DiagnosticStepStatus.success,
-            message: 'Модель загружена: $activeModel',
+            message: lines.join('\n'),
+            details: 'Параметры модели в LM Studio (из /api/v0/models). Рассуждающая модель обдумывает ответ перед выводом текста.',
           ),
         );
       } else {
@@ -442,7 +448,6 @@ class _AiDiagnosticsScreenState extends ConsumerState<AiDiagnosticsScreen> {
     // Test LM Studio if available
     if (lmStudioOk && pcHost != null && activeModel != null) {
       try {
-        final sw = Stopwatch()..start();
         final lm = LmStudioProvider(
           baseUrl: 'http://$pcHost:$pcPort',
           model: activeModel,
@@ -451,16 +456,38 @@ class _AiDiagnosticsScreenState extends ConsumerState<AiDiagnosticsScreen> {
               : null,
           dio: ref.read(lmStudioDioProvider),
         );
-        await lm.chat(
+        final resp = await lm.chat(
           const AiChatRequest(
             messages: [AiChatMessage.user('Ответь одним словом: готов')],
             temperature: 0.1,
             maxTokens: AiMaxTokens.pingQuery,
-            timeout: Duration(seconds: 5),
+            timeout: Duration(seconds: 15),
           ),
         );
-        sw.stop();
-        testResults.add('LM Studio: ОК (${sw.elapsedMilliseconds} мс)');
+        final ttftSec = resp.timeToFirstToken != null
+            ? (resp.timeToFirstToken!.inMilliseconds / 1000.0).toStringAsFixed(
+                2,
+              )
+            : null;
+        final totalSec = (resp.duration.inMilliseconds / 1000.0)
+            .toStringAsFixed(2);
+        final speedTokPerSec =
+            resp.completionTokens > 0 && resp.duration.inMilliseconds > 0
+            ? (resp.completionTokens / (resp.duration.inMilliseconds / 1000.0))
+                  .toStringAsFixed(1)
+            : null;
+
+        final lines = <String>[
+          'LM Studio:',
+          if (ttftSec != null && speedTokPerSec != null)
+            '• Время первого слова (TTFT): $ttftSec с, скорость: $speedTokPerSec ток/с'
+          else if (ttftSec != null)
+            '• Время первого слова (TTFT): $ttftSec с'
+          else
+            '• Запрос выполнен успешно',
+          '• Время полного ответа: $totalSec с',
+        ];
+        testResults.add(lines.join('\n'));
         anySuccess = true;
       } catch (e) {
         testResults.add(
@@ -494,11 +521,12 @@ class _AiDiagnosticsScreenState extends ConsumerState<AiDiagnosticsScreen> {
             messages: [AiChatMessage.user('Ответь одним словом: готов')],
             temperature: 0.1,
             maxTokens: AiMaxTokens.pingQuery,
-            timeout: Duration(seconds: 5),
+            timeout: Duration(seconds: 15),
           ),
         );
         sw.stop();
-        testResults.add('GigaChat: ОК (${sw.elapsedMilliseconds} мс)');
+        final totalSec = (sw.elapsedMilliseconds / 1000.0).toStringAsFixed(2);
+        testResults.add('GigaChat:\n• Время полного ответа: $totalSec с');
         anySuccess = true;
       } catch (e) {
         testResults.add('GigaChat: ошибка (${e.toString().split('\n').first})');
