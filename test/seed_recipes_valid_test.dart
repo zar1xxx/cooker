@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:chto_prigotovit/core/ai/recipe_validator.dart';
+import 'package:chto_prigotovit/core/catalog/difficulty_calculator.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 Map<String, dynamic> _loadJson(String path) =>
@@ -51,17 +52,13 @@ void main() {
     test('every recipe has a difficulty matching the rules', () {
       final failures = <String>[];
       for (final recipe in recipes) {
-        final stepCount = (recipe['steps'] as List).length;
-        final activeMinutes = (recipe['active_minutes'] as num).toInt();
-        final expected = stepCount <= 5 && activeMinutes <= 30
-            ? 'easy'
-            : stepCount <= 10 && activeMinutes <= 60
-            ? 'medium'
-            : 'hard';
+        final expected = DifficultyCalculator.calculateFromJson(recipe)
+            .difficulty
+            .name;
         if (recipe['difficulty'] != expected) {
           failures.add(
             '${recipe['id']}: difficulty=${recipe['difficulty']}, '
-            'expected=$expected (steps=$stepCount, active=$activeMinutes)',
+            'expected=$expected',
           );
         }
       }

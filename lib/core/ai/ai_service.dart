@@ -4,6 +4,7 @@ import 'package:clock/clock.dart';
 import 'package:drift/drift.dart';
 import 'package:uuid/uuid.dart';
 
+import '../catalog/difficulty_calculator.dart';
 import '../db/app_database.dart';
 import '../db/enums.dart';
 import 'ai_failure.dart';
@@ -38,10 +39,14 @@ class AiDishSuggestion {
   });
 
   factory AiDishSuggestion.fromJson(Map<String, dynamic> json) {
+    final calculatedDifficulty = DifficultyCalculator.calculateFromJson(json)
+        .difficulty
+        .name;
+
     return AiDishSuggestion(
       title: json['title'] as String? ?? '',
       dishType: json['dish_type'] as String? ?? 'main',
-      difficulty: json['difficulty'] as String? ?? 'easy',
+      difficulty: calculatedDifficulty,
       totalMinutes: (json['total_minutes'] as num?)?.toInt() ?? 30,
       mainIngredients: ((json['main_ingredients'] as List?) ?? const [])
           .map((e) => e.toString())
@@ -802,10 +807,8 @@ class AiService {
     final title = day.title;
     final normalizedTitle = title.toLowerCase().trim();
     final dishTypeStr = day.dishType;
-    final difficultyStr = day.difficulty;
 
     final dishType = DishType.values.byName(dishTypeStr);
-    final difficulty = Difficulty.values.byName(difficultyStr);
 
     final sortedIngIds = <String>[];
     for (final name in day.mainIngredients) {
@@ -834,6 +837,14 @@ class AiService {
     final recipeId = const Uuid().v4();
     final nowMs = clock.now().toUtc().millisecondsSinceEpoch;
 
+    // Recalculate difficulty per rule (R8-10): AI difficulty is never taken as-is
+    final calculatedDifficulty = DifficultyCalculator.calculate(
+      title: title,
+      activeMinutes: 15,
+      stepCount: 4,
+      ingredientCount: day.mainIngredients.length,
+    ).difficulty;
+
     return database.transaction(() async {
       await database
           .into(database.recipes)
@@ -843,7 +854,7 @@ class AiService {
               title: Value(title),
               normalizedTitle: Value(normalizedTitle),
               dishType: Value(dishType),
-              difficulty: Value(difficulty),
+              difficulty: Value(calculatedDifficulty),
               cuisine: const Value('домашняя'),
               totalMinutes: const Value(30),
               activeMinutes: const Value(15),
@@ -904,10 +915,8 @@ class AiService {
     final title = recipeJson['title'] as String;
     final normalizedTitle = title.toLowerCase().trim();
     final dishTypeStr = recipeJson['dish_type'] as String? ?? 'main';
-    final difficultyStr = recipeJson['difficulty'] as String? ?? 'easy';
 
     final dishType = DishType.values.byName(dishTypeStr);
-    final difficulty = Difficulty.values.byName(difficultyStr);
     final cuisine = recipeJson['cuisine'] as String? ?? 'домашняя';
     final totalMinutes = (recipeJson['total_minutes'] as num?)?.toInt() ?? 30;
     final activeMinutes =
@@ -949,6 +958,11 @@ class AiService {
       return duplicate;
     }
 
+    // Recalculate difficulty per rule (R8-10): AI difficulty is never taken as-is
+    final calculatedDifficulty = DifficultyCalculator.calculateFromJson(
+      recipeJson,
+    ).difficulty;
+
     return database.transaction(() async {
       await database
           .into(database.recipes)
@@ -958,7 +972,7 @@ class AiService {
               title: Value(title),
               normalizedTitle: Value(normalizedTitle),
               dishType: Value(dishType),
-              difficulty: Value(difficulty),
+              difficulty: Value(calculatedDifficulty),
               cuisine: Value(cuisine),
               totalMinutes: Value(totalMinutes),
               activeMinutes: Value(activeMinutes),
