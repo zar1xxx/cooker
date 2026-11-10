@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
+import '../../core/adaptive/adaptive_app_bar_title.dart';
 import '../../core/ai/ai_failure.dart';
 import '../../core/ai/ai_provider.dart';
 import '../../core/ai/gigachat_cert.dart';
@@ -662,7 +663,7 @@ class _AiDiagnosticsScreenState extends ConsumerState<AiDiagnosticsScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: AdaptiveAppBarTitle(
           l10n.aiDiagnosticsTitle,
           style: theme.textTheme.titleLarge?.copyWith(
             fontWeight: FontWeight.bold,

@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
 import '../../app/app_images.dart';
+import '../../core/adaptive/adaptive_app_bar_title.dart';
 import '../../core/db/app_database.dart';
 import '../../core/db/daos/plan_dao.dart';
 import '../../core/db/daos/recipe_dao.dart';
@@ -111,10 +112,13 @@ class _TodayScreenState extends ConsumerState<TodayScreen> {
 
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
+        leadingWidth: 96,
+        leading: const SizedBox(width: 96),
         title: GestureDetector(
           behavior: HitTestBehavior.opaque,
           onLongPress: () => context.push('/settings/ai'),
-          child: Text(l10n.screenTodayTitle),
+          child: AdaptiveAppBarTitle(l10n.screenTodayTitle),
         ),
         actions: [
           IconButton(

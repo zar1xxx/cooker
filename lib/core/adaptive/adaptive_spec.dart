@@ -83,6 +83,9 @@ class AdaptiveSpec extends ThemeExtension<AdaptiveSpec> {
 
   double get captionFontSize => (isSimple ? 16.0 : 14.0) * profile.fontScale;
 
+  double get navBarLabelFontSize =>
+      (isSimple ? 13.0 : 11.0) * profile.fontScale;
+
   double get headlineLargeFontSize =>
       (isSimple ? 32.0 : 28.0) * profile.fontScale;
 

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../core/adaptive/adaptive_app_bar_title.dart';
 import '../../core/adaptive/adaptive_provider.dart';
 import '../../core/adaptive/adaptive_spec.dart';
 import '../../core/adaptive/ui_profile.dart';
@@ -63,7 +64,7 @@ class _ModeOnboardingScreenState extends ConsumerState<ModeOnboardingScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(l10n.modeOnboardingTitle),
+        title: AdaptiveAppBarTitle(l10n.modeOnboardingTitle),
         automaticallyImplyLeading: false,
       ),
       body: SafeArea(

@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import '../../app/app_images.dart';
+import '../../core/adaptive/adaptive_app_bar_title.dart';
 import '../../core/db/app_database.dart';
 import '../../core/db/daos/plan_dao.dart';
 import '../../core/db/daos/recipe_dao.dart';
@@ -81,7 +82,8 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        centerTitle: true,
+        title: AdaptiveAppBarTitle(
           l10n.screenCalendarTitle,
           style: theme.textTheme.titleLarge?.copyWith(
             fontWeight: FontWeight.bold,

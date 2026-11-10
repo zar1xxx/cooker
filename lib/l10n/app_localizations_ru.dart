@@ -16,7 +16,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get tabToday => 'Сегодня';
 
   @override
-  String get tabPantry => 'Что есть дома';
+  String get tabPantry => 'Продукты';
 
   @override
   String get tabCalendar => 'Календарь';
@@ -25,10 +25,13 @@ class AppLocalizationsRu extends AppLocalizations {
   String get tabHistory => 'История';
 
   @override
+  String get tabStatistics => 'Статистика';
+
+  @override
   String get screenTodayTitle => 'Сегодня';
 
   @override
-  String get screenPantryTitle => 'Что есть дома';
+  String get screenPantryTitle => 'Продукты';
 
   @override
   String get screenCalendarTitle => 'Календарь';
@@ -544,7 +547,7 @@ class AppLocalizationsRu extends AppLocalizations {
       'Рецепт придуман помощником. Проверяйте готовность мяса и рыбы';
 
   @override
-  String get aiSettingsTitle => 'Настройки помощника (ИИ)';
+  String get aiSettingsTitle => 'Настройки ИИ';
 
   @override
   String get aiSettingsPcSection => 'Домашний компьютер (LM Studio)';
@@ -688,7 +691,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get aiSettingsTooltip => 'Настройки помощника';
 
   @override
-  String get aiDiagnosticsTitle => 'Проверка помощника';
+  String get aiDiagnosticsTitle => 'Проверка ИИ';
 
   @override
   String get aiDiagnosticsSubtitle =>
@@ -1006,7 +1009,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get aiSettingsConnectQr => 'Подключить по QR-коду';
 
   @override
-  String get aiQrScannerTitle => 'Подключение по QR-коду';
+  String get aiQrScannerTitle => 'Подключение QR';
 
   @override
   String get aiQrScannerHint =>

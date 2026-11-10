@@ -406,7 +406,7 @@ void main() {
         await tester.pumpAndSettle();
 
         expect(find.text('Сегодня'), findsOneWidget);
-        expect(find.text('Что есть дома'), findsOneWidget);
+        expect(find.text('Продукты'), findsOneWidget);
         expect(find.text('Календарь'), findsOneWidget);
         expect(find.text('История'), findsOneWidget);
         expect(find.text('Статистика'), findsNothing);

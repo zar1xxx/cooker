@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../core/adaptive/adaptive_app_bar_title.dart';
 import '../../core/adaptive/adaptive_provider.dart';
 import '../../core/adaptive/ui_profile.dart';
 import '../../core/ai/ai_failure.dart';
@@ -386,7 +387,7 @@ class _AiSettingsScreenState extends ConsumerState<AiSettingsScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: AdaptiveAppBarTitle(
           l10n.aiSettingsTitle,
           style: theme.textTheme.titleLarge?.copyWith(
             fontWeight: FontWeight.bold,

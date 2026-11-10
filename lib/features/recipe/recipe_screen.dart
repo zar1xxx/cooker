@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../app/app_images.dart';
+import '../../core/adaptive/adaptive_app_bar_title.dart';
 import '../../core/db/app_database.dart';
 import '../../core/db/daos/recipe_dao.dart';
 import '../../core/db/enums.dart';
@@ -81,11 +82,11 @@ class _RecipeScreenState extends ConsumerState<RecipeScreen> {
 
     return detailAsync.when(
       loading: () => Scaffold(
-        appBar: AppBar(title: Text(l10n.recipeScreenTitle)),
+        appBar: AppBar(title: AdaptiveAppBarTitle(l10n.recipeScreenTitle)),
         body: const Center(child: CircularProgressIndicator()),
       ),
       error: (e, _) => Scaffold(
-        appBar: AppBar(title: Text(l10n.recipeScreenTitle)),
+        appBar: AppBar(title: AdaptiveAppBarTitle(l10n.recipeScreenTitle)),
         body: Center(
           child: Text(e.toString(), style: theme.textTheme.bodyLarge),
         ),
@@ -93,7 +94,7 @@ class _RecipeScreenState extends ConsumerState<RecipeScreen> {
       data: (detail) {
         if (detail == null) {
           return Scaffold(
-            appBar: AppBar(title: Text(l10n.recipeScreenTitle)),
+            appBar: AppBar(title: AdaptiveAppBarTitle(l10n.recipeScreenTitle)),
             body: Center(
               child: Text(
                 l10n.recipeNotFound,
@@ -112,7 +113,7 @@ class _RecipeScreenState extends ConsumerState<RecipeScreen> {
 
         return Scaffold(
           appBar: AppBar(
-            title: Text(l10n.recipeScreenTitle),
+            title: AdaptiveAppBarTitle(l10n.recipeScreenTitle),
             actions: [
               IconButton(
                 icon: Icon(

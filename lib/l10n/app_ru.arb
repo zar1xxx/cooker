@@ -8,9 +8,9 @@
   "@tabToday": {
     "description": "Вкладка 'Сегодня'"
   },
-  "tabPantry": "Что есть дома",
+  "tabPantry": "Продукты",
   "@tabPantry": {
-    "description": "Вкладка 'Что есть дома'"
+    "description": "Вкладка 'Продукты' (бывш. 'Что есть дома')"
   },
   "tabCalendar": "Календарь",
   "@tabCalendar": {
@@ -20,13 +20,17 @@
   "@tabHistory": {
     "description": "Вкладка 'История'"
   },
+  "tabStatistics": "Статистика",
+  "@tabStatistics": {
+    "description": "Вкладка 'Статистика' в режиме 'Полный'"
+  },
   "screenTodayTitle": "Сегодня",
   "@screenTodayTitle": {
     "description": "Заголовок экрана Сегодня"
   },
-  "screenPantryTitle": "Что есть дома",
+  "screenPantryTitle": "Продукты",
   "@screenPantryTitle": {
-    "description": "Заголовок экрана Что есть дома"
+    "description": "Заголовок экрана Продукты"
   },
   "screenCalendarTitle": "Календарь",
   "@screenCalendarTitle": {
@@ -751,7 +755,7 @@
   "@dishesAiDisclaimer": {
     "description": "Предупреждение о рецепте от ИИ по ТЗ 9.1"
   },
-  "aiSettingsTitle": "Настройки помощника (ИИ)",
+  "aiSettingsTitle": "Настройки ИИ",
   "@aiSettingsTitle": {
     "description": "Заголовок экрана настроек ИИ"
   },
@@ -948,7 +952,7 @@
   "@aiSettingsTooltip": {
     "description": "Подсказка для кнопки настроек помощника в AppBar"
   },
-  "aiDiagnosticsTitle": "Проверка помощника",
+  "aiDiagnosticsTitle": "Проверка ИИ",
   "@aiDiagnosticsTitle": {
     "description": "Заголовок экрана проверки помощника"
   },
@@ -1376,7 +1380,7 @@
   "@aiSettingsConnectQr": {
     "description": "Кнопка подключения ПК по QR-коду"
   },
-  "aiQrScannerTitle": "Подключение по QR-коду",
+  "aiQrScannerTitle": "Подключение QR",
   "@aiQrScannerTitle": {
     "description": "Заголовок экрана сканирования QR-кода"
   },

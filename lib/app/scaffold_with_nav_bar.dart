@@ -33,10 +33,10 @@ class ScaffoldWithNavBar extends ConsumerWidget {
         label: l10n.tabHistory,
       ),
       if (adaptive.showStatistics)
-        const NavigationDestination(
-          icon: Icon(Icons.insights_outlined),
-          selectedIcon: Icon(Icons.insights),
-          label: 'Статистика',
+        NavigationDestination(
+          icon: const Icon(Icons.insights_outlined),
+          selectedIcon: const Icon(Icons.insights),
+          label: l10n.tabStatistics,
         ),
     ];
 
@@ -54,16 +54,19 @@ class ScaffoldWithNavBar extends ConsumerWidget {
 
     return Scaffold(
       body: navigationShell,
-      bottomNavigationBar: NavigationBar(
-        selectedIndex: currentIndex,
-        onDestinationSelected: (index) {
-          navigationShell.goBranch(
-            index,
-            initialLocation: index == navigationShell.currentIndex,
-          );
-        },
-        labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
-        destinations: destinations,
+      bottomNavigationBar: MediaQuery.withClampedTextScaling(
+        maxScaleFactor: 1.15,
+        child: NavigationBar(
+          selectedIndex: currentIndex,
+          onDestinationSelected: (index) {
+            navigationShell.goBranch(
+              index,
+              initialLocation: index == navigationShell.currentIndex,
+            );
+          },
+          labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
+          destinations: destinations,
+        ),
       ),
     );
   }

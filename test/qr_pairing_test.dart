@@ -256,7 +256,7 @@ void main() {
       await tester.pumpWidget(buildTestScreen());
       await tester.pumpAndSettle();
 
-      expect(find.text('Подключение по QR-коду'), findsOneWidget);
+      expect(find.text('Подключение QR'), findsOneWidget);
       expect(find.byKey(const ValueKey('mock_camera_view')), findsOneWidget);
       expect(find.byKey(const Key('qr_viewfinder_overlay')), findsOneWidget);
       expect(

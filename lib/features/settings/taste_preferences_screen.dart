@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../core/adaptive/adaptive_app_bar_title.dart';
 import '../../core/db/app_database.dart';
 import '../../core/preferences/preference_service.dart';
 import '../../core/providers.dart';
@@ -264,12 +265,7 @@ class _TastePreferencesScreenState
 
     if (_isLoading) {
       return Scaffold(
-        appBar: AppBar(
-          title: FittedBox(
-            fit: BoxFit.scaleDown,
-            child: Text(l10n.tasteScreenAppBarTitle),
-          ),
-        ),
+        appBar: AppBar(title: AdaptiveAppBarTitle(l10n.tasteScreenAppBarTitle)),
         body: const Center(child: CircularProgressIndicator()),
       );
     }
@@ -282,12 +278,7 @@ class _TastePreferencesScreenState
     final exclusions = _profile?.excludedIngredients ?? const [];
 
     return Scaffold(
-      appBar: AppBar(
-        title: FittedBox(
-          fit: BoxFit.scaleDown,
-          child: Text(l10n.tasteScreenAppBarTitle),
-        ),
-      ),
+      appBar: AppBar(title: AdaptiveAppBarTitle(l10n.tasteScreenAppBarTitle)),
       body: ListView(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         children: [

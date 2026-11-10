@@ -101,7 +101,7 @@ void main() {
     await tester.pumpWidget(buildTestScreen());
     await tester.pumpAndSettle();
 
-    expect(find.text('Проверка помощника'), findsOneWidget);
+    expect(find.text('Проверка ИИ'), findsOneWidget);
 
     // Verify all 8 step cards are present
     expect(find.byKey(const Key('diagnostic_step_wifi')), findsOneWidget);

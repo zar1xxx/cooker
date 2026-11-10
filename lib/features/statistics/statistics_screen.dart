@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../core/adaptive/adaptive_app_bar_title.dart';
 import '../../core/adaptive/adaptive_spec.dart';
 import '../../core/db/daos/history_dao.dart';
 import '../../core/providers.dart';
@@ -42,7 +43,10 @@ class _StatisticsScreenState extends ConsumerState<StatisticsScreen> {
     final historyDao = ref.watch(historyDaoProvider);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Статистика')),
+      appBar: AppBar(
+        centerTitle: true,
+        title: const AdaptiveAppBarTitle('Статистика'),
+      ),
       body: FutureBuilder<HistoryMonthSummary>(
         future: historyDao.getMonthSummary(month: DateTime.now()),
         builder: (context, snapshot) {

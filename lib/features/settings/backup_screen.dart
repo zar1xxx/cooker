@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../core/adaptive/adaptive_app_bar_title.dart';
 import '../../core/providers.dart';
 import '../../l10n/app_localizations.dart';
 
@@ -160,7 +161,7 @@ class _BackupScreenState extends ConsumerState<BackupScreen> {
     final theme = Theme.of(context);
 
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.backupScreenTitle)),
+      appBar: AppBar(title: AdaptiveAppBarTitle(l10n.backupScreenTitle)),
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [

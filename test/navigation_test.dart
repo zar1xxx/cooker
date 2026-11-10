@@ -28,14 +28,14 @@ void main() {
 
     // Verify all 4 tabs are present in bottom navigation
     expect(find.text('Сегодня'), findsWidgets);
-    expect(find.text('Что есть дома'), findsOneWidget);
+    expect(find.text('Продукты'), findsOneWidget);
     expect(find.text('Календарь'), findsOneWidget);
     expect(find.text('История'), findsOneWidget);
 
     // Switch to 'Что есть дома'
-    await tester.tap(find.text('Что есть дома'));
+    await tester.tap(find.text('Продукты'));
     await tester.pumpAndSettle();
-    expect(find.text('Что есть дома'), findsWidgets);
+    expect(find.text('Продукты'), findsWidgets);
 
     // Switch to 'Календарь'
     await tester.tap(find.text('Календарь'));

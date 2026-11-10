@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../core/adaptive/adaptive_app_bar_title.dart';
 import '../../core/adaptive/adaptive_provider.dart';
 import '../../core/adaptive/adaptive_spec.dart';
 import '../../core/adaptive/ui_profile.dart';
@@ -19,7 +20,7 @@ class AppearanceSettingsScreen extends ConsumerWidget {
     final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.appearanceTitle)),
+      appBar: AppBar(title: AdaptiveAppBarTitle(l10n.appearanceTitle)),
       body: ListView(
         padding: adaptive.cardPadding,
         children: [

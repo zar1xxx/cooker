@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../app/app_images.dart';
+import '../../core/adaptive/adaptive_app_bar_title.dart';
 import '../../core/adaptive/adaptive_spec.dart';
 import '../../core/ai/ai_failure.dart';
 import '../../core/ai/ai_router.dart';
@@ -337,7 +338,7 @@ class _SuggestionsScreenState extends ConsumerState<SuggestionsScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(l10n.dishesScreenTitle),
+              AdaptiveAppBarTitle(l10n.dishesScreenTitle),
               aiModeAsync.when(
                 data: (mode) => InkWell(
                   onTap: () => context.push('/settings/ai'),
@@ -367,375 +368,424 @@ class _SuggestionsScreenState extends ConsumerState<SuggestionsScreen> {
           ),
         ],
       ),
-      body: Column(
-        children: [
-          // Filter Chips (DishType & Difficulty)
-          _buildFilterBar(theme, l10n),
-          const Divider(height: 1),
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          final maxFilterHeight = constraints.maxHeight.isFinite
+              ? constraints.maxHeight * 0.48
+              : double.infinity;
 
-          // Main content: Two groups or empty state
-          Expanded(
-            child: suggestionsAsync.when(
-              loading: () => const Center(child: CircularProgressIndicator()),
-              error: (e, _) => Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(24),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      const AppStateIllustration(
-                        assetPath: AppImages.stateErrorGeneric,
-                        height: 140,
-                      ),
-                      const SizedBox(height: 16),
-                      Text(e.toString(), style: theme.textTheme.bodyLarge),
-                    ],
-                  ),
+          return Column(
+            children: [
+              ConstrainedBox(
+                constraints: BoxConstraints(maxHeight: maxFilterHeight),
+                child: SingleChildScrollView(
+                  child: _buildFilterBar(theme, l10n),
                 ),
               ),
-              data: (data) {
-                final filteredReady = _sortList(
-                  data.ready
-                      .where((s) => _matchesRecipe(s.entry.recipe))
-                      .toList(),
-                );
+              const Divider(height: 1),
 
-                final filteredAlmostReady = _onlyReady
-                    ? <ScoredRecipe>[]
-                    : _sortList(
-                        data.almostReady
-                            .where((s) => _matchesRecipe(s.entry.recipe))
-                            .toList(),
-                      );
-
-                final aiDishes =
-                    aiDishesAsync.value?.dataOrNull ??
-                    const <AiDishSuggestion>[];
-                final filteredAiDishes = aiDishes.where(_matchesAi).toList();
-
-                if (filteredReady.isEmpty &&
-                    filteredAlmostReady.isEmpty &&
-                    filteredAiDishes.isEmpty) {
-                  return SingleChildScrollView(
-                    child: Center(
-                      child: Padding(
-                        padding: const EdgeInsets.all(24),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            const AppStateIllustration(
-                              assetPath: AppImages.stateNoDishes,
-                              height: 160,
-                            ),
-                            const SizedBox(height: 16),
-                            Text(
-                              l10n.dishesEmpty,
-                              textAlign: TextAlign.center,
-                              style: theme.textTheme.titleMedium,
-                            ),
-                          ],
-                        ),
+              // Main content: Two groups or empty state
+              Expanded(
+                child: suggestionsAsync.when(
+                  loading: () =>
+                      const Center(child: CircularProgressIndicator()),
+                  error: (e, _) => Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(24),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const AppStateIllustration(
+                            assetPath: AppImages.stateErrorGeneric,
+                            height: 140,
+                          ),
+                          const SizedBox(height: 16),
+                          Text(e.toString(), style: theme.textTheme.bodyLarge),
+                        ],
                       ),
                     ),
-                  );
-                }
-
-                return ListView(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 12,
                   ),
-                  children: [
-                    // AI Failure Banner (R4-03: placed at top above recipe groups)
-                    if (aiDishesAsync.value?.failureOrNull != null) ...[
-                      Builder(
-                        builder: (context) {
-                          final failure = aiDishesAsync.value!.failureOrNull!;
-                          final isNotConfigured =
-                              failure is AiFailureNotConfigured;
-                          return Padding(
-                            padding: const EdgeInsets.only(top: 4, bottom: 12),
-                            child: Card(
-                              key: Key(
-                                isNotConfigured
-                                    ? 'ai_not_configured_banner'
-                                    : 'ai_error_banner',
-                              ),
-                              color: theme.colorScheme.surfaceContainerHighest,
-                              elevation: 0,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(16),
-                                side: BorderSide(
-                                  color: theme.colorScheme.outlineVariant,
+                  data: (data) {
+                    final filteredReady = _sortList(
+                      data.ready
+                          .where((s) => _matchesRecipe(s.entry.recipe))
+                          .toList(),
+                    );
+
+                    final filteredAlmostReady = _onlyReady
+                        ? <ScoredRecipe>[]
+                        : _sortList(
+                            data.almostReady
+                                .where((s) => _matchesRecipe(s.entry.recipe))
+                                .toList(),
+                          );
+
+                    final aiDishes =
+                        aiDishesAsync.value?.dataOrNull ??
+                        const <AiDishSuggestion>[];
+                    final filteredAiDishes = aiDishes
+                        .where(_matchesAi)
+                        .toList();
+
+                    if (filteredReady.isEmpty &&
+                        filteredAlmostReady.isEmpty &&
+                        filteredAiDishes.isEmpty) {
+                      return SingleChildScrollView(
+                        child: Center(
+                          child: Padding(
+                            padding: const EdgeInsets.all(24),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                const AppStateIllustration(
+                                  assetPath: AppImages.stateNoDishes,
+                                  height: 160,
                                 ),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(12),
-                                child: Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.stretch,
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Row(
+                                const SizedBox(height: 16),
+                                Text(
+                                  l10n.dishesEmpty,
+                                  textAlign: TextAlign.center,
+                                  style: theme.textTheme.titleMedium,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      );
+                    }
+
+                    return ListView(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 12,
+                      ),
+                      children: [
+                        // AI Failure Banner (R4-03: placed at top above recipe groups)
+                        if (aiDishesAsync.value?.failureOrNull != null) ...[
+                          Builder(
+                            builder: (context) {
+                              final failure =
+                                  aiDishesAsync.value!.failureOrNull!;
+                              final isNotConfigured =
+                                  failure is AiFailureNotConfigured;
+                              return Padding(
+                                padding: const EdgeInsets.only(
+                                  top: 4,
+                                  bottom: 12,
+                                ),
+                                child: Card(
+                                  key: Key(
+                                    isNotConfigured
+                                        ? 'ai_not_configured_banner'
+                                        : 'ai_error_banner',
+                                  ),
+                                  color:
+                                      theme.colorScheme.surfaceContainerHighest,
+                                  elevation: 0,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(16),
+                                    side: BorderSide(
+                                      color: theme.colorScheme.outlineVariant,
+                                    ),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(12),
+                                    child: Column(
                                       crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                          CrossAxisAlignment.stretch,
+                                      mainAxisSize: MainAxisSize.min,
                                       children: [
-                                        Icon(
-                                          isNotConfigured
-                                              ? Icons.tune
-                                              : Icons.info_outline,
-                                          color: theme.colorScheme.primary,
-                                          size: 24,
-                                        ),
-                                        const SizedBox(width: 10),
-                                        Expanded(
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                isNotConfigured
-                                                    ? l10n.aiNotConfiguredTitle
-                                                    : (failure
-                                                              is AiFailureTimeout
-                                                          ? l10n.aiTimeoutTitle
-                                                          : l10n.aiNotRespondingTitle),
-                                                style: theme
-                                                    .textTheme
-                                                    .titleMedium
-                                                    ?.copyWith(
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
+                                        Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Icon(
+                                              isNotConfigured
+                                                  ? Icons.tune
+                                                  : Icons.info_outline,
+                                              color: theme.colorScheme.primary,
+                                              size: 24,
+                                            ),
+                                            const SizedBox(width: 10),
+                                            Expanded(
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    isNotConfigured
+                                                        ? l10n.aiNotConfiguredTitle
+                                                        : (failure
+                                                                  is AiFailureTimeout
+                                                              ? l10n.aiTimeoutTitle
+                                                              : l10n.aiNotRespondingTitle),
+                                                    style: theme
+                                                        .textTheme
+                                                        .titleMedium
+                                                        ?.copyWith(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
+                                                  ),
+                                                  const SizedBox(height: 2),
+                                                  Text(
+                                                    isNotConfigured
+                                                        ? l10n.aiNotConfiguredSubtitle
+                                                        : failure.message,
+                                                    style: theme
+                                                        .textTheme
+                                                        .bodyMedium
+                                                        ?.copyWith(
+                                                          color: theme
+                                                              .colorScheme
+                                                              .onSurfaceVariant,
+                                                        ),
+                                                  ),
+                                                ],
                                               ),
-                                              const SizedBox(height: 2),
-                                              Text(
-                                                isNotConfigured
-                                                    ? l10n.aiNotConfiguredSubtitle
-                                                    : failure.message,
-                                                style: theme
-                                                    .textTheme
-                                                    .bodyMedium
-                                                    ?.copyWith(
-                                                      color: theme
-                                                          .colorScheme
-                                                          .onSurfaceVariant,
-                                                    ),
+                                            ),
+                                          ],
+                                        ),
+                                        const SizedBox(height: 10),
+                                        if (isNotConfigured)
+                                          Wrap(
+                                            spacing: 8,
+                                            runSpacing: 8,
+                                            children: [
+                                              ElevatedButton.icon(
+                                                key: const Key(
+                                                  'btn_connect_qr_ai',
+                                                ),
+                                                style: ElevatedButton.styleFrom(
+                                                  minimumSize: const Size(
+                                                    140,
+                                                    48,
+                                                  ),
+                                                ),
+                                                icon: const Icon(
+                                                  Icons.qr_code_scanner,
+                                                  size: 20,
+                                                ),
+                                                label: Text(
+                                                  l10n.aiSettingsConnectQr,
+                                                  style: theme
+                                                      .textTheme
+                                                      .titleMedium,
+                                                ),
+                                                onPressed: () => context.push(
+                                                  '/settings/ai/qr-scanner',
+                                                ),
+                                              ),
+                                              FilledButton.tonal(
+                                                key: const Key(
+                                                  'btn_configure_ai',
+                                                ),
+                                                style: FilledButton.styleFrom(
+                                                  minimumSize: const Size(
+                                                    110,
+                                                    48,
+                                                  ),
+                                                ),
+                                                onPressed: () => context.push(
+                                                  '/settings/ai',
+                                                ),
+                                                child: Text(
+                                                  l10n.aiConfigureButton,
+                                                  style: theme
+                                                      .textTheme
+                                                      .titleMedium,
+                                                ),
+                                              ),
+                                            ],
+                                          )
+                                        else
+                                          Row(
+                                            children: [
+                                              Expanded(
+                                                child: OutlinedButton.icon(
+                                                  key: const Key(
+                                                    'btn_retry_ai',
+                                                  ),
+                                                  style: OutlinedButton.styleFrom(
+                                                    minimumSize:
+                                                        const Size.fromHeight(
+                                                          48,
+                                                        ),
+                                                  ),
+                                                  icon: const Icon(
+                                                    Icons.refresh,
+                                                    size: 20,
+                                                  ),
+                                                  label: Text(
+                                                    l10n.aiRetryButton,
+                                                    style: theme
+                                                        .textTheme
+                                                        .titleMedium,
+                                                  ),
+                                                  onPressed: () {
+                                                    ref.invalidate(
+                                                      aiDishesProvider,
+                                                    );
+                                                  },
+                                                ),
+                                              ),
+                                              const SizedBox(width: 8),
+                                              IconButton.filledTonal(
+                                                key: const Key(
+                                                  'btn_ai_banner_settings',
+                                                ),
+                                                style: IconButton.styleFrom(
+                                                  minimumSize: const Size(
+                                                    48,
+                                                    48,
+                                                  ),
+                                                ),
+                                                icon: const Icon(
+                                                  Icons.settings,
+                                                ),
+                                                tooltip: l10n.aiSettingsTooltip,
+                                                onPressed: () => context.push(
+                                                  '/settings/ai',
+                                                ),
                                               ),
                                             ],
                                           ),
-                                        ),
                                       ],
                                     ),
-                                    const SizedBox(height: 10),
-                                    if (isNotConfigured)
-                                      Wrap(
-                                        spacing: 8,
-                                        runSpacing: 8,
-                                        children: [
-                                          ElevatedButton.icon(
-                                            key: const Key('btn_connect_qr_ai'),
-                                            style: ElevatedButton.styleFrom(
-                                              minimumSize: const Size(140, 48),
-                                            ),
-                                            icon: const Icon(
-                                              Icons.qr_code_scanner,
-                                              size: 20,
-                                            ),
-                                            label: Text(
-                                              l10n.aiSettingsConnectQr,
-                                              style:
-                                                  theme.textTheme.titleMedium,
-                                            ),
-                                            onPressed: () => context.push(
-                                              '/settings/ai/qr-scanner',
-                                            ),
-                                          ),
-                                          FilledButton.tonal(
-                                            key: const Key('btn_configure_ai'),
-                                            style: FilledButton.styleFrom(
-                                              minimumSize: const Size(110, 48),
-                                            ),
-                                            onPressed: () =>
-                                                context.push('/settings/ai'),
-                                            child: Text(
-                                              l10n.aiConfigureButton,
-                                              style:
-                                                  theme.textTheme.titleMedium,
-                                            ),
-                                          ),
-                                        ],
-                                      )
-                                    else
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                            child: OutlinedButton.icon(
-                                              key: const Key('btn_retry_ai'),
-                                              style: OutlinedButton.styleFrom(
-                                                minimumSize:
-                                                    const Size.fromHeight(48),
-                                              ),
-                                              icon: const Icon(
-                                                Icons.refresh,
-                                                size: 20,
-                                              ),
-                                              label: Text(
-                                                l10n.aiRetryButton,
-                                                style:
-                                                    theme.textTheme.titleMedium,
-                                              ),
-                                              onPressed: () {
-                                                ref.invalidate(
-                                                  aiDishesProvider,
-                                                );
-                                              },
-                                            ),
-                                          ),
-                                          const SizedBox(width: 8),
-                                          IconButton.filledTonal(
-                                            key: const Key(
-                                              'btn_ai_banner_settings',
-                                            ),
-                                            style: IconButton.styleFrom(
-                                              minimumSize: const Size(48, 48),
-                                            ),
-                                            icon: const Icon(Icons.settings),
-                                            tooltip: l10n.aiSettingsTooltip,
-                                            onPressed: () =>
-                                                context.push('/settings/ai'),
-                                          ),
-                                        ],
-                                      ),
-                                  ],
+                                  ),
                                 ),
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                    ],
+                              );
+                            },
+                          ),
+                        ],
 
-                    // AI Suggestions Group (if available)
-                    if (filteredAiDishes.isNotEmpty) ...[
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8),
-                        child: Row(
-                          children: [
-                            Icon(
-                              Icons.auto_awesome,
-                              size: 20,
-                              color: theme.colorScheme.primary,
-                            ),
-                            const SizedBox(width: 8),
-                            Expanded(
-                              child: Text(
-                                l10n.dishesFromAssistant,
-                                style: theme.textTheme.titleMedium?.copyWith(
-                                  fontWeight: FontWeight.bold,
+                        // AI Suggestions Group (if available)
+                        if (filteredAiDishes.isNotEmpty) ...[
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8),
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.auto_awesome,
+                                  size: 20,
                                   color: theme.colorScheme.primary,
                                 ),
+                                const SizedBox(width: 8),
+                                Expanded(
+                                  child: Text(
+                                    l10n.dishesFromAssistant,
+                                    style: theme.textTheme.titleMedium
+                                        ?.copyWith(
+                                          fontWeight: FontWeight.bold,
+                                          color: theme.colorScheme.primary,
+                                        ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          for (final suggestion in filteredAiDishes)
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 12),
+                              child: _AiDishCard(
+                                suggestion: suggestion,
+                                onOpen: () => _openAiSuggestion(suggestion),
+                                onReject: () => _rejectAiSuggestion(suggestion),
                               ),
                             ),
-                          ],
-                        ),
-                      ),
-                      for (final suggestion in filteredAiDishes)
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 12),
-                          child: _AiDishCard(
-                            suggestion: suggestion,
-                            onOpen: () => _openAiSuggestion(suggestion),
-                            onReject: () => _rejectAiSuggestion(suggestion),
-                          ),
-                        ),
-                    ],
+                        ],
 
-                    // Group 1: «Можно приготовить сейчас»
-                    if (filteredReady.isNotEmpty) ...[
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8),
-                        child: Text(
-                          l10n.dishesCanCookNow,
-                          style: theme.textTheme.titleMedium?.copyWith(
-                            fontWeight: FontWeight.bold,
-                            color: theme.colorScheme.primary,
-                          ),
-                        ),
-                      ),
-                      for (final scored in filteredReady)
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 12),
-                          child: _RecipeCard(
-                            scored: scored,
-                            onOpen: () => _openRecipe(scored.entry.recipe),
-                            onReject: () => _rejectRecipe(scored.entry.recipe),
-                            onAddToCalendar: () =>
-                                _addToCalendar(scored.entry.recipe),
-                          ),
-                        ),
-                    ],
-
-                    // Group 2: «Не хватает 1–2 продуктов»
-                    if (filteredAlmostReady.isNotEmpty) ...[
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8),
-                        child: Text(
-                          l10n.dishesMissingFew,
-                          style: theme.textTheme.titleMedium?.copyWith(
-                            fontWeight: FontWeight.bold,
-                            color: theme.colorScheme.primary,
-                          ),
-                        ),
-                      ),
-                      for (final scored in filteredAlmostReady)
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 12),
-                          child: _RecipeCard(
-                            scored: scored,
-                            onOpen: () => _openRecipe(scored.entry.recipe),
-                            onReject: () => _rejectRecipe(scored.entry.recipe),
-                            onAddToCalendar: () =>
-                                _addToCalendar(scored.entry.recipe),
-                          ),
-                        ),
-                    ],
-
-                    // «Другие варианты» Button (ТЗ 6.3)
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 16),
-                      child: OutlinedButton.icon(
-                        key: const Key('btn_other_variants'),
-                        style: OutlinedButton.styleFrom(
-                          minimumSize: const Size.fromHeight(56),
-                        ),
-                        onPressed: () {
-                          final allShown = [
-                            ...filteredReady.map((r) => r.entry.recipe.title),
-                            ...filteredAlmostReady.map(
-                              (r) => r.entry.recipe.title,
+                        // Group 1: «Можно приготовить сейчас»
+                        if (filteredReady.isNotEmpty) ...[
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8),
+                            child: Text(
+                              l10n.dishesCanCookNow,
+                              style: theme.textTheme.titleMedium?.copyWith(
+                                fontWeight: FontWeight.bold,
+                                color: theme.colorScheme.primary,
+                              ),
                             ),
-                            ...filteredAiDishes.map((d) => d.title),
-                          ];
-                          unawaited(
-                            ref
-                                .read(aiDishesProvider.notifier)
-                                .fetchOtherVariants(alreadyShown: allShown),
-                          );
-                        },
-                        icon: const Icon(Icons.refresh, size: 28),
-                        label: Text(
-                          l10n.dishesOtherVariants,
-                          style: theme.textTheme.titleMedium,
+                          ),
+                          for (final scored in filteredReady)
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 12),
+                              child: _RecipeCard(
+                                scored: scored,
+                                onOpen: () => _openRecipe(scored.entry.recipe),
+                                onReject: () =>
+                                    _rejectRecipe(scored.entry.recipe),
+                                onAddToCalendar: () =>
+                                    _addToCalendar(scored.entry.recipe),
+                              ),
+                            ),
+                        ],
+
+                        // Group 2: «Не хватает 1–2 продуктов»
+                        if (filteredAlmostReady.isNotEmpty) ...[
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8),
+                            child: Text(
+                              l10n.dishesMissingFew,
+                              style: theme.textTheme.titleMedium?.copyWith(
+                                fontWeight: FontWeight.bold,
+                                color: theme.colorScheme.primary,
+                              ),
+                            ),
+                          ),
+                          for (final scored in filteredAlmostReady)
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 12),
+                              child: _RecipeCard(
+                                scored: scored,
+                                onOpen: () => _openRecipe(scored.entry.recipe),
+                                onReject: () =>
+                                    _rejectRecipe(scored.entry.recipe),
+                                onAddToCalendar: () =>
+                                    _addToCalendar(scored.entry.recipe),
+                              ),
+                            ),
+                        ],
+
+                        // «Другие варианты» Button (ТЗ 6.3)
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 16),
+                          child: OutlinedButton.icon(
+                            key: const Key('btn_other_variants'),
+                            style: OutlinedButton.styleFrom(
+                              minimumSize: const Size.fromHeight(56),
+                            ),
+                            onPressed: () {
+                              final allShown = [
+                                ...filteredReady.map(
+                                  (r) => r.entry.recipe.title,
+                                ),
+                                ...filteredAlmostReady.map(
+                                  (r) => r.entry.recipe.title,
+                                ),
+                                ...filteredAiDishes.map((d) => d.title),
+                              ];
+                              unawaited(
+                                ref
+                                    .read(aiDishesProvider.notifier)
+                                    .fetchOtherVariants(alreadyShown: allShown),
+                              );
+                            },
+                            icon: const Icon(Icons.refresh, size: 28),
+                            label: Text(
+                              l10n.dishesOtherVariants,
+                              style: theme.textTheme.titleMedium,
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                  ],
-                );
-              },
-            ),
-          ),
-        ],
+                      ],
+                    );
+                  },
+                ),
+              ),
+            ],
+          );
+        },
       ),
     );
   }

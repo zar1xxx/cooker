@@ -181,7 +181,7 @@ class AppTheme {
         indicatorColor: colorScheme.primary.withAlpha(isDark ? 80 : 40),
         labelTextStyle: WidgetStatePropertyAll(
           TextStyle(
-            fontSize: spec.captionFontSize,
+            fontSize: spec.navBarLabelFontSize,
             fontWeight: FontWeight.w600,
             color: colorScheme.onSurface,
           ),

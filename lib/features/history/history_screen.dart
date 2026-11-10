@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
 import '../../app/app_images.dart';
+import '../../core/adaptive/adaptive_app_bar_title.dart';
 import '../../core/db/daos/history_dao.dart';
 import '../../core/db/enums.dart';
 import '../../core/providers.dart';
@@ -256,7 +257,10 @@ class _HistoryScreenState extends ConsumerState<HistoryScreen> {
     final historyAsync = ref.watch(historyEntriesProvider);
 
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.screenHistoryTitle)),
+      appBar: AppBar(
+        centerTitle: true,
+        title: AdaptiveAppBarTitle(l10n.screenHistoryTitle),
+      ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: _showAddDishDialog,
         icon: const Icon(Icons.add, size: 28),

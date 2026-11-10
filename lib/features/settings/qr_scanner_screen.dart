@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:permission_handler/permission_handler.dart';
 
+import '../../core/adaptive/adaptive_app_bar_title.dart';
 import '../../core/ai/qr_pairing_parser.dart';
 import '../../core/providers.dart';
 import '../../l10n/app_localizations.dart';
@@ -173,7 +174,7 @@ class _QrScannerScreenState extends ConsumerState<QrScannerScreen> {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        title: Text(l10n.aiQrScannerTitle),
+        title: AdaptiveAppBarTitle(l10n.aiQrScannerTitle),
         backgroundColor: Colors.black,
         foregroundColor: Colors.white,
         actions: [

@@ -6,6 +6,7 @@ import 'package:flutter_tts/flutter_tts.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
 import '../../app/app_images.dart';
+import '../../core/adaptive/adaptive_app_bar_title.dart';
 import '../../app/theme.dart';
 import '../../core/db/app_database.dart';
 import '../../core/providers.dart';
@@ -432,11 +433,11 @@ class _CookingScreenState extends ConsumerState<CookingScreen> {
 
     return detailAsync.when(
       loading: () => Scaffold(
-        appBar: AppBar(title: Text(l10n.cookingScreenTitle)),
+        appBar: AppBar(title: AdaptiveAppBarTitle(l10n.cookingScreenTitle)),
         body: const Center(child: CircularProgressIndicator()),
       ),
       error: (e, _) => Scaffold(
-        appBar: AppBar(title: Text(l10n.cookingScreenTitle)),
+        appBar: AppBar(title: AdaptiveAppBarTitle(l10n.cookingScreenTitle)),
         body: Center(
           child: Text(e.toString(), style: theme.textTheme.bodyLarge),
         ),
@@ -444,7 +445,7 @@ class _CookingScreenState extends ConsumerState<CookingScreen> {
       data: (detail) {
         if (detail == null || detail.steps.isEmpty) {
           return Scaffold(
-            appBar: AppBar(title: Text(l10n.cookingScreenTitle)),
+            appBar: AppBar(title: AdaptiveAppBarTitle(l10n.cookingScreenTitle)),
             body: Center(
               child: Text(
                 l10n.cookingNoSteps,
@@ -467,11 +468,7 @@ class _CookingScreenState extends ConsumerState<CookingScreen> {
 
         return Scaffold(
           appBar: AppBar(
-            title: Text(
-              detail.recipe.title,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-            ),
+            title: AdaptiveAppBarTitle(detail.recipe.title),
             actions: [
               // TTS button in header
               IconButton(

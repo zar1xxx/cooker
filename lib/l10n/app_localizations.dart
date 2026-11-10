@@ -106,10 +106,10 @@ abstract class AppLocalizations {
   /// **'Сегодня'**
   String get tabToday;
 
-  /// Вкладка 'Что есть дома'
+  /// Вкладка 'Продукты' (бывш. 'Что есть дома')
   ///
   /// In ru, this message translates to:
-  /// **'Что есть дома'**
+  /// **'Продукты'**
   String get tabPantry;
 
   /// Вкладка 'Календарь'
@@ -124,16 +124,22 @@ abstract class AppLocalizations {
   /// **'История'**
   String get tabHistory;
 
+  /// Вкладка 'Статистика' в режиме 'Полный'
+  ///
+  /// In ru, this message translates to:
+  /// **'Статистика'**
+  String get tabStatistics;
+
   /// Заголовок экрана Сегодня
   ///
   /// In ru, this message translates to:
   /// **'Сегодня'**
   String get screenTodayTitle;
 
-  /// Заголовок экрана Что есть дома
+  /// Заголовок экрана Продукты
   ///
   /// In ru, this message translates to:
-  /// **'Что есть дома'**
+  /// **'Продукты'**
   String get screenPantryTitle;
 
   /// Заголовок экрана Календарь
@@ -1081,7 +1087,7 @@ abstract class AppLocalizations {
   /// Заголовок экрана настроек ИИ
   ///
   /// In ru, this message translates to:
-  /// **'Настройки помощника (ИИ)'**
+  /// **'Настройки ИИ'**
   String get aiSettingsTitle;
 
   /// Секция настроек LM Studio
@@ -1339,7 +1345,7 @@ abstract class AppLocalizations {
   /// Заголовок экрана проверки помощника
   ///
   /// In ru, this message translates to:
-  /// **'Проверка помощника'**
+  /// **'Проверка ИИ'**
   String get aiDiagnosticsTitle;
 
   /// Подзаголовок экрана проверки помощника
@@ -1909,7 +1915,7 @@ abstract class AppLocalizations {
   /// Заголовок экрана сканирования QR-кода
   ///
   /// In ru, this message translates to:
-  /// **'Подключение по QR-коду'**
+  /// **'Подключение QR'**
   String get aiQrScannerTitle;
 
   /// Подсказка на экране сканера QR-кода

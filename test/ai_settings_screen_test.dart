@@ -99,7 +99,7 @@ void main() {
       await tester.pumpWidget(buildTestScreen());
       await tester.pumpAndSettle();
 
-      expect(find.text('Настройки помощника (ИИ)'), findsOneWidget);
+      expect(find.text('Настройки ИИ'), findsOneWidget);
       expect(find.text('Домашний компьютер (LM Studio)'), findsOneWidget);
       expect(find.text('GigaChat (Сбер)'), findsOneWidget);
       expect(find.text('Найти компьютер'), findsOneWidget);
@@ -230,7 +230,7 @@ void main() {
       await tester.pumpAndSettle();
 
       // Navigated to settings screen
-      expect(find.text('Настройки помощника (ИИ)'), findsOneWidget);
+      expect(find.text('Настройки ИИ'), findsOneWidget);
     });
 
     testWidgets('has diagnostics button that navigates to diagnostics screen', (
@@ -270,7 +270,7 @@ void main() {
       await tester.pump(const Duration(milliseconds: 300));
 
       expect(find.byType(AiDiagnosticsScreen), findsOneWidget);
-      expect(find.text('Проверка помощника'), findsOneWidget);
+      expect(find.text('Проверка ИИ'), findsOneWidget);
     });
   });
 }

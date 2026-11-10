@@ -238,6 +238,7 @@ void main() {
     Widget buildTestApp({
       required Widget child,
       required double width,
+      required double height,
       required double textScale,
       UiMode mode = UiMode.simple,
       bool isDark = false,
@@ -272,7 +273,7 @@ void main() {
           spec: spec,
           child: MediaQuery(
             data: MediaQueryData(
-              size: Size(width, 800),
+              size: Size(width, height),
               textScaler: TextScaler.linear(textScale),
             ),
             child: MaterialApp(
@@ -340,6 +341,36 @@ void main() {
           node = node.parent;
         }
       }
+
+      // R8-03: Проверять maxLines/обрезку (TextPainter.didExceedMaxLines) для заголовков AppBar и подписей панели
+      final appBarFinder = find.byType(AppBar);
+      if (appBarFinder.evaluate().isNotEmpty) {
+        final appBarRichTexts = tester.renderObjectList<RenderParagraph>(
+          find.descendant(of: appBarFinder, matching: find.byType(RichText)),
+        );
+        for (final ro in appBarRichTexts) {
+          if (ro.text.style?.fontFamily?.contains('Icons') == true) continue;
+          final text = ro.text.toPlainText();
+          if (text.length <= 16 && ro.didExceedMaxLines) {
+            fail('[$screenName] AppBar title "$text" exceeded maxLines!');
+          }
+        }
+      }
+
+      final navBarFinder = find.byType(NavigationBar);
+      if (navBarFinder.evaluate().isNotEmpty) {
+        final navBarRichTexts = tester.renderObjectList<RenderParagraph>(
+          find.descendant(of: navBarFinder, matching: find.byType(RichText)),
+        );
+        for (final ro in navBarRichTexts) {
+          if (ro.text.style?.fontFamily?.contains('Icons') == true) continue;
+          if (ro.didExceedMaxLines) {
+            fail(
+              '[$screenName] NavigationBar label "${ro.text.toPlainText()}" exceeded maxLines (didExceedMaxLines is true)!',
+            );
+          }
+        }
+      }
     }
 
     final screens = <String, Widget Function()>{
@@ -355,11 +386,49 @@ void main() {
       '10. TastePreferencesScreen': () => const TastePreferencesScreen(),
       '11. AppearanceSettingsScreen': () => const AppearanceSettingsScreen(),
       '12. StatisticsScreen': () => const StatisticsScreen(),
+      '13. BottomNavBar': () => Builder(
+        builder: (context) {
+          final l10n = AppLocalizations.of(context)!;
+          final adaptive = context.adaptive;
+          return Scaffold(
+            bottomNavigationBar: MediaQuery.withClampedTextScaling(
+              maxScaleFactor: 1.15,
+              child: NavigationBar(
+                selectedIndex: 0,
+                destinations: [
+                  NavigationDestination(
+                    icon: const Icon(Icons.today),
+                    label: l10n.tabToday,
+                  ),
+                  NavigationDestination(
+                    icon: const Icon(Icons.kitchen),
+                    label: l10n.tabPantry,
+                  ),
+                  NavigationDestination(
+                    icon: const Icon(Icons.calendar_month),
+                    label: l10n.tabCalendar,
+                  ),
+                  NavigationDestination(
+                    icon: const Icon(Icons.history),
+                    label: l10n.tabHistory,
+                  ),
+                  if (adaptive.showStatistics)
+                    NavigationDestination(
+                      icon: const Icon(Icons.insights_outlined),
+                      label: l10n.tabStatistics,
+                    ),
+                ],
+              ),
+            ),
+            body: const SizedBox(),
+          );
+        },
+      ),
     };
 
-    // R8-19: каждый экран × 2 режима × шрифт 1.0/2.0 × светлая/тёмная тема × 360 и 412 dp.
-    final widths = [360.0, 412.0];
-    final scales = [1.0, 2.0];
+    // R8-03: размеры 360×640 и 412×915, шрифт 1.0/1.5/2.0, светлая и тёмная тема, все экраны и панель
+    final screenSizes = [const Size(360, 640), const Size(412, 915)];
+    final scales = [1.0, 1.5, 2.0];
     final modes = [UiMode.simple, UiMode.full];
     final themes = [false, true]; // false: light, true: dark
 
@@ -369,27 +438,27 @@ void main() {
 
       for (final mode in modes) {
         for (final isDark in themes) {
-          for (final w in widths) {
+          for (final size in screenSizes) {
             for (final s in scales) {
               final modeTag = mode == UiMode.simple ? 'Simple' : 'Full';
               final themeTag = isDark ? 'Dark' : 'Light';
-              testWidgets(
-                '$screenName ($modeTag, $themeTag, ${w.toInt()}dp, ${s}x)',
-                (tester) async {
-                  FlutterErrorDetails? caughtDetails;
-                  final oldOnError = FlutterError.onError;
-                  FlutterError.onError = (details) {
-                    caughtDetails = details;
-                  };
-                  addTearDown(() => FlutterError.onError = oldOnError);
+              final sizeTag = '${size.width.toInt()}x${size.height.toInt()}';
+              testWidgets('$screenName ($modeTag, $themeTag, $sizeTag, ${s}x)', (
+                tester,
+              ) async {
+                FlutterErrorDetails? caughtDetails;
+                final oldOnError = FlutterError.onError;
+                FlutterError.onError = (details) {
+                  caughtDetails = details;
+                };
 
-                  await tester.binding.setSurfaceSize(Size(w, 800));
-                  addTearDown(() => tester.binding.setSurfaceSize(null));
-
+                try {
+                  await tester.binding.setSurfaceSize(size);
                   await tester.pumpWidget(
                     buildTestApp(
                       child: builder(),
-                      width: w,
+                      width: size.width,
+                      height: size.height,
                       textScale: s,
                       mode: mode,
                       isDark: isDark,
@@ -398,11 +467,20 @@ void main() {
                   await tester.pump();
                   await tester.pump(const Duration(milliseconds: 300));
                   final err = tester.takeException();
-                  expect(err, isNull);
-                  expect(caughtDetails, isNull);
+                  if (err != null) {
+                    fail('[$screenName] Uncaught exception: $err');
+                  }
+                  if (caughtDetails != null) {
+                    fail(
+                      '[$screenName] FlutterError: ${caughtDetails!.exception}',
+                    );
+                  }
                   assertNoClippedText(tester, screenName);
-                },
-              );
+                } finally {
+                  FlutterError.onError = oldOnError;
+                  await tester.binding.setSurfaceSize(null);
+                }
+              });
             }
           }
         }

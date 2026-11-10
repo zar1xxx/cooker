@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 
 import '../../app/app_images.dart';
+import '../../core/adaptive/adaptive_app_bar_title.dart';
 import '../../core/db/app_database.dart';
 import '../../core/providers.dart';
 import '../../l10n/app_localizations.dart';
@@ -137,7 +138,10 @@ class _PantryScreenState extends ConsumerState<PantryScreen> {
     final dishCount = suggestionsAsync.value?.totalCount ?? 0;
 
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.screenPantryTitle)),
+      appBar: AppBar(
+        centerTitle: true,
+        title: AdaptiveAppBarTitle(l10n.screenPantryTitle),
+      ),
       body: Column(
         children: [
           // Search & Voice input bar
