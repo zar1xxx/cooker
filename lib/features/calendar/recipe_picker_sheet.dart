@@ -5,6 +5,7 @@ import '../../app/app_images.dart';
 
 import '../../core/db/daos/recipe_dao.dart';
 import '../../core/db/enums.dart';
+import '../../core/widgets/assistant_badge.dart';
 import '../../l10n/app_localizations.dart';
 
 IconData dishTypeIcon(DishType type) {
@@ -256,11 +257,21 @@ class _RecipePickerSheetState extends State<RecipePickerSheet> {
                           dishType: recipe.dishType,
                           size: 28,
                         ),
-                        title: Text(
-                          recipe.title,
-                          style: theme.textTheme.bodyLarge?.copyWith(
-                            fontWeight: FontWeight.bold,
-                          ),
+                        title: Row(
+                          children: [
+                            Expanded(
+                              child: Text(
+                                recipe.title,
+                                style: theme.textTheme.bodyLarge?.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                            if (recipe.source == RecipeSource.ai) ...[
+                              const SizedBox(width: 6),
+                              const AssistantBadge(isCompact: true),
+                            ],
+                          ],
                         ),
                         subtitle: Text(
                           '${dishTypeName(recipe.dishType, l10n)} · ${recipe.totalMinutes} мин · ${difficultyName(l10n, recipe.difficulty)}',

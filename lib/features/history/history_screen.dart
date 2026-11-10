@@ -9,6 +9,7 @@ import '../../core/adaptive/adaptive_app_bar_title.dart';
 import '../../core/db/daos/history_dao.dart';
 import '../../core/db/enums.dart';
 import '../../core/providers.dart';
+import '../../core/widgets/assistant_badge.dart';
 import '../../l10n/app_localizations.dart';
 
 String _dishTypeName(DishType type, AppLocalizations l10n) {
@@ -885,6 +886,8 @@ class _HistoryEntryCard extends StatelessWidget {
               spacing: 8,
               runSpacing: 6,
               children: [
+                if (recipe != null && recipe.source == RecipeSource.ai)
+                  const AssistantBadge(isCompact: true),
                 if (recipe != null) ...[
                   Container(
                     padding: const EdgeInsets.symmetric(

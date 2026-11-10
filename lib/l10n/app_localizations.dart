@@ -634,6 +634,18 @@ abstract class AppLocalizations {
   /// **'Попробовать снова'**
   String get recipeGenerationRetry;
 
+  /// Заголовок заглушки подбора блюда ИИ в бесконечной ленте
+  ///
+  /// In ru, this message translates to:
+  /// **'Помощник подбирает...'**
+  String get feedAiPlaceholderTitle;
+
+  /// Подзаголовок заглушки подбора блюда ИИ в бесконечной ленте
+  ///
+  /// In ru, this message translates to:
+  /// **'Ищем интересные блюда из ваших продуктов'**
+  String get feedAiPlaceholderSubtitle;
+
   /// Единица измерения: граммы
   ///
   /// In ru, this message translates to:

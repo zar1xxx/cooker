@@ -300,6 +300,13 @@ class AppLocalizationsRu extends AppLocalizations {
   String get recipeGenerationRetry => 'Попробовать снова';
 
   @override
+  String get feedAiPlaceholderTitle => 'Помощник подбирает...';
+
+  @override
+  String get feedAiPlaceholderSubtitle =>
+      'Ищем интересные блюда из ваших продуктов';
+
+  @override
   String get recipeUnitGram => 'г';
 
   @override

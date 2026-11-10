@@ -12,6 +12,7 @@ import '../../core/db/daos/plan_dao.dart';
 import '../../core/db/daos/recipe_dao.dart';
 import '../../core/db/enums.dart';
 import '../../core/providers.dart';
+import '../../core/widgets/assistant_badge.dart';
 import '../../l10n/app_localizations.dart';
 import 'recipe_picker_sheet.dart';
 
@@ -538,6 +539,8 @@ class _SelectedDayMealCard extends ConsumerWidget {
                 spacing: 8,
                 runSpacing: 6,
                 children: [
+                  if (recipe.source == RecipeSource.ai)
+                    const AssistantBadge(isCompact: true),
                   Chip(
                     avatar: AppDishTypeIcon(
                       dishType: recipe.dishType,

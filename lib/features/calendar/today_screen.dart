@@ -12,6 +12,7 @@ import '../../core/db/daos/recipe_dao.dart';
 import '../../core/db/enums.dart';
 import '../../core/matching/recipe_matcher.dart';
 import '../../core/providers.dart';
+import '../../core/widgets/assistant_badge.dart';
 import '../../l10n/app_localizations.dart';
 import 'recipe_picker_sheet.dart';
 
@@ -274,6 +275,8 @@ class _TodayScreenState extends ConsumerState<TodayScreen> {
                         ),
                       ),
                     ),
+                    if (recipe.source == RecipeSource.ai)
+                      const AssistantBadge(isCompact: true),
                     if (needsToBuy)
                       Container(
                         padding: const EdgeInsets.symmetric(

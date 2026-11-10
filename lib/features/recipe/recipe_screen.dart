@@ -10,6 +10,7 @@ import '../../core/db/app_database.dart';
 import '../../core/db/daos/recipe_dao.dart';
 import '../../core/db/enums.dart';
 import '../../core/providers.dart';
+import '../../core/widgets/assistant_badge.dart';
 import '../../l10n/app_localizations.dart';
 
 class RecipeScreen extends ConsumerStatefulWidget {
@@ -366,36 +367,7 @@ class _RecipeScreenState extends ConsumerState<RecipeScreen> {
                   runSpacing: 8,
                   children: [
                     if (recipe.source == RecipeSource.ai)
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 10,
-                          vertical: 6,
-                        ),
-                        decoration: BoxDecoration(
-                          color: theme.colorScheme.tertiaryContainer,
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Icon(
-                              Icons.auto_awesome,
-                              size: 18,
-                              color: theme.colorScheme.onTertiaryContainer,
-                            ),
-                            const SizedBox(width: 6),
-                            Flexible(
-                              child: Text(
-                                l10n.recipeFromAssistant,
-                                style: theme.textTheme.bodyMedium?.copyWith(
-                                  color: theme.colorScheme.onTertiaryContainer,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                      const AssistantBadge(),
                     Container(
                       padding: const EdgeInsets.symmetric(
                         horizontal: 10,
@@ -1038,40 +1010,7 @@ class _RecipeScreenState extends ConsumerState<RecipeScreen> {
                           spacing: 8,
                           runSpacing: 8,
                           children: [
-                            Container(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 10,
-                                vertical: 6,
-                              ),
-                              decoration: BoxDecoration(
-                                color: theme.colorScheme.tertiaryContainer,
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Icon(
-                                    Icons.auto_awesome,
-                                    size: 18,
-                                    color:
-                                        theme.colorScheme.onTertiaryContainer,
-                                  ),
-                                  const SizedBox(width: 6),
-                                  Flexible(
-                                    child: Text(
-                                      l10n.recipeFromAssistant,
-                                      style: theme.textTheme.bodyMedium
-                                          ?.copyWith(
-                                            color: theme
-                                                .colorScheme
-                                                .onTertiaryContainer,
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
+                            const AssistantBadge(),
                             Container(
                               padding: const EdgeInsets.symmetric(
                                 horizontal: 10,

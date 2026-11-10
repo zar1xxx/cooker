@@ -405,6 +405,14 @@
   "@recipeGenerationRetry": {
     "description": "Кнопка повторной генерации рецепта при ошибке"
   },
+  "feedAiPlaceholderTitle": "Помощник подбирает...",
+  "@feedAiPlaceholderTitle": {
+    "description": "Заголовок заглушки подбора блюда ИИ в бесконечной ленте"
+  },
+  "feedAiPlaceholderSubtitle": "Ищем интересные блюда из ваших продуктов",
+  "@feedAiPlaceholderSubtitle": {
+    "description": "Подзаголовок заглушки подбора блюда ИИ в бесконечной ленте"
+  },
   "recipeUnitGram": "г",
   "@recipeUnitGram": {
     "description": "Единица измерения: граммы"
