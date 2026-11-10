@@ -24,7 +24,7 @@ void main() {
   });
 
   group('Auto-skip past planned entries (S5-05 / TZ 8.1, 6.4)', () {
-    test('transitions past planned meals to skipped with -0.2 signal and keeps today/future untouched', () async {
+    test('transitions past planned meals to skipped with 0.0 signal (D-050/R8-02) and keeps today/future untouched', () async {
       const todayKey = '2026-11-05';
       const pastDate1 = '2026-11-03';
       const pastDate2 = '2026-11-04';
@@ -86,10 +86,17 @@ void main() {
       expect(feedbackEvents.first.recipeId, 'borscht');
       expect(feedbackEvents.first.reason, 'auto_skip_past_date');
 
-      // 5. Verify signal in taste profile is negative
+      // 5. Verify signal in taste profile is 0.0 (R8-02: auto-skip does not change taste profile)
+      expect(
+        PreferenceService.calculateSignal(
+          FeedbackKind.skipped,
+          reason: 'auto_skip_past_date',
+        ),
+        0.0,
+      );
       final profile = await prefService.getProfile();
       final soupWeight = profile.dishTypeWeights['soup'] ?? 0.0;
-      expect(soupWeight, lessThan(0.0));
+      expect(soupWeight, 0.0);
     });
 
     test(

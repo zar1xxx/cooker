@@ -714,6 +714,24 @@ class AppLocalizationsRu extends AppLocalizations {
       'Проверить Wi-Fi, компьютер, GigaChat и историю запросов';
 
   @override
+  String get tasteScreenAppBarTitle => 'Мои вкусы';
+
+  @override
+  String get tasteStrengthSlight => 'немного';
+
+  @override
+  String get tasteStrengthNoticeable => 'заметно';
+
+  @override
+  String get tasteStrengthStrong => 'сильно';
+
+  @override
+  String get tasteNotTrueButton => 'Это не так';
+
+  @override
+  String get tasteFeatureResetSuccess => 'Признак сброшен';
+
+  @override
   String get tasteScreenTitle => 'Что приложение знает о ваших вкусах';
 
   @override

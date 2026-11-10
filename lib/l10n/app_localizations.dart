@@ -1384,6 +1384,42 @@ abstract class AppLocalizations {
   /// **'Проверить Wi-Fi, компьютер, GigaChat и историю запросов'**
   String get aiDiagnosticsBtnOpenSubtitle;
 
+  /// Короткий заголовок экрана вкусов в AppBar
+  ///
+  /// In ru, this message translates to:
+  /// **'Мои вкусы'**
+  String get tasteScreenAppBarTitle;
+
+  /// Степень предпочтения вкуса: немного
+  ///
+  /// In ru, this message translates to:
+  /// **'немного'**
+  String get tasteStrengthSlight;
+
+  /// Степень предпочтения вкуса: заметно
+  ///
+  /// In ru, this message translates to:
+  /// **'заметно'**
+  String get tasteStrengthNoticeable;
+
+  /// Степень предпочтения вкуса: сильно
+  ///
+  /// In ru, this message translates to:
+  /// **'сильно'**
+  String get tasteStrengthStrong;
+
+  /// Кнопка сброса ошибочно определенного вкуса
+  ///
+  /// In ru, this message translates to:
+  /// **'Это не так'**
+  String get tasteNotTrueButton;
+
+  /// Уведомление об успешном сбросе признака вкуса
+  ///
+  /// In ru, this message translates to:
+  /// **'Признак сброшен'**
+  String get tasteFeatureResetSuccess;
+
   /// Заголовок экрана вкусов и предпочтений
   ///
   /// In ru, this message translates to:

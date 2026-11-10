@@ -980,6 +980,30 @@
   "@aiDiagnosticsBtnOpenSubtitle": {
     "description": "Подзаголовок кнопки диагностики"
   },
+  "tasteScreenAppBarTitle": "Мои вкусы",
+  "@tasteScreenAppBarTitle": {
+    "description": "Короткий заголовок экрана вкусов в AppBar"
+  },
+  "tasteStrengthSlight": "немного",
+  "@tasteStrengthSlight": {
+    "description": "Степень предпочтения вкуса: немного"
+  },
+  "tasteStrengthNoticeable": "заметно",
+  "@tasteStrengthNoticeable": {
+    "description": "Степень предпочтения вкуса: заметно"
+  },
+  "tasteStrengthStrong": "сильно",
+  "@tasteStrengthStrong": {
+    "description": "Степень предпочтения вкуса: сильно"
+  },
+  "tasteNotTrueButton": "Это не так",
+  "@tasteNotTrueButton": {
+    "description": "Кнопка сброса ошибочно определенного вкуса"
+  },
+  "tasteFeatureResetSuccess": "Признак сброшен",
+  "@tasteFeatureResetSuccess": {
+    "description": "Уведомление об успешном сбросе признака вкуса"
+  },
   "tasteScreenTitle": "Что приложение знает о ваших вкусах",
   "@tasteScreenTitle": {
     "description": "Заголовок экрана вкусов и предпочтений"

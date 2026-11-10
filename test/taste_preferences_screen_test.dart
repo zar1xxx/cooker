@@ -1,6 +1,7 @@
 import 'package:chto_prigotovit/app/theme.dart';
 import 'package:chto_prigotovit/core/db/app_database.dart';
 import 'package:chto_prigotovit/core/db/daos/history_dao.dart';
+import 'package:chto_prigotovit/core/db/enums.dart';
 import 'package:chto_prigotovit/core/preferences/preference_service.dart';
 import 'package:chto_prigotovit/core/providers.dart';
 import 'package:chto_prigotovit/features/settings/taste_preferences_screen.dart';
@@ -86,10 +87,12 @@ void main() {
     tester.view.devicePixelRatio = 1.0;
     addTearDown(tester.view.resetPhysicalSize);
 
-    // Record cooked soup with rating 5
+    // Record cooked soup with rating 5 twice (>= 2 events per R8-02)
+    await historyDao.recordCooked(recipeId: 'chicken_soup_potato', rating: 5);
     await historyDao.recordCooked(recipeId: 'chicken_soup_potato', rating: 5);
 
-    // Record cooked dessert with rating 1
+    // Record cooked dessert with rating 1 twice (>= 2 events per R8-02)
+    await historyDao.recordCooked(recipeId: 'apple_bake', rating: 1);
     await historyDao.recordCooked(recipeId: 'apple_bake', rating: 1);
 
     await tester.pumpWidget(buildTestScreen());
@@ -103,11 +106,133 @@ void main() {
     expect(find.text('Куриный суп с картошкой'), findsOneWidget);
   });
 
+  testWidgets(
+    'threshold rule (R8-02): 1 event is hidden, 2 events are displayed',
+    (tester) async {
+      tester.view.physicalSize = const Size(1080, 2400);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.resetPhysicalSize);
+
+      // 1 event for soup
+      await historyDao.recordCooked(recipeId: 'chicken_soup_potato', rating: 5);
+      await tester.pumpWidget(buildTestScreen());
+      await tester.pumpAndSettle();
+
+      // With 1 event, threshold >= 2 is not met: Супы should not appear
+      expect(find.textContaining('Супы'), findsNothing);
+
+      // Second event for soup
+      await historyDao.recordCooked(recipeId: 'chicken_soup_potato', rating: 5);
+      await tester.pumpWidget(const SizedBox());
+      await tester.pumpWidget(buildTestScreen());
+      await tester.pumpAndSettle();
+
+      // Now with 2 events: Супы appears
+      expect(find.textContaining('Супы'), findsOneWidget);
+    },
+  );
+
+  testWidgets('qualitative strength words and explanation source (R8-02)', (
+    tester,
+  ) async {
+    tester.view.physicalSize = const Size(1080, 2400);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.resetPhysicalSize);
+
+    // Record cooked soup twice with rating 5
+    await historyDao.recordCooked(recipeId: 'chicken_soup_potato', rating: 5);
+    await historyDao.recordCooked(recipeId: 'chicken_soup_potato', rating: 5);
+
+    await tester.pumpWidget(buildTestScreen());
+    await tester.pumpAndSettle();
+
+    // AppBar title is "Мои вкусы"
+    expect(find.text('Мои вкусы'), findsOneWidget);
+    // Subtitle is present
+    expect(find.text('Что приложение знает о ваших вкусах'), findsOneWidget);
+
+    // No raw numbers like "(+0.40)" or "(-0.11)"
+    expect(find.textContaining('+0.'), findsNothing);
+    expect(find.textContaining('-0.'), findsNothing);
+
+    // Strength word present in chip label
+    expect(find.textContaining('Супы ('), findsOneWidget);
+
+    // Explanation under chip
+    expect(find.textContaining('Куриный суп с картошкой'), findsAtLeast(1));
+
+    // "Это не так" button is present
+    expect(find.widgetWithText(TextButton, 'Это не так'), findsAtLeast(1));
+  });
+
+  testWidgets('button "Это не так" resets specific feature weight (R8-02)', (
+    tester,
+  ) async {
+    tester.view.physicalSize = const Size(1080, 2400);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.resetPhysicalSize);
+
+    // Record cooked soup twice
+    await historyDao.recordCooked(recipeId: 'chicken_soup_potato', rating: 5);
+    await historyDao.recordCooked(recipeId: 'chicken_soup_potato', rating: 5);
+
+    await tester.pumpWidget(buildTestScreen());
+    await tester.pumpAndSettle();
+
+    expect(find.textContaining('Супы'), findsOneWidget);
+
+    // Tap "Это не так"
+    await tester.tap(find.widgetWithText(TextButton, 'Это не так').first);
+    await tester.pumpAndSettle();
+
+    // Feature is removed
+    expect(find.textContaining('Супы'), findsNothing);
+    expect(find.text('Признак сброшен'), findsOneWidget);
+  });
+
+  test('auto-skip per D-050 does not change taste profile (R8-02)', () async {
+    final now = DateTime(2026, 11, 4, 12, 0);
+
+    // Calculate signal for auto_skip
+    final autoSkipSignal = PreferenceService.calculateSignal(
+      FeedbackKind.skipped,
+      reason: 'auto_skip_past_date',
+    );
+    expect(autoSkipSignal, 0.0);
+
+    // Explicit user skip has signal -0.2
+    final userSkipSignal = PreferenceService.calculateSignal(
+      FeedbackKind.skipped,
+      reason: 'user_changed_dish',
+    );
+    expect(userSkipSignal, -0.2);
+
+    // Verify profile weights before and after recording auto_skip event
+    final initialProfile = await prefService.getProfile();
+    await prefService.recordEvent(
+      recipeId: 'chicken_soup_potato',
+      kind: FeedbackKind.skipped,
+      reason: 'auto_skip_past_date',
+      at: now.millisecondsSinceEpoch,
+    );
+    final updatedProfile = await prefService.getProfile();
+
+    expect(
+      updatedProfile.dishTypeWeights,
+      equals(initialProfile.dishTypeWeights),
+    );
+    expect(
+      updatedProfile.ingredientWeights,
+      equals(initialProfile.ingredientWeights),
+    );
+  });
+
   testWidgets('resets taste profile on confirmation dialog', (tester) async {
     tester.view.physicalSize = const Size(1080, 2400);
     tester.view.devicePixelRatio = 1.0;
     addTearDown(tester.view.resetPhysicalSize);
 
+    await historyDao.recordCooked(recipeId: 'chicken_soup_potato', rating: 5);
     await historyDao.recordCooked(recipeId: 'chicken_soup_potato', rating: 5);
 
     await tester.pumpWidget(buildTestScreen());

@@ -219,8 +219,10 @@ void main() {
       prefService = PreferenceService(db);
       historyDao = HistoryDao(db, preferenceService: prefService);
 
-      // Populate liked, disliked, and top rated dishes for realistic rendering
+      // Populate liked, disliked, and top rated dishes for realistic rendering (>= 2 events per R8-02)
       await historyDao.recordCooked(recipeId: 'chicken_soup_potato', rating: 5);
+      await historyDao.recordCooked(recipeId: 'chicken_soup_potato', rating: 5);
+      await historyDao.recordCooked(recipeId: 'apple_bake', rating: 1);
       await historyDao.recordCooked(recipeId: 'apple_bake', rating: 1);
     });
 

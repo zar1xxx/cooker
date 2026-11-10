@@ -65,16 +65,49 @@ class TasteProfile {
   }
 }
 
+class TasteFeatureStrength {
+  TasteFeatureStrength._();
+
+  static const double slightThreshold = 0.20;
+  static const double noticeableThreshold = 0.45;
+
+  static String label(double absWeight) {
+    if (absWeight <= slightThreshold) return 'немного';
+    if (absWeight <= noticeableThreshold) return 'заметно';
+    return 'сильно';
+  }
+}
+
+class TasteFeatureDetail {
+  const TasteFeatureDetail({
+    required this.key,
+    required this.weight,
+    required this.strength,
+    required this.eventCount,
+    required this.explanation,
+  });
+
+  final String key;
+  final double weight;
+  final String strength;
+  final int eventCount;
+  final String explanation;
+}
+
 class CompressedProfile {
   const CompressedProfile({
     required this.topLikedFeatures,
     required this.topDislikedFeatures,
     required this.topRatedRecipeTitles,
+    this.likedFeatureDetails = const [],
+    this.dislikedFeatureDetails = const [],
   });
 
   final List<MapEntry<String, double>> topLikedFeatures;
   final List<MapEntry<String, double>> topDislikedFeatures;
   final List<String> topRatedRecipeTitles;
+  final List<TasteFeatureDetail> likedFeatureDetails;
+  final List<TasteFeatureDetail> dislikedFeatureDetails;
 }
 
 class PreferenceService {
@@ -110,6 +143,9 @@ class PreferenceService {
       case FeedbackKind.disliked:
         return -1.0;
       case FeedbackKind.skipped:
+        if (reason != null && reason.contains('auto_skip')) {
+          return 0.0;
+        }
         return -0.2;
       case FeedbackKind.rejected_suggestion:
         return -0.3;
@@ -237,6 +273,7 @@ class PreferenceService {
       double s,
       double decay,
     ) {
+      if (s == 0.0) return;
       final current = map[key] ?? (0.0, 0.0);
       map[key] = (current.$1 + s * decay, current.$2 + decay);
     }
@@ -368,16 +405,123 @@ class PreferenceService {
   }
 
   /// Produces a compact profile description for prompts and the settings screen:
-  /// - Top 5 liked features (w > 0)
-  /// - Top 5 disliked features (w < 0)
+  /// - Top 5 liked features (w > 0, eventCount >= minEvents)
+  /// - Top 5 disliked features (w < 0, eventCount >= minEvents)
   /// - 5 best rated recipe titles
-  Future<CompressedProfile> getCompressedProfile() async {
+  /// - Detailed explanations and qualitative strengths
+  Future<CompressedProfile> getCompressedProfile({int minEvents = 1}) async {
     var profile = await getProfile();
     if (profile.dishTypeWeights.isEmpty &&
         profile.difficultyWeights.isEmpty &&
         profile.cuisineWeights.isEmpty &&
         profile.ingredientWeights.isEmpty) {
       profile = await recalculateProfile();
+    }
+
+    // Fetch active feedback events to compute event counts and explanations
+    final events = await (_db.select(
+      _db.feedbackEvents,
+    )..where((tbl) => tbl.deletedAt.isNull())).get();
+
+    final recipeIds = events
+        .map((e) => e.recipeId)
+        .whereType<String>()
+        .where((id) => id.isNotEmpty)
+        .toSet();
+
+    final recipes = await (_db.select(
+      _db.recipes,
+    )..where((tbl) => tbl.id.isIn(recipeIds))).get();
+    final recipeById = {for (final r in recipes) r.id: r};
+
+    final ingRows = await (_db.select(
+      _db.recipeIngredients,
+    )..where((tbl) => tbl.recipeId.isIn(recipeIds))).get();
+    final ingredientsByRecipe = <String, List<String>>{};
+    for (final ing in ingRows) {
+      ingredientsByRecipe
+          .putIfAbsent(ing.recipeId, () => [])
+          .add(ing.ingredientId);
+    }
+
+    // Per-feature tracking:
+    // eventCounts: Map<feature, count>
+    // rejections: Map<feature, count>
+    // ratings: Map<feature, List<(title, rating)>>
+    // cookedWithoutRating: Map<feature, count>
+    final featureEventCounts = <String, int>{};
+    final featureRejections = <String, int>{};
+    final featureRatings = <String, List<(String, int)>>{};
+    final featureCookedNoRating = <String, int>{};
+
+    for (final ev in events) {
+      if (ev.recipeId == null) continue;
+      final recipe = recipeById[ev.recipeId];
+      if (recipe == null) continue;
+
+      final s = calculateSignal(ev.kind, reason: ev.reason);
+      if (s == 0.0) continue; // Neutral / auto-skip does not count towards taste preference events
+
+      final featureKeys = <String>{
+        recipe.dishType.name,
+        recipe.difficulty.name,
+        if (recipe.cuisine.isNotEmpty) recipe.cuisine,
+        ...?ingredientsByRecipe[recipe.id],
+      };
+
+      for (final key in featureKeys) {
+        featureEventCounts[key] = (featureEventCounts[key] ?? 0) + 1;
+
+        if (ev.kind == FeedbackKind.rejected_suggestion ||
+            (ev.kind == FeedbackKind.skipped &&
+                (ev.reason == null || !ev.reason!.contains('auto_skip')))) {
+          featureRejections[key] = (featureRejections[key] ?? 0) + 1;
+        } else if (ev.kind == FeedbackKind.cooked) {
+          if (ev.reason != null && ev.reason!.startsWith('rating:')) {
+            final r = int.tryParse(ev.reason!.split(':').last.trim());
+            if (r != null) {
+              featureRatings.putIfAbsent(key, () => []).add((recipe.title, r));
+            }
+          } else {
+            featureCookedNoRating[key] = (featureCookedNoRating[key] ?? 0) + 1;
+          }
+        }
+      }
+    }
+
+    String buildExplanation(String key) {
+      final rejections = featureRejections[key] ?? 0;
+      final ratings = featureRatings[key] ?? [];
+      final cookedNoRating = featureCookedNoRating[key] ?? 0;
+
+      final parts = <String>[];
+      if (rejections > 0) {
+        final timesWord = rejections == 1
+            ? 'раз'
+            : (rejections >= 2 && rejections <= 4 ? 'раза' : 'раз');
+        parts.add('вы $rejections $timesWord выбрали «Другое блюдо»');
+      }
+      if (ratings.isNotEmpty) {
+        if (ratings.length == 1) {
+          parts.add('оценка ${ratings.first.$2} за ${ratings.first.$1}');
+        } else {
+          final ratingParts = ratings
+              .map((r) => '${r.$2} за ${r.$1}')
+              .take(3)
+              .join(', ');
+          parts.add('оценки $ratingParts');
+        }
+      }
+      if (parts.isEmpty && cookedNoRating > 0) {
+        final timesWord = cookedNoRating == 1
+            ? 'раз'
+            : (cookedNoRating >= 2 && cookedNoRating <= 4 ? 'раза' : 'раз');
+        parts.add('приготовлено $cookedNoRating $timesWord');
+      }
+      if (parts.isEmpty) {
+        return 'выбор в приложении';
+      }
+      return parts.join('; ');
     }
 
     final allFeatures = <MapEntry<String, double>>[
@@ -387,10 +531,36 @@ class PreferenceService {
       ...profile.ingredientWeights.entries,
     ];
 
-    final liked = allFeatures.where((e) => e.value > 0).toList()
+    // Filter by minEvents per R8-02
+    final qualifyingFeatures = allFeatures.where((e) {
+      final count = featureEventCounts[e.key] ?? 0;
+      return count >= minEvents;
+    }).toList();
+
+    final liked = qualifyingFeatures.where((e) => e.value > 0).toList()
       ..sort((a, b) => b.value.compareTo(a.value));
-    final disliked = allFeatures.where((e) => e.value < 0).toList()
+    final disliked = qualifyingFeatures.where((e) => e.value < 0).toList()
       ..sort((a, b) => a.value.compareTo(b.value));
+
+    final likedDetails = liked.take(5).map((e) {
+      return TasteFeatureDetail(
+        key: e.key,
+        weight: e.value,
+        strength: TasteFeatureStrength.label(e.value.abs()),
+        eventCount: featureEventCounts[e.key] ?? 0,
+        explanation: buildExplanation(e.key),
+      );
+    }).toList();
+
+    final dislikedDetails = disliked.take(5).map((e) {
+      return TasteFeatureDetail(
+        key: e.key,
+        weight: e.value,
+        strength: TasteFeatureStrength.label(e.value.abs()),
+        eventCount: featureEventCounts[e.key] ?? 0,
+        explanation: buildExplanation(e.key),
+      );
+    }).toList();
 
     // 5 best rated recipes from history
     final cooked =
@@ -413,6 +583,66 @@ class PreferenceService {
       topLikedFeatures: liked.take(5).toList(),
       topDislikedFeatures: disliked.take(5).toList(),
       topRatedRecipeTitles: topRecipes.map((r) => r.title).toList(),
+      likedFeatureDetails: likedDetails,
+      dislikedFeatureDetails: dislikedDetails,
     );
+  }
+
+  /// Resets a single feature's weight ("Это не так" button per R8-02).
+  ///
+  /// Soft-deletes feedback events contributing to this feature, removes
+  /// the key from stored weight maps, and triggers a profile recalculation.
+  Future<TasteProfile> resetFeature(String featureKey) async {
+    await _ensureProfileRow();
+    final nowMs = clock.now().toUtc().millisecondsSinceEpoch;
+
+    // Find all recipes associated with this feature
+    final recipes = await (_db.select(_db.recipes)).get();
+    final matchingRecipeIds = <String>{};
+    for (final r in recipes) {
+      if (r.dishType.name == featureKey ||
+          r.difficulty.name == featureKey ||
+          r.cuisine == featureKey) {
+        matchingRecipeIds.add(r.id);
+      }
+    }
+    final ingRows = await (_db.select(
+      _db.recipeIngredients,
+    )..where((tbl) => tbl.ingredientId.equals(featureKey))).get();
+    matchingRecipeIds.addAll(ingRows.map((i) => i.recipeId));
+
+    if (matchingRecipeIds.isNotEmpty) {
+      await (_db.update(
+        _db.feedbackEvents,
+      )..where((tbl) => tbl.recipeId.isIn(matchingRecipeIds))).write(
+        FeedbackEventsCompanion(
+          deletedAt: Value(nowMs),
+          updatedAt: Value(nowMs),
+        ),
+      );
+    }
+
+    // Also remove from stored weight maps immediately
+    final profile = await getProfile();
+    final dishWeights = Map<String, double>.from(profile.dishTypeWeights)
+      ..remove(featureKey);
+    final diffWeights = Map<String, double>.from(profile.difficultyWeights)
+      ..remove(featureKey);
+    final cuisWeights = Map<String, double>.from(profile.cuisineWeights)
+      ..remove(featureKey);
+    final ingWeights = Map<String, double>.from(profile.ingredientWeights)
+      ..remove(featureKey);
+
+    await (_db.update(_db.preferenceProfile)).write(
+      PreferenceProfileCompanion(
+        dishTypeWeights: Value(dishWeights),
+        difficultyWeights: Value(diffWeights),
+        cuisineWeights: Value(cuisWeights),
+        ingredientWeights: Value(ingWeights),
+        updatedAt: Value(nowMs),
+      ),
+    );
+
+    return recalculateProfile();
   }
 }

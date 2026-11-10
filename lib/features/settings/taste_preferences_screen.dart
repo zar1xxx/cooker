@@ -58,7 +58,7 @@ class _TastePreferencesScreenState
     final ingDao = ref.read(ingredientDaoProvider);
 
     final profile = await prefService.getProfile();
-    final compressed = await prefService.getCompressedProfile();
+    final compressed = await prefService.getCompressedProfile(minEvents: 2);
     final ingredients = await ingDao.all();
 
     if (!mounted) return;
@@ -244,6 +244,19 @@ class _TastePreferencesScreenState
     );
   }
 
+  Future<void> _resetFeature(String featureKey) async {
+    final prefService = ref.read(preferenceServiceProvider);
+    await prefService.resetFeature(featureKey);
+    await _loadData();
+    if (!mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(AppLocalizations.of(context)!.tasteFeatureResetSuccess),
+        duration: const Duration(seconds: 2),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
@@ -251,23 +264,49 @@ class _TastePreferencesScreenState
 
     if (_isLoading) {
       return Scaffold(
-        appBar: AppBar(title: Text(l10n.tasteScreenTitle)),
+        appBar: AppBar(
+          title: FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Text(l10n.tasteScreenAppBarTitle),
+          ),
+        ),
         body: const Center(child: CircularProgressIndicator()),
       );
     }
 
     final compressed = _compressed;
-    final liked = compressed?.topLikedFeatures ?? const [];
-    final disliked = compressed?.topDislikedFeatures ?? const [];
+    final liked = compressed?.likedFeatureDetails ?? const [];
+    final disliked = compressed?.dislikedFeatureDetails ?? const [];
     final topDishes = compressed?.topRatedRecipeTitles ?? const [];
     final allergies = _profile?.allergies ?? const [];
     final exclusions = _profile?.excludedIngredients ?? const [];
 
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.tasteScreenTitle)),
+      appBar: AppBar(
+        title: FittedBox(
+          fit: BoxFit.scaleDown,
+          child: Text(l10n.tasteScreenAppBarTitle),
+        ),
+      ),
       body: ListView(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         children: [
+          // Subtitle and full explanation at the top of the screen per R8-02
+          Text(
+            l10n.tasteScreenTitle,
+            style: theme.textTheme.titleLarge?.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            l10n.tasteScreenSubtitle,
+            style: theme.textTheme.bodyMedium?.copyWith(
+              color: theme.colorScheme.onSurfaceVariant,
+            ),
+          ),
+          const SizedBox(height: 16),
+
           // Explanation Card
           Card(
             color: theme.colorScheme.surfaceContainerHighest,
@@ -315,27 +354,60 @@ class _TastePreferencesScreenState
               ),
             )
           else
-            Wrap(
-              spacing: 8,
-              runSpacing: 8,
-              children: liked.map((e) {
-                final weightStr = '+${e.value.toStringAsFixed(2)}';
-                return Chip(
-                  avatar: Icon(
-                    Icons.thumb_up_alt_outlined,
-                    size: 18,
-                    color: theme.colorScheme.onPrimaryContainer,
-                  ),
-                  label: Text(
-                    '${_formatFeature(e.key)} ($weightStr)',
-                    style: theme.textTheme.bodyMedium?.copyWith(
-                      fontWeight: FontWeight.w600,
-                      color: theme.colorScheme.onPrimaryContainer,
-                    ),
-                  ),
-                  backgroundColor: theme.colorScheme.primaryContainer,
-                  side: BorderSide(
-                    color: theme.colorScheme.primary.withValues(alpha: 0.2),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: liked.map((feat) {
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: 8),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Chip(
+                            avatar: Icon(
+                              Icons.thumb_up_alt_outlined,
+                              size: 18,
+                              color: theme.colorScheme.onPrimaryContainer,
+                            ),
+                            label: Text(
+                              '${_formatFeature(feat.key)} (${feat.strength})',
+                              style: theme.textTheme.bodyMedium?.copyWith(
+                                fontWeight: FontWeight.w600,
+                                color: theme.colorScheme.onPrimaryContainer,
+                              ),
+                            ),
+                            backgroundColor: theme.colorScheme.primaryContainer,
+                            side: BorderSide(
+                              color: theme.colorScheme.primary.withValues(
+                                alpha: 0.2,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: 8),
+                          TextButton(
+                            onPressed: () => _resetFeature(feat.key),
+                            style: TextButton.styleFrom(
+                              visualDensity: VisualDensity.compact,
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 8,
+                              ),
+                            ),
+                            child: Text(l10n.tasteNotTrueButton),
+                          ),
+                        ],
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 4, top: 2),
+                        child: Text(
+                          feat.explanation,
+                          style: theme.textTheme.bodySmall?.copyWith(
+                            color: theme.colorScheme.onSurfaceVariant,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 );
               }).toList(),
@@ -362,27 +434,60 @@ class _TastePreferencesScreenState
               ),
             )
           else
-            Wrap(
-              spacing: 8,
-              runSpacing: 8,
-              children: disliked.map((e) {
-                final weightStr = e.value.toStringAsFixed(2);
-                return Chip(
-                  avatar: Icon(
-                    Icons.thumb_down_alt_outlined,
-                    size: 18,
-                    color: theme.colorScheme.onErrorContainer,
-                  ),
-                  label: Text(
-                    '${_formatFeature(e.key)} ($weightStr)',
-                    style: theme.textTheme.bodyMedium?.copyWith(
-                      fontWeight: FontWeight.w600,
-                      color: theme.colorScheme.onErrorContainer,
-                    ),
-                  ),
-                  backgroundColor: theme.colorScheme.errorContainer,
-                  side: BorderSide(
-                    color: theme.colorScheme.error.withValues(alpha: 0.2),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: disliked.map((feat) {
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: 8),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Chip(
+                            avatar: Icon(
+                              Icons.thumb_down_alt_outlined,
+                              size: 18,
+                              color: theme.colorScheme.onErrorContainer,
+                            ),
+                            label: Text(
+                              '${_formatFeature(feat.key)} (${feat.strength})',
+                              style: theme.textTheme.bodyMedium?.copyWith(
+                                fontWeight: FontWeight.w600,
+                                color: theme.colorScheme.onErrorContainer,
+                              ),
+                            ),
+                            backgroundColor: theme.colorScheme.errorContainer,
+                            side: BorderSide(
+                              color: theme.colorScheme.error.withValues(
+                                alpha: 0.2,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: 8),
+                          TextButton(
+                            onPressed: () => _resetFeature(feat.key),
+                            style: TextButton.styleFrom(
+                              visualDensity: VisualDensity.compact,
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 8,
+                              ),
+                            ),
+                            child: Text(l10n.tasteNotTrueButton),
+                          ),
+                        ],
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 4, top: 2),
+                        child: Text(
+                          feat.explanation,
+                          style: theme.textTheme.bodySmall?.copyWith(
+                            color: theme.colorScheme.onSurfaceVariant,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 );
               }).toList(),
