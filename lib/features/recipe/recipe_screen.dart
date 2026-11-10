@@ -10,7 +10,10 @@ import '../../core/db/app_database.dart';
 import '../../core/db/daos/recipe_dao.dart';
 import '../../core/db/enums.dart';
 import '../../core/providers.dart';
+import '../../core/services/feedback_service.dart';
 import '../../core/widgets/assistant_badge.dart';
+import '../../core/widgets/chip_explanation_sheet.dart';
+import '../../core/widgets/product_details_sheet.dart';
 import '../../l10n/app_localizations.dart';
 
 class RecipeScreen extends ConsumerStatefulWidget {
@@ -33,6 +36,7 @@ class _RecipeScreenState extends ConsumerState<RecipeScreen> {
   String? _savedRecipeId;
   bool _isGenerating = false;
   String? _generationError;
+  final Set<int> _completedSteps = <int>{};
 
   @override
   void initState() {
@@ -368,93 +372,53 @@ class _RecipeScreenState extends ConsumerState<RecipeScreen> {
                   children: [
                     if (recipe.source == RecipeSource.ai)
                       const AssistantBadge(),
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 10,
-                        vertical: 6,
+                    InkWell(
+                      borderRadius: BorderRadius.circular(8),
+                      onTap: () => ChipExplanationSheet.show(
+                        context,
+                        kind: ChipExplanationKind.dishGroup,
+                        title:
+                            'Раздел: ${_dishTypeName(l10n, recipe.dishType)}',
+                        description: 'Категория блюда в кулинарной книге.',
                       ),
-                      decoration: BoxDecoration(
-                        color: theme.colorScheme.secondaryContainer.withValues(
-                          alpha: 0.5,
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 6,
                         ),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          AppDishTypeIcon(dishType: recipe.dishType, size: 20),
-                          const SizedBox(width: 6),
-                          Flexible(
-                            child: Text(
-                              _dishTypeName(l10n, recipe.dishType),
-                              style: theme.textTheme.bodyMedium?.copyWith(
-                                color: theme.colorScheme.onSecondaryContainer,
-                                fontWeight: FontWeight.w600,
+                        decoration: BoxDecoration(
+                          color: theme.colorScheme.secondaryContainer
+                              .withValues(alpha: 0.5),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            AppDishTypeIcon(
+                              dishType: recipe.dishType,
+                              size: 20,
+                            ),
+                            const SizedBox(width: 6),
+                            Flexible(
+                              child: Text(
+                                _dishTypeName(l10n, recipe.dishType),
+                                style: theme.textTheme.bodyMedium?.copyWith(
+                                  color: theme.colorScheme.onSecondaryContainer,
+                                  fontWeight: FontWeight.w600,
+                                ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 10,
-                        vertical: 6,
+                    InkWell(
+                      borderRadius: BorderRadius.circular(8),
+                      onTap: () => ChipExplanationSheet.showForDifficulty(
+                        context,
+                        difficulty: recipe.difficulty,
                       ),
-                      decoration: BoxDecoration(
-                        color: theme.colorScheme.surfaceContainerHighest,
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          for (int i = 0; i < 3; i++)
-                            Icon(
-                              Icons.cookie_outlined,
-                              size: 18,
-                              color: i < _difficultyCaps(recipe.difficulty)
-                                  ? theme.colorScheme.primary
-                                  : theme.colorScheme.outlineVariant,
-                            ),
-                          const SizedBox(width: 4),
-                          Flexible(
-                            child: Text(
-                              _difficultyName(l10n, recipe.difficulty),
-                              style: theme.textTheme.bodyMedium?.copyWith(
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 10,
-                        vertical: 6,
-                      ),
-                      decoration: BoxDecoration(
-                        color: theme.colorScheme.surfaceContainerHighest,
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          const Icon(Icons.timer_outlined, size: 20),
-                          const SizedBox(width: 6),
-                          Flexible(
-                            child: Text(
-                              l10n.dishesMinutes(recipe.totalMinutes),
-                              style: theme.textTheme.bodyMedium?.copyWith(
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    if (recipe.cuisine.isNotEmpty)
-                      Container(
+                      child: Container(
                         padding: const EdgeInsets.symmetric(
                           horizontal: 10,
                           vertical: 6,
@@ -466,17 +430,96 @@ class _RecipeScreenState extends ConsumerState<RecipeScreen> {
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            const Icon(Icons.public, size: 20),
-                            const SizedBox(width: 6),
+                            for (int i = 0; i < 3; i++)
+                              Icon(
+                                Icons.cookie_outlined,
+                                size: 18,
+                                color: i < _difficultyCaps(recipe.difficulty)
+                                    ? theme.colorScheme.primary
+                                    : theme.colorScheme.outlineVariant,
+                              ),
+                            const SizedBox(width: 4),
                             Flexible(
                               child: Text(
-                                recipe.cuisine,
+                                _difficultyName(l10n, recipe.difficulty),
                                 style: theme.textTheme.bodyMedium?.copyWith(
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),
                             ),
                           ],
+                        ),
+                      ),
+                    ),
+                    InkWell(
+                      borderRadius: BorderRadius.circular(8),
+                      onTap: () => ChipExplanationSheet.show(
+                        context,
+                        kind: ChipExplanationKind.totalTime,
+                        title: 'Время приготовления',
+                        description:
+                            'Общее время приготовления составляет ${recipe.totalMinutes} мин.',
+                      ),
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 6,
+                        ),
+                        decoration: BoxDecoration(
+                          color: theme.colorScheme.surfaceContainerHighest,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Icon(Icons.timer_outlined, size: 20),
+                            const SizedBox(width: 6),
+                            Flexible(
+                              child: Text(
+                                l10n.dishesMinutes(recipe.totalMinutes),
+                                style: theme.textTheme.bodyMedium?.copyWith(
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    if (recipe.cuisine.isNotEmpty)
+                      InkWell(
+                        borderRadius: BorderRadius.circular(8),
+                        onTap: () => ChipExplanationSheet.show(
+                          context,
+                          kind: ChipExplanationKind.cuisine,
+                          title: 'Кухня: ${recipe.cuisine}',
+                          description:
+                              'Традиционные кулинарные особенности этой кухни.',
+                        ),
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 10,
+                            vertical: 6,
+                          ),
+                          decoration: BoxDecoration(
+                            color: theme.colorScheme.surfaceContainerHighest,
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              const Icon(Icons.public, size: 20),
+                              const SizedBox(width: 6),
+                              Flexible(
+                                child: Text(
+                                  recipe.cuisine,
+                                  style: theme.textTheme.bodyMedium?.copyWith(
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                   ],
@@ -671,54 +714,64 @@ class _RecipeScreenState extends ConsumerState<RecipeScreen> {
               : theme.colorScheme.outlineVariant.withValues(alpha: 0.5),
         ),
       ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Icon(
-              isAvailable
-                  ? Icons.check_circle_rounded
-                  : Icons.radio_button_unchecked,
-              color: isAvailable
-                  ? theme.colorScheme.primary
-                  : theme.colorScheme.outline,
-              size: 26,
-            ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    name + (isOptional ? ' ${l10n.recipeOptional}' : ''),
-                    style: theme.textTheme.bodyLarge?.copyWith(
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  Text(
-                    statusText,
-                    style: theme.textTheme.bodyMedium?.copyWith(
-                      color: isAvailable
-                          ? theme.colorScheme.primary
-                          : theme.colorScheme.onSurfaceVariant,
-                    ),
-                  ),
-                  if (quantityText.isNotEmpty)
-                    Padding(
-                      padding: const EdgeInsets.only(top: 2),
-                      child: Text(
-                        quantityText,
-                        style: theme.textTheme.titleMedium?.copyWith(
-                          fontWeight: FontWeight.bold,
-                          color: theme.colorScheme.primary,
-                        ),
+      clipBehavior: Clip.antiAlias,
+      child: InkWell(
+        onTap: () {
+          ProductDetailsSheet.show(
+            context,
+            ingredientId: line.recipeIngredient.ingredientId,
+            fallbackName: line.ingredient?.name,
+          );
+        },
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Icon(
+                isAvailable
+                    ? Icons.check_circle_rounded
+                    : Icons.radio_button_unchecked,
+                color: isAvailable
+                    ? theme.colorScheme.primary
+                    : theme.colorScheme.outline,
+                size: 26,
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      name + (isOptional ? ' ${l10n.recipeOptional}' : ''),
+                      style: theme.textTheme.bodyLarge?.copyWith(
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
-                ],
+                    Text(
+                      statusText,
+                      style: theme.textTheme.bodyMedium?.copyWith(
+                        color: isAvailable
+                            ? theme.colorScheme.primary
+                            : theme.colorScheme.onSurfaceVariant,
+                      ),
+                    ),
+                    if (quantityText.isNotEmpty)
+                      Padding(
+                        padding: const EdgeInsets.only(top: 2),
+                        child: Text(
+                          quantityText,
+                          style: theme.textTheme.titleMedium?.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: theme.colorScheme.primary,
+                          ),
+                        ),
+                      ),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -764,111 +817,164 @@ class _RecipeScreenState extends ConsumerState<RecipeScreen> {
         : null;
     final tip = step.tip;
 
+    final isCompleted = _completedSteps.contains(number);
+
     return Card(
       elevation: 0,
-      color: theme.colorScheme.surfaceContainerLow,
+      color: isCompleted
+          ? theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5)
+          : theme.colorScheme.surfaceContainerLow,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Wrap(
-              spacing: 8,
-              runSpacing: 8,
-              alignment: WrapAlignment.spaceBetween,
-              crossAxisAlignment: WrapCrossAlignment.center,
-              children: [
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    CircleAvatar(
-                      radius: 16,
-                      backgroundColor: theme.colorScheme.primary,
-                      child: Text(
-                        '$number',
-                        style: theme.textTheme.bodyLarge?.copyWith(
-                          color: theme.colorScheme.onPrimary,
-                          fontWeight: FontWeight.bold,
-                        ),
+      clipBehavior: Clip.antiAlias,
+      child: InkWell(
+        onTap: () {
+          FeedbackService.triggerHaptic(HapticFeedbackType.selection);
+          setState(() {
+            if (_completedSteps.contains(number)) {
+              _completedSteps.remove(number);
+            } else {
+              _completedSteps.add(number);
+            }
+          });
+        },
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Wrap(
+                spacing: 8,
+                runSpacing: 8,
+                alignment: WrapAlignment.spaceBetween,
+                crossAxisAlignment: WrapCrossAlignment.center,
+                children: [
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      CircleAvatar(
+                        radius: 16,
+                        backgroundColor: isCompleted
+                            ? theme.colorScheme.primaryContainer
+                            : theme.colorScheme.primary,
+                        child: isCompleted
+                            ? Icon(
+                                Icons.check,
+                                size: 20,
+                                color: theme.colorScheme.onPrimaryContainer,
+                              )
+                            : Text(
+                                '$number',
+                                style: theme.textTheme.bodyLarge?.copyWith(
+                                  color: theme.colorScheme.onPrimary,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
                       ),
-                    ),
-                    const SizedBox(width: 12),
-                    Flexible(
-                      child: Text(
-                        l10n.recipeStepNumber(number),
-                        style: theme.textTheme.titleMedium?.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                if (timerMinutes != null && timerMinutes > 0)
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 8,
-                      vertical: 4,
-                    ),
-                    decoration: BoxDecoration(
-                      color: theme.colorScheme.surfaceContainerHighest,
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const Icon(Icons.timer_outlined, size: 18),
-                        const SizedBox(width: 4),
-                        Flexible(
-                          child: Text(
-                            l10n.recipeStepTimer(timerMinutes),
-                            style: theme.textTheme.bodyMedium,
+                      const SizedBox(width: 12),
+                      Flexible(
+                        child: Text(
+                          l10n.recipeStepNumber(number),
+                          style: theme.textTheme.titleMedium?.copyWith(
+                            fontWeight: FontWeight.bold,
+                            decoration: isCompleted
+                                ? TextDecoration.lineThrough
+                                : null,
                           ),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-              ],
-            ),
-            const SizedBox(height: 10),
-            Text(
-              step.textContent,
-              style: theme.textTheme.bodyLarge?.copyWith(height: 1.4),
-            ),
-            if (tip != null && tip.isNotEmpty) ...[
-              const SizedBox(height: 12),
-              Container(
-                padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: theme.colorScheme.tertiaryContainer,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(
-                    color: theme.colorScheme.tertiary.withValues(alpha: 0.3),
-                  ),
-                ),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Icon(
-                      Icons.lightbulb_outline,
-                      color: theme.colorScheme.onTertiaryContainer,
-                      size: 22,
-                    ),
-                    const SizedBox(width: 8),
-                    Expanded(
-                      child: Text(
-                        '${l10n.recipeTipPrefix}$tip',
-                        style: theme.textTheme.bodyMedium?.copyWith(
-                          color: theme.colorScheme.onTertiaryContainer,
-                          fontWeight: FontWeight.w500,
+                  if (timerMinutes != null && timerMinutes > 0)
+                    Material(
+                      color: Colors.transparent,
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(8),
+                        onTap: () {
+                          FeedbackService.triggerHaptic(
+                            HapticFeedbackType.selection,
+                          );
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                'Таймер на $timerMinutes мин запущен в фоновом режиме',
+                              ),
+                              duration: const Duration(seconds: 3),
+                            ),
+                          );
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 8,
+                            vertical: 4,
+                          ),
+                          decoration: BoxDecoration(
+                            color: theme.colorScheme.surfaceContainerHighest,
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              const Icon(Icons.timer_outlined, size: 18),
+                              const SizedBox(width: 4),
+                              Flexible(
+                                child: Text(
+                                  l10n.recipeStepTimer(timerMinutes),
+                                  style: theme.textTheme.bodyMedium,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                  ],
+                ],
+              ),
+              const SizedBox(height: 10),
+              Text(
+                step.textContent,
+                style: theme.textTheme.bodyLarge?.copyWith(
+                  height: 1.4,
+                  decoration: isCompleted ? TextDecoration.lineThrough : null,
+                  color: isCompleted
+                      ? theme.colorScheme.onSurfaceVariant
+                      : theme.colorScheme.onSurface,
                 ),
               ),
+              if (tip != null && tip.isNotEmpty) ...[
+                const SizedBox(height: 12),
+                Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: theme.colorScheme.tertiaryContainer,
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(
+                      color: theme.colorScheme.tertiary.withValues(alpha: 0.3),
+                    ),
+                  ),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Icon(
+                        Icons.lightbulb_outline,
+                        color: theme.colorScheme.onTertiaryContainer,
+                        size: 22,
+                      ),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: Text(
+                          '${l10n.recipeTipPrefix}$tip',
+                          style: theme.textTheme.bodyMedium?.copyWith(
+                            color: theme.colorScheme.onTertiaryContainer,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ],
-          ],
+          ),
         ),
       ),
     );

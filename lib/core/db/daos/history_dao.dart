@@ -112,30 +112,40 @@ class HistoryDao {
   }
 
   Future<void> updateRating(String entryId, int rating) async {
+    return updateEntry(entryId, rating: rating);
+  }
+
+  /// Updates rating and/or note for a cooked entry (R8-13).
+  Future<void> updateEntry(String entryId, {int? rating, String? note}) async {
     final nowMs = clock.now().toUtc().millisecondsSinceEpoch;
-    await (_db.update(
-      _db.cookedEntries,
-    )..where((tbl) => tbl.id.equals(entryId))).write(
-      CookedEntriesCompanion(rating: Value(rating), updatedAt: Value(nowMs)),
+    final companion = CookedEntriesCompanion(
+      rating: rating != null ? Value(rating) : const Value.absent(),
+      note: note != null ? Value(note) : const Value.absent(),
+      updatedAt: Value(nowMs),
     );
 
-    // Also record feedback event for updated rating and recalculate profile
-    final entry = await (_db.select(
+    await (_db.update(
       _db.cookedEntries,
-    )..where((tbl) => tbl.id.equals(entryId))).getSingleOrNull();
-    if (entry != null) {
-      final feedbackId = _uuid.v4();
-      final feedback = FeedbackEvent(
-        id: feedbackId,
-        createdAt: nowMs,
-        updatedAt: nowMs,
-        recipeId: entry.recipeId,
-        kind: FeedbackKind.cooked,
-        reason: 'rating: $rating',
-        at: nowMs,
-      );
-      await _db.into(_db.feedbackEvents).insert(feedback);
-      await preferenceService?.recalculateProfile();
+    )..where((tbl) => tbl.id.equals(entryId))).write(companion);
+
+    if (rating != null) {
+      final entry = await (_db.select(
+        _db.cookedEntries,
+      )..where((tbl) => tbl.id.equals(entryId))).getSingleOrNull();
+      if (entry != null) {
+        final feedbackId = _uuid.v4();
+        final feedback = FeedbackEvent(
+          id: feedbackId,
+          createdAt: nowMs,
+          updatedAt: nowMs,
+          recipeId: entry.recipeId,
+          kind: FeedbackKind.cooked,
+          reason: 'rating: $rating',
+          at: nowMs,
+        );
+        await _db.into(_db.feedbackEvents).insert(feedback);
+        await preferenceService?.recalculateProfile();
+      }
     }
   }
 

@@ -683,6 +683,137 @@ class _AiDiagnosticsScreenState extends ConsumerState<AiDiagnosticsScreen> {
     );
   }
 
+  void _showStepExplanationSheet(DiagnosticStepItem step) {
+    final theme = Theme.of(context);
+    String meaning;
+    String advice;
+
+    switch (step.id) {
+      case 'wifi_state':
+        meaning = 'Проверяет подключение телефона к беспроводной сети Wi-Fi.';
+        advice = 'Убедитесь, что Wi-Fi на телефоне включён и телефон подключён к той же домашней сети, что и компьютер.';
+      case 'phone_ip':
+        meaning = 'Определяет локальный IP-адрес телефона в сети роутера.';
+        advice =
+            'Если адрес не выдан, попробуйте переподключиться к Wi-Fi роутеру.';
+      case 'pc_found':
+        meaning = 'Проверяет, доступен ли сервер LM Studio на домашнем ПК по локальной сети.';
+        advice = 'Убедитесь, что сервер LM Studio запущен на ПК (порт 1235) и брандмауэр Windows разрешает входящие подключения.';
+      case 'models_loaded':
+        meaning =
+            'Проверяет, какая языковая модель загружена в память LM Studio.';
+        advice = 'Откройте LM Studio на компьютере и убедитесь, что модель загружена в память.';
+      case 'ping':
+        meaning = 'Сетевая задержка между телефоном и компьютером (пинг). В идеале < 50 мс.';
+        advice = 'Если пинг высокий, подойдите ближе к Wi-Fi роутеру или проверьте загрузку сети.';
+      case 'ttft':
+        meaning = 'Время до генерации первого слова ответа (TTFT). В норме от 0.5 до 2 секунд.';
+        advice = 'Если ответ долго не появляется, проверьте, включено ли GPU-ускорение в LM Studio.';
+      case 'gigachat_key':
+        meaning = 'Ключ доступа к резервному облачному помощнику GigaChat.';
+        advice = 'Используется, когда ПК выключен или телефон находится вне дома. Ключ вводится в настройках ИИ.';
+      default:
+        meaning = 'Диагностический шаг проверки работы умного помощника.';
+        advice =
+            'Если шаг завершился с ошибкой, повторите проверку кнопкой внизу.';
+    }
+
+    showModalBottomSheet<void>(
+      context: context,
+      useSafeArea: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+      ),
+      builder: (ctx) {
+        return Padding(
+          padding: const EdgeInsets.fromLTRB(20, 16, 20, 24),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Center(
+                child: Container(
+                  width: 40,
+                  height: 4,
+                  margin: const EdgeInsets.only(bottom: 16),
+                  decoration: BoxDecoration(
+                    color: theme.colorScheme.onSurfaceVariant.withValues(
+                      alpha: 0.4,
+                    ),
+                    borderRadius: BorderRadius.circular(2),
+                  ),
+                ),
+              ),
+              Row(
+                children: [
+                  _buildStepIcon(step.status, theme),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Text(
+                      step.title,
+                      style: theme.textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.close),
+                    onPressed: () => Navigator.of(ctx).pop(),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 12),
+              if (step.message.isNotEmpty) ...[
+                Text(
+                  step.message,
+                  style: theme.textTheme.bodyMedium?.copyWith(
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                const SizedBox(height: 12),
+              ],
+              Text(
+                'Что это значит:',
+                style: theme.textTheme.titleSmall?.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 4),
+              Text(
+                meaning,
+                style: theme.textTheme.bodyMedium?.copyWith(
+                  color: theme.colorScheme.onSurfaceVariant,
+                ),
+              ),
+              const SizedBox(height: 12),
+              Text(
+                'Что делать, если возникла проблема:',
+                style: theme.textTheme.titleSmall?.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 4),
+              Text(
+                advice,
+                style: theme.textTheme.bodyMedium?.copyWith(
+                  color: theme.colorScheme.onSurfaceVariant,
+                ),
+              ),
+              const SizedBox(height: 16),
+              SizedBox(
+                width: double.infinity,
+                child: FilledButton.tonal(
+                  onPressed: () => Navigator.of(ctx).pop(),
+                  child: const Text('Понятно'),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
@@ -716,6 +847,7 @@ class _AiDiagnosticsScreenState extends ConsumerState<AiDiagnosticsScreen> {
               key: Key('diagnostic_step_${step.id}'),
               elevation: 0,
               margin: const EdgeInsets.only(bottom: 8),
+              clipBehavior: Clip.antiAlias,
               color: theme.colorScheme.surfaceContainerHighest.withValues(
                 alpha: 0.5,
               ),
@@ -727,52 +859,60 @@ class _AiDiagnosticsScreenState extends ConsumerState<AiDiagnosticsScreen> {
                   ),
                 ),
               ),
-              child: Padding(
-                padding: const EdgeInsets.all(12),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _buildStepIcon(step.status, theme),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            step.title,
-                            style: theme.textTheme.titleSmall?.copyWith(
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          if (step.message.isNotEmpty) ...[
-                            const SizedBox(height: 4),
+              child: InkWell(
+                onTap: () => _showStepExplanationSheet(step),
+                child: Padding(
+                  padding: const EdgeInsets.all(12),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _buildStepIcon(step.status, theme),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
                             Text(
-                              step.message,
-                              style: theme.textTheme.bodyMedium?.copyWith(
-                                color:
-                                    step.status == DiagnosticStepStatus.failure
-                                    ? theme.colorScheme.error
-                                    : theme.colorScheme.onSurfaceVariant,
+                              step.title,
+                              style: theme.textTheme.titleSmall?.copyWith(
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
+                            if (step.message.isNotEmpty) ...[
+                              const SizedBox(height: 4),
+                              Text(
+                                step.message,
+                                style: theme.textTheme.bodyMedium?.copyWith(
+                                  color:
+                                      step.status ==
+                                          DiagnosticStepStatus.failure
+                                      ? theme.colorScheme.error
+                                      : theme.colorScheme.onSurfaceVariant,
+                                ),
+                              ),
+                            ],
+                            if (step.id == 'pc_found' &&
+                                step.status ==
+                                    DiagnosticStepStatus.failure) ...[
+                              const SizedBox(height: 8),
+                              OutlinedButton.icon(
+                                key: const Key('btn_diagnostics_connect_qr'),
+                                onPressed: () async {
+                                  await context.push('/settings/ai/qr-scanner');
+                                  await _runDiagnostics();
+                                },
+                                icon: const Icon(
+                                  Icons.qr_code_scanner,
+                                  size: 20,
+                                ),
+                                label: Text(l10n.aiSettingsConnectQr),
+                              ),
+                            ],
                           ],
-                          if (step.id == 'pc_found' &&
-                              step.status == DiagnosticStepStatus.failure) ...[
-                            const SizedBox(height: 8),
-                            OutlinedButton.icon(
-                              key: const Key('btn_diagnostics_connect_qr'),
-                              onPressed: () async {
-                                await context.push('/settings/ai/qr-scanner');
-                                await _runDiagnostics();
-                              },
-                              icon: const Icon(Icons.qr_code_scanner, size: 20),
-                              label: Text(l10n.aiSettingsConnectQr),
-                            ),
-                          ],
-                        ],
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             );

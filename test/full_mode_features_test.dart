@@ -21,6 +21,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 
 ScoredRecipe _dummyScored(
   String id,
@@ -141,6 +142,72 @@ class _FakeHistoryDao implements HistoryDao {
       topRatedRecipeTitle: 'Борщ',
       topRating: 4.8,
     );
+  }
+
+  @override
+  Future<List<CookedEntryWithRecipe>> allWithRecipes({
+    int? limit,
+    int? offset,
+  }) async {
+    final today = DateFormat('yyyy-MM-dd').format(DateTime.now());
+    return [
+      CookedEntryWithRecipe(
+        entry: CookedEntry(
+          id: '1',
+          createdAt: 0,
+          updatedAt: 0,
+          recipeId: 'borscht',
+          cookedOn: today,
+          rating: 5,
+        ),
+        recipe: const Recipe(
+          id: 'borscht',
+          createdAt: 0,
+          updatedAt: 0,
+          title: 'Борщ',
+          normalizedTitle: 'борщ',
+          description: 'Классический борщ',
+          dishType: DishType.soup,
+          dishGroup: DishGroup.soup,
+          difficulty: Difficulty.medium,
+          cuisine: 'русская',
+          totalMinutes: 60,
+          activeMinutes: 30,
+          servings: 4,
+          source: RecipeSource.seed,
+          fingerprint: 'borscht',
+          isFavorite: false,
+        ),
+      ),
+      CookedEntryWithRecipe(
+        entry: CookedEntry(
+          id: '2',
+          createdAt: 0,
+          updatedAt: 0,
+          recipeId: 'cutlets',
+          cookedOn: today,
+          rating: 5,
+        ),
+        recipe: const Recipe(
+          id: 'cutlets',
+          createdAt: 0,
+          updatedAt: 0,
+          title: 'Котлеты',
+          normalizedTitle: 'котлеты',
+          description: 'Домашние котлеты',
+          dishType: DishType.main,
+          dishGroup: DishGroup.meat,
+          difficulty: Difficulty.easy,
+          cuisine: 'русская',
+          totalMinutes: 40,
+          activeMinutes: 20,
+          servings: 4,
+          source: RecipeSource.seed,
+          fingerprint: 'cutlets',
+          isFavorite: false,
+        ),
+      ),
+    ];
   }
 
   @override

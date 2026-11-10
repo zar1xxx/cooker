@@ -14,6 +14,7 @@ import '../../core/db/enums.dart';
 import '../../core/providers.dart';
 import '../../core/widgets/assistant_badge.dart';
 import '../../l10n/app_localizations.dart';
+import 'day_details_sheet.dart';
 import 'recipe_picker_sheet.dart';
 
 String _dishTypeName(DishType type, AppLocalizations l10n) {
@@ -509,306 +510,319 @@ class _SelectedDayMealCard extends ConsumerWidget {
     return Card(
       elevation: 2,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            // Date title
-            Text(
-              _formatDateHeader(date, l10n),
-              style: theme.textTheme.titleMedium?.copyWith(
-                fontWeight: FontWeight.bold,
-                color: theme.colorScheme.primary,
-              ),
-            ),
-            const SizedBox(height: 12),
-
-            if (recipe != null && entry != null) ...[
-              // Recipe Title
+      clipBehavior: Clip.antiAlias,
+      child: InkWell(
+        onTap: () => DayDetailsSheet.show(
+          context,
+          date: date,
+          planEntry: entryWithRecipe,
+          onPlanAnother: onReplaceRecipe,
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              // Date title
               Text(
-                recipe.title,
-                style: theme.textTheme.headlineSmall?.copyWith(
+                _formatDateHeader(date, l10n),
+                style: theme.textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.bold,
+                  color: theme.colorScheme.primary,
                 ),
               ),
-              const SizedBox(height: 8),
-
-              // Badges Row
-              Wrap(
-                spacing: 8,
-                runSpacing: 6,
-                children: [
-                  if (recipe.source == RecipeSource.ai)
-                    const AssistantBadge(isCompact: true),
-                  Chip(
-                    avatar: AppDishTypeIcon(
-                      dishType: recipe.dishType,
-                      size: 18,
-                    ),
-                    label: Text(_dishTypeName(recipe.dishType, l10n)),
-                  ),
-                  Chip(
-                    avatar: const Icon(Icons.timer_outlined, size: 18),
-                    label: Text('${recipe.totalMinutes} мин'),
-                  ),
-                  Chip(
-                    avatar: const Icon(Icons.speed, size: 18),
-                    label: Text(_difficultyName(l10n, recipe.difficulty)),
-                  ),
-                  _buildStatusChip(entry.status, l10n, theme),
-                  if (entry.locked)
-                    Chip(
-                      avatar: const Icon(Icons.lock, size: 16),
-                      label: Text(l10n.calendarLockedBadge),
-                      backgroundColor: theme.colorScheme.secondaryContainer
-                          .withValues(alpha: 0.4),
-                    ),
-                ],
-              ),
-
               const SizedBox(height: 12),
 
-              // Ingredients availability check
-              FutureBuilder<RecipeDetail?>(
-                future: ref.read(recipeDaoProvider).getRecipeDetail(recipe.id),
-                builder: (context, snapshot) {
-                  final detail = snapshot.data;
-                  if (detail == null) {
-                    return const SizedBox.shrink();
-                  }
-
-                  final missing = detail.ingredients
-                      .where(
-                        (i) =>
-                            i.ingredient != null &&
-                            !pantry.contains(i.ingredient!.id),
-                      )
-                      .map((i) => i.ingredient!.name)
-                      .toList();
-
-                  if (missing.isEmpty) {
-                    return Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 12,
-                        vertical: 8,
-                      ),
-                      decoration: BoxDecoration(
-                        color: theme.colorScheme.primaryContainer,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.check_circle,
-                            color: theme.colorScheme.onPrimaryContainer,
-                            size: 20,
-                          ),
-                          const SizedBox(width: 8),
-                          Expanded(
-                            child: Text(
-                              l10n.calendarAllIngredientsAvailable,
-                              style: theme.textTheme.bodyMedium?.copyWith(
-                                color: theme.colorScheme.onPrimaryContainer,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    );
-                  } else {
-                    return Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 12,
-                        vertical: 8,
-                      ),
-                      decoration: BoxDecoration(
-                        color: theme.colorScheme.secondaryContainer,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            children: [
-                              Icon(
-                                Icons.shopping_basket_outlined,
-                                color: theme.colorScheme.onSecondaryContainer,
-                                size: 20,
-                              ),
-                              const SizedBox(width: 8),
-                              Expanded(
-                                child: Text(
-                                  l10n.calendarMissingIngredients(
-                                    missing.take(3).join(', ') +
-                                        (missing.length > 3
-                                            ? ' и ещё ${missing.length - 3}'
-                                            : ''),
-                                  ),
-                                  style: theme.textTheme.bodyMedium?.copyWith(
-                                    color:
-                                        theme.colorScheme.onSecondaryContainer,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 6),
-                          OutlinedButton(
-                            onPressed:
-                                onReplaceWithAvailable ?? onReplaceRecipe,
-                            style: OutlinedButton.styleFrom(
-                              minimumSize: const Size(double.infinity, 56),
-                            ),
-                            child: Text(
-                              l10n.calendarReplaceWithAvailable,
-                              style: theme.textTheme.bodyMedium?.copyWith(
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    );
-                  }
-                },
-              ),
-
-              const SizedBox(height: 16),
-
-              // Action Buttons
-              FilledButton.icon(
-                onPressed: () => context.push('/recipe/${recipe.id}'),
-                icon: const Icon(Icons.restaurant_menu, size: 24),
-                label: Text(
-                  l10n.calendarViewRecipe,
-                  style: theme.textTheme.titleMedium?.copyWith(
-                    color: theme.colorScheme.onPrimary,
+              if (recipe != null && entry != null) ...[
+                // Recipe Title
+                Text(
+                  recipe.title,
+                  style: theme.textTheme.headlineSmall?.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                style: FilledButton.styleFrom(
-                  minimumSize: const Size(double.infinity, 56),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(14),
+                const SizedBox(height: 8),
+
+                // Badges Row
+                Wrap(
+                  spacing: 8,
+                  runSpacing: 6,
+                  children: [
+                    if (recipe.source == RecipeSource.ai)
+                      const AssistantBadge(isCompact: true),
+                    Chip(
+                      avatar: AppDishTypeIcon(
+                        dishType: recipe.dishType,
+                        size: 18,
+                      ),
+                      label: Text(_dishTypeName(recipe.dishType, l10n)),
+                    ),
+                    Chip(
+                      avatar: const Icon(Icons.timer_outlined, size: 18),
+                      label: Text('${recipe.totalMinutes} мин'),
+                    ),
+                    Chip(
+                      avatar: const Icon(Icons.speed, size: 18),
+                      label: Text(_difficultyName(l10n, recipe.difficulty)),
+                    ),
+                    _buildStatusChip(entry.status, l10n, theme),
+                    if (entry.locked)
+                      Chip(
+                        avatar: const Icon(Icons.lock, size: 16),
+                        label: Text(l10n.calendarLockedBadge),
+                        backgroundColor: theme.colorScheme.secondaryContainer
+                            .withValues(alpha: 0.4),
+                      ),
+                  ],
+                ),
+
+                const SizedBox(height: 12),
+
+                // Ingredients availability check
+                FutureBuilder<RecipeDetail?>(
+                  future: ref
+                      .read(recipeDaoProvider)
+                      .getRecipeDetail(recipe.id),
+                  builder: (context, snapshot) {
+                    final detail = snapshot.data;
+                    if (detail == null) {
+                      return const SizedBox.shrink();
+                    }
+
+                    final missing = detail.ingredients
+                        .where(
+                          (i) =>
+                              i.ingredient != null &&
+                              !pantry.contains(i.ingredient!.id),
+                        )
+                        .map((i) => i.ingredient!.name)
+                        .toList();
+
+                    if (missing.isEmpty) {
+                      return Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 12,
+                          vertical: 8,
+                        ),
+                        decoration: BoxDecoration(
+                          color: theme.colorScheme.primaryContainer,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.check_circle,
+                              color: theme.colorScheme.onPrimaryContainer,
+                              size: 20,
+                            ),
+                            const SizedBox(width: 8),
+                            Expanded(
+                              child: Text(
+                                l10n.calendarAllIngredientsAvailable,
+                                style: theme.textTheme.bodyMedium?.copyWith(
+                                  color: theme.colorScheme.onPrimaryContainer,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    } else {
+                      return Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 12,
+                          vertical: 8,
+                        ),
+                        decoration: BoxDecoration(
+                          color: theme.colorScheme.secondaryContainer,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                Icon(
+                                  Icons.shopping_basket_outlined,
+                                  color: theme.colorScheme.onSecondaryContainer,
+                                  size: 20,
+                                ),
+                                const SizedBox(width: 8),
+                                Expanded(
+                                  child: Text(
+                                    l10n.calendarMissingIngredients(
+                                      missing.take(3).join(', ') +
+                                          (missing.length > 3
+                                              ? ' и ещё ${missing.length - 3}'
+                                              : ''),
+                                    ),
+                                    style: theme.textTheme.bodyMedium?.copyWith(
+                                      color: theme
+                                          .colorScheme
+                                          .onSecondaryContainer,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 6),
+                            OutlinedButton(
+                              onPressed:
+                                  onReplaceWithAvailable ?? onReplaceRecipe,
+                              style: OutlinedButton.styleFrom(
+                                minimumSize: const Size(double.infinity, 56),
+                              ),
+                              child: Text(
+                                l10n.calendarReplaceWithAvailable,
+                                style: theme.textTheme.bodyMedium?.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    }
+                  },
+                ),
+
+                const SizedBox(height: 16),
+
+                // Action Buttons
+                FilledButton.icon(
+                  onPressed: () => context.push('/recipe/${recipe.id}'),
+                  icon: const Icon(Icons.restaurant_menu, size: 24),
+                  label: Text(
+                    l10n.calendarViewRecipe,
+                    style: theme.textTheme.titleMedium?.copyWith(
+                      color: theme.colorScheme.onPrimary,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  style: FilledButton.styleFrom(
+                    minimumSize: const Size(double.infinity, 56),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(14),
+                    ),
                   ),
                 ),
-              ),
 
-              const SizedBox(height: 8),
+                const SizedBox(height: 8),
 
-              LayoutBuilder(
-                builder: (context, constraints) {
-                  final isNarrowOrLargeFont =
-                      constraints.maxWidth < 340 ||
-                      MediaQuery.textScalerOf(context).scale(1) > 1.25;
+                LayoutBuilder(
+                  builder: (context, constraints) {
+                    final isNarrowOrLargeFont =
+                        constraints.maxWidth < 340 ||
+                        MediaQuery.textScalerOf(context).scale(1) > 1.25;
 
-                  final lockButton = OutlinedButton.icon(
-                    onPressed: () => onLockToggle(entry),
-                    icon: Icon(
-                      entry.locked ? Icons.lock_open : Icons.lock,
-                      size: 20,
-                    ),
-                    label: Text(
-                      entry.locked
-                          ? l10n.calendarUnlockDish
-                          : l10n.calendarLockDish,
-                    ),
-                    style: OutlinedButton.styleFrom(
-                      minimumSize: const Size(0, 56),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
+                    final lockButton = OutlinedButton.icon(
+                      onPressed: () => onLockToggle(entry),
+                      icon: Icon(
+                        entry.locked ? Icons.lock_open : Icons.lock,
+                        size: 20,
                       ),
-                    ),
-                  );
-
-                  final replaceButton = OutlinedButton.icon(
-                    onPressed: onReplaceRecipe,
-                    icon: const Icon(Icons.swap_horiz, size: 20),
-                    label: Text(l10n.calendarReplaceDish),
-                    style: OutlinedButton.styleFrom(
-                      minimumSize: const Size(0, 56),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
+                      label: Text(
+                        entry.locked
+                            ? l10n.calendarUnlockDish
+                            : l10n.calendarLockDish,
                       ),
-                    ),
-                  );
+                      style: OutlinedButton.styleFrom(
+                        minimumSize: const Size(0, 56),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                    );
 
-                  if (isNarrowOrLargeFont) {
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                    final replaceButton = OutlinedButton.icon(
+                      onPressed: onReplaceRecipe,
+                      icon: const Icon(Icons.swap_horiz, size: 20),
+                      label: Text(l10n.calendarReplaceDish),
+                      style: OutlinedButton.styleFrom(
+                        minimumSize: const Size(0, 56),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                    );
+
+                    if (isNarrowOrLargeFont) {
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          lockButton,
+                          const SizedBox(height: 8),
+                          replaceButton,
+                        ],
+                      );
+                    }
+
+                    return Row(
                       children: [
-                        lockButton,
-                        const SizedBox(height: 8),
-                        replaceButton,
+                        Expanded(child: lockButton),
+                        const SizedBox(width: 8),
+                        Expanded(child: replaceButton),
                       ],
                     );
-                  }
+                  },
+                ),
 
-                  return Row(
-                    children: [
-                      Expanded(child: lockButton),
-                      const SizedBox(width: 8),
-                      Expanded(child: replaceButton),
-                    ],
-                  );
-                },
-              ),
-
-              if (entry.status == MealPlanStatus.planned) ...[
-                const SizedBox(height: 8),
-                OutlinedButton.icon(
-                  onPressed: () => onStatusChange(entry, MealPlanStatus.cooked),
-                  icon: Icon(
-                    Icons.check_circle_outline,
-                    color: theme.colorScheme.primary,
-                    size: 22,
+                if (entry.status == MealPlanStatus.planned) ...[
+                  const SizedBox(height: 8),
+                  OutlinedButton.icon(
+                    onPressed: () =>
+                        onStatusChange(entry, MealPlanStatus.cooked),
+                    icon: Icon(
+                      Icons.check_circle_outline,
+                      color: theme.colorScheme.primary,
+                      size: 22,
+                    ),
+                    label: Text(
+                      l10n.calendarMarkCooked,
+                      style: TextStyle(color: theme.colorScheme.primary),
+                    ),
+                    style: OutlinedButton.styleFrom(
+                      minimumSize: const Size(double.infinity, 56),
+                      side: BorderSide(color: theme.colorScheme.primary),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
                   ),
+                ],
+              ] else ...[
+                // Empty Day State
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  child: Text(
+                    l10n.calendarEmptyDay,
+                    style: theme.textTheme.bodyLarge?.copyWith(
+                      color: theme.colorScheme.onSurfaceVariant,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                OutlinedButton.icon(
+                  onPressed: onChooseRecipe,
+                  icon: const Icon(Icons.add, size: 24),
                   label: Text(
-                    l10n.calendarMarkCooked,
-                    style: TextStyle(color: theme.colorScheme.primary),
+                    l10n.calendarChooseDish,
+                    style: theme.textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   style: OutlinedButton.styleFrom(
                     minimumSize: const Size(double.infinity, 56),
-                    side: BorderSide(color: theme.colorScheme.primary),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(14),
                     ),
                   ),
                 ),
               ],
-            ] else ...[
-              // Empty Day State
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16),
-                child: Text(
-                  l10n.calendarEmptyDay,
-                  style: theme.textTheme.bodyLarge?.copyWith(
-                    color: theme.colorScheme.onSurfaceVariant,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-              OutlinedButton.icon(
-                onPressed: onChooseRecipe,
-                icon: const Icon(Icons.add, size: 24),
-                label: Text(
-                  l10n.calendarChooseDish,
-                  style: theme.textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                style: OutlinedButton.styleFrom(
-                  minimumSize: const Size(double.infinity, 56),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(14),
-                  ),
-                ),
-              ),
             ],
-          ],
+          ),
         ),
       ),
     );

@@ -7,6 +7,7 @@ import '../../app/app_images.dart';
 import '../../core/adaptive/adaptive_app_bar_title.dart';
 import '../../core/db/app_database.dart';
 import '../../core/providers.dart';
+import '../../core/widgets/product_details_sheet.dart';
 import '../../l10n/app_localizations.dart';
 
 extension _StringCapitalize on String {
@@ -566,6 +567,13 @@ class _IngredientCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
         child: InkWell(
           onTap: onToggle,
+          onLongPress: () {
+            ProductDetailsSheet.show(
+              context,
+              ingredientId: ingredient.id,
+              fallbackName: ingredient.name,
+            );
+          },
           borderRadius: BorderRadius.circular(16),
           child: Container(
             constraints: const BoxConstraints(minHeight: 56),
@@ -592,6 +600,17 @@ class _IngredientCard extends StatelessWidget {
                           : theme.colorScheme.onSurface,
                     ),
                   ),
+                ),
+                IconButton(
+                  icon: const Icon(Icons.info_outline, size: 24),
+                  tooltip: 'Подробнее о продукте',
+                  onPressed: () {
+                    ProductDetailsSheet.show(
+                      context,
+                      ingredientId: ingredient.id,
+                      fallbackName: ingredient.name,
+                    );
+                  },
                 ),
               ],
             ),

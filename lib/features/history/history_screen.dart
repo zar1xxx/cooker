@@ -11,6 +11,7 @@ import '../../core/db/enums.dart';
 import '../../core/providers.dart';
 import '../../core/widgets/assistant_badge.dart';
 import '../../l10n/app_localizations.dart';
+import 'history_details_sheet.dart';
 
 String _dishTypeName(DishType type, AppLocalizations l10n) {
   switch (type) {
@@ -261,6 +262,13 @@ class _HistoryScreenState extends ConsumerState<HistoryScreen> {
       appBar: AppBar(
         centerTitle: true,
         title: AdaptiveAppBarTitle(l10n.screenHistoryTitle),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.insights, size: 28),
+            tooltip: 'Статистика',
+            onPressed: () => context.push('/statistics'),
+          ),
+        ],
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: _showAddDishDialog,
@@ -874,242 +882,245 @@ class _HistoryEntryCard extends StatelessWidget {
       elevation: 1.5,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       clipBehavior: Clip.antiAlias,
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Top row: Dish type & cooking time
-            Wrap(
-              alignment: WrapAlignment.spaceBetween,
-              crossAxisAlignment: WrapCrossAlignment.center,
-              spacing: 8,
-              runSpacing: 6,
-              children: [
-                if (recipe != null && recipe.source == RecipeSource.ai)
-                  const AssistantBadge(isCompact: true),
-                if (recipe != null) ...[
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 10,
-                      vertical: 4,
-                    ),
-                    decoration: BoxDecoration(
-                      color: theme.colorScheme.secondaryContainer.withValues(
-                        alpha: 0.5,
+      child: InkWell(
+        onTap: () =>
+            HistoryDetailsSheet.show(context, item: item, onDeleted: onDelete),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Top row: Dish type & cooking time
+              Wrap(
+                alignment: WrapAlignment.spaceBetween,
+                crossAxisAlignment: WrapCrossAlignment.center,
+                spacing: 8,
+                runSpacing: 6,
+                children: [
+                  if (recipe != null && recipe.source == RecipeSource.ai)
+                    const AssistantBadge(isCompact: true),
+                  if (recipe != null) ...[
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 4,
                       ),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        AppDishTypeIcon(dishType: recipe.dishType, size: 18),
-                        const SizedBox(width: 6),
-                        Flexible(
-                          child: Text(
-                            _dishTypeName(recipe.dishType, l10n),
-                            style: theme.textTheme.bodyMedium?.copyWith(
-                              color: theme.colorScheme.onSecondaryContainer,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
+                      decoration: BoxDecoration(
+                        color: theme.colorScheme.secondaryContainer.withValues(
+                          alpha: 0.5,
                         ),
-                      ],
-                    ),
-                  ),
-                ],
-                if (recipe != null) ...[
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(
-                        Icons.schedule,
-                        size: 18,
-                        color: theme.colorScheme.onSurfaceVariant,
+                        borderRadius: BorderRadius.circular(8),
                       ),
-                      const SizedBox(width: 4),
-                      Flexible(
-                        child: Text(
-                          l10n.historyCookingTime(recipe.totalMinutes),
-                          style: theme.textTheme.bodyMedium?.copyWith(
-                            color: theme.colorScheme.onSurfaceVariant,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ],
-            ),
-            const SizedBox(height: 12),
-
-            // Title
-            Text(
-              title,
-              style: theme.textTheme.titleMedium?.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 10),
-
-            // Rating row (tappable to edit rating)
-            InkWell(
-              onTap: onEditRating,
-              borderRadius: BorderRadius.circular(8),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 4),
-                child: Wrap(
-                  alignment: WrapAlignment.spaceBetween,
-                  crossAxisAlignment: WrapCrossAlignment.center,
-                  spacing: 8,
-                  runSpacing: 6,
-                  children: [
-                    if (rating != null) ...[
-                      Row(
+                      child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: List.generate(5, (starIdx) {
-                              final filled = starIdx < rating;
-                              return Icon(
-                                filled ? Icons.star : Icons.star_border,
-                                size: 24,
-                                color: filled
-                                    ? theme.colorScheme.secondary
-                                    : theme.colorScheme.outlineVariant,
-                              );
-                            }),
-                          ),
-                          const SizedBox(width: 8),
+                          AppDishTypeIcon(dishType: recipe.dishType, size: 18),
+                          const SizedBox(width: 6),
                           Flexible(
                             child: Text(
-                              l10n.historyRatingStars(rating),
-                              style: theme.textTheme.bodyLarge?.copyWith(
+                              _dishTypeName(recipe.dishType, l10n),
+                              style: theme.textTheme.bodyMedium?.copyWith(
+                                color: theme.colorScheme.onSecondaryContainer,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
                           ),
                         ],
                       ),
-                    ] else ...[
-                      Text(
-                        l10n.historyRatingUnrated,
-                        style: theme.textTheme.bodyLarge?.copyWith(
+                    ),
+                  ],
+                  if (recipe != null) ...[
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(
+                          Icons.schedule,
+                          size: 18,
                           color: theme.colorScheme.onSurfaceVariant,
                         ),
-                      ),
-                    ],
-                    if (wouldRepeat == true) ...[
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 8,
-                          vertical: 4,
-                        ),
-                        decoration: BoxDecoration(
-                          color: theme.colorScheme.primaryContainer.withValues(
-                            alpha: 0.4,
+                        const SizedBox(width: 4),
+                        Flexible(
+                          child: Text(
+                            l10n.historyCookingTime(recipe.totalMinutes),
+                            style: theme.textTheme.bodyMedium?.copyWith(
+                              color: theme.colorScheme.onSurfaceVariant,
+                            ),
                           ),
-                          borderRadius: BorderRadius.circular(8),
                         ),
-                        child: Row(
+                      ],
+                    ),
+                  ],
+                ],
+              ),
+              const SizedBox(height: 12),
+
+              // Title
+              Text(
+                title,
+                style: theme.textTheme.titleMedium?.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 10),
+
+              // Rating row (tappable to edit rating)
+              InkWell(
+                onTap: onEditRating,
+                borderRadius: BorderRadius.circular(8),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 4),
+                  child: Wrap(
+                    alignment: WrapAlignment.spaceBetween,
+                    crossAxisAlignment: WrapCrossAlignment.center,
+                    spacing: 8,
+                    runSpacing: 6,
+                    children: [
+                      if (rating != null) ...[
+                        Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Icon(
-                              Icons.thumb_up_alt_outlined,
-                              size: 16,
-                              color: theme.colorScheme.primary,
+                            Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: List.generate(5, (starIdx) {
+                                final filled = starIdx < rating;
+                                return Icon(
+                                  filled ? Icons.star : Icons.star_border,
+                                  size: 24,
+                                  color: filled
+                                      ? theme.colorScheme.secondary
+                                      : theme.colorScheme.outlineVariant,
+                                );
+                              }),
                             ),
-                            const SizedBox(width: 4),
+                            const SizedBox(width: 8),
                             Flexible(
                               child: Text(
-                                l10n.historyWouldRepeat,
-                                style: theme.textTheme.bodySmall?.copyWith(
-                                  color: theme.colorScheme.primary,
-                                  fontWeight: FontWeight.bold,
+                                l10n.historyRatingStars(rating),
+                                style: theme.textTheme.bodyLarge?.copyWith(
+                                  fontWeight: FontWeight.w600,
                                 ),
                               ),
                             ),
                           ],
                         ),
-                      ),
+                      ] else ...[
+                        Text(
+                          l10n.historyRatingUnrated,
+                          style: theme.textTheme.bodyLarge?.copyWith(
+                            color: theme.colorScheme.onSurfaceVariant,
+                          ),
+                        ),
+                      ],
+                      if (wouldRepeat == true) ...[
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 8,
+                            vertical: 4,
+                          ),
+                          decoration: BoxDecoration(
+                            color: theme.colorScheme.primaryContainer
+                                .withValues(alpha: 0.4),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Icon(
+                                Icons.thumb_up_alt_outlined,
+                                size: 16,
+                                color: theme.colorScheme.primary,
+                              ),
+                              const SizedBox(width: 4),
+                              Flexible(
+                                child: Text(
+                                  l10n.historyWouldRepeat,
+                                  style: theme.textTheme.bodySmall?.copyWith(
+                                    color: theme.colorScheme.primary,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
                     ],
-                  ],
+                  ),
                 ),
               ),
-            ),
 
-            // Note
-            if (note != null && note.isNotEmpty) ...[
-              const SizedBox(height: 10),
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: theme.colorScheme.surfaceContainerHighest.withValues(
-                    alpha: 0.4,
+              // Note
+              if (note != null && note.isNotEmpty) ...[
+                const SizedBox(height: 10),
+                Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: theme.colorScheme.surfaceContainerHighest.withValues(
+                      alpha: 0.4,
+                    ),
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border(
+                      left: BorderSide(
+                        color: theme.colorScheme.primary,
+                        width: 3,
+                      ),
+                    ),
                   ),
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border(
-                    left: BorderSide(
-                      color: theme.colorScheme.primary,
-                      width: 3,
+                  child: Text(
+                    note,
+                    style: theme.textTheme.bodyMedium?.copyWith(
+                      fontStyle: FontStyle.italic,
                     ),
                   ),
                 ),
-                child: Text(
-                  note,
-                  style: theme.textTheme.bodyMedium?.copyWith(
-                    fontStyle: FontStyle.italic,
-                  ),
-                ),
-              ),
-            ],
-            const SizedBox(height: 14),
+              ],
+              const SizedBox(height: 14),
 
-            // Bottom actions: View Recipe + Soft Delete
-            Row(
-              children: [
-                Expanded(
-                  child: ConstrainedBox(
-                    constraints: const BoxConstraints(minHeight: 56),
-                    child: OutlinedButton.icon(
-                      style: OutlinedButton.styleFrom(
-                        minimumSize: const Size.fromHeight(56),
+              // Bottom actions: View Recipe + Soft Delete
+              Row(
+                children: [
+                  Expanded(
+                    child: ConstrainedBox(
+                      constraints: const BoxConstraints(minHeight: 56),
+                      child: OutlinedButton.icon(
+                        style: OutlinedButton.styleFrom(
+                          minimumSize: const Size.fromHeight(56),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                        icon: const Icon(Icons.menu_book),
+                        label: Text(
+                          l10n.historyCookAgain,
+                          style: theme.textTheme.titleMedium?.copyWith(
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        onPressed: () =>
+                            context.push('/recipe/${entry.recipeId}'),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  SizedBox(
+                    width: 56,
+                    height: 56,
+                    child: IconButton.outlined(
+                      style: IconButton.styleFrom(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),
                       ),
-                      icon: const Icon(Icons.menu_book),
-                      label: Text(
-                        l10n.historyCookAgain,
-                        style: theme.textTheme.titleMedium?.copyWith(
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      onPressed: () =>
-                          context.push('/recipe/${entry.recipeId}'),
+                      icon: const Icon(Icons.delete_outline, size: 28),
+                      tooltip: l10n.historyDeleteButton,
+                      onPressed: onDelete,
                     ),
                   ),
-                ),
-                const SizedBox(width: 8),
-                SizedBox(
-                  width: 56,
-                  height: 56,
-                  child: IconButton.outlined(
-                    style: IconButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
-                    icon: const Icon(Icons.delete_outline, size: 28),
-                    tooltip: l10n.historyDeleteButton,
-                    onPressed: onDelete,
-                  ),
-                ),
-              ],
-            ),
-          ],
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
