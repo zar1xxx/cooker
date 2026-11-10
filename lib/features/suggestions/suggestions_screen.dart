@@ -252,7 +252,7 @@ class _SuggestionsScreenState extends ConsumerState<SuggestionsScreen> {
       return;
     }
 
-    // Generate full recipe
+    // Generate full recipe upon opening card (R8-07)
     if (!mounted) return;
     unawaited(
       showDialog(
@@ -315,8 +315,22 @@ class _SuggestionsScreenState extends ConsumerState<SuggestionsScreen> {
     } catch (e) {
       if (mounted) {
         Navigator.of(context, rootNavigator: true).pop();
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Ошибка при загрузке рецепта: $e')),
+        final dialogTheme = Theme.of(context);
+        await showDialog<void>(
+          context: context,
+          builder: (ctx) => AlertDialog(
+            title: Text(l10n.aiErrorDialogTitle),
+            content: Text(
+              l10n.aiErrorDialogMessage(e.toString()),
+              style: dialogTheme.textTheme.bodyMedium,
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(ctx).pop(),
+                child: Text(l10n.aiErrorDialogClose),
+              ),
+            ],
+          ),
         );
       }
     }

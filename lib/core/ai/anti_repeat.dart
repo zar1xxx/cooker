@@ -182,10 +182,12 @@ class AntiRepeat {
   }
 
   /// Builds a deterministic cache key for `suggest_dishes` on the same calendar day.
+  /// Combines available ingredients, filters, optional context tag, and date.
   static String buildCacheKey({
     required Iterable<String> availableIngredientIds,
     String? dishTypeFilter,
     String? difficultyFilter,
+    String? contextTag,
     DateTime? now,
   }) {
     final currentTime = now ?? clock.now();
@@ -197,8 +199,11 @@ class AntiRepeat {
             .toSet()
             .toList()
           ..sort();
+    final cleanContext = (contextTag == null || contextTag.trim().isEmpty)
+        ? '*'
+        : contextTag.trim();
     final key =
-        'suggest:${sorted.join(',')}:${dishTypeFilter ?? '*'}:${difficultyFilter ?? '*'}:$dateStr';
+        'suggest:${sorted.join(',')}:${dishTypeFilter ?? '*'}:${difficultyFilter ?? '*'}:$cleanContext:$dateStr';
     return key.hashCode.toRadixString(16);
   }
 
@@ -208,6 +213,7 @@ class AntiRepeat {
     required Iterable<String> availableIngredientIds,
     String? dishTypeFilter,
     String? difficultyFilter,
+    String? contextTag,
     DateTime? now,
   }) async {
     final currentTime = now ?? clock.now();
@@ -220,6 +226,7 @@ class AntiRepeat {
       availableIngredientIds: availableIngredientIds,
       dishTypeFilter: dishTypeFilter,
       difficultyFilter: difficultyFilter,
+      contextTag: contextTag,
       now: currentTime,
     );
 
@@ -256,6 +263,7 @@ class AntiRepeat {
     required Iterable<String> availableIngredientIds,
     String? dishTypeFilter,
     String? difficultyFilter,
+    String? contextTag,
     required String responseJson,
     required String model,
     int? tokensIn,
@@ -267,6 +275,7 @@ class AntiRepeat {
       availableIngredientIds: availableIngredientIds,
       dishTypeFilter: dishTypeFilter,
       difficultyFilter: difficultyFilter,
+      contextTag: contextTag,
       now: currentTime,
     );
 

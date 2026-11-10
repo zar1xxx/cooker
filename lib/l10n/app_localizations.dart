@@ -604,6 +604,36 @@ abstract class AppLocalizations {
   /// **'Кухня: {cuisine}'**
   String recipeCuisineLabel(String cuisine);
 
+  /// Плашка источника рецепта от ИИ-помощника
+  ///
+  /// In ru, this message translates to:
+  /// **'От помощника'**
+  String get recipeFromAssistant;
+
+  /// Сообщение при потоковой генерации полного рецепта
+  ///
+  /// In ru, this message translates to:
+  /// **'Помощник составляет пошаговый рецепт...'**
+  String get recipeGeneratingSteps;
+
+  /// Подзаголовок при генерации полного рецепта
+  ///
+  /// In ru, this message translates to:
+  /// **'Скоро здесь появятся точные количества и шаги приготовления'**
+  String get recipeGeneratingSubtitle;
+
+  /// Заголовок главных продуктов карточки
+  ///
+  /// In ru, this message translates to:
+  /// **'Главные продукты'**
+  String get recipeMainIngredientsHeader;
+
+  /// Кнопка повторной генерации рецепта при ошибке
+  ///
+  /// In ru, this message translates to:
+  /// **'Попробовать снова'**
+  String get recipeGenerationRetry;
+
   /// Единица измерения: граммы
   ///
   /// In ru, this message translates to:

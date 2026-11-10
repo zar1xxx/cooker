@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../core/ai/ai_service.dart';
+
 import '../features/calendar/calendar_screen.dart';
 import '../features/calendar/today_screen.dart';
 import '../features/history/history_screen.dart';
@@ -81,7 +83,10 @@ final GoRouter appRouter = GoRouter(
       parentNavigatorKey: rootNavigatorKey,
       builder: (context, state) {
         final id = state.pathParameters['id'] ?? '';
-        return RecipeScreen(recipeId: id);
+        final suggestion = state.extra is AiDishSuggestion
+            ? state.extra as AiDishSuggestion
+            : null;
+        return RecipeScreen(recipeId: id, initialSuggestion: suggestion);
       },
     ),
     GoRoute(

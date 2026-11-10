@@ -139,13 +139,17 @@ class AiService {
     bool bypassCache = false,
   }) async {
     final database = db;
-    // 1. Check cache first unless bypassCache is requested per ТЗ 6.3
+    final contextTag =
+        '${maxTotalMinutes ?? '*'}:${likes.join(',')}:${dislikes.join(',')}';
+
+    // 1. Check cache first unless bypassCache is requested per ТЗ 6.3 / R8-07
     if (!bypassCache && database != null) {
       final cached = await AntiRepeat.getCachedSuggestions(
         database,
         availableIngredientIds: availableIngredients,
         dishTypeFilter: dishTypeFilter,
         difficultyFilter: difficultyFilter,
+        contextTag: contextTag,
       );
       if (cached != null && cached.isNotEmpty) {
         return AiResult.success(cached);
@@ -332,6 +336,7 @@ class AiService {
         availableIngredientIds: availableIngredients,
         dishTypeFilter: dishTypeFilter,
         difficultyFilter: difficultyFilter,
+        contextTag: contextTag,
         responseJson: response.rawContent,
         model: response.model,
         tokensIn: response.promptTokens,

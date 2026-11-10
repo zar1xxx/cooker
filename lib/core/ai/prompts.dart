@@ -54,9 +54,10 @@ String _formatVariableValue(dynamic val) {
   return s.isEmpty ? 'нет' : s;
 }
 
-/// Limits for completion token output per R5-07 to prevent infinite generation loops.
+/// Limits for completion token output per R5-07 / R8-07 to prevent infinite generation loops
+/// and enforce compact dish cards (<= 250 tokens for 5 dishes).
 abstract final class AiMaxTokens {
-  static const int suggestDishes = 1200;
+  static const int suggestDishes = 350;
   static const int fullRecipe = 2500;
   static const int monthPlan = 2000;
   static const int pingQuery = 100;
@@ -103,7 +104,7 @@ class PromptTemplates {
 Фильтры: тип блюда — {{dish_type_filter}}; сложность — {{difficulty_filter}}; время — не больше {{max_total_minutes}} мин.
 Вкусы: любит {{likes}}; не любит {{dislikes}}. Хорошо оценённые блюда: {{top_rated}}.
 
-Предложи {{count}} разных блюд. Не больше 3 блюд одного типа и не больше 2 с одним главным продуктом.
+Предложи {{count}} разных блюд. Только короткие карточки: название, тип, время, сложность, 3–5 главных продуктов, одна фраза why. Без шагов и без количеств. Не больше 3 блюд одного типа и не больше 2 с одним главным продуктом.
 В поле why — одна короткая фраза, почему это блюдо может понравиться.''',
       fullRecipeTemplate: '''
 Напиши полный рецепт блюда «{{title}}» ({{dish_type}}, сложность {{difficulty}}) на {{servings}} порц.

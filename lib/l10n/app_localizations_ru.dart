@@ -284,6 +284,22 @@ class AppLocalizationsRu extends AppLocalizations {
   }
 
   @override
+  String get recipeFromAssistant => 'От помощника';
+
+  @override
+  String get recipeGeneratingSteps => 'Помощник составляет пошаговый рецепт...';
+
+  @override
+  String get recipeGeneratingSubtitle =>
+      'Скоро здесь появятся точные количества и шаги приготовления';
+
+  @override
+  String get recipeMainIngredientsHeader => 'Главные продукты';
+
+  @override
+  String get recipeGenerationRetry => 'Попробовать снова';
+
+  @override
   String get recipeUnitGram => 'г';
 
   @override

@@ -4,6 +4,8 @@ import 'package:go_router/go_router.dart';
 
 import '../../app/app_images.dart';
 import '../../core/adaptive/adaptive_app_bar_title.dart';
+import '../../core/ai/ai_failure.dart';
+import '../../core/ai/ai_service.dart';
 import '../../core/db/app_database.dart';
 import '../../core/db/daos/recipe_dao.dart';
 import '../../core/db/enums.dart';
@@ -11,9 +13,14 @@ import '../../core/providers.dart';
 import '../../l10n/app_localizations.dart';
 
 class RecipeScreen extends ConsumerStatefulWidget {
-  const RecipeScreen({super.key, required this.recipeId});
+  const RecipeScreen({
+    super.key,
+    required this.recipeId,
+    this.initialSuggestion,
+  });
 
   final String recipeId;
+  final AiDishSuggestion? initialSuggestion;
 
   @override
   ConsumerState<RecipeScreen> createState() => _RecipeScreenState();
@@ -22,6 +29,66 @@ class RecipeScreen extends ConsumerStatefulWidget {
 class _RecipeScreenState extends ConsumerState<RecipeScreen> {
   int? _customServings;
   bool? _isFavorite;
+  String? _savedRecipeId;
+  bool _isGenerating = false;
+  String? _generationError;
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.initialSuggestion != null && _savedRecipeId == null) {
+      _startGeneratingFullRecipe(widget.initialSuggestion!);
+    }
+  }
+
+  Future<void> _startGeneratingFullRecipe(AiDishSuggestion suggestion) async {
+    setState(() {
+      _isGenerating = true;
+      _generationError = null;
+    });
+
+    try {
+      final aiService = await ref.read(aiServiceProvider.future);
+      final pantryIds = await ref.read(pantryProvider.future);
+      final ingDao = ref.read(ingredientDaoProvider);
+      final ings = await ingDao.byIds(pantryIds.toList());
+      final availableNames = ings.map((i) => i.name).toList();
+
+      final result = await aiService.fullRecipe(
+        title: suggestion.title,
+        dishType: suggestion.dishType,
+        difficulty: suggestion.difficulty,
+        mainIngredients: suggestion.mainIngredients,
+        availableIngredients: availableNames,
+      );
+
+      switch (result) {
+        case AiSuccess(data: final fullRecipeJson):
+          final saved = await aiService.saveAiRecipeToDatabase(fullRecipeJson);
+          if (saved != null && mounted) {
+            setState(() {
+              _savedRecipeId = saved.id;
+              _isGenerating = false;
+            });
+            ref.invalidate(recipeDetailProvider(saved.id));
+          }
+        case AiError(failure: final failure):
+          if (mounted) {
+            setState(() {
+              _generationError = failure.message;
+              _isGenerating = false;
+            });
+          }
+      }
+    } catch (e) {
+      if (mounted) {
+        setState(() {
+          _generationError = e.toString();
+          _isGenerating = false;
+        });
+      }
+    }
+  }
 
   void _onServingsChanged(int delta, int baseServings) {
     final current = _customServings ?? baseServings;
@@ -76,7 +143,19 @@ class _RecipeScreenState extends ConsumerState<RecipeScreen> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
-    final detailAsync = ref.watch(recipeDetailProvider(widget.recipeId));
+
+    final effectiveId = _savedRecipeId ?? widget.recipeId;
+    if ((effectiveId == 'new' || effectiveId.startsWith('ai-')) &&
+        _savedRecipeId == null &&
+        widget.initialSuggestion != null) {
+      return _buildGeneratingSuggestionView(
+        theme,
+        l10n,
+        widget.initialSuggestion!,
+      );
+    }
+
+    final detailAsync = ref.watch(recipeDetailProvider(effectiveId));
     final pantryAsync = ref.watch(pantryProvider);
     final hierarchyAsync = ref.watch(ingredientHierarchyProvider);
 
@@ -286,6 +365,37 @@ class _RecipeScreenState extends ConsumerState<RecipeScreen> {
                   spacing: 8,
                   runSpacing: 8,
                   children: [
+                    if (recipe.source == RecipeSource.ai)
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 6,
+                        ),
+                        decoration: BoxDecoration(
+                          color: theme.colorScheme.tertiaryContainer,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(
+                              Icons.auto_awesome,
+                              size: 18,
+                              color: theme.colorScheme.onTertiaryContainer,
+                            ),
+                            const SizedBox(width: 6),
+                            Flexible(
+                              child: Text(
+                                l10n.recipeFromAssistant,
+                                style: theme.textTheme.bodyMedium?.copyWith(
+                                  color: theme.colorScheme.onTertiaryContainer,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                     Container(
                       padding: const EdgeInsets.symmetric(
                         horizontal: 10,
@@ -874,5 +984,306 @@ class _RecipeScreenState extends ConsumerState<RecipeScreen> {
       case Difficulty.hard:
         return l10n.dishesFilterHard;
     }
+  }
+
+  Widget _buildGeneratingSuggestionView(
+    ThemeData theme,
+    AppLocalizations l10n,
+    AiDishSuggestion suggestion,
+  ) {
+    final dishType =
+        DishType.values
+            .where((e) => e.name == suggestion.dishType)
+            .firstOrNull ??
+        DishType.main;
+    final difficulty =
+        Difficulty.values
+            .where((e) => e.name == suggestion.difficulty)
+            .firstOrNull ??
+        Difficulty.easy;
+
+    return Scaffold(
+      appBar: AppBar(title: AdaptiveAppBarTitle(l10n.recipeScreenTitle)),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Card(
+              elevation: 0,
+              clipBehavior: Clip.antiAlias,
+              color: theme.colorScheme.surfaceContainerHighest.withValues(
+                alpha: 0.5,
+              ),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  AppRecipePlaceholder(dishType: dishType, height: 160),
+                  Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          suggestion.title,
+                          style: theme.textTheme.headlineMedium?.copyWith(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 12),
+                        Wrap(
+                          spacing: 8,
+                          runSpacing: 8,
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 10,
+                                vertical: 6,
+                              ),
+                              decoration: BoxDecoration(
+                                color: theme.colorScheme.tertiaryContainer,
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Icon(
+                                    Icons.auto_awesome,
+                                    size: 18,
+                                    color:
+                                        theme.colorScheme.onTertiaryContainer,
+                                  ),
+                                  const SizedBox(width: 6),
+                                  Flexible(
+                                    child: Text(
+                                      l10n.recipeFromAssistant,
+                                      style: theme.textTheme.bodyMedium
+                                          ?.copyWith(
+                                            color: theme
+                                                .colorScheme
+                                                .onTertiaryContainer,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 10,
+                                vertical: 6,
+                              ),
+                              decoration: BoxDecoration(
+                                color: theme.colorScheme.secondaryContainer
+                                    .withValues(alpha: 0.5),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  AppDishTypeIcon(dishType: dishType, size: 20),
+                                  const SizedBox(width: 6),
+                                  Flexible(
+                                    child: Text(
+                                      _dishTypeName(l10n, dishType),
+                                      style: theme.textTheme.bodyMedium
+                                          ?.copyWith(
+                                            color: theme
+                                                .colorScheme
+                                                .onSecondaryContainer,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 10,
+                                vertical: 6,
+                              ),
+                              decoration: BoxDecoration(
+                                color:
+                                    theme.colorScheme.surfaceContainerHighest,
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  for (int i = 0; i < 3; i++)
+                                    Icon(
+                                      Icons.cookie_outlined,
+                                      size: 18,
+                                      color: i < _difficultyCaps(difficulty)
+                                          ? theme.colorScheme.primary
+                                          : theme.colorScheme.outlineVariant,
+                                    ),
+                                  const SizedBox(width: 4),
+                                  Flexible(
+                                    child: Text(
+                                      _difficultyName(l10n, difficulty),
+                                      style: theme.textTheme.bodyMedium
+                                          ?.copyWith(
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 10,
+                                vertical: 6,
+                              ),
+                              decoration: BoxDecoration(
+                                color:
+                                    theme.colorScheme.surfaceContainerHighest,
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  const Icon(Icons.timer_outlined, size: 20),
+                                  const SizedBox(width: 6),
+                                  Flexible(
+                                    child: Text(
+                                      l10n.dishesMinutes(
+                                        suggestion.totalMinutes,
+                                      ),
+                                      style: theme.textTheme.bodyMedium
+                                          ?.copyWith(
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        if (suggestion.why.isNotEmpty) ...[
+                          const SizedBox(height: 12),
+                          Text(
+                            suggestion.why,
+                            style: theme.textTheme.bodyLarge?.copyWith(
+                              color: theme.colorScheme.onSurfaceVariant,
+                            ),
+                          ),
+                        ],
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 16),
+            Card(
+              elevation: 0,
+              color: theme.colorScheme.surfaceContainerHighest.withValues(
+                alpha: 0.3,
+              ),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      l10n.recipeMainIngredientsHeader,
+                      style: theme.textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    Wrap(
+                      spacing: 8,
+                      runSpacing: 8,
+                      children: [
+                        for (final ing in suggestion.mainIngredients)
+                          Chip(
+                            label: Text(ing),
+                            backgroundColor:
+                                theme.colorScheme.surfaceContainerHighest,
+                          ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(height: 16),
+            if (_isGenerating)
+              Card(
+                elevation: 0,
+                color: theme.colorScheme.surfaceContainerHighest.withValues(
+                  alpha: 0.5,
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    children: [
+                      const LinearProgressIndicator(),
+                      const SizedBox(height: 16),
+                      Text(
+                        l10n.recipeGeneratingSteps,
+                        style: theme.textTheme.titleMedium?.copyWith(
+                          fontWeight: FontWeight.w600,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        l10n.recipeGeneratingSubtitle,
+                        style: theme.textTheme.bodyMedium?.copyWith(
+                          color: theme.colorScheme.onSurfaceVariant,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
+                ),
+              )
+            else if (_generationError != null)
+              Card(
+                elevation: 0,
+                color: theme.colorScheme.errorContainer,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    children: [
+                      Text(
+                        l10n.aiErrorDialogMessage(_generationError!),
+                        style: theme.textTheme.bodyMedium?.copyWith(
+                          color: theme.colorScheme.onErrorContainer,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(height: 12),
+                      FilledButton.tonal(
+                        onPressed: () => _startGeneratingFullRecipe(suggestion),
+                        child: Text(l10n.recipeGenerationRetry),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+          ],
+        ),
+      ),
+    );
   }
 }

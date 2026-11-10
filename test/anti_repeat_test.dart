@@ -336,5 +336,37 @@ void main() {
 
       expect(cachedDay2, isNull);
     });
+
+    test('R8-07: distinguishes cache entries by contextTag on the same day', () async {
+      final now = DateTime.utc(2026, 11, 4, 10, 0);
+      const jsonContextA =
+          '{"dishes":[{"title":"Быстрый омлет","dish_type":"breakfast","difficulty":"easy","total_minutes":10,"main_ingredients":["яйца"],"missing":[],"why":"Быстро"}]}';
+
+      await AntiRepeat.cacheSuggestions(
+        db,
+        availableIngredientIds: ['eggs'],
+        contextTag: 'fast:likes_eggs',
+        responseJson: jsonContextA,
+        model: 'test-model',
+        now: now,
+      );
+
+      final match = await AntiRepeat.getCachedSuggestions(
+        db,
+        availableIngredientIds: ['eggs'],
+        contextTag: 'fast:likes_eggs',
+        now: now,
+      );
+      expect(match, isNotNull);
+      expect(match!.first.title, equals('Быстрый омлет'));
+
+      final differentContext = await AntiRepeat.getCachedSuggestions(
+        db,
+        availableIngredientIds: ['eggs'],
+        contextTag: 'slow:baking',
+        now: now,
+      );
+      expect(differentContext, isNull);
+    });
   });
 }

@@ -1,4 +1,5 @@
 import 'package:chto_prigotovit/app/theme.dart';
+import 'package:chto_prigotovit/core/ai/ai_service.dart';
 import 'package:chto_prigotovit/core/db/app_database.dart';
 import 'package:chto_prigotovit/core/db/daos/pantry_dao.dart';
 import 'package:chto_prigotovit/core/db/daos/recipe_dao.dart';
@@ -171,6 +172,64 @@ void main() {
         // DB persisted
         final updatedRecipe = await recipeDao.byId('chicken_soup_potato');
         expect(updatedRecipe!.isFavorite, isTrue);
+      },
+    );
+
+    testWidgets(
+      'R8-07: RecipeScreen opened with initialSuggestion immediately renders title, meta, assistant badge and main ingredients',
+      (tester) async {
+        tester.view.physicalSize = const Size(800, 1600);
+        tester.view.devicePixelRatio = 1.0;
+        addTearDown(tester.view.resetPhysicalSize);
+        addTearDown(tester.view.resetDevicePixelRatio);
+
+        const suggestion = AiDishSuggestion(
+          title: 'Овощное рагу от шефа',
+          dishType: 'main',
+          difficulty: 'easy',
+          totalMinutes: 35,
+          mainIngredients: ['картофель', 'кабачок', 'морковь'],
+          missing: [],
+          why: 'Простое и быстрое блюдо',
+          raw: {},
+        );
+
+        await tester.pumpWidget(
+          ProviderScope(
+            overrides: [databaseProvider.overrideWithValue(db)],
+            child: MaterialApp(
+              theme: AppTheme.light,
+              localizationsDelegates: const [
+                AppLocalizations.delegate,
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
+              ],
+              supportedLocales: AppLocalizations.supportedLocales,
+              locale: const Locale('ru'),
+              home: const RecipeScreen(
+                recipeId: 'new',
+                initialSuggestion: suggestion,
+              ),
+            ),
+          ),
+        );
+        await tester.pump();
+
+        // Immediate view without waiting for LLM completion
+        expect(find.text('Овощное рагу от шефа'), findsOneWidget);
+        expect(find.text('От помощника'), findsOneWidget);
+        expect(find.text('Второе'), findsOneWidget);
+        expect(find.text('Легко'), findsOneWidget);
+        expect(find.text('35 мин'), findsOneWidget);
+        expect(find.text('Главные продукты'), findsOneWidget);
+        expect(find.text('картофель'), findsOneWidget);
+        expect(find.text('кабачок'), findsOneWidget);
+        expect(find.text('морковь'), findsOneWidget);
+        expect(
+          find.text('Помощник составляет пошаговый рецепт...'),
+          findsOneWidget,
+        );
       },
     );
   });

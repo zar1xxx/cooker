@@ -385,6 +385,26 @@
       }
     }
   },
+  "recipeFromAssistant": "От помощника",
+  "@recipeFromAssistant": {
+    "description": "Плашка источника рецепта от ИИ-помощника"
+  },
+  "recipeGeneratingSteps": "Помощник составляет пошаговый рецепт...",
+  "@recipeGeneratingSteps": {
+    "description": "Сообщение при потоковой генерации полного рецепта"
+  },
+  "recipeGeneratingSubtitle": "Скоро здесь появятся точные количества и шаги приготовления",
+  "@recipeGeneratingSubtitle": {
+    "description": "Подзаголовок при генерации полного рецепта"
+  },
+  "recipeMainIngredientsHeader": "Главные продукты",
+  "@recipeMainIngredientsHeader": {
+    "description": "Заголовок главных продуктов карточки"
+  },
+  "recipeGenerationRetry": "Попробовать снова",
+  "@recipeGenerationRetry": {
+    "description": "Кнопка повторной генерации рецепта при ошибке"
+  },
   "recipeUnitGram": "г",
   "@recipeUnitGram": {
     "description": "Единица измерения: граммы"
