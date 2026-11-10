@@ -968,6 +968,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get todayDishOfTheDay => 'Блюдо дня';
 
   @override
+  String get dishNeedToBuy => 'Нужно докупить';
+
+  @override
   String get todayNoDishPlanned => 'На сегодня блюдо не выбрано';
 
   @override

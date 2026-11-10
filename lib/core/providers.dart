@@ -92,6 +92,7 @@ final mealPlannerProvider = Provider<MealPlanner>((ref) {
     historyDao: ref.watch(historyDaoProvider),
     db: ref.watch(databaseProvider),
     aiService: aiService,
+    pantryDao: ref.watch(pantryDaoProvider),
   );
 });
 

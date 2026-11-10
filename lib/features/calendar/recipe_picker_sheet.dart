@@ -112,7 +112,10 @@ class _RecipePickerSheetState extends State<RecipePickerSheet> {
   bool _isRecipeAvailable(RecipeWithIngredients r) {
     if (widget.pantry.isEmpty) return false;
     for (final line in r.ingredients) {
-      if (line.recipeIngredient.isOptional) continue;
+      if (line.recipeIngredient.isOptional ||
+          line.ingredient?.isStaple == true) {
+        continue;
+      }
       final ingId = line.recipeIngredient.ingredientId;
       if (!widget.pantry.contains(ingId)) return false;
     }

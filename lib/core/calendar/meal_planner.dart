@@ -6,6 +6,7 @@ import '../catalog/catalog_taxonomy.dart';
 import '../db/app_database.dart';
 import '../db/daos/history_dao.dart';
 import '../db/daos/ingredient_dao.dart';
+import '../db/daos/pantry_dao.dart';
 import '../db/daos/plan_dao.dart';
 import '../db/daos/recipe_dao.dart';
 import '../db/enums.dart';
@@ -65,6 +66,7 @@ class MealPlanner {
     this.historyDao,
     this.db,
     this.aiService,
+    this.pantryDao,
     RecipeDiversityReorderer? diversityReorderer,
   }) : _diversity = diversityReorderer ?? const RecipeDiversityReorderer();
 
@@ -75,6 +77,7 @@ class MealPlanner {
   final HistoryDao? historyDao;
   final AppDatabase? db;
   final AiService? aiService;
+  final PantryDao? pantryDao;
   final RecipeDiversityReorderer _diversity;
 
   /// Generates a meal plan for all non-locked days from [fromDate] to [toDate]
@@ -89,6 +92,7 @@ class MealPlanner {
     DateTime? fromDate,
     DateTime? toDate,
     AiService? aiService,
+    Set<String>? pantry,
   }) async {
     final activeAi = aiService ?? this.aiService;
     final start = fromDate ?? clock.now();
@@ -98,6 +102,8 @@ class MealPlanner {
     final allRecipes = await recipeDao.allWithIngredients();
     if (allRecipes.isEmpty) return const [];
     final recipeById = {for (final r in allRecipes) r.recipe.id: r};
+    final effectivePantry =
+        pantry ?? (await pantryDao?.availableIds()) ?? const <String>{};
 
     final profile = await preferenceService.getProfile();
     final compressedProfile = await preferenceService.getCompressedProfile();
@@ -377,6 +383,10 @@ class MealPlanner {
           );
         } else {
           // Local fallback selection
+          final isDishOfTheDay =
+              dayDate.year == start.year &&
+              dayDate.month == start.month &&
+              dayDate.day == start.day;
           final localChoice = _pickBestRecipeForDay(
             date: dayDate,
             schedule: schedule,
@@ -387,6 +397,9 @@ class MealPlanner {
             soupDisliked: soupDisliked,
             rootAncestorLookup: rootAncestor,
             lockedDays: preLockedDays,
+            pantry: effectivePantry,
+            hierarchy: hierarchy,
+            isDishOfTheDay: isDishOfTheDay,
           );
           schedule.add(
             ScheduledDay(date: dayDate, recipe: localChoice, locked: false),
@@ -417,6 +430,10 @@ class MealPlanner {
         }
         if (idx != -1 && !schedule[idx].locked) {
           final dayDate = schedule[idx].date;
+          final isDishOfTheDay =
+              dayDate.year == start.year &&
+              dayDate.month == start.month &&
+              dayDate.day == start.day;
           final otherSchedule = [
             for (var i = 0; i < schedule.length; i++)
               if (i != idx) schedule[i],
@@ -431,6 +448,9 @@ class MealPlanner {
             soupDisliked: soupDisliked,
             rootAncestorLookup: rootAncestor,
             lockedDays: preLockedDays,
+            pantry: effectivePantry,
+            hierarchy: hierarchy,
+            isDishOfTheDay: isDishOfTheDay,
           );
           schedule[idx] = ScheduledDay(
             date: dayDate,
@@ -689,6 +709,94 @@ class MealPlanner {
     return true;
   }
 
+  /// Picks the optimal Dish of the Day according to R8-04:
+  /// - Prefers recipes with <= 2 missing non-staple ingredients.
+  /// - If none exist, falls back to the best matching recipe by coverage/score.
+  /// - Respects rotation rules (Rules 1-4).
+  Future<RecipeWithIngredients?> pickDishOfTheDay({
+    DateTime? date,
+    Set<String>? pantry,
+  }) async {
+    final targetDate = date ?? clock.now();
+    final allRecipes = await recipeDao.allWithIngredients();
+    if (allRecipes.isEmpty) return null;
+
+    final hierarchy = await ingredientDao.hierarchy();
+    final pantryIds =
+        pantry ?? (await pantryDao?.availableIds()) ?? const <String>{};
+    final profile = await preferenceService.getProfile();
+    final ratings = <String, int>{};
+    final lastCookedDates = <String, DateTime>{};
+    if (historyDao != null) {
+      final historyEntries = await historyDao!.allWithRecipes();
+      for (final item in historyEntries) {
+        final rId = item.entry.recipeId;
+        final cookedDt = DateTime.tryParse(item.entry.cookedOn);
+        if (cookedDt != null) {
+          final existing = lastCookedDates[rId];
+          if (existing == null || cookedDt.isAfter(existing)) {
+            lastCookedDates[rId] = cookedDt;
+          }
+        }
+        if (item.entry.rating != null) {
+          ratings[rId] = item.entry.rating!;
+        }
+      }
+    }
+
+    final soupWeight = profile.dishTypeWeights['soup'] ?? 0.0;
+    final soupDisliked = soupWeight < -0.3;
+
+    final scorer = RecipeScorer.withProfile(
+      profile,
+      recipeRatings: {
+        for (final entry in ratings.entries) entry.key: entry.value.toDouble(),
+      },
+      weights: const ScoringWeights(
+        coverage: 0.0,
+        taste: 0.45,
+        novelty: 0.30,
+        fit: 0.15,
+        explore: 0.10,
+      ),
+    );
+
+    final planEntries = await planDao.allWithRecipes();
+    final recentDays = planEntries
+        .where((e) => e.entry.status != MealPlanStatus.skipped)
+        .map((e) {
+          final r = allRecipes.firstWhere(
+            (rc) => rc.recipe.id == e.entry.recipeId,
+            orElse: () => allRecipes.first,
+          );
+          return ScheduledDay(
+            date: DateTime.tryParse(e.entry.date) ?? targetDate,
+            recipe: r,
+            locked: e.entry.locked,
+          );
+        })
+        .toList();
+
+    String rootAncestor(String id) {
+      final ancestors = hierarchy[id];
+      return (ancestors != null && ancestors.isNotEmpty) ? ancestors.last : id;
+    }
+
+    return _pickBestRecipeForDay(
+      date: targetDate,
+      schedule: recentDays,
+      candidates: allRecipes,
+      scorer: scorer,
+      ratings: ratings,
+      lastCookedDates: lastCookedDates,
+      soupDisliked: soupDisliked,
+      rootAncestorLookup: rootAncestor,
+      pantry: pantryIds,
+      hierarchy: hierarchy,
+      isDishOfTheDay: true,
+    );
+  }
+
   /// Picks the optimal recipe for [date] enforcing Rules 1-4.
   RecipeWithIngredients _pickBestRecipeForDay({
     required DateTime date,
@@ -700,6 +808,9 @@ class MealPlanner {
     required bool soupDisliked,
     required String Function(String) rootAncestorLookup,
     List<ScheduledDay> lockedDays = const [],
+    Set<String> pantry = const {},
+    Map<String, List<String>> hierarchy = const {},
+    bool isDishOfTheDay = false,
   }) {
     // Determine context from previous days
     final prevDay1 = schedule.isNotEmpty ? schedule.last : null;
@@ -801,19 +912,55 @@ class MealPlanner {
       return true;
     }).toList();
 
-    final pool = validCandidates.isNotEmpty ? validCandidates : candidates;
+    final validPool = validCandidates.isNotEmpty ? validCandidates : candidates;
+
+    // R8-04: Dish of the Day selection
+    // Selected first from recipes missing <= 2 non-staple ingredients.
+    // If none exist: best matching recipe by coverage/score and marked as needing to buy.
+    List<RecipeWithIngredients> pool = validPool;
+    final Map<String, RecipeMatch> matches = {};
+    var isFallbackNeedsToBuy = false;
+
+    if (isDishOfTheDay && pantry.isNotEmpty) {
+      final effectivePantry = RecipeMatcher.expandWithAncestors(
+        pantry,
+        hierarchy,
+      );
+      const matcher = RecipeMatcher();
+      for (final c in validPool) {
+        matches[c.recipe.id] = matcher.matchRecipe(
+          c,
+          effectivePantry,
+          hierarchy: hierarchy,
+        );
+      }
+
+      final availableMax2Missing = validPool.where((c) {
+        final m = matches[c.recipe.id];
+        return m != null && m.missingIds.length <= 2;
+      }).toList();
+
+      if (availableMax2Missing.isNotEmpty) {
+        pool = availableMax2Missing;
+      } else {
+        pool = validPool;
+        isFallbackNeedsToBuy = true;
+      }
+    }
 
     // Score candidates and choose the highest
     RecipeWithIngredients best = pool.first;
-    double bestScore = -1.0;
+    double bestScore = -999999.0;
 
     for (final candidate in pool) {
-      final match = RecipeMatch(
-        entry: candidate,
-        coverage: 1.0,
-        missingIds: const [],
-        missingNames: const [],
-      );
+      final match =
+          matches[candidate.recipe.id] ??
+          RecipeMatch(
+            entry: candidate,
+            coverage: 1.0,
+            missingIds: const [],
+            missingNames: const [],
+          );
       final scored = scorer.score(match, date: date);
       var total = scored.total;
 
@@ -822,6 +969,14 @@ class MealPlanner {
           soupsInWeekSoFar < 2 &&
           candidate.recipe.dishType == DishType.soup) {
         total += 0.20;
+      }
+
+      if (isDishOfTheDay && pantry.isNotEmpty) {
+        if (isFallbackNeedsToBuy) {
+          total += match.coverage * 5.0;
+        } else {
+          total += (1.0 - (match.missingIds.length * 0.1));
+        }
       }
 
       if (total > bestScore) {

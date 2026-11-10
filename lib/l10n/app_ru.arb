@@ -1328,6 +1328,10 @@
   "@todayDishOfTheDay": {
     "description": "Заголовок карточки сегодняшнего блюда"
   },
+  "dishNeedToBuy": "Нужно докупить",
+  "@dishNeedToBuy": {
+    "description": "Бейдж на карточке блюда дня, когда недостает более двух продуктов"
+  },
   "todayNoDishPlanned": "На сегодня блюдо не выбрано",
   "@todayNoDishPlanned": {
     "description": "Заголовок пустого состояния на экране Сегодня"

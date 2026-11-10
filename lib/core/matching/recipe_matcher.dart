@@ -55,7 +55,7 @@ class RecipeMatcher {
     required Set<String> availableIds,
     Map<String, List<String>> hierarchy = const {},
   }) {
-    final effectiveAvailable = _expandWithAncestors(availableIds, hierarchy);
+    final effectiveAvailable = expandWithAncestors(availableIds, hierarchy);
     final ready = <RecipeMatch>[];
     final almostReady = <RecipeMatch>[];
 
@@ -77,7 +77,19 @@ class RecipeMatcher {
     required Set<String> availableIds,
     Map<String, List<String>> hierarchy = const {},
   }) {
-    return _matchOne(recipe, _expandWithAncestors(availableIds, hierarchy));
+    return _matchOne(recipe, expandWithAncestors(availableIds, hierarchy));
+  }
+
+  RecipeMatch matchRecipe(
+    RecipeWithIngredients recipe,
+    Set<String> availableIds, {
+    Map<String, List<String>> hierarchy = const {},
+  }) {
+    return matchOne(
+      recipe: recipe,
+      availableIds: availableIds,
+      hierarchy: hierarchy,
+    );
   }
 
   RecipeMatch _matchOne(
@@ -122,7 +134,7 @@ class RecipeMatcher {
 
   /// Having a child product means having its ancestors («куриное филе» →
   /// «курица»), but not the other way round.
-  Set<String> _expandWithAncestors(
+  static Set<String> expandWithAncestors(
     Set<String> availableIds,
     Map<String, List<String>> hierarchy,
   ) {

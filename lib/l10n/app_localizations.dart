@@ -1834,6 +1834,12 @@ abstract class AppLocalizations {
   /// **'Блюдо дня'**
   String get todayDishOfTheDay;
 
+  /// Бейдж на карточке блюда дня, когда недостает более двух продуктов
+  ///
+  /// In ru, this message translates to:
+  /// **'Нужно докупить'**
+  String get dishNeedToBuy;
+
   /// Заголовок пустого состояния на экране Сегодня
   ///
   /// In ru, this message translates to:

@@ -10,6 +10,7 @@ import '../../core/db/app_database.dart';
 import '../../core/db/daos/plan_dao.dart';
 import '../../core/db/daos/recipe_dao.dart';
 import '../../core/db/enums.dart';
+import '../../core/matching/recipe_matcher.dart';
 import '../../core/providers.dart';
 import '../../l10n/app_localizations.dart';
 import 'recipe_picker_sheet.dart';
@@ -104,6 +105,12 @@ class _TodayScreenState extends ConsumerState<TodayScreen> {
     final todayEntryAsync = ref.watch(todayPlanEntryProvider);
     final pantryAsync = ref.watch(pantryProvider);
     final pantry = pantryAsync.value ?? const <String>{};
+    final hierarchyAsync = ref.watch(ingredientHierarchyProvider);
+    final hierarchy = hierarchyAsync.value ?? const <String, List<String>>{};
+    final effectivePantry = RecipeMatcher.expandWithAncestors(
+      pantry,
+      hierarchy,
+    );
 
     final dateFormatted = DateFormat('EEEE, d MMMM', 'ru').format(today);
     final capitalizedDate = dateFormatted.isNotEmpty
@@ -182,6 +189,7 @@ class _TodayScreenState extends ConsumerState<TodayScreen> {
                     entryWithRecipe.entry,
                     entryWithRecipe.recipe!,
                     pantry,
+                    effectivePantry,
                   );
                 } else {
                   return _buildEmptyState(context);
@@ -206,6 +214,7 @@ class _TodayScreenState extends ConsumerState<TodayScreen> {
     MealPlanEntry entry,
     Recipe recipe,
     Set<String> pantry,
+    Set<String> effectivePantry,
   ) {
     final l10n = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
@@ -221,10 +230,12 @@ class _TodayScreenState extends ConsumerState<TodayScreen> {
                     (i) =>
                         !i.recipeIngredient.isOptional &&
                         i.ingredient != null &&
-                        !pantry.contains(i.ingredient!.id),
+                        !i.ingredient!.isStaple &&
+                        !effectivePantry.contains(i.ingredient!.id),
                   )
                   .map((i) => i.ingredient!.name)
                   .toList();
+        final needsToBuy = missing.length > 2;
 
         return Card(
           elevation: 2,
@@ -263,6 +274,24 @@ class _TodayScreenState extends ConsumerState<TodayScreen> {
                         ),
                       ),
                     ),
+                    if (needsToBuy)
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 4,
+                        ),
+                        decoration: BoxDecoration(
+                          color: theme.colorScheme.errorContainer,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Text(
+                          l10n.dishNeedToBuy,
+                          style: theme.textTheme.labelMedium?.copyWith(
+                            color: theme.colorScheme.onErrorContainer,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
                     _buildStatusChip(entry.status, l10n, theme),
                   ],
                 ),
@@ -332,7 +361,7 @@ class _TodayScreenState extends ConsumerState<TodayScreen> {
                         ],
                       ),
                     )
-                  else
+                  else if (needsToBuy) ...[
                     Container(
                       padding: const EdgeInsets.symmetric(
                         horizontal: 12,
@@ -342,44 +371,24 @@ class _TodayScreenState extends ConsumerState<TodayScreen> {
                         color: theme.colorScheme.secondaryContainer,
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                      child: Row(
                         children: [
-                          Row(
-                            children: [
-                              Icon(
-                                Icons.shopping_basket_outlined,
-                                color: theme.colorScheme.onSecondaryContainer,
-                                size: 20,
-                              ),
-                              const SizedBox(width: 8),
-                              Expanded(
-                                child: Text(
-                                  l10n.calendarMissingIngredients(
-                                    missing.take(3).join(', ') +
-                                        (missing.length > 3
-                                            ? ' и ещё ${missing.length - 3}'
-                                            : ''),
-                                  ),
-                                  style: theme.textTheme.bodyMedium?.copyWith(
-                                    color:
-                                        theme.colorScheme.onSecondaryContainer,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                            ],
+                          Icon(
+                            Icons.shopping_basket_outlined,
+                            color: theme.colorScheme.onSecondaryContainer,
+                            size: 20,
                           ),
-                          const SizedBox(height: 6),
-                          OutlinedButton(
-                            onPressed: () =>
-                                _showRecipePicker(context, onlyAvailable: true),
-                            style: OutlinedButton.styleFrom(
-                              minimumSize: const Size(double.infinity, 56),
-                            ),
+                          const SizedBox(width: 8),
+                          Expanded(
                             child: Text(
-                              l10n.calendarReplaceWithAvailable,
+                              l10n.calendarMissingIngredients(
+                                missing.take(3).join(', ') +
+                                    (missing.length > 3
+                                        ? ' и ещё ${missing.length - 3}'
+                                        : ''),
+                              ),
                               style: theme.textTheme.bodyMedium?.copyWith(
+                                color: theme.colorScheme.onSecondaryContainer,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -387,6 +396,21 @@ class _TodayScreenState extends ConsumerState<TodayScreen> {
                         ],
                       ),
                     ),
+                    const SizedBox(height: 8),
+                    OutlinedButton(
+                      onPressed: () =>
+                          _showRecipePicker(context, onlyAvailable: true),
+                      style: OutlinedButton.styleFrom(
+                        minimumSize: const Size(double.infinity, 56),
+                      ),
+                      child: Text(
+                        l10n.calendarReplaceWithAvailable,
+                        style: theme.textTheme.bodyMedium?.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ],
                   const SizedBox(height: 16),
                 ],
 
