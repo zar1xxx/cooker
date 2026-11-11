@@ -1,0 +1,7392 @@
+{
+  "version": 1,
+  "recipes": [
+    {
+      "id": "r10_pork_neck_baked_garlic",
+      "title": "Свиная шея, запечённая с чесноком",
+      "dish_type": "main",
+      "dish_group": "meat",
+      "cuisine": "ru",
+      "total_minutes": 100,
+      "active_minutes": 20,
+      "cook_minutes": 80,
+      "servings": 4,
+      "description": "Сочная свиная шея целым куском с чесноком и паприкой. Хороша горячей и холодной на бутерброды.",
+      "ingredients": [
+        {
+          "ingredient_id": "pork_neck",
+          "amount": 800,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "garlic",
+          "amount": 4,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "paprika",
+          "amount": 1,
+          "unit": "tsp"
+        },
+        {
+          "ingredient_id": "sunflower_oil",
+          "amount": 1,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste"
+        },
+        {
+          "ingredient_id": "black_pepper",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Свиную шею обсушите полотенцем и сделайте ножом несколько глубоких надрезов."
+        },
+        {
+          "text": "Вложите в надрезы пластинки чеснока, натрите мясо солью, перцем и паприкой."
+        },
+        {
+          "text": "Заверните кусок в фольгу и запекайте при 190 градусах 60 минут.",
+          "timer_seconds": 3600
+        },
+        {
+          "text": "Раскройте фольгу и запекайте свинину ещё 20 минут до румяной корочки.",
+          "timer_seconds": 1200
+        },
+        {
+          "text": "Дайте мясу полежать 10 минут под фольгой и нарежьте поперёк волокон."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_pork_loin_apples",
+      "title": "Корейка с яблоками в духовке",
+      "dish_type": "main",
+      "dish_group": "meat",
+      "cuisine": "fr",
+      "total_minutes": 70,
+      "active_minutes": 20,
+      "cook_minutes": 50,
+      "servings": 4,
+      "description": "Нежирная корейка, запечённая на подушке из кислых яблок. Яблоки дают мясу сочность и лёгкую кислинку.",
+      "ingredients": [
+        {
+          "ingredient_id": "pork_loin",
+          "amount": 700,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "green_apple",
+          "amount": 3,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "onion",
+          "amount": 1,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "sunflower_oil",
+          "amount": 2,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "thyme",
+          "amount": 3,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste"
+        },
+        {
+          "ingredient_id": "black_pepper",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Корейку посолите, поперчите и обжарьте на масле со всех сторон 6 минут.",
+          "timer_seconds": 360
+        },
+        {
+          "text": "Зелёные яблоки разрежьте на дольки, удалите семена, лук нарежьте полукольцами."
+        },
+        {
+          "text": "Выложите яблоки с луком в форму, сверху положите свинину и веточки тимьяна."
+        },
+        {
+          "text": "Запекайте корейку при 180 градусах 40 минут, пока сок не станет прозрачным.",
+          "timer_seconds": 2400
+        },
+        {
+          "text": "Нарежьте мясо ломтями и подавайте с печёными яблоками."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_pork_shoulder_braised_beer",
+      "title": "Свиная лопатка, тушённая с луком",
+      "dish_type": "main",
+      "dish_group": "meat",
+      "cuisine": "de",
+      "total_minutes": 120,
+      "active_minutes": 20,
+      "cook_minutes": 100,
+      "servings": 6,
+      "description": "Лопатка томится в собственном соку с луком и тмином до мягкости. Немецкий домашний вкус.",
+      "ingredients": [
+        {
+          "ingredient_id": "pork_shoulder",
+          "amount": 1,
+          "unit": "kg"
+        },
+        {
+          "ingredient_id": "onion",
+          "amount": 3,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "caraway",
+          "amount": 1,
+          "unit": "tsp"
+        },
+        {
+          "ingredient_id": "tomato_paste",
+          "amount": 1,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "sunflower_oil",
+          "amount": 2,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "water",
+          "amount": 300,
+          "unit": "ml"
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Свиную лопатку нарежьте крупными кусками и посолите."
+        },
+        {
+          "text": "Обжарьте свинину в казане на масле 10 минут, перемешивая.",
+          "timer_seconds": 600
+        },
+        {
+          "text": "Добавьте нарезанный кольцами лук и тмин, жарьте ещё 5 минут.",
+          "timer_seconds": 300
+        },
+        {
+          "text": "Влейте воду с томатной пастой, накройте крышкой и тушите 80 минут на слабом огне.",
+          "timer_seconds": 4800
+        },
+        {
+          "text": "Подавайте лопатку с картофельным пюре, полив соусом из казана."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_pork_belly_roll",
+      "title": "Рулет из свиной грудинки",
+      "dish_type": "main",
+      "dish_group": "meat",
+      "cuisine": "ru",
+      "total_minutes": 180,
+      "active_minutes": 30,
+      "cook_minutes": 150,
+      "servings": 8,
+      "description": "Грудинка, свёрнутая рулетом с чесноком и укропом. Отваривается, а потом запекается до корочки.",
+      "ingredients": [
+        {
+          "ingredient_id": "pork_belly",
+          "amount": 1.2,
+          "unit": "kg"
+        },
+        {
+          "ingredient_id": "garlic",
+          "amount": 5,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "dill",
+          "amount": 20,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "bay_leaf",
+          "amount": 2,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "allspice",
+          "amount": 5,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste"
+        },
+        {
+          "ingredient_id": "black_pepper",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Грудинку разложите кожей вниз, натрите солью, перцем и рубленым чесноком."
+        },
+        {
+          "text": "Посыпьте укропом, плотно сверните рулетом и перевяжите ниткой."
+        },
+        {
+          "text": "Положите рулет в кипящую воду с лавровым листом и душистым перцем, варите 90 минут.",
+          "timer_seconds": 5400
+        },
+        {
+          "text": "Переложите грудинку в форму и запекайте при 200 градусах 30 минут до корочки.",
+          "timer_seconds": 1800
+        },
+        {
+          "text": "Остудите рулет, снимите нитку и нарежьте тонкими ломтиками."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_pork_knuckle_baked",
+      "title": "Рулька, запечённая с горчицей",
+      "dish_type": "main",
+      "dish_group": "meat",
+      "cuisine": "de",
+      "total_minutes": 200,
+      "active_minutes": 25,
+      "cook_minutes": 175,
+      "servings": 4,
+      "description": "Свиная рулька сначала варится с пряностями, затем запекается под горчицей. Мясо легко отходит от кости.",
+      "ingredients": [
+        {
+          "ingredient_id": "pork_knuckle",
+          "amount": 1.5,
+          "unit": "kg"
+        },
+        {
+          "ingredient_id": "onion",
+          "amount": 1,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "carrot",
+          "amount": 1,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "bay_leaf",
+          "amount": 2,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "allspice",
+          "amount": 6,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "mustard_grain",
+          "amount": 2,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "honey",
+          "amount": 1,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Рульку промойте, зачистите кожу ножом и опустите в кастрюлю с холодной водой."
+        },
+        {
+          "text": "Добавьте целые овощи, лавровый лист, перец и соль, варите рульку 2 часа.",
+          "timer_seconds": 7200
+        },
+        {
+          "text": "Смешайте зернистую горчицу с мёдом и обмажьте рульку со всех сторон."
+        },
+        {
+          "text": "Запекайте мясо при 200 градусах 40 минут, пока кожа не станет хрустящей.",
+          "timer_seconds": 2400
+        },
+        {
+          "text": "Подавайте рульку с тушёной капустой или квашеной капустой."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_pork_liver_onion_sour_cream",
+      "title": "Свиная печень в сметане с луком",
+      "dish_type": "main",
+      "dish_group": "meat",
+      "cuisine": "ru",
+      "total_minutes": 60,
+      "active_minutes": 20,
+      "cook_minutes": 25,
+      "servings": 4,
+      "description": "Печень, вымоченная в молоке, тушится в сметане и становится нежной. Быстрый будничный ужин.",
+      "ingredients": [
+        {
+          "ingredient_id": "pork_liver",
+          "amount": 600,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "milk",
+          "amount": 300,
+          "unit": "ml"
+        },
+        {
+          "ingredient_id": "onion",
+          "amount": 2,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "sour_cream",
+          "amount": 200,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "flour",
+          "amount": 2,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "sunflower_oil",
+          "amount": 2,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste"
+        },
+        {
+          "ingredient_id": "black_pepper",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Печень снимите с плёнок и нарежьте полосками."
+        },
+        {
+          "text": "Залейте печень холодным молоком на 30 минут.",
+          "timer_seconds": 1800
+        },
+        {
+          "text": "Слейте молоко, обсушите печень и обваляйте её в муке."
+        },
+        {
+          "text": "Обжарьте печень на масле 6 минут, затем добавьте лук полукольцами.",
+          "timer_seconds": 360
+        },
+        {
+          "text": "Влейте сметану с половиной стакана воды и тушите 15 минут под крышкой.",
+          "timer_seconds": 900
+        },
+        {
+          "text": "Посолите, поперчите и подавайте с гречкой или пюре."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_beef_tenderloin_steak",
+      "title": "Стейк из говяжьей вырезки",
+      "dish_type": "main",
+      "dish_group": "meat",
+      "cuisine": "us",
+      "total_minutes": 30,
+      "active_minutes": 15,
+      "cook_minutes": 15,
+      "servings": 2,
+      "description": "Толстые медальоны из вырезки с корочкой и розмарином. Сливочное масло в конце делает мясо сочным.",
+      "ingredients": [
+        {
+          "ingredient_id": "beef_tenderloin",
+          "amount": 400,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "butter",
+          "amount": 30,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "rosemary",
+          "amount": 2,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "garlic",
+          "amount": 2,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "sunflower_oil",
+          "amount": 1,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "salt_coarse",
+          "amount": null,
+          "unit": "to_taste"
+        },
+        {
+          "ingredient_id": "black_pepper",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Вырезку достаньте из холодильника за 30 минут и нарежьте медальонами толщиной 3 см."
+        },
+        {
+          "text": "Разогрейте сковороду с маслом и жарьте говядину по 4 минуты с каждой стороны.",
+          "timer_seconds": 480
+        },
+        {
+          "text": "Добавьте сливочное масло, раздавленный чеснок, затем веточки розмарина и поливайте мясо маслом 2 минуты.",
+          "timer_seconds": 120
+        },
+        {
+          "text": "Переложите стейки на доску и дайте им отдохнуть 5 минут.",
+          "timer_seconds": 300
+        },
+        {
+          "text": "Посыпьте крупной солью и перцем прямо перед подачей."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_beef_brisket_borscht_style",
+      "title": "Тушёная говяжья грудинка с овощами",
+      "dish_type": "main",
+      "dish_group": "meat",
+      "cuisine": "ru",
+      "total_minutes": 180,
+      "active_minutes": 25,
+      "cook_minutes": 150,
+      "servings": 6,
+      "description": "Грудинка томится с корнеплодами три часа и распадается на волокна. Подходит для большой семьи.",
+      "ingredients": [
+        {
+          "ingredient_id": "beef_brisket",
+          "amount": 1.2,
+          "unit": "kg"
+        },
+        {
+          "ingredient_id": "carrot",
+          "amount": 2,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "onion",
+          "amount": 2,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "celery_stalk",
+          "amount": 2,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "tomato_paste",
+          "amount": 2,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "bay_leaf",
+          "amount": 2,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "sunflower_oil",
+          "amount": 2,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "water",
+          "amount": 500,
+          "unit": "ml"
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Грудинку нарежьте крупно, посолите и обжарьте в казане 10 минут.",
+          "timer_seconds": 600
+        },
+        {
+          "text": "Морковь нарежьте брусками, стебли сельдерея ломтиками, лук четвертинками."
+        },
+        {
+          "text": "Добавьте овощи к мясу и жарьте 5 минут, затем вмешайте томатную пасту.",
+          "timer_seconds": 300
+        },
+        {
+          "text": "Влейте воду, положите лавровый лист и тушите под крышкой 2 часа на слабом огне.",
+          "timer_seconds": 7200
+        },
+        {
+          "text": "Разберите мясо вилками на волокна и подавайте с овощами."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_ossobuco_beef_shank",
+      "title": "Оссобуко из говяжьей голяшки",
+      "dish_type": "main",
+      "dish_group": "meat",
+      "cuisine": "it",
+      "total_minutes": 180,
+      "active_minutes": 25,
+      "cook_minutes": 155,
+      "servings": 4,
+      "description": "Миланское оссобуко: голяшка с костным мозгом в томатном соусе. Цедра лимона в конце освежает вкус.",
+      "ingredients": [
+        {
+          "ingredient_id": "beef_shank",
+          "amount": 1.2,
+          "unit": "kg"
+        },
+        {
+          "ingredient_id": "flour",
+          "amount": 2,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "carrot",
+          "amount": 1,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "onion",
+          "amount": 1,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "celery_stalk",
+          "amount": 1,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "tomatoes_canned",
+          "amount": 400,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "lemon_zest",
+          "amount": 1,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "olive_oil",
+          "amount": 3,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste"
+        },
+        {
+          "ingredient_id": "black_pepper",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Голяшку посолите, обваляйте в муке и обжарьте на оливковом масле по 5 минут с каждой стороны.",
+          "timer_seconds": 600
+        },
+        {
+          "text": "Мелко нарезанные овощи обжарьте в той же сотейнике 7 минут.",
+          "timer_seconds": 420
+        },
+        {
+          "text": "Верните мясо, добавьте томаты и томите говядину под крышкой 2 часа 20 минут.",
+          "timer_seconds": 8400
+        },
+        {
+          "text": "Посыпьте оссобуко лимонной цедрой и рубленой петрушкой перед подачей."
+        },
+        {
+          "text": "Подавайте с ризотто или картофельным пюре."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_beef_ribs_honey",
+      "title": "Говяжьи рёбра в медовом соусе",
+      "dish_type": "main",
+      "dish_group": "meat",
+      "cuisine": "us",
+      "total_minutes": 190,
+      "active_minutes": 20,
+      "cook_minutes": 170,
+      "servings": 4,
+      "description": "Рёбра долго томятся под фольгой, а затем глазируются мёдом с соевым соусом. Мясо отходит от кости.",
+      "ingredients": [
+        {
+          "ingredient_id": "beef_ribs",
+          "amount": 1.5,
+          "unit": "kg"
+        },
+        {
+          "ingredient_id": "honey",
+          "amount": 3,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "soy_sauce",
+          "amount": 3,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "garlic",
+          "amount": 4,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "smoked_paprika",
+          "amount": 1,
+          "unit": "tsp"
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Рёбра разрежьте по косточкам, натрите солью и копчёной паприкой."
+        },
+        {
+          "text": "Плотно заверните в фольгу и запекайте при 160 градусах 2 часа 30 минут.",
+          "timer_seconds": 9000
+        },
+        {
+          "text": "Смешайте мёд, соевый соус и рубленый чеснок в глазурь."
+        },
+        {
+          "text": "Раскройте фольгу, смажьте говядину глазурью и запекайте при 220 градусах 15 минут.",
+          "timer_seconds": 900
+        },
+        {
+          "text": "Подавайте рёбра горячими с овощным салатом."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_beef_liver_stroganoff",
+      "title": "Печень говяжья по-строгановски",
+      "dish_type": "main",
+      "dish_group": "meat",
+      "cuisine": "ru",
+      "total_minutes": 45,
+      "active_minutes": 20,
+      "cook_minutes": 20,
+      "servings": 4,
+      "description": "Тонкие полоски печени в сметанном соусе. Не пересушивайте — печень должна остаться мягкой.",
+      "ingredients": [
+        {
+          "ingredient_id": "beef_liver",
+          "amount": 600,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "onion",
+          "amount": 2,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "sour_cream",
+          "amount": 200,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "tomato_paste",
+          "amount": 1,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "flour",
+          "amount": 1,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "sunflower_oil",
+          "amount": 2,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste"
+        },
+        {
+          "ingredient_id": "black_pepper",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "С печени снимите плёнку, нарежьте её тонкими полосками."
+        },
+        {
+          "text": "Обжарьте лук полукольцами на масле 5 минут до мягкости.",
+          "timer_seconds": 300
+        },
+        {
+          "text": "Добавьте печень, обсыпанную мукой, и жарьте 6 минут, помешивая.",
+          "timer_seconds": 360
+        },
+        {
+          "text": "Вмешайте сметану с томатной пастой и тушите 8 минут на слабом огне.",
+          "timer_seconds": 480
+        },
+        {
+          "text": "Посолите, поперчите и подавайте с макаронами или пюре."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_kidney_rassolnik_main",
+      "title": "Почки в томатном соусе с огурцами",
+      "dish_type": "main",
+      "dish_group": "meat",
+      "cuisine": "ru",
+      "total_minutes": 240,
+      "active_minutes": 30,
+      "cook_minutes": 60,
+      "servings": 4,
+      "description": "Говяжьи почки по-старорусски: долго вымачиваются, потом тушатся с солёными огурцами в томате.",
+      "ingredients": [
+        {
+          "ingredient_id": "beef_kidney",
+          "amount": 600,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "onion",
+          "amount": 2,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "pickles",
+          "amount": 3,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "tomato_paste",
+          "amount": 2,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "sunflower_oil",
+          "amount": 2,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "bay_leaf",
+          "amount": 1,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Почки разрежьте, удалите жир и протоки, вымачивайте 3 часа, меняя воду каждый час."
+        },
+        {
+          "text": "Залейте почки свежей водой, доведите до кипения, слейте воду и промойте."
+        },
+        {
+          "text": "Варите почки в новой воде 40 минут, затем нарежьте ломтиками.",
+          "timer_seconds": 2400
+        },
+        {
+          "text": "Обжарьте лук на масле, добавьте почки и огурцы соломкой, жарьте 5 минут.",
+          "timer_seconds": 300
+        },
+        {
+          "text": "Вмешайте томатную пасту с водой, положите лавровый лист и тушите 15 минут.",
+          "timer_seconds": 900
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_lamb_leg_rosemary",
+      "title": "Баранья нога с розмарином и чесноком",
+      "dish_type": "main",
+      "dish_group": "meat",
+      "cuisine": "fr",
+      "total_minutes": 200,
+      "active_minutes": 25,
+      "cook_minutes": 170,
+      "servings": 8,
+      "description": "Праздничная баранья нога, нашпигованная чесноком. Запекается долго и остаётся сочной.",
+      "ingredients": [
+        {
+          "ingredient_id": "lamb_leg",
+          "amount": 2,
+          "unit": "kg"
+        },
+        {
+          "ingredient_id": "garlic",
+          "amount": 8,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "rosemary",
+          "amount": 5,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "olive_oil",
+          "amount": 3,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "lemon",
+          "amount": 1,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "salt_coarse",
+          "amount": null,
+          "unit": "to_taste"
+        },
+        {
+          "ingredient_id": "black_pepper",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Сделайте в баранине глубокие надрезы и вложите в них дольки чеснока и иголки розмарина."
+        },
+        {
+          "text": "Натрите ногу оливковым маслом, соком лимона, солью и перцем, оставьте на 30 минут.",
+          "timer_seconds": 1800
+        },
+        {
+          "text": "Запекайте при 200 градусах 20 минут, затем убавьте до 170 и запекайте ещё 2 часа.",
+          "timer_seconds": 8400
+        },
+        {
+          "text": "Поливайте мясо выделившимся соком каждые 40 минут."
+        },
+        {
+          "text": "Дайте ноге отдохнуть 15 минут под фольгой перед нарезкой."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_lamb_ribs_grill",
+      "title": "Бараньи рёбрышки с зирой",
+      "dish_type": "main",
+      "dish_group": "meat",
+      "cuisine": "uz",
+      "total_minutes": 70,
+      "active_minutes": 20,
+      "cook_minutes": 50,
+      "servings": 4,
+      "description": "Рёбрышки в маринаде с зирой и луком, запечённые до хрустящих краёв. Подаются с маринованным луком.",
+      "ingredients": [
+        {
+          "ingredient_id": "lamb_ribs",
+          "amount": 1,
+          "unit": "kg"
+        },
+        {
+          "ingredient_id": "onion",
+          "amount": 2,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "cumin",
+          "amount": 1,
+          "unit": "tsp"
+        },
+        {
+          "ingredient_id": "coriander_seeds",
+          "amount": 1,
+          "unit": "tsp"
+        },
+        {
+          "ingredient_id": "red_onion",
+          "amount": 1,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "vinegar",
+          "amount": 1,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste"
+        },
+        {
+          "ingredient_id": "black_pepper",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Бараньи рёбра разрежьте по косточкам, натрите солью, зирой и молотым кориандром."
+        },
+        {
+          "text": "Перемешайте мясо с натёртым луком и оставьте мариноваться на 1 час."
+        },
+        {
+          "text": "Выложите рёбра на решётку и запекайте при 200 градусах 45 минут, перевернув один раз.",
+          "timer_seconds": 2700
+        },
+        {
+          "text": "Красный лук разрежьте на тонкие кольца и залейте уксусом с водой на 15 минут.",
+          "timer_seconds": 900
+        },
+        {
+          "text": "Подавайте рёбрышки с маринованным луком и лепёшкой."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_lamb_shoulder_plov",
+      "title": "Плов с бараньей лопаткой",
+      "dish_type": "main",
+      "dish_group": "meat",
+      "cuisine": "uz",
+      "total_minutes": 120,
+      "active_minutes": 35,
+      "cook_minutes": 85,
+      "servings": 6,
+      "description": "Узбекский плов на бараньей лопатке с жёлтой морковью и зирой. Рис получается рассыпчатым.",
+      "ingredients": [
+        {
+          "ingredient_id": "lamb_shoulder",
+          "amount": 800,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "long_rice",
+          "amount": 600,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "carrot",
+          "amount": 4,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "onion",
+          "amount": 2,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "garlic",
+          "amount": 2,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "pilaf_spices",
+          "amount": 2,
+          "unit": "tsp"
+        },
+        {
+          "ingredient_id": "sunflower_oil",
+          "amount": 150,
+          "unit": "ml"
+        },
+        {
+          "ingredient_id": "water",
+          "amount": 1,
+          "unit": "l"
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Раскалите масло в казане, обжарьте лук полукольцами 7 минут до золотистого цвета.",
+          "timer_seconds": 420
+        },
+        {
+          "text": "Добавьте баранину кусками и жарьте её 15 минут до корочки.",
+          "timer_seconds": 900
+        },
+        {
+          "text": "Положите морковь соломкой и приправу для плова, жарьте 10 минут, затем влейте воду.",
+          "timer_seconds": 600
+        },
+        {
+          "text": "Тушите зирвак 30 минут, посолите, выложите промытый рис и воткните целые головки чеснока.",
+          "timer_seconds": 1800
+        },
+        {
+          "text": "Варите плов на слабом огне под крышкой 25 минут, затем перемешайте.",
+          "timer_seconds": 1500
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_goat_stew_vegetables",
+      "title": "Козлятина, тушённая с овощами",
+      "dish_type": "main",
+      "dish_group": "meat",
+      "cuisine": "home",
+      "total_minutes": 150,
+      "active_minutes": 25,
+      "cook_minutes": 125,
+      "servings": 4,
+      "description": "Козлятина тушится долго, с перцем и томатами, и становится мягкой. Вкус похож на баранину, но мягче.",
+      "ingredients": [
+        {
+          "ingredient_id": "goat",
+          "amount": 1,
+          "unit": "kg"
+        },
+        {
+          "ingredient_id": "onion",
+          "amount": 2,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "bell_pepper",
+          "amount": 2,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "tomato",
+          "amount": 3,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "garlic",
+          "amount": 3,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "sunflower_oil",
+          "amount": 3,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "water",
+          "amount": 300,
+          "unit": "ml"
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste"
+        },
+        {
+          "ingredient_id": "black_pepper",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Козлятину нарежьте кусками и вымочите в холодной воде 1 час."
+        },
+        {
+          "text": "Обсушите мясо и обжарьте его в казане на масле 10 минут.",
+          "timer_seconds": 600
+        },
+        {
+          "text": "Добавьте лук и перец полосками, жарьте 7 минут.",
+          "timer_seconds": 420
+        },
+        {
+          "text": "Положите томаты и чеснок, влейте воду и тушите под крышкой 1 час 50 минут.",
+          "timer_seconds": 6600
+        },
+        {
+          "text": "Посолите, поперчите и подавайте с рисом."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_horse_meat_kuyrdak",
+      "title": "Конина, тушённая с луком",
+      "dish_type": "main",
+      "dish_group": "meat",
+      "cuisine": "kz",
+      "total_minutes": 150,
+      "active_minutes": 20,
+      "cook_minutes": 130,
+      "servings": 4,
+      "description": "Конина томится с луком и специями по-казахски. Подаётся с отварным картофелем или лапшой.",
+      "ingredients": [
+        {
+          "ingredient_id": "horse_meat",
+          "amount": 800,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "onion",
+          "amount": 3,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "cumin",
+          "amount": 1,
+          "unit": "tsp"
+        },
+        {
+          "ingredient_id": "black_pepper",
+          "amount": null,
+          "unit": "to_taste"
+        },
+        {
+          "ingredient_id": "sunflower_oil",
+          "amount": 3,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "water",
+          "amount": 400,
+          "unit": "ml"
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Конину нарежьте кубиками и обжарьте в казане на масле 12 минут.",
+          "timer_seconds": 720
+        },
+        {
+          "text": "Добавьте лук полукольцами и жарьте ещё 8 минут.",
+          "timer_seconds": 480
+        },
+        {
+          "text": "Влейте горячую воду, положите зиру и тушите конину под крышкой 1 час 50 минут.",
+          "timer_seconds": 6600
+        },
+        {
+          "text": "Посолите в конце, когда мясо станет мягким."
+        },
+        {
+          "text": "Подавайте с отварным картофелем и зеленью."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_venison_juniper",
+      "title": "Оленина в брусничном соусе",
+      "dish_type": "main",
+      "dish_group": "meat",
+      "cuisine": "ru",
+      "total_minutes": 140,
+      "active_minutes": 25,
+      "cook_minutes": 110,
+      "servings": 4,
+      "description": "Постная оленина, томлёная с луком и подаваемая с брусничным соусом. Северная праздничная кухня.",
+      "ingredients": [
+        {
+          "ingredient_id": "venison",
+          "amount": 800,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "onion",
+          "amount": 2,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "lingonberry",
+          "amount": 150,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "sugar",
+          "amount": 2,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "sunflower_oil",
+          "amount": 3,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "water",
+          "amount": 400,
+          "unit": "ml"
+        },
+        {
+          "ingredient_id": "bay_leaf",
+          "amount": 2,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste"
+        },
+        {
+          "ingredient_id": "black_pepper",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Оленину нарежьте кусками, посолите и обжарьте на масле 10 минут.",
+          "timer_seconds": 600
+        },
+        {
+          "text": "Добавьте лук, лавровый лист и воду, тушите под крышкой 1 час 30 минут.",
+          "timer_seconds": 5400
+        },
+        {
+          "text": "Бруснику с сахаром прогрейте в сотейнике 7 минут, слегка разминая ягоды.",
+          "timer_seconds": 420
+        },
+        {
+          "text": "Протрите ягоды через сито, чтобы получился гладкий соус."
+        },
+        {
+          "text": "Подавайте мясо горячим, полив брусничным соусом."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_lula_kebab_lamb",
+      "title": "Люля-кебаб из бараньего фарша",
+      "dish_type": "main",
+      "dish_group": "meat",
+      "cuisine": "az",
+      "total_minutes": 60,
+      "active_minutes": 30,
+      "cook_minutes": 20,
+      "servings": 4,
+      "description": "Сочные люля из бараньего фарша с луком и курдючным салом. Запекаются в духовке на шпажках.",
+      "ingredients": [
+        {
+          "ingredient_id": "minced_lamb",
+          "amount": 700,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "onion",
+          "amount": 2,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "mutton_fat",
+          "amount": 80,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "cilantro",
+          "amount": 15,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "cumin",
+          "amount": 1,
+          "unit": "tsp"
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste"
+        },
+        {
+          "ingredient_id": "black_pepper",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Лук натрите на тёрке и отожмите сок, курдючное сало мелко порубите."
+        },
+        {
+          "text": "Соедините фарш с луком, салом, зирой, кинзой, солью и перцем."
+        },
+        {
+          "text": "Выбивайте фарш о миску 5 минут, затем уберите в холодильник на 30 минут."
+        },
+        {
+          "text": "Слепите на шпажках продолговатые колбаски."
+        },
+        {
+          "text": "Запекайте люля при 220 градусах 18 минут, переворачивая их через 9 минут.",
+          "timer_seconds": 1080
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_turkey_meatballs_mince",
+      "title": "Тефтели из индейки в томатном соусе",
+      "dish_type": "main",
+      "dish_group": "meat",
+      "cuisine": "home",
+      "total_minutes": 55,
+      "active_minutes": 25,
+      "cook_minutes": 30,
+      "servings": 4,
+      "description": "Лёгкие тефтели из фарша индейки с рисом. Нежирные, подходят для детского меню.",
+      "ingredients": [
+        {
+          "ingredient_id": "minced_turkey",
+          "amount": 600,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "round_rice",
+          "amount": 80,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "egg",
+          "amount": 1,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "onion",
+          "amount": 1,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "tomato_puree",
+          "amount": 400,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "sour_cream",
+          "amount": 2,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Рис отварите 10 минут и остудите.",
+          "timer_seconds": 600
+        },
+        {
+          "text": "Смешайте фарш с рисом, яйцом, тёртым луком и солью."
+        },
+        {
+          "text": "Сформируйте тефтели размером с грецкий орех и выложите в сотейник."
+        },
+        {
+          "text": "Залейте фарш томатным пюре со сметаной и варите тефтели под крышкой 25 минут.",
+          "timer_seconds": 1500
+        },
+        {
+          "text": "Подавайте тефтели с гарниром, полив соусом."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_chicken_drumsticks_honey",
+      "title": "Куриные голени в медово-горчичном соусе",
+      "dish_type": "main",
+      "dish_group": "meat",
+      "cuisine": "us",
+      "total_minutes": 60,
+      "active_minutes": 15,
+      "cook_minutes": 45,
+      "servings": 4,
+      "description": "Голени в глазури из мёда и горчицы с хрустящей корочкой. Простое блюдо для детей и взрослых.",
+      "ingredients": [
+        {
+          "ingredient_id": "chicken_drumstick",
+          "amount": 1,
+          "unit": "kg"
+        },
+        {
+          "ingredient_id": "honey",
+          "amount": 2,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "mustard_dijon",
+          "amount": 2,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "garlic",
+          "amount": 2,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "sunflower_oil",
+          "amount": 1,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Смешайте мёд, дижонскую горчицу, рубленый чеснок, масло и соль."
+        },
+        {
+          "text": "Обмажьте голени соусом и оставьте на 20 минут."
+        },
+        {
+          "text": "Выложите курицу в форму и запекайте при 200 градусах 40 минут.",
+          "timer_seconds": 2400
+        },
+        {
+          "text": "Проткните голень у кости: сок должен быть прозрачным, без розового цвета."
+        },
+        {
+          "text": "Подавайте с отварным рисом или овощами."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_whole_chicken_lemon",
+      "title": "Курица целиком с лимоном и травами",
+      "dish_type": "main",
+      "dish_group": "meat",
+      "cuisine": "fr",
+      "total_minutes": 100,
+      "active_minutes": 20,
+      "cook_minutes": 80,
+      "servings": 6,
+      "description": "Целая курица, запечённая с лимоном внутри. Кожа хрустящая, мясо сочное.",
+      "ingredients": [
+        {
+          "ingredient_id": "chicken_whole",
+          "amount": 1.8,
+          "unit": "kg"
+        },
+        {
+          "ingredient_id": "lemon",
+          "amount": 1,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "garlic",
+          "amount": 5,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "thyme",
+          "amount": 4,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "butter",
+          "amount": 40,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste"
+        },
+        {
+          "ingredient_id": "black_pepper",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Тушку обсушите, натрите солью, перцем и размягчённым маслом с тимьяном."
+        },
+        {
+          "text": "Вложите внутрь курицы лимон, разрезанный пополам, и чеснок."
+        },
+        {
+          "text": "Запекайте курицу при 190 градусах 80 минут, поливая соком каждые 20 минут.",
+          "timer_seconds": 4800
+        },
+        {
+          "text": "Проверьте готовность: сок у кости бедра прозрачный."
+        },
+        {
+          "text": "Дайте курице постоять 10 минут и разрежьте на порции."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_soup_chicken_noodles",
+      "title": "Домашний суп-лапша на суповой курице",
+      "dish_type": "soup",
+      "dish_group": "soup",
+      "cuisine": "ru",
+      "total_minutes": 150,
+      "active_minutes": 25,
+      "cook_minutes": 125,
+      "servings": 6,
+      "description": "Наваристый бульон на суповой курице с домашней лапшой. Классика для выходного дня.",
+      "ingredients": [
+        {
+          "ingredient_id": "soup_chicken",
+          "amount": 1.5,
+          "unit": "kg"
+        },
+        {
+          "ingredient_id": "home_noodles",
+          "amount": 150,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "carrot",
+          "amount": 1,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "onion",
+          "amount": 1,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "bay_leaf",
+          "amount": 2,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "dill",
+          "amount": 15,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "water",
+          "amount": 3,
+          "unit": "l"
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Залейте суповую курицу холодной водой и доведите до кипения, снимая пену."
+        },
+        {
+          "text": "Положите целую луковицу и морковь, варите курицу на слабом огне 1 час 40 минут.",
+          "timer_seconds": 6000
+        },
+        {
+          "text": "Достаньте курицу, разберите мясо на волокна и верните его в кастрюлю."
+        },
+        {
+          "text": "Всыпьте домашнюю лапшу и варите 7 минут.",
+          "timer_seconds": 420
+        },
+        {
+          "text": "Положите в суп лавровый лист, рубленый укроп, посолите и выключите огонь."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_gizzards_sour_cream",
+      "title": "Куриные желудки в сметане",
+      "dish_type": "main",
+      "dish_group": "meat",
+      "cuisine": "ru",
+      "total_minutes": 80,
+      "active_minutes": 15,
+      "cook_minutes": 65,
+      "servings": 4,
+      "description": "Желудочки тушатся в сметане с луком до мягкости. Недорогое и сытное блюдо.",
+      "ingredients": [
+        {
+          "ingredient_id": "chicken_gizzards",
+          "amount": 800,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "onion",
+          "amount": 2,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "carrot",
+          "amount": 1,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "sour_cream",
+          "amount": 200,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "sunflower_oil",
+          "amount": 2,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "bay_leaf",
+          "amount": 1,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Желудки промойте и очистите от жёлтой плёнки и жира."
+        },
+        {
+          "text": "Отварите их в подсоленной воде 30 минут, воду слейте.",
+          "timer_seconds": 1800
+        },
+        {
+          "text": "Обжарьте лук с тёртой морковью на масле 7 минут.",
+          "timer_seconds": 420
+        },
+        {
+          "text": "Добавьте желудки, сметану и стакан воды, тушите под крышкой 30 минут.",
+          "timer_seconds": 1800
+        },
+        {
+          "text": "Подавайте с картофельным пюре или гречкой."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_chicken_hearts_skewers",
+      "title": "Куриные сердечки на шпажках",
+      "dish_type": "main",
+      "dish_group": "meat",
+      "cuisine": "home",
+      "total_minutes": 50,
+      "active_minutes": 20,
+      "cook_minutes": 25,
+      "servings": 4,
+      "description": "Сердечки в соевом маринаде, запечённые на шпажках. Хороши горячими с овощами.",
+      "ingredients": [
+        {
+          "ingredient_id": "chicken_hearts",
+          "amount": 600,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "soy_sauce",
+          "amount": 2,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "honey",
+          "amount": 1,
+          "unit": "tsp"
+        },
+        {
+          "ingredient_id": "garlic",
+          "amount": 2,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "sunflower_oil",
+          "amount": 1,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "black_pepper",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Сердечки промойте, срежьте жир и сосуды."
+        },
+        {
+          "text": "Перемешайте их с соевым соусом, мёдом, чесноком и маслом, оставьте на 30 минут."
+        },
+        {
+          "text": "Нанижите сердечки на деревянные шпажки, замоченные в воде."
+        },
+        {
+          "text": "Запекайте шпажки при 200 градусах 20 минут, перевернув на середине.",
+          "timer_seconds": 1200
+        },
+        {
+          "text": "Подавайте с рисом или свежими овощами."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_quail_baked_grapes",
+      "title": "Перепёлки, запечённые с виноградом",
+      "dish_type": "main",
+      "dish_group": "meat",
+      "cuisine": "fr",
+      "total_minutes": 60,
+      "active_minutes": 20,
+      "cook_minutes": 35,
+      "servings": 4,
+      "description": "Нежные перепёлки с белым виноградом и тимьяном. Праздничное блюдо на небольшую компанию.",
+      "ingredients": [
+        {
+          "ingredient_id": "quail",
+          "amount": 4,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "grape_white",
+          "amount": 200,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "butter",
+          "amount": 30,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "thyme",
+          "amount": 3,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "garlic",
+          "amount": 2,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste"
+        },
+        {
+          "ingredient_id": "black_pepper",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Перепёлок обсушите, натрите солью, перцем и маслом."
+        },
+        {
+          "text": "Внутрь каждой тушки положите веточку тимьяна и дольку чеснока."
+        },
+        {
+          "text": "Выложите птицу в форму, вокруг рассыпьте виноград."
+        },
+        {
+          "text": "Запекайте перепёлок при 200 градусах 30 минут до золотистой корочки.",
+          "timer_seconds": 1800
+        },
+        {
+          "text": "Подавайте с запечённым виноградом и соком из формы."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_guinea_fowl_braised",
+      "title": "Цесарка, тушённая с грибами",
+      "dish_type": "main",
+      "dish_group": "meat",
+      "cuisine": "fr",
+      "total_minutes": 120,
+      "active_minutes": 25,
+      "cook_minutes": 95,
+      "servings": 4,
+      "description": "Цесарка тушится со сливками и шампиньонами. Мясо плотнее курицы и с лёгкой дичинкой.",
+      "ingredients": [
+        {
+          "ingredient_id": "guinea_fowl",
+          "amount": 1.3,
+          "unit": "kg"
+        },
+        {
+          "ingredient_id": "champignon",
+          "amount": 300,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "onion",
+          "amount": 1,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "cream_10",
+          "amount": 200,
+          "unit": "ml"
+        },
+        {
+          "ingredient_id": "butter",
+          "amount": 30,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "thyme",
+          "amount": 2,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Цесарку разделите на 8 частей, посолите и обжарьте на масле 10 минут.",
+          "timer_seconds": 600
+        },
+        {
+          "text": "Добавьте лук и нарезанные шампиньоны, жарьте ещё 8 минут.",
+          "timer_seconds": 480
+        },
+        {
+          "text": "Влейте сливки, положите тимьян и тушите птицу под крышкой 1 час 10 минут.",
+          "timer_seconds": 4200
+        },
+        {
+          "text": "Проверьте мясо у кости: оно должно быть без розового цвета."
+        },
+        {
+          "text": "Подавайте с отварным картофелем или рисом."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_duck_breast_orange",
+      "title": "Утиная грудка с апельсиновым соусом",
+      "dish_type": "main",
+      "dish_group": "meat",
+      "cuisine": "fr",
+      "total_minutes": 45,
+      "active_minutes": 25,
+      "cook_minutes": 20,
+      "servings": 2,
+      "description": "Утиная грудка с хрустящей кожей и кисло-сладким соусом. Блюдо для особого ужина.",
+      "ingredients": [
+        {
+          "ingredient_id": "duck_breast",
+          "amount": 2,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "orange",
+          "amount": 2,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "honey",
+          "amount": 1,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "butter",
+          "amount": 20,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste"
+        },
+        {
+          "ingredient_id": "black_pepper",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "На коже грудки сделайте сеточку надрезов, не задевая мясо, посолите."
+        },
+        {
+          "text": "Положите утку кожей вниз на холодную сковороду и жарьте 10 минут, вытапливая жир.",
+          "timer_seconds": 600
+        },
+        {
+          "text": "Переверните и жарьте ещё 5 минут, затем дайте мясу отдохнуть 5 минут.",
+          "timer_seconds": 300
+        },
+        {
+          "text": "В сковороду влейте апельсиновый сок с мёдом и уварите 5 минут, добавьте масло.",
+          "timer_seconds": 300
+        },
+        {
+          "text": "Нарежьте грудку ломтиками и полейте соусом."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_duck_legs_confit_style",
+      "title": "Утиные ножки, томлёные с чесноком",
+      "dish_type": "main",
+      "dish_group": "meat",
+      "cuisine": "fr",
+      "total_minutes": 200,
+      "active_minutes": 15,
+      "cook_minutes": 180,
+      "servings": 4,
+      "description": "Ножки медленно томятся в собственном жиру и становятся очень мягкими. Подаются с картофелем.",
+      "ingredients": [
+        {
+          "ingredient_id": "duck_legs",
+          "amount": 4,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "garlic",
+          "amount": 6,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "thyme",
+          "amount": 3,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "bay_leaf",
+          "amount": 2,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "salt_coarse",
+          "amount": 2,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "black_pepper",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Натрите утиные ножки крупной солью и тимьяном, уберите в холодильник на 2 часа."
+        },
+        {
+          "text": "Смахните соль, выложите ножки плотно в форму кожей вверх с чесноком и лавром."
+        },
+        {
+          "text": "Накройте фольгой и томите при 150 градусах 2 часа 30 минут.",
+          "timer_seconds": 9000
+        },
+        {
+          "text": "Снимите фольгу и запекайте ещё 20 минут при 200 градусах до хрустящей кожи.",
+          "timer_seconds": 1200
+        },
+        {
+          "text": "Подавайте с картофелем, обжаренным на утином жире."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_turkey_drumstick_beer_braise",
+      "title": "Голень индейки, запечённая с овощами",
+      "dish_type": "main",
+      "dish_group": "meat",
+      "cuisine": "home",
+      "total_minutes": 120,
+      "active_minutes": 20,
+      "cook_minutes": 100,
+      "servings": 4,
+      "description": "Крупная голень индейки под фольгой с морковью и луком. Мясо отходит от кости.",
+      "ingredients": [
+        {
+          "ingredient_id": "turkey_drumstick",
+          "amount": 1.2,
+          "unit": "kg"
+        },
+        {
+          "ingredient_id": "carrot",
+          "amount": 2,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "onion",
+          "amount": 2,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "garlic",
+          "amount": 3,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "paprika",
+          "amount": 1,
+          "unit": "tsp"
+        },
+        {
+          "ingredient_id": "sunflower_oil",
+          "amount": 2,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Голень натрите солью, паприкой и маслом."
+        },
+        {
+          "text": "Морковь нарежьте брусками, лук крупными дольками, выложите в форму."
+        },
+        {
+          "text": "Положите индейку на овощи, накройте фольгой и запекайте при 180 градусах 1 час 20 минут.",
+          "timer_seconds": 4800
+        },
+        {
+          "text": "Снимите фольгу и запекайте ещё 20 минут до корочки.",
+          "timer_seconds": 1200
+        },
+        {
+          "text": "Срежьте мясо с кости и подавайте с запечёнными овощами."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_turkey_thigh_stew",
+      "title": "Бедро индейки, тушённое с тыквой",
+      "dish_type": "main",
+      "dish_group": "meat",
+      "cuisine": "home",
+      "total_minutes": 80,
+      "active_minutes": 20,
+      "cook_minutes": 60,
+      "servings": 4,
+      "description": "Тушёная индейка с мускатной тыквой и шалфеем. Осеннее сытное блюдо.",
+      "ingredients": [
+        {
+          "ingredient_id": "turkey_thigh",
+          "amount": 800,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "butternut_squash",
+          "amount": 500,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "onion",
+          "amount": 1,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "sage",
+          "amount": 3,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "sunflower_oil",
+          "amount": 2,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "water",
+          "amount": 200,
+          "unit": "ml"
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Бедро индейки нарежьте кусками и обжарьте на масле 10 минут.",
+          "timer_seconds": 600
+        },
+        {
+          "text": "Мускатную тыкву очистите и нарежьте кубиками, лук полукольцами."
+        },
+        {
+          "text": "Добавьте тыкву, лук и шалфей к мясу, влейте воду."
+        },
+        {
+          "text": "Тушите индейку под крышкой 45 минут, пока тыква не станет мягкой.",
+          "timer_seconds": 2700
+        },
+        {
+          "text": "Посолите и подавайте горячим."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_smoked_chicken_salad",
+      "title": "Салат с копчёной курицей и ананасом",
+      "dish_type": "salad",
+      "dish_group": "salad_snack",
+      "cuisine": "home",
+      "total_minutes": 20,
+      "active_minutes": 20,
+      "cook_minutes": 0,
+      "servings": 4,
+      "description": "Праздничный салат с копчёной курицей, ананасом и сыром. Готовится без варки.",
+      "ingredients": [
+        {
+          "ingredient_id": "smoked_chicken",
+          "amount": 300,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "pineapple_canned",
+          "amount": 200,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "hard_cheese",
+          "amount": 100,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "mayonnaise",
+          "amount": 3,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Копчёную курицу снимите с кости и нарежьте небольшими кубиками."
+        },
+        {
+          "text": "С ананасов слейте сироп и нарежьте их кубиками того же размера."
+        },
+        {
+          "text": "Твёрдый сыр натрите на крупной тёрке прямо в салатник."
+        },
+        {
+          "text": "Соедините всё, заправьте майонезом и при необходимости посолите."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_smoked_ribs_pea_soup",
+      "title": "Гороховый суп с копчёными рёбрышками",
+      "dish_type": "soup",
+      "dish_group": "soup",
+      "cuisine": "ru",
+      "total_minutes": 150,
+      "active_minutes": 25,
+      "cook_minutes": 110,
+      "servings": 6,
+      "description": "Густой гороховый суп с ароматом копчёностей. Горох замачивают с вечера.",
+      "ingredients": [
+        {
+          "ingredient_id": "peas_split",
+          "amount": 300,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "smoked_ribs",
+          "amount": 500,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "potato",
+          "amount": 3,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "carrot",
+          "amount": 1,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "onion",
+          "amount": 1,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "sunflower_oil",
+          "amount": 1,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "water",
+          "amount": 2.5,
+          "unit": "l"
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Колотый горох замочите в холодной воде на ночь, затем промойте."
+        },
+        {
+          "text": "Залейте горох с рёбрышками водой и варите 1 час 10 минут на слабом огне.",
+          "timer_seconds": 4200
+        },
+        {
+          "text": "Добавьте картофель кубиками и варите 15 минут.",
+          "timer_seconds": 900
+        },
+        {
+          "text": "Морковь с луком обжарьте на масле 6 минут и переложите в суп.",
+          "timer_seconds": 360
+        },
+        {
+          "text": "Мясо снимите с рёбер, верните в кастрюлю, посолите и варите ещё 5 минут.",
+          "timer_seconds": 300
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_smoked_belly_cabbage",
+      "title": "Тушёная капуста с копчёной грудинкой",
+      "dish_type": "side",
+      "dish_group": "vegetable",
+      "cuisine": "pl",
+      "total_minutes": 60,
+      "active_minutes": 15,
+      "cook_minutes": 45,
+      "servings": 4,
+      "description": "Капуста тушится с копчёной грудинкой и становится ароматной. Хорошо к картофелю.",
+      "ingredients": [
+        {
+          "ingredient_id": "cabbage",
+          "amount": 800,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "smoked_pork_belly",
+          "amount": 200,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "onion",
+          "amount": 1,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "tomato_paste",
+          "amount": 1,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "bay_leaf",
+          "amount": 1,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "water",
+          "amount": 150,
+          "unit": "ml"
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Грудинку нарежьте брусочками и вытопите на сковороде 5 минут.",
+          "timer_seconds": 300
+        },
+        {
+          "text": "Добавьте лук полукольцами и жарьте 5 минут.",
+          "timer_seconds": 300
+        },
+        {
+          "text": "Положите нашинкованную капусту, томатную пасту и воду."
+        },
+        {
+          "text": "Тушите капусту под крышкой 35 минут, иногда помешивая.",
+          "timer_seconds": 2100
+        },
+        {
+          "text": "Посолите, положите лавровый лист и прогрейте ещё 3 минуты.",
+          "timer_seconds": 180
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_prosciutto_melon",
+      "title": "Дыня с вяленой ветчиной",
+      "dish_type": "snack",
+      "dish_group": "salad_snack",
+      "cuisine": "it",
+      "total_minutes": 10,
+      "active_minutes": 10,
+      "cook_minutes": 0,
+      "servings": 4,
+      "description": "Итальянская закуска: сладкая дыня в тонких ломтиках ветчины. Готовится за десять минут.",
+      "ingredients": [
+        {
+          "ingredient_id": "melon",
+          "amount": 500,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "prosciutto",
+          "amount": 100,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "arugula",
+          "amount": 30,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "olive_oil",
+          "amount": 1,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "black_pepper",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Дыню очистите от корки и семян, нарежьте длинными дольками."
+        },
+        {
+          "text": "Оберните каждую дольку тонким ломтиком прошутто."
+        },
+        {
+          "text": "Выложите на блюдо на листья рукколы, сбрызните оливковым маслом и поперчите."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_salami_pizza",
+      "title": "Пицца с салями и моцареллой",
+      "dish_type": "baking",
+      "dish_group": "baking",
+      "cuisine": "it",
+      "total_minutes": 40,
+      "active_minutes": 20,
+      "cook_minutes": 15,
+      "servings": 4,
+      "description": "Домашняя пицца на готовом тесте с томатным соусом и салями. Быстрый семейный ужин.",
+      "ingredients": [
+        {
+          "ingredient_id": "pizza_dough",
+          "amount": 500,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "tomato_puree",
+          "amount": 150,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "salami",
+          "amount": 120,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "mozzarella",
+          "amount": 200,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "oregano",
+          "amount": 2,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "olive_oil",
+          "amount": 1,
+          "unit": "tbsp"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Тесто для пиццы растяните руками на противне, смазанном маслом."
+        },
+        {
+          "text": "Распределите по тесту томатное пюре и посыпьте орегано."
+        },
+        {
+          "text": "Выложите тонко нарезанную салями и кусочки моцареллы."
+        },
+        {
+          "text": "Выпекайте пиццу при 230 градусах 15 минут, пока сыр не расплавится.",
+          "timer_seconds": 900
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_boiled_sausage_fried_egg",
+      "title": "Жареная докторская с яйцом",
+      "dish_type": "breakfast",
+      "dish_group": "egg_dairy",
+      "cuisine": "ru",
+      "total_minutes": 15,
+      "active_minutes": 10,
+      "cook_minutes": 8,
+      "servings": 2,
+      "description": "Ломтики варёной колбасы, обжаренные с яйцом. Завтрак из детства за десять минут.",
+      "ingredients": [
+        {
+          "ingredient_id": "boiled_sausage",
+          "amount": 200,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "egg",
+          "amount": 3,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "butter",
+          "amount": 15,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "green_onion",
+          "amount": 10,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Колбасу нарежьте кружками толщиной 1 см."
+        },
+        {
+          "text": "Обжарьте кружки на сливочном масле по 2 минуты с каждой стороны.",
+          "timer_seconds": 240
+        },
+        {
+          "text": "Разбейте яйца прямо в сковороду и жарьте 4 минуты, пока белок не схватится.",
+          "timer_seconds": 240
+        },
+        {
+          "text": "Посолите, посыпьте зелёным луком и подавайте сразу."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_small_sausages_lecho",
+      "title": "Сардельки в лечо",
+      "dish_type": "main",
+      "dish_group": "meat",
+      "cuisine": "home",
+      "total_minutes": 30,
+      "active_minutes": 10,
+      "cook_minutes": 20,
+      "servings": 4,
+      "description": "Сардельки, прогретые в овощном лечо. Быстрое горячее из того, что есть в запасе.",
+      "ingredients": [
+        {
+          "ingredient_id": "small_sausages",
+          "amount": 6,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "lecho",
+          "amount": 400,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "onion",
+          "amount": 1,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "sunflower_oil",
+          "amount": 1,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "black_pepper",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Сардельки надрежьте наискосок в нескольких местах."
+        },
+        {
+          "text": "Обжарьте лук на масле 5 минут до мягкости.",
+          "timer_seconds": 300
+        },
+        {
+          "text": "Положите сардельки в сковороду, сверху выложите лечо, накройте крышкой и прогревайте 12 минут.",
+          "timer_seconds": 720
+        },
+        {
+          "text": "Поперчите и подавайте с хлебом или гречкой."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_smoked_sausage_solyanka",
+      "title": "Сборная солянка с копчёной колбасой",
+      "dish_type": "soup",
+      "dish_group": "soup",
+      "cuisine": "ru",
+      "total_minutes": 70,
+      "active_minutes": 25,
+      "cook_minutes": 40,
+      "servings": 6,
+      "description": "Солянка с копчёной колбасой, сардельками и огурцами. Подаётся с лимоном и маслинами.",
+      "ingredients": [
+        {
+          "ingredient_id": "smoked_sausage",
+          "amount": 200,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "small_sausages",
+          "amount": 3,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "pickles",
+          "amount": 3,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "onion",
+          "amount": 1,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "tomato_paste",
+          "amount": 2,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "olives_green",
+          "amount": 60,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "lemon",
+          "amount": 1,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "sunflower_oil",
+          "amount": 2,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "water",
+          "amount": 2,
+          "unit": "l"
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Доведите воду до кипения в кастрюле."
+        },
+        {
+          "text": "Обжарьте лук на масле 5 минут, добавьте томатную пасту и прогрейте 2 минуты.",
+          "timer_seconds": 420
+        },
+        {
+          "text": "Колбасу и сардельки нарежьте соломкой, огурцы — тонкими полосками."
+        },
+        {
+          "text": "Переложите всё в кипящую воду и варите солянку 20 минут.",
+          "timer_seconds": 1200
+        },
+        {
+          "text": "Добавьте оливки, подавайте с ломтиком лимона и сметаной."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_pink_salmon_foil_sour_cream",
+      "title": "Горбуша в фольге со сметаной",
+      "dish_type": "main",
+      "dish_group": "fish_seafood",
+      "cuisine": "ru",
+      "total_minutes": 45,
+      "active_minutes": 15,
+      "cook_minutes": 30,
+      "servings": 4,
+      "description": "Горбуша не пересыхает, если запекать её в фольге под сметаной с луком. Простой ужин без хлопот.",
+      "ingredients": [
+        {
+          "ingredient_id": "pink_salmon",
+          "amount": 800,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "onion",
+          "amount": 1,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "sour_cream",
+          "amount": 150,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "lemon",
+          "amount": 0.5,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "dill",
+          "amount": 15,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste"
+        },
+        {
+          "ingredient_id": "black_pepper",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Горбушу нарежьте порционными стейками, посолите и сбрызните лимонным соком."
+        },
+        {
+          "text": "Выложите рыбу на фольгу, сверху положите тонкие кольца лука."
+        },
+        {
+          "text": "Смажьте рыбу сметаной, заверните фольгу конвертом."
+        },
+        {
+          "text": "Запекайте горбушу при 190 градусах 25 минут.",
+          "timer_seconds": 1500
+        },
+        {
+          "text": "Посыпьте укропом и подавайте с отварным картофелем."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_chum_salmon_teriyaki",
+      "title": "Кета в соусе терияки",
+      "dish_type": "main",
+      "dish_group": "fish_seafood",
+      "cuisine": "jp",
+      "total_minutes": 30,
+      "active_minutes": 10,
+      "cook_minutes": 20,
+      "servings": 2,
+      "description": "Стейки кеты, обжаренные и глазированные соусом терияки. Подаются с рисом и кунжутом.",
+      "ingredients": [
+        {
+          "ingredient_id": "chum_salmon",
+          "amount": 400,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "teriyaki",
+          "amount": 3,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "sesame",
+          "amount": 1,
+          "unit": "tsp"
+        },
+        {
+          "ingredient_id": "sunflower_oil",
+          "amount": 1,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "green_onion",
+          "amount": 10,
+          "unit": "g"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Кету нарежьте стейками толщиной 2 см и обсушите."
+        },
+        {
+          "text": "Обжарьте рыбу на масле по 4 минуты с каждой стороны.",
+          "timer_seconds": 480
+        },
+        {
+          "text": "Влейте соус терияки и прогревайте 2 минуты, поливая стейки.",
+          "timer_seconds": 120
+        },
+        {
+          "text": "Посыпьте кунжутом и зелёным луком, подавайте с рисом."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_coho_salmon_pan",
+      "title": "Кижуч на сковороде с лимоном",
+      "dish_type": "main",
+      "dish_group": "fish_seafood",
+      "cuisine": "home",
+      "total_minutes": 25,
+      "active_minutes": 10,
+      "cook_minutes": 15,
+      "servings": 2,
+      "description": "Жирный кижуч с хрустящей кожей и лимонным маслом. Готовится за двадцать минут.",
+      "ingredients": [
+        {
+          "ingredient_id": "coho_salmon",
+          "amount": 400,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "butter",
+          "amount": 20,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "lemon",
+          "amount": 0.5,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste"
+        },
+        {
+          "ingredient_id": "black_pepper",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Филе кижуча обсушите, сделайте на коже неглубокие надрезы, посолите."
+        },
+        {
+          "text": "Положите рыбу кожей вниз на разогретую сковороду и жарьте 6 минут.",
+          "timer_seconds": 360
+        },
+        {
+          "text": "Переверните филе и жарьте ещё 3 минуты.",
+          "timer_seconds": 180
+        },
+        {
+          "text": "Добавьте сливочное масло с соком лимона и полейте рыбу 1 минуту.",
+          "timer_seconds": 60
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_sea_bass_whole_baked",
+      "title": "Сибас, запечённый целиком",
+      "dish_type": "main",
+      "dish_group": "fish_seafood",
+      "cuisine": "gr",
+      "total_minutes": 40,
+      "active_minutes": 15,
+      "cook_minutes": 25,
+      "servings": 2,
+      "description": "Целый сибас с лимоном и розмарином. Средиземноморская классика для двоих.",
+      "ingredients": [
+        {
+          "ingredient_id": "sea_bass",
+          "amount": 2,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "lemon",
+          "amount": 1,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "rosemary",
+          "amount": 2,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "garlic",
+          "amount": 2,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "olive_oil",
+          "amount": 2,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "salt_sea",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Сибаса очистите от чешуи и потрохов, промойте и обсушите."
+        },
+        {
+          "text": "Сделайте на боках по три надреза, натрите рыбу морской солью и маслом."
+        },
+        {
+          "text": "Вложите в брюшко дольки лимона, зубчики чеснока и веточки розмарина."
+        },
+        {
+          "text": "Запекайте сибаса при 200 градусах 25 минут.",
+          "timer_seconds": 1500
+        },
+        {
+          "text": "Подавайте с запечёнными овощами и лимоном."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_dorado_salt_crust",
+      "title": "Дорадо в соляной корке",
+      "dish_type": "main",
+      "dish_group": "fish_seafood",
+      "cuisine": "es",
+      "total_minutes": 50,
+      "active_minutes": 15,
+      "cook_minutes": 30,
+      "servings": 2,
+      "description": "Рыба печётся в корке из крупной соли и остаётся очень сочной. Соль снимают перед подачей.",
+      "ingredients": [
+        {
+          "ingredient_id": "dorado",
+          "amount": 2,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "salt_coarse",
+          "amount": 1,
+          "unit": "kg"
+        },
+        {
+          "ingredient_id": "egg_white",
+          "amount": 2,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "lemon",
+          "amount": 1,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "thyme",
+          "amount": 2,
+          "unit": "g"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Дорадо выпотрошите, чешую не снимайте, внутрь положите лимон и тимьян."
+        },
+        {
+          "text": "Смешайте крупную соль с белками до консистенции мокрого песка."
+        },
+        {
+          "text": "Выложите слой соли на противень, сверху рыбу и полностью покройте её солью."
+        },
+        {
+          "text": "Запекайте дорадо в соли при 220 градусах 30 минут.",
+          "timer_seconds": 1800
+        },
+        {
+          "text": "Расколите корку, снимите кожу и подавайте филе с лимоном."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_flounder_fried_flour",
+      "title": "Камбала, жаренная в муке",
+      "dish_type": "main",
+      "dish_group": "fish_seafood",
+      "cuisine": "ru",
+      "total_minutes": 30,
+      "active_minutes": 15,
+      "cook_minutes": 15,
+      "servings": 4,
+      "description": "Камбала в лёгкой мучной панировке с золотистой корочкой. Подаётся с картофелем и зеленью.",
+      "ingredients": [
+        {
+          "ingredient_id": "flounder",
+          "amount": 800,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "flour",
+          "amount": 4,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "sunflower_oil",
+          "amount": 4,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "lemon",
+          "amount": 0.5,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Камбалу очистите, отрежьте голову и плавники, разрежьте на куски."
+        },
+        {
+          "text": "Посолите рыбу и обваляйте её в муке."
+        },
+        {
+          "text": "Жарьте камбалу на разогретом масле по 5 минут с каждой стороны.",
+          "timer_seconds": 600
+        },
+        {
+          "text": "Выложите рыбу на бумажное полотенце и подавайте с лимоном."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_halibut_vegetables_oven",
+      "title": "Палтус с овощами в духовке",
+      "dish_type": "main",
+      "dish_group": "fish_seafood",
+      "cuisine": "home",
+      "total_minutes": 45,
+      "active_minutes": 15,
+      "cook_minutes": 30,
+      "servings": 4,
+      "description": "Нежный палтус на подушке из кабачков и помидоров. Лёгкое блюдо без лишнего жира.",
+      "ingredients": [
+        {
+          "ingredient_id": "halibut",
+          "amount": 700,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "zucchini",
+          "amount": 1,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "cherry_tomato",
+          "amount": 200,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "red_onion",
+          "amount": 1,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "olive_oil",
+          "amount": 2,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "italian_herbs",
+          "amount": 1,
+          "unit": "tsp"
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Кабачок нарежьте кружками, красный лук полукольцами, черри разрежьте пополам."
+        },
+        {
+          "text": "Выложите овощи в форму, сбрызните маслом и посыпьте травами."
+        },
+        {
+          "text": "Сверху положите посоленные куски палтуса."
+        },
+        {
+          "text": "Запекайте палтус при 190 градусах 25 минут.",
+          "timer_seconds": 1500
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_tilapia_breaded_parmesan",
+      "title": "Тилапия в сырной панировке",
+      "dish_type": "main",
+      "dish_group": "fish_seafood",
+      "cuisine": "it",
+      "total_minutes": 30,
+      "active_minutes": 15,
+      "cook_minutes": 15,
+      "servings": 4,
+      "description": "Филе тилапии в корочке из сухарей и пармезана. Нейтральная рыба, которую любят дети.",
+      "ingredients": [
+        {
+          "ingredient_id": "tilapia",
+          "amount": 600,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "breadcrumbs",
+          "amount": 60,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "parmesan",
+          "amount": 40,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "egg",
+          "amount": 1,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "sunflower_oil",
+          "amount": 3,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Смешайте панировочные сухари с тёртым пармезаном."
+        },
+        {
+          "text": "Филе тилапии посолите, обмакните во взбитое яйцо, затем в сырную смесь."
+        },
+        {
+          "text": "Обжаривайте рыбу на масле по 4 минуты с каждой стороны до золотистой корочки.",
+          "timer_seconds": 480
+        },
+        {
+          "text": "Подавайте тилапию горячей с овощным салатом."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_zander_polish",
+      "title": "Судак по-польски с яичным соусом",
+      "dish_type": "main",
+      "dish_group": "fish_seafood",
+      "cuisine": "pl",
+      "total_minutes": 50,
+      "active_minutes": 20,
+      "cook_minutes": 30,
+      "servings": 4,
+      "description": "Отварной судак с соусом из сливочного масла и рубленых яиц. Старинное ресторанное блюдо.",
+      "ingredients": [
+        {
+          "ingredient_id": "zander",
+          "amount": 1,
+          "unit": "kg"
+        },
+        {
+          "ingredient_id": "egg",
+          "amount": 3,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "butter",
+          "amount": 80,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "bay_leaf",
+          "amount": 1,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "parsley",
+          "amount": 15,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Судака нарежьте порционными кусками и опустите в кипящую подсоленную воду с лавром."
+        },
+        {
+          "text": "Варите рыбу на слабом огне 15 минут.",
+          "timer_seconds": 900
+        },
+        {
+          "text": "Яйца сварите вкрутую 10 минут, остудите и мелко порубите.",
+          "timer_seconds": 600
+        },
+        {
+          "text": "Растопите сливочное масло, смешайте с рублеными яйцами и петрушкой."
+        },
+        {
+          "text": "Выложите судака на блюдо и полейте яичным соусом."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_bream_stuffed_buckwheat",
+      "title": "Лещ, фаршированный гречкой",
+      "dish_type": "main",
+      "dish_group": "fish_seafood",
+      "cuisine": "ru",
+      "total_minutes": 90,
+      "active_minutes": 30,
+      "cook_minutes": 60,
+      "servings": 4,
+      "description": "Запечённый лещ с начинкой из гречки и лука. Гречка впитывает рыбный сок.",
+      "ingredients": [
+        {
+          "ingredient_id": "bream",
+          "amount": 1.2,
+          "unit": "kg"
+        },
+        {
+          "ingredient_id": "buckwheat",
+          "amount": 100,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "onion",
+          "amount": 1,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "sour_cream",
+          "amount": 3,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "sunflower_oil",
+          "amount": 2,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Гречку отварите 15 минут, лук обжарьте на масле 6 минут и смешайте с кашей.",
+          "timer_seconds": 1260
+        },
+        {
+          "text": "Леща очистите, выпотрошите, сделайте на боках частые надрезы и посолите."
+        },
+        {
+          "text": "Нафаршируйте брюшко гречкой и скрепите края зубочистками."
+        },
+        {
+          "text": "Смажьте рыбу сметаной и запекайте при 180 градусах 40 минут.",
+          "timer_seconds": 2400
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_crucian_sour_cream",
+      "title": "Караси в сметане",
+      "dish_type": "main",
+      "dish_group": "fish_seafood",
+      "cuisine": "ru",
+      "total_minutes": 45,
+      "active_minutes": 20,
+      "cook_minutes": 25,
+      "servings": 4,
+      "description": "Жареные караси, томлённые в сметане. Частые надрезы делают мелкие косточки незаметными.",
+      "ingredients": [
+        {
+          "ingredient_id": "crucian",
+          "amount": 4,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "flour",
+          "amount": 3,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "sour_cream",
+          "amount": 250,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "sunflower_oil",
+          "amount": 4,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "dill",
+          "amount": 10,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Карасей очистите, выпотрошите и сделайте на боках надрезы через каждые 5 мм."
+        },
+        {
+          "text": "Посолите рыбу, обваляйте в муке и обжарьте по 5 минут с каждой стороны.",
+          "timer_seconds": 600
+        },
+        {
+          "text": "Залейте карасей сметаной и томите под крышкой 12 минут.",
+          "timer_seconds": 720
+        },
+        {
+          "text": "Посыпьте укропом и подавайте горячими."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_sprat_fried",
+      "title": "Жареная килька с луком",
+      "dish_type": "main",
+      "dish_group": "fish_seafood",
+      "cuisine": "ru",
+      "total_minutes": 30,
+      "active_minutes": 15,
+      "cook_minutes": 15,
+      "servings": 4,
+      "description": "Свежая килька, обжаренная целиком до хруста. Недорогая рыба к картошке.",
+      "ingredients": [
+        {
+          "ingredient_id": "sprat",
+          "amount": 600,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "flour",
+          "amount": 4,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "onion",
+          "amount": 1,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "sunflower_oil",
+          "amount": 5,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Кильку промойте и обсушите, головы можно оставить."
+        },
+        {
+          "text": "Посолите рыбу и обваляйте в муке."
+        },
+        {
+          "text": "Жарьте кильку небольшими порциями по 4 минуты с каждой стороны.",
+          "timer_seconds": 480
+        },
+        {
+          "text": "Подавайте с кольцами сырого лука и отварным картофелем."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_capelin_oven",
+      "title": "Мойва, запечённая в духовке",
+      "dish_type": "main",
+      "dish_group": "fish_seafood",
+      "cuisine": "home",
+      "total_minutes": 35,
+      "active_minutes": 10,
+      "cook_minutes": 25,
+      "servings": 4,
+      "description": "Мойва на противне без масла и лишнего запаха на кухне. Хрустит, как жареная.",
+      "ingredients": [
+        {
+          "ingredient_id": "capelin",
+          "amount": 800,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "sunflower_oil",
+          "amount": 1,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste"
+        },
+        {
+          "ingredient_id": "black_pepper",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Мойву разморозьте в холодильнике, промойте и обсушите."
+        },
+        {
+          "text": "Выложите рыбу плотно на противень с пергаментом, посолите и поперчите."
+        },
+        {
+          "text": "Сбрызните маслом и запекайте мойву при 200 градусах 25 минут.",
+          "timer_seconds": 1500
+        },
+        {
+          "text": "Подавайте горячей с картофелем или хлебом."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_smelt_crispy",
+      "title": "Корюшка в хрустящей панировке",
+      "dish_type": "snack",
+      "dish_group": "salad_snack",
+      "cuisine": "ru",
+      "total_minutes": 30,
+      "active_minutes": 20,
+      "cook_minutes": 10,
+      "servings": 4,
+      "description": "Корюшка с огуречным ароматом, обжаренная целиком. Питерская весенняя закуска.",
+      "ingredients": [
+        {
+          "ingredient_id": "smelt",
+          "amount": 500,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "flour",
+          "amount": 4,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "corn_flour",
+          "amount": 2,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "sunflower_oil",
+          "amount": 150,
+          "unit": "ml"
+        },
+        {
+          "ingredient_id": "lemon",
+          "amount": 0.5,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Корюшку промойте, удалите головы и потроха."
+        },
+        {
+          "text": "Смешайте пшеничную муку с кукурузной и солью, обваляйте рыбу."
+        },
+        {
+          "text": "Жарьте корюшку во фритюре по 4 минуты до золотистого цвета.",
+          "timer_seconds": 480
+        },
+        {
+          "text": "Выложите на бумажное полотенце и подавайте с лимоном."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_navaga_fried",
+      "title": "Навага, жаренная целиком",
+      "dish_type": "main",
+      "dish_group": "fish_seafood",
+      "cuisine": "ru",
+      "total_minutes": 30,
+      "active_minutes": 15,
+      "cook_minutes": 15,
+      "servings": 4,
+      "description": "Северная рыба навага с нежным мясом. Жарится целиком, без головы.",
+      "ingredients": [
+        {
+          "ingredient_id": "navaga",
+          "amount": 800,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "flour",
+          "amount": 4,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "sunflower_oil",
+          "amount": 4,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste"
+        },
+        {
+          "ingredient_id": "black_pepper",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Наваге отрежьте головы, выпотрошите и снимите кожу чулком."
+        },
+        {
+          "text": "Посолите, поперчите и обваляйте рыбу в муке."
+        },
+        {
+          "text": "Обжарьте навагу по 6 минут с каждой стороны на среднем огне.",
+          "timer_seconds": 720
+        },
+        {
+          "text": "Подавайте с варёным картофелем и солёными огурцами."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_blue_whiting_cutlets",
+      "title": "Котлеты из путассу",
+      "dish_type": "main",
+      "dish_group": "fish_seafood",
+      "cuisine": "ru",
+      "total_minutes": 50,
+      "active_minutes": 30,
+      "cook_minutes": 20,
+      "servings": 4,
+      "description": "Рыбные котлеты из недорогой путассу с хлебом и луком. Мягкие и сочные.",
+      "ingredients": [
+        {
+          "ingredient_id": "blue_whiting",
+          "amount": 800,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "white_bread",
+          "amount": 2,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "milk",
+          "amount": 100,
+          "unit": "ml"
+        },
+        {
+          "ingredient_id": "onion",
+          "amount": 1,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "egg",
+          "amount": 1,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "flour",
+          "amount": 3,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "sunflower_oil",
+          "amount": 4,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Путассу разморозьте, снимите филе с костей и пропустите через мясорубку с луком."
+        },
+        {
+          "text": "Хлеб замочите в молоке, отожмите и добавьте в рыбный фарш вместе с яйцом."
+        },
+        {
+          "text": "Посолите массу, сформируйте котлеты и обваляйте их в муке."
+        },
+        {
+          "text": "Жарьте рыбные котлеты на масле по 6 минут с каждой стороны.",
+          "timer_seconds": 720
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_tuna_steak_sesame",
+      "title": "Стейк тунца в кунжуте",
+      "dish_type": "main",
+      "dish_group": "fish_seafood",
+      "cuisine": "jp",
+      "total_minutes": 20,
+      "active_minutes": 10,
+      "cook_minutes": 10,
+      "servings": 2,
+      "description": "Тунец в кунжутной корочке. Подаётся с соевым соусом и салатом.",
+      "ingredients": [
+        {
+          "ingredient_id": "tuna_fresh",
+          "amount": 400,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "sesame",
+          "amount": 3,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "sesame_black",
+          "amount": 1,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "soy_sauce",
+          "amount": 2,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "sunflower_oil",
+          "amount": 1,
+          "unit": "tbsp"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Стейки тунца обсушите и сбрызните соевым соусом."
+        },
+        {
+          "text": "Обваляйте рыбу со всех сторон в смеси белого и чёрного кунжута."
+        },
+        {
+          "text": "Обжаривайте тунец на сильном огне по 4 минуты с каждой стороны.",
+          "timer_seconds": 480
+        },
+        {
+          "text": "Нарежьте стейк ломтиками и подавайте с соевым соусом."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_smoked_mackerel_potato_salad",
+      "title": "Салат с копчёной скумбрией и картофелем",
+      "dish_type": "salad",
+      "dish_group": "salad_snack",
+      "cuisine": "de",
+      "total_minutes": 35,
+      "active_minutes": 15,
+      "cook_minutes": 20,
+      "servings": 4,
+      "description": "Тёплый картофельный салат с копчёной скумбрией и маринованным луком. Сытно и ярко.",
+      "ingredients": [
+        {
+          "ingredient_id": "smoked_mackerel",
+          "amount": 300,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "potato",
+          "amount": 4,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "red_onion",
+          "amount": 1,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "pickles",
+          "amount": 2,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "sour_cream",
+          "amount": 3,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "mustard",
+          "amount": 1,
+          "unit": "tsp"
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Картофель отварите в мундире 20 минут, очистите и нарежьте кубиками.",
+          "timer_seconds": 1200
+        },
+        {
+          "text": "Скумбрию снимите с кожи и костей, разберите на крупные кусочки."
+        },
+        {
+          "text": "Красный лук нарежьте полукольцами, огурцы кубиками."
+        },
+        {
+          "text": "Смешайте сметану с горчицей и заправьте салат, пока картофель тёплый."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_herring_salted_potatoes",
+      "title": "Селёдка с картошкой и луком",
+      "dish_type": "main",
+      "dish_group": "fish_seafood",
+      "cuisine": "ru",
+      "total_minutes": 30,
+      "active_minutes": 10,
+      "cook_minutes": 20,
+      "servings": 4,
+      "description": "Простая русская классика: солёная сельдь, горячая картошка и лук с маслом.",
+      "ingredients": [
+        {
+          "ingredient_id": "herring_salted",
+          "amount": 300,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "young_potato",
+          "amount": 800,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "red_onion",
+          "amount": 1,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "unrefined_oil",
+          "amount": 2,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "dill",
+          "amount": 15,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Молодой картофель хорошо вымойте и отварите в подсоленной воде 20 минут.",
+          "timer_seconds": 1200
+        },
+        {
+          "text": "Сельдь разделайте на филе и нарежьте кусочками."
+        },
+        {
+          "text": "Красный лук нарежьте тонкими кольцами."
+        },
+        {
+          "text": "Выложите горячий картофель с укропом, рядом сельдь и лук, полейте пахучим маслом."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_herring_forshmak",
+      "title": "Форшмак из солёной сельди",
+      "dish_type": "snack",
+      "dish_group": "salad_snack",
+      "cuisine": "ru",
+      "total_minutes": 20,
+      "active_minutes": 20,
+      "cook_minutes": 0,
+      "servings": 6,
+      "description": "Еврейская закуска: паштет из сельди с яблоком, яйцом и маслом. Подаётся на чёрном хлебе.",
+      "ingredients": [
+        {
+          "ingredient_id": "herring_salted",
+          "amount": 300,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "green_apple",
+          "amount": 1,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "egg",
+          "amount": 2,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "butter",
+          "amount": 60,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "onion",
+          "amount": 0.5,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "borodinsky",
+          "amount": 6,
+          "unit": "pcs"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Яйца сварите вкрутую 10 минут и очистите.",
+          "timer_seconds": 600
+        },
+        {
+          "text": "Филе сельди проверьте на мелкие косточки."
+        },
+        {
+          "text": "Измельчите в блендере филе сельди и очищенное от кожуры яблоко, затем добавьте варёные яйца с луком."
+        },
+        {
+          "text": "Добавьте мягкое сливочное масло и взбейте до пасты, подавайте на бородинском хлебе."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_salted_trout_pancakes",
+      "title": "Блины со слабосолёной форелью",
+      "dish_type": "breakfast",
+      "dish_group": "baking",
+      "cuisine": "ru",
+      "total_minutes": 50,
+      "active_minutes": 30,
+      "cook_minutes": 20,
+      "servings": 4,
+      "description": "Тонкие блины, свёрнутые с форелью и сливочным сыром. Праздничный завтрак.",
+      "ingredients": [
+        {
+          "ingredient_id": "salted_trout",
+          "amount": 200,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "cream_cheese",
+          "amount": 150,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "milk",
+          "amount": 500,
+          "unit": "ml"
+        },
+        {
+          "ingredient_id": "egg",
+          "amount": 2,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "flour",
+          "amount": 200,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "sugar",
+          "amount": 1,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "sunflower_oil",
+          "amount": 2,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Взбейте яйца с сахаром и солью, влейте молоко и постепенно вмешайте муку."
+        },
+        {
+          "text": "Добавьте в тесто масло и дайте постоять 15 минут.",
+          "timer_seconds": 900
+        },
+        {
+          "text": "Жарьте блины на горячей сковороде по 2 минуты с каждой стороны.",
+          "timer_seconds": 240
+        },
+        {
+          "text": "Смажьте блины сливочным сыром, выложите полоски форели и сверните рулетами."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_red_caviar_tartlets",
+      "title": "Тарталетки с красной икрой",
+      "dish_type": "snack",
+      "dish_group": "salad_snack",
+      "cuisine": "ru",
+      "total_minutes": 15,
+      "active_minutes": 15,
+      "cook_minutes": 0,
+      "servings": 6,
+      "description": "Хрустящие тарталетки со сливочным маслом и красной икрой. Классика новогоднего стола.",
+      "ingredients": [
+        {
+          "ingredient_id": "red_caviar",
+          "amount": 100,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "butter",
+          "amount": 50,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "crackers",
+          "amount": 12,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "dill",
+          "amount": 5,
+          "unit": "g"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Достаньте масло заранее, чтобы оно стало мягким."
+        },
+        {
+          "text": "Смажьте сухари или тарталетки тонким слоем масла."
+        },
+        {
+          "text": "Выложите сверху по чайной ложке икры и украсьте веточкой укропа."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_cod_liver_salad_egg",
+      "title": "Салат с печенью трески",
+      "dish_type": "salad",
+      "dish_group": "salad_snack",
+      "cuisine": "ru",
+      "total_minutes": 40,
+      "active_minutes": 15,
+      "cook_minutes": 30,
+      "servings": 4,
+      "description": "Нежный салат с печенью трески, яйцом и зелёным луком. Майонез не нужен: хватает масла из банки.",
+      "ingredients": [
+        {
+          "ingredient_id": "cod_liver",
+          "amount": 200,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "egg",
+          "amount": 3,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "potato",
+          "amount": 2,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "green_onion",
+          "amount": 20,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Яйца сварите вкрутую 10 минут, картофель в мундире 20 минут.",
+          "timer_seconds": 1800
+        },
+        {
+          "text": "Очистите варёные продукты и нарежьте их мелкими кубиками."
+        },
+        {
+          "text": "Печень трески разомните вилкой вместе с маслом из банки."
+        },
+        {
+          "text": "Соедините всё, добавьте рубленый зелёный лук и аккуратно перемешайте."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_salmon_canned_soup",
+      "title": "Уха из консервированной горбуши",
+      "dish_type": "soup",
+      "dish_group": "soup",
+      "cuisine": "ru",
+      "total_minutes": 35,
+      "active_minutes": 10,
+      "cook_minutes": 25,
+      "servings": 4,
+      "description": "Быстрый рыбный суп из консервов с рисом и картофелем. Выручает, когда нет свежей рыбы.",
+      "ingredients": [
+        {
+          "ingredient_id": "salmon_canned",
+          "amount": 250,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "potato",
+          "amount": 3,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "round_rice",
+          "amount": 3,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "onion",
+          "amount": 1,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "carrot",
+          "amount": 1,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "bay_leaf",
+          "amount": 1,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "water",
+          "amount": 1.8,
+          "unit": "l"
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Доведите воду до кипения, положите картофель кубиками и промытый рис."
+        },
+        {
+          "text": "Варите 10 минут, затем добавьте лук и тёртую морковь.",
+          "timer_seconds": 600
+        },
+        {
+          "text": "Варите ещё 7 минут, пока картофель не станет мягким.",
+          "timer_seconds": 420
+        },
+        {
+          "text": "Разомните консервированную горбушу вилкой и переложите в суп вместе с жидкостью."
+        },
+        {
+          "text": "Положите лавровый лист, посолите и прогрейте 3 минуты.",
+          "timer_seconds": 180
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_sprats_sandwiches",
+      "title": "Бутерброды со шпротами и огурцом",
+      "dish_type": "snack",
+      "dish_group": "salad_snack",
+      "cuisine": "ru",
+      "total_minutes": 15,
+      "active_minutes": 15,
+      "cook_minutes": 0,
+      "servings": 4,
+      "description": "Гренки с чесноком, шпротами и свежим огурцом. Быстрая закуска к празднику.",
+      "ingredients": [
+        {
+          "ingredient_id": "sprats_canned",
+          "amount": 160,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "borodinsky",
+          "amount": 8,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "cucumber",
+          "amount": 1,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "garlic",
+          "amount": 1,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "mayonnaise",
+          "amount": 2,
+          "unit": "tbsp"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Бородинский хлеб подсушите на сухой сковороде по 1 минуте с каждой стороны.",
+          "timer_seconds": 120
+        },
+        {
+          "text": "Натрите гренки разрезанным зубчиком чеснока и смажьте майонезом."
+        },
+        {
+          "text": "Положите на каждую кружок огурца и одну-две шпротины."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_mackerel_canned_rice_salad",
+      "title": "Рыбный салат со скумбрией и рисом",
+      "dish_type": "salad",
+      "dish_group": "salad_snack",
+      "cuisine": "home",
+      "total_minutes": 30,
+      "active_minutes": 15,
+      "cook_minutes": 15,
+      "servings": 4,
+      "description": "Слоёный салат из консервированной скумбрии, риса и яиц. Недорогой и сытный.",
+      "ingredients": [
+        {
+          "ingredient_id": "mackerel_canned",
+          "amount": 240,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "round_rice",
+          "amount": 100,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "egg",
+          "amount": 3,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "onion",
+          "amount": 0.5,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "mayonnaise",
+          "amount": 3,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Рис отварите 15 минут и остудите, яйца сварите вкрутую 10 минут.",
+          "timer_seconds": 1500
+        },
+        {
+          "text": "Скумбрию разомните вилкой, лишнее масло слейте."
+        },
+        {
+          "text": "Выложите слоями рис, рыбу, мелко рубленный лук и тёртые яйца, промазывая майонезом."
+        },
+        {
+          "text": "Дайте салату постоять в холодильнике 30 минут перед подачей."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_octopus_potatoes_galician",
+      "title": "Осьминог по-галисийски с картофелем",
+      "dish_type": "main",
+      "dish_group": "fish_seafood",
+      "cuisine": "es",
+      "total_minutes": 90,
+      "active_minutes": 20,
+      "cook_minutes": 70,
+      "servings": 4,
+      "description": "Варёный осьминог на ломтиках картофеля с копчёной паприкой и оливковым маслом.",
+      "ingredients": [
+        {
+          "ingredient_id": "octopus",
+          "amount": 1,
+          "unit": "kg"
+        },
+        {
+          "ingredient_id": "potato",
+          "amount": 4,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "smoked_paprika",
+          "amount": 1,
+          "unit": "tsp"
+        },
+        {
+          "ingredient_id": "olive_oil",
+          "amount": 4,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "salt_coarse",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Осьминога трижды опустите в кипящую воду на несколько секунд, затем оставьте вариться."
+        },
+        {
+          "text": "Варите осьминога на слабом огне 50 минут до мягкости.",
+          "timer_seconds": 3000
+        },
+        {
+          "text": "В том же отваре сварите картофель кружками 15 минут.",
+          "timer_seconds": 900
+        },
+        {
+          "text": "Выложите картофель, сверху щупальца кусочками, полейте маслом и посыпьте паприкой и солью."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_scallops_butter",
+      "title": "Гребешки в сливочном масле",
+      "dish_type": "main",
+      "dish_group": "fish_seafood",
+      "cuisine": "fr",
+      "total_minutes": 15,
+      "active_minutes": 10,
+      "cook_minutes": 5,
+      "servings": 2,
+      "description": "Морские гребешки с золотистой корочкой. Готовятся за несколько минут.",
+      "ingredients": [
+        {
+          "ingredient_id": "scallops",
+          "amount": 300,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "butter",
+          "amount": 30,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "garlic",
+          "amount": 1,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "lemon",
+          "amount": 0.5,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "parsley",
+          "amount": 5,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Гребешки разморозьте в холодильнике и тщательно обсушите."
+        },
+        {
+          "text": "Обжаривайте гребешки на раскалённой сковороде по 2 минуты с каждой стороны.",
+          "timer_seconds": 240
+        },
+        {
+          "text": "Добавьте масло с чесноком и полейте морепродукты 1 минуту.",
+          "timer_seconds": 60
+        },
+        {
+          "text": "Сбрызните лимоном и посыпьте петрушкой."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_crab_meat_avocado_salad",
+      "title": "Салат с крабом и авокадо",
+      "dish_type": "salad",
+      "dish_group": "salad_snack",
+      "cuisine": "fr",
+      "total_minutes": 15,
+      "active_minutes": 15,
+      "cook_minutes": 0,
+      "servings": 2,
+      "description": "Лёгкий салат с мясом краба, авокадо и огурцом. Заправка — лайм и йогурт.",
+      "ingredients": [
+        {
+          "ingredient_id": "crab_meat",
+          "amount": 200,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "avocado",
+          "amount": 1,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "cucumber",
+          "amount": 1,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "greek_yogurt",
+          "amount": 3,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "lime",
+          "amount": 0.5,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Мясо краба разберите на волокна."
+        },
+        {
+          "text": "Мякоть авокадо нарежьте мелкими кубиками, огурец порежьте так же."
+        },
+        {
+          "text": "Смешайте греческий йогурт с соком лайма и солью."
+        },
+        {
+          "text": "Соедините всё и сразу подавайте."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_crayfish_boiled_dill",
+      "title": "Раки, варённые с укропом",
+      "dish_type": "snack",
+      "dish_group": "salad_snack",
+      "cuisine": "ru",
+      "total_minutes": 40,
+      "active_minutes": 15,
+      "cook_minutes": 20,
+      "servings": 4,
+      "description": "Речные раки в рассоле с укропом и лавром. Классика летней дачной кухни.",
+      "ingredients": [
+        {
+          "ingredient_id": "crayfish",
+          "amount": 2,
+          "unit": "kg"
+        },
+        {
+          "ingredient_id": "dill",
+          "amount": 60,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "bay_leaf",
+          "amount": 3,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "allspice",
+          "amount": 10,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "salt_coarse",
+          "amount": 4,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "water",
+          "amount": 5,
+          "unit": "l"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Живых раков промойте щёткой под проточной водой."
+        },
+        {
+          "text": "Доведите воду до кипения с солью, укропными стеблями, лавром и перцем."
+        },
+        {
+          "text": "Опустите раков в кипяток и варите 12 минут.",
+          "timer_seconds": 720
+        },
+        {
+          "text": "Снимите с огня и оставьте раков в отваре на 15 минут.",
+          "timer_seconds": 900
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_king_prawns_garlic",
+      "title": "Королевские креветки с чесноком",
+      "dish_type": "main",
+      "dish_group": "fish_seafood",
+      "cuisine": "es",
+      "total_minutes": 20,
+      "active_minutes": 10,
+      "cook_minutes": 10,
+      "servings": 2,
+      "description": "Креветки, обжаренные в масле с чесноком и хлопьями чили. Подаются с хлебом.",
+      "ingredients": [
+        {
+          "ingredient_id": "king_prawns",
+          "amount": 500,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "garlic",
+          "amount": 4,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "chili_flakes",
+          "amount": 0.5,
+          "unit": "tsp"
+        },
+        {
+          "ingredient_id": "olive_oil",
+          "amount": 4,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "parsley",
+          "amount": 10,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Креветки разморозьте, очистите от панциря, оставив хвостики."
+        },
+        {
+          "text": "Прогрейте масло с пластинками чеснока и хлопьями чили 1 минуту.",
+          "timer_seconds": 60
+        },
+        {
+          "text": "Добавьте креветки и жарьте их по 2 минуты с каждой стороны до розового цвета.",
+          "timer_seconds": 240
+        },
+        {
+          "text": "Посолите, посыпьте петрушкой и подавайте с багетом."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_seafood_mix_pasta",
+      "title": "Паста с морским коктейлем",
+      "dish_type": "main",
+      "dish_group": "fish_seafood",
+      "cuisine": "it",
+      "total_minutes": 30,
+      "active_minutes": 15,
+      "cook_minutes": 15,
+      "servings": 4,
+      "description": "Спагетти с морепродуктами в сливочно-томатном соусе. Быстро и по-ресторанному.",
+      "ingredients": [
+        {
+          "ingredient_id": "seafood_mix",
+          "amount": 500,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "spaghetti",
+          "amount": 400,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "cherry_tomato",
+          "amount": 200,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "garlic",
+          "amount": 2,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "cream_10",
+          "amount": 150,
+          "unit": "ml"
+        },
+        {
+          "ingredient_id": "olive_oil",
+          "amount": 2,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Спагетти отварите в подсоленной воде 9 минут.",
+          "timer_seconds": 540
+        },
+        {
+          "text": "Обжарьте чеснок на масле, добавьте морской коктейль и жарьте 4 минуты.",
+          "timer_seconds": 240
+        },
+        {
+          "text": "Положите черри половинками и влейте сливки, прогревайте соус 3 минуты.",
+          "timer_seconds": 180
+        },
+        {
+          "text": "Смешайте пасту с соусом и подавайте сразу."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_cuttlefish_stew",
+      "title": "Каракатица, тушённая в томатах",
+      "dish_type": "main",
+      "dish_group": "fish_seafood",
+      "cuisine": "it",
+      "total_minutes": 70,
+      "active_minutes": 15,
+      "cook_minutes": 55,
+      "servings": 4,
+      "description": "Каракатица томится в томатном соусе до мягкости. Подаётся с полентой или хлебом.",
+      "ingredients": [
+        {
+          "ingredient_id": "cuttlefish",
+          "amount": 800,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "tomatoes_canned",
+          "amount": 400,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "onion",
+          "amount": 1,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "garlic",
+          "amount": 2,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "olive_oil",
+          "amount": 3,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "parsley",
+          "amount": 10,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Каракатицу очистите и нарежьте полосками."
+        },
+        {
+          "text": "Обжарьте лук с чесноком на оливковом масле 5 минут.",
+          "timer_seconds": 300
+        },
+        {
+          "text": "Добавьте каракатицу и жарьте 5 минут, затем вмешайте томаты.",
+          "timer_seconds": 300
+        },
+        {
+          "text": "Тушите под крышкой 45 минут, пока морепродукт не станет мягким.",
+          "timer_seconds": 2700
+        },
+        {
+          "text": "Посолите и посыпьте петрушкой."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_white_fish_curry",
+      "title": "Рыбное карри с кокосовым молоком",
+      "dish_type": "main",
+      "dish_group": "fish_seafood",
+      "cuisine": "in",
+      "total_minutes": 35,
+      "active_minutes": 15,
+      "cook_minutes": 20,
+      "servings": 4,
+      "description": "Белая рыба в мягком карри на кокосовом молоке. Подаётся с рисом басмати.",
+      "ingredients": [
+        {
+          "ingredient_id": "fish_fillet_white",
+          "amount": 600,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "coconut_milk",
+          "amount": 400,
+          "unit": "ml"
+        },
+        {
+          "ingredient_id": "curry_paste",
+          "amount": 2,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "onion",
+          "amount": 1,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "ginger",
+          "amount": 15,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "sunflower_oil",
+          "amount": 2,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "cilantro",
+          "amount": 10,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Обжарьте лук на масле 5 минут, добавьте тёртый имбирь и пасту карри.",
+          "timer_seconds": 300
+        },
+        {
+          "text": "Влейте кокосовое молоко и доведите соус до кипения."
+        },
+        {
+          "text": "Положите рыбу крупными кусками и тушите 10 минут на слабом огне.",
+          "timer_seconds": 600
+        },
+        {
+          "text": "Посолите, посыпьте кинзой и подавайте с рисом."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_fish_head_ukha",
+      "title": "Уха из рыбного набора",
+      "dish_type": "soup",
+      "dish_group": "soup",
+      "cuisine": "ru",
+      "total_minutes": 70,
+      "active_minutes": 20,
+      "cook_minutes": 50,
+      "servings": 6,
+      "description": "Наваристая уха из голов и хвостов: сначала бульон, потом овощи. Экономно и вкусно.",
+      "ingredients": [
+        {
+          "ingredient_id": "fish_head_set",
+          "amount": 1,
+          "unit": "kg"
+        },
+        {
+          "ingredient_id": "potato",
+          "amount": 3,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "onion",
+          "amount": 1,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "carrot",
+          "amount": 1,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "allspice",
+          "amount": 5,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "bay_leaf",
+          "amount": 2,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "dill",
+          "amount": 20,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "water",
+          "amount": 2.5,
+          "unit": "l"
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Рыбный набор промойте, у голов удалите жабры."
+        },
+        {
+          "text": "Залейте холодной водой, доведите до кипения, снимите пену и варите рыбу 30 минут.",
+          "timer_seconds": 1800
+        },
+        {
+          "text": "Процедите бульон, мясо снимите с костей."
+        },
+        {
+          "text": "Варите в бульоне картофель, лук и морковь 15 минут.",
+          "timer_seconds": 900
+        },
+        {
+          "text": "Верните рыбу, положите перец, лавр и укроп, посолите и прогрейте 3 минуты.",
+          "timer_seconds": 180
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_pink_salmon_soup_cream",
+      "title": "Сливочный суп с горбушей",
+      "dish_type": "soup",
+      "dish_group": "soup",
+      "cuisine": "fr",
+      "total_minutes": 40,
+      "active_minutes": 15,
+      "cook_minutes": 25,
+      "servings": 4,
+      "description": "Финский суп с красной рыбой, картофелем и сливками. Нежный и сытный.",
+      "ingredients": [
+        {
+          "ingredient_id": "pink_salmon",
+          "amount": 400,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "potato",
+          "amount": 3,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "leek",
+          "amount": 1,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "cream_10",
+          "amount": 200,
+          "unit": "ml"
+        },
+        {
+          "ingredient_id": "dill",
+          "amount": 15,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "water",
+          "amount": 1.5,
+          "unit": "l"
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Доведите воду до кипения, положите картофель кубиками и порей кольцами."
+        },
+        {
+          "text": "Варите овощи 15 минут.",
+          "timer_seconds": 900
+        },
+        {
+          "text": "Горбушу снимите с кожи и нарежьте кубиками."
+        },
+        {
+          "text": "Положите рыбу в суп и варите 9 минут.",
+          "timer_seconds": 540
+        },
+        {
+          "text": "Влейте сливки, посолите, добавьте укроп и прогрейте, не доводя до кипения."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_zander_aspic",
+      "title": "Заливное из судака",
+      "dish_type": "snack",
+      "dish_group": "salad_snack",
+      "cuisine": "ru",
+      "total_minutes": 240,
+      "active_minutes": 40,
+      "cook_minutes": 40,
+      "servings": 6,
+      "description": "Прозрачное заливное из судака с морковью и лимоном. Украшение праздничного стола.",
+      "ingredients": [
+        {
+          "ingredient_id": "zander",
+          "amount": 1,
+          "unit": "kg"
+        },
+        {
+          "ingredient_id": "gelatin",
+          "amount": 20,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "carrot",
+          "amount": 1,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "onion",
+          "amount": 1,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "lemon",
+          "amount": 0.5,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "bay_leaf",
+          "amount": 2,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "parsley",
+          "amount": 10,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "water",
+          "amount": 1.5,
+          "unit": "l"
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Судака разделайте на филе, а голову и хребет залейте водой с луком и лавром."
+        },
+        {
+          "text": "Варите бульон из костей 30 минут, затем процедите.",
+          "timer_seconds": 1800
+        },
+        {
+          "text": "В бульоне сварите филе судака и морковь 10 минут.",
+          "timer_seconds": 600
+        },
+        {
+          "text": "Желатин замочите в холодной воде и растворите в горячем процеженном бульоне."
+        },
+        {
+          "text": "Разложите рыбу по формам с кружками моркови и дольками лимона, залейте бульоном и охладите 3 часа."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_quail_eggs_salad",
+      "title": "Салат с перепелиными яйцами и черри",
+      "dish_type": "salad",
+      "dish_group": "salad_snack",
+      "cuisine": "fr",
+      "total_minutes": 20,
+      "active_minutes": 15,
+      "cook_minutes": 5,
+      "servings": 4,
+      "description": "Лёгкий салат из перепелиных яиц, помидоров черри и рукколы. Красиво выглядит на праздничном столе.",
+      "ingredients": [
+        {
+          "ingredient_id": "quail_egg",
+          "amount": 12,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "cherry_tomato",
+          "amount": 200,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "arugula",
+          "amount": 60,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "olive_oil",
+          "amount": 2,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "balsamic",
+          "amount": 1,
+          "unit": "tsp"
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Перепелиные яйца опустите в кипящую воду и варите 4 минуты.",
+          "timer_seconds": 240
+        },
+        {
+          "text": "Остудите яйца в холодной воде, очистите и разрежьте пополам."
+        },
+        {
+          "text": "Выложите рукколу, половинки черри и яйца на блюдо."
+        },
+        {
+          "text": "Полейте оливковым маслом с бальзамиком и посолите."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_ricotta_pancakes",
+      "title": "Оладьи из рикотты",
+      "dish_type": "breakfast",
+      "dish_group": "egg_dairy",
+      "cuisine": "it",
+      "total_minutes": 30,
+      "active_minutes": 20,
+      "cook_minutes": 10,
+      "servings": 4,
+      "description": "Пышные оладьи на рикотте с лимонной цедрой. Нежнее сырников.",
+      "ingredients": [
+        {
+          "ingredient_id": "ricotta",
+          "amount": 250,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "egg",
+          "amount": 2,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "flour",
+          "amount": 80,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "sugar",
+          "amount": 2,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "lemon_zest",
+          "amount": 1,
+          "unit": "tsp"
+        },
+        {
+          "ingredient_id": "baking_powder",
+          "amount": 1,
+          "unit": "tsp"
+        },
+        {
+          "ingredient_id": "butter",
+          "amount": 20,
+          "unit": "g"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Смешайте рикотту с яйцами, сахаром и цедрой лимона."
+        },
+        {
+          "text": "Всыпьте муку с разрыхлителем и перемешайте до густого теста."
+        },
+        {
+          "text": "Выкладывайте тесто ложкой на сковороду со сливочным маслом."
+        },
+        {
+          "text": "Жарьте оладьи по 3 минуты с каждой стороны на среднем огне.",
+          "timer_seconds": 360
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_ricotta_spinach_cannelloni",
+      "title": "Каннеллони из блинов с рикоттой и шпинатом",
+      "dish_type": "main",
+      "dish_group": "egg_dairy",
+      "cuisine": "it",
+      "total_minutes": 60,
+      "active_minutes": 30,
+      "cook_minutes": 30,
+      "servings": 4,
+      "description": "Тонкие блинчики с начинкой из рикотты и шпината, запечённые под томатным соусом.",
+      "ingredients": [
+        {
+          "ingredient_id": "pancakes_frozen",
+          "amount": 8,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "ricotta",
+          "amount": 300,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "frozen_spinach",
+          "amount": 200,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "tomato_puree",
+          "amount": 300,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "mozzarella",
+          "amount": 100,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "egg",
+          "amount": 1,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Шпинат разморозьте, отожмите и смешайте с рикоттой, яйцом и солью."
+        },
+        {
+          "text": "Положите начинку на блинчики и сверните их трубочками."
+        },
+        {
+          "text": "Выложите трубочки в форму и залейте томатным пюре."
+        },
+        {
+          "text": "Посыпьте моцареллой и запекайте при 190 градусах 25 минут.",
+          "timer_seconds": 1500
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_tiramisu_mascarpone",
+      "title": "Тирамису с маскарпоне",
+      "dish_type": "dessert",
+      "dish_group": "dessert",
+      "cuisine": "it",
+      "total_minutes": 260,
+      "active_minutes": 30,
+      "cook_minutes": 0,
+      "servings": 6,
+      "description": "Классический тирамису на савоярди с кофе. Готовится без выпечки, нужен ночной отдых в холодильнике.",
+      "ingredients": [
+        {
+          "ingredient_id": "mascarpone",
+          "amount": 500,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "egg_yolk",
+          "amount": 4,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "sugar",
+          "amount": 100,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "biscuits_savoiardi",
+          "amount": 200,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "coffee_instant",
+          "amount": 2,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "cocoa",
+          "amount": 2,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "water",
+          "amount": 300,
+          "unit": "ml"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Варите желтки с сахаром на водяной бане 6 минут, постоянно взбивая до густоты.",
+          "timer_seconds": 360
+        },
+        {
+          "text": "Остудите желтковую массу и вмешайте маскарпоне."
+        },
+        {
+          "text": "Разведите растворимый кофе в горячей воде и остудите."
+        },
+        {
+          "text": "Быстро обмакивайте савоярди в кофе и выкладывайте слоями с кремом."
+        },
+        {
+          "text": "Охладите тирамису 4 часа и посыпьте какао перед подачей."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_brynza_stuffed_peppers",
+      "title": "Перец, фаршированный брынзой",
+      "dish_type": "snack",
+      "dish_group": "salad_snack",
+      "cuisine": "gr",
+      "total_minutes": 35,
+      "active_minutes": 15,
+      "cook_minutes": 20,
+      "servings": 4,
+      "description": "Запечённые половинки перца с брынзой и зеленью. Горячая закуска по-балкански.",
+      "ingredients": [
+        {
+          "ingredient_id": "bell_pepper",
+          "amount": 4,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "brynza",
+          "amount": 200,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "egg",
+          "amount": 1,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "dill",
+          "amount": 15,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "garlic",
+          "amount": 1,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "olive_oil",
+          "amount": 1,
+          "unit": "tbsp"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Перцы разрежьте вдоль пополам и удалите семена."
+        },
+        {
+          "text": "Разомните брынзу вилкой с яйцом, укропом и чесноком."
+        },
+        {
+          "text": "Наполните половинки перца сырной массой и сбрызните маслом."
+        },
+        {
+          "text": "Запекайте перцы с сыром при 200 градусах 20 минут.",
+          "timer_seconds": 1200
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_khachapuri_suluguni",
+      "title": "Хачапури по-имеретински с сулугуни",
+      "dish_type": "baking",
+      "dish_group": "baking",
+      "cuisine": "ge",
+      "total_minutes": 70,
+      "active_minutes": 30,
+      "cook_minutes": 25,
+      "servings": 6,
+      "description": "Круглая лепёшка с сырной начинкой из сулугуни. Тесто на кефире, без дрожжей.",
+      "ingredients": [
+        {
+          "ingredient_id": "suluguni",
+          "amount": 400,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "kefir",
+          "amount": 250,
+          "unit": "ml"
+        },
+        {
+          "ingredient_id": "flour",
+          "amount": 400,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "egg",
+          "amount": 2,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "baking_soda",
+          "amount": 0.5,
+          "unit": "tsp"
+        },
+        {
+          "ingredient_id": "butter",
+          "amount": 30,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Смешайте кефир с солью и содой, постепенно вмешайте муку и замесите мягкое тесто."
+        },
+        {
+          "text": "Натрите сулугуни на крупной тёрке и смешайте с одним яйцом."
+        },
+        {
+          "text": "Разделите тесто на две части, раскатайте круги и выложите начинку на один."
+        },
+        {
+          "text": "Накройте вторым кругом, защипните края и смажьте вторым яйцом."
+        },
+        {
+          "text": "Запекайте хачапури при 200 градусах 25 минут, затем смажьте горячим маслом.",
+          "timer_seconds": 1500
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_adyghe_cheese_fried",
+      "title": "Жареный адыгейский сыр с травами",
+      "dish_type": "snack",
+      "dish_group": "egg_dairy",
+      "cuisine": "home",
+      "total_minutes": 15,
+      "active_minutes": 10,
+      "cook_minutes": 5,
+      "servings": 4,
+      "description": "Ломтики адыгейского сыра с золотистой корочкой. Не плавится, поэтому жарится без панировки.",
+      "ingredients": [
+        {
+          "ingredient_id": "adyghe_cheese",
+          "amount": 300,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "sunflower_oil",
+          "amount": 1,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "italian_herbs",
+          "amount": 1,
+          "unit": "tsp"
+        },
+        {
+          "ingredient_id": "garlic",
+          "amount": 1,
+          "unit": "pcs"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Адыгейский сыр нарежьте пластами толщиной 1 см."
+        },
+        {
+          "text": "Посыпьте сыр травами и измельчённым чесноком."
+        },
+        {
+          "text": "Обжаривайте пласты на масле по 2 минуты с каждой стороны до корочки.",
+          "timer_seconds": 240
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_blue_cheese_pear_salad",
+      "title": "Салат с грушей и сыром с плесенью",
+      "dish_type": "salad",
+      "dish_group": "salad_snack",
+      "cuisine": "fr",
+      "total_minutes": 15,
+      "active_minutes": 15,
+      "cook_minutes": 0,
+      "servings": 2,
+      "description": "Сладкая груша, острый сыр с плесенью и грецкие орехи. Ресторанное сочетание дома.",
+      "ingredients": [
+        {
+          "ingredient_id": "pear",
+          "amount": 1,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "blue_cheese",
+          "amount": 80,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "walnut",
+          "amount": 30,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "lettuce",
+          "amount": 60,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "honey",
+          "amount": 1,
+          "unit": "tsp"
+        },
+        {
+          "ingredient_id": "olive_oil",
+          "amount": 1,
+          "unit": "tbsp"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Грушу нарежьте тонкими дольками, удалив сердцевину."
+        },
+        {
+          "text": "Сыр с плесенью раскрошите руками."
+        },
+        {
+          "text": "Выложите листья салата, сверху дольки груши, сыр и орехи."
+        },
+        {
+          "text": "Сбрызните салат маслом и полейте мёдом."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_baked_brie_honey",
+      "title": "Запечённый бри с мёдом и орехами",
+      "dish_type": "snack",
+      "dish_group": "egg_dairy",
+      "cuisine": "fr",
+      "total_minutes": 20,
+      "active_minutes": 5,
+      "cook_minutes": 15,
+      "servings": 4,
+      "description": "Тёплый бри с мёдом и орехами. Макают хлеб или гренки.",
+      "ingredients": [
+        {
+          "ingredient_id": "brie",
+          "amount": 200,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "honey",
+          "amount": 2,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "walnut",
+          "amount": 30,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "thyme",
+          "amount": 1,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "baguette",
+          "amount": 1,
+          "unit": "pcs"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Надрежьте верхнюю корочку бри сеточкой."
+        },
+        {
+          "text": "Положите сыр в небольшую форму, полейте мёдом и посыпьте орехами с тимьяном."
+        },
+        {
+          "text": "Запекайте при 180 градусах 12 минут, пока середина не станет мягкой.",
+          "timer_seconds": 720
+        },
+        {
+          "text": "Подавайте сразу с ломтиками подсушенного багета."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_cheddar_mac_cheese",
+      "title": "Макароны с сыром чеддер",
+      "dish_type": "main",
+      "dish_group": "egg_dairy",
+      "cuisine": "us",
+      "total_minutes": 40,
+      "active_minutes": 20,
+      "cook_minutes": 20,
+      "servings": 4,
+      "description": "Американские мак-н-чиз с соусом из чеддера и хрустящей корочкой.",
+      "ingredients": [
+        {
+          "ingredient_id": "horns_pasta",
+          "amount": 300,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "cheddar",
+          "amount": 200,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "milk",
+          "amount": 400,
+          "unit": "ml"
+        },
+        {
+          "ingredient_id": "butter",
+          "amount": 30,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "flour",
+          "amount": 2,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "breadcrumbs",
+          "amount": 2,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Рожки отварите в подсоленной воде 8 минут и откиньте.",
+          "timer_seconds": 480
+        },
+        {
+          "text": "Растопите сливочное масло, обжарьте в нём муку 1 минуту и влейте молоко.",
+          "timer_seconds": 60
+        },
+        {
+          "text": "Варите соус, помешивая, 5 минут до загустения, вмешайте тёртый чеддер.",
+          "timer_seconds": 300
+        },
+        {
+          "text": "Смешайте макароны с соусом, посыпьте сухарями и запекайте при 200 градусах 10 минут.",
+          "timer_seconds": 600
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_smoked_cheese_salad",
+      "title": "Салат с копчёным сыром и ветчиной",
+      "dish_type": "salad",
+      "dish_group": "salad_snack",
+      "cuisine": "home",
+      "total_minutes": 15,
+      "active_minutes": 15,
+      "cook_minutes": 0,
+      "servings": 4,
+      "description": "Сытный салат с копчёным сыром-косичкой, ветчиной и огурцом.",
+      "ingredients": [
+        {
+          "ingredient_id": "smoked_cheese",
+          "amount": 150,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "ham",
+          "amount": 150,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "cucumber",
+          "amount": 1,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "corn_canned",
+          "amount": 150,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "mayonnaise",
+          "amount": 3,
+          "unit": "tbsp"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Сыр-косичку разберите на тонкие волокна."
+        },
+        {
+          "text": "Ветчину и огурец нарежьте соломкой."
+        },
+        {
+          "text": "С кукурузы слейте жидкость."
+        },
+        {
+          "text": "Соедините ингредиенты и заправьте майонезом."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_goat_cheese_beet_salad",
+      "title": "Свёкла с козьим сыром и рукколой",
+      "dish_type": "salad",
+      "dish_group": "salad_snack",
+      "cuisine": "fr",
+      "total_minutes": 70,
+      "active_minutes": 15,
+      "cook_minutes": 55,
+      "servings": 4,
+      "description": "Запечённая свёкла с мягким козьим сыром и орехами. Классика бистро.",
+      "ingredients": [
+        {
+          "ingredient_id": "beet",
+          "amount": 3,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "goat_cheese",
+          "amount": 120,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "arugula",
+          "amount": 60,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "walnut",
+          "amount": 30,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "balsamic",
+          "amount": 1,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "olive_oil",
+          "amount": 2,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Свёклу заверните в фольгу и запекайте при 200 градусах 50 минут.",
+          "timer_seconds": 3000
+        },
+        {
+          "text": "Остудите, очистите и нарежьте свёклу дольками."
+        },
+        {
+          "text": "Выложите рукколу, свёклу и кусочки козьего сыра."
+        },
+        {
+          "text": "Посыпьте орехами и полейте маслом с бальзамиком, посолите."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_varenets_berries",
+      "title": "Варенец с ягодами и мёдом",
+      "dish_type": "dessert",
+      "dish_group": "egg_dairy",
+      "cuisine": "ru",
+      "total_minutes": 10,
+      "active_minutes": 10,
+      "cook_minutes": 0,
+      "servings": 2,
+      "description": "Густой варенец с замороженными ягодами и ложкой мёда. Полдник за пять минут.",
+      "ingredients": [
+        {
+          "ingredient_id": "varenets",
+          "amount": 400,
+          "unit": "ml"
+        },
+        {
+          "ingredient_id": "frozen_berries",
+          "amount": 150,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "honey",
+          "amount": 2,
+          "unit": "tsp"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Ягоды разморозьте при комнатной температуре 10 минут."
+        },
+        {
+          "text": "Разлейте варенец по стаканам."
+        },
+        {
+          "text": "Сверху выложите ягоды с соком и полейте мёдом."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_ayran_okroshka",
+      "title": "Окрошка на айране",
+      "dish_type": "soup",
+      "dish_group": "soup",
+      "cuisine": "tr",
+      "total_minutes": 35,
+      "active_minutes": 25,
+      "cook_minutes": 10,
+      "servings": 4,
+      "description": "Освежающая окрошка на солоноватом айране. Подаётся холодной в жару.",
+      "ingredients": [
+        {
+          "ingredient_id": "ayran",
+          "amount": 1,
+          "unit": "l"
+        },
+        {
+          "ingredient_id": "potato",
+          "amount": 3,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "egg",
+          "amount": 3,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "cucumber",
+          "amount": 2,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "radish",
+          "amount": 6,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "green_onion",
+          "amount": 20,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "dill",
+          "amount": 15,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "boiled_sausage",
+          "amount": 200,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Картофель отварите в мундире 20 минут, яйца — вкрутую 10 минут, остудите.",
+          "timer_seconds": 1800
+        },
+        {
+          "text": "Очистите их и нарежьте мелкими кубиками."
+        },
+        {
+          "text": "Огурцы, редис и колбасу нарежьте так же мелко."
+        },
+        {
+          "text": "Добавьте рубленую зелень и посолите."
+        },
+        {
+          "text": "Залейте холодным айраном перед самой подачей."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_greek_yogurt_tzatziki_bowl",
+      "title": "Боул с греческим йогуртом и гранолой",
+      "dish_type": "breakfast",
+      "dish_group": "egg_dairy",
+      "cuisine": "gr",
+      "total_minutes": 10,
+      "active_minutes": 10,
+      "cook_minutes": 0,
+      "servings": 2,
+      "description": "Плотный греческий йогурт с гранолой, ягодами и мёдом. Быстрый белковый завтрак.",
+      "ingredients": [
+        {
+          "ingredient_id": "greek_yogurt",
+          "amount": 300,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "granola",
+          "amount": 60,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "blueberry",
+          "amount": 80,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "honey",
+          "amount": 2,
+          "unit": "tsp"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Разложите греческий йогурт по пиалам."
+        },
+        {
+          "text": "Сверху насыпьте гранолу и голубику."
+        },
+        {
+          "text": "Полейте мёдом прямо перед едой, чтобы гранола не размокла."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_baked_milk_porridge",
+      "title": "Пшённая каша на топлёном молоке",
+      "dish_type": "breakfast",
+      "dish_group": "porridge_side",
+      "cuisine": "ru",
+      "total_minutes": 50,
+      "active_minutes": 10,
+      "cook_minutes": 40,
+      "servings": 4,
+      "description": "Каша на топлёном молоке с карамельным вкусом. Томится в духовке, как в печи.",
+      "ingredients": [
+        {
+          "ingredient_id": "millet",
+          "amount": 200,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "baked_milk",
+          "amount": 800,
+          "unit": "ml"
+        },
+        {
+          "ingredient_id": "butter",
+          "amount": 30,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "sugar",
+          "amount": 2,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Пшено промойте и обдайте кипятком."
+        },
+        {
+          "text": "Переложите крупу в горшочек, залейте топлёным молоком, добавьте сахар и соль."
+        },
+        {
+          "text": "Томите кашу в духовке при 170 градусах 40 минут.",
+          "timer_seconds": 2400
+        },
+        {
+          "text": "Добавьте сливочное масло и перемешайте перед подачей."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_ghee_rice_cardamom",
+      "title": "Рис на топлёном масле с кардамоном",
+      "dish_type": "side",
+      "dish_group": "porridge_side",
+      "cuisine": "in",
+      "total_minutes": 30,
+      "active_minutes": 10,
+      "cook_minutes": 20,
+      "servings": 4,
+      "description": "Ароматный рис басмати, обжаренный в гхи с кардамоном и гвоздикой. Гарнир к карри.",
+      "ingredients": [
+        {
+          "ingredient_id": "basmati_rice",
+          "amount": 300,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "ghee",
+          "amount": 2,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "cardamom",
+          "amount": 3,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "cloves",
+          "amount": 3,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "water",
+          "amount": 550,
+          "unit": "ml"
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Рис промойте до прозрачной воды и замочите на 20 минут."
+        },
+        {
+          "text": "Прогрейте топлёное масло с кардамоном и гвоздикой 1 минуту.",
+          "timer_seconds": 60
+        },
+        {
+          "text": "Добавьте рис и обжаривайте 2 минуты, затем влейте горячую воду и посолите.",
+          "timer_seconds": 120
+        },
+        {
+          "text": "Варите под крышкой на слабом огне 15 минут и дайте постоять 5 минут.",
+          "timer_seconds": 900
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_whipped_cream_strawberries",
+      "title": "Клубника со взбитыми сливками",
+      "dish_type": "dessert",
+      "dish_group": "dessert",
+      "cuisine": "uk",
+      "total_minutes": 15,
+      "active_minutes": 15,
+      "cook_minutes": 0,
+      "servings": 4,
+      "description": "Клубника со сливками по-английски. Сливки взбивают охлаждёнными.",
+      "ingredients": [
+        {
+          "ingredient_id": "strawberry",
+          "amount": 400,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "cream_33",
+          "amount": 250,
+          "unit": "ml"
+        },
+        {
+          "ingredient_id": "powdered_sugar",
+          "amount": 2,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "vanilla_sugar",
+          "amount": 1,
+          "unit": "tsp"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Охладите сливки, миску и венчик в морозилке 10 минут."
+        },
+        {
+          "text": "Взбейте холодные сливки с сахарной пудрой и ванильным сахаром до мягких пиков."
+        },
+        {
+          "text": "Клубнику разрежьте пополам и разложите по креманкам."
+        },
+        {
+          "text": "Выложите сверху взбитые сливки и подавайте сразу."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_carbonara_cream",
+      "title": "Паста со сливками и беконом",
+      "dish_type": "main",
+      "dish_group": "egg_dairy",
+      "cuisine": "it",
+      "total_minutes": 25,
+      "active_minutes": 15,
+      "cook_minutes": 10,
+      "servings": 4,
+      "description": "Тальятелле в сливочном соусе с беконом и пармезаном. Быстрый ужин.",
+      "ingredients": [
+        {
+          "ingredient_id": "tagliatelle",
+          "amount": 350,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "bacon",
+          "amount": 150,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "cream_10",
+          "amount": 200,
+          "unit": "ml"
+        },
+        {
+          "ingredient_id": "parmesan",
+          "amount": 50,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "garlic",
+          "amount": 1,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "black_pepper",
+          "amount": null,
+          "unit": "to_taste"
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Тальятелле отварите в подсоленной воде 8 минут.",
+          "timer_seconds": 480
+        },
+        {
+          "text": "Бекон нарежьте полосками и обжарьте с чесноком 10 минут до хруста.",
+          "timer_seconds": 600
+        },
+        {
+          "text": "Влейте сливки и тушите соус 5 минут, затем вмешайте тёртый пармезан.",
+          "timer_seconds": 300
+        },
+        {
+          "text": "Смешайте пасту с соусом, поперчите и подавайте."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_grainy_cottage_salad",
+      "title": "Зернёный творог с огурцом и зеленью",
+      "dish_type": "breakfast",
+      "dish_group": "egg_dairy",
+      "cuisine": "home",
+      "total_minutes": 10,
+      "active_minutes": 10,
+      "cook_minutes": 0,
+      "servings": 2,
+      "description": "Лёгкий завтрак из зернёного творога, огурца и укропа. Белок без готовки.",
+      "ingredients": [
+        {
+          "ingredient_id": "cottage_cheese_grainy",
+          "amount": 300,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "cucumber",
+          "amount": 1,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "dill",
+          "amount": 10,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "green_onion",
+          "amount": 10,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Огурец нарежьте мелкими кубиками."
+        },
+        {
+          "text": "Зелень мелко порубите."
+        },
+        {
+          "text": "Перемешайте зернёный творог с огурцом и зеленью, слегка посолите."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_curd_mass_pancakes",
+      "title": "Блинчики с творожной массой",
+      "dish_type": "dessert",
+      "dish_group": "egg_dairy",
+      "cuisine": "ru",
+      "total_minutes": 60,
+      "active_minutes": 35,
+      "cook_minutes": 25,
+      "servings": 6,
+      "description": "Тонкие блинчики с начинкой из творожной массы с изюмом, обжаренные в масле.",
+      "ingredients": [
+        {
+          "ingredient_id": "curd_mass",
+          "amount": 400,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "milk",
+          "amount": 500,
+          "unit": "ml"
+        },
+        {
+          "ingredient_id": "egg",
+          "amount": 2,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "flour",
+          "amount": 200,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "sugar",
+          "amount": 1,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "butter",
+          "amount": 30,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "sunflower_oil",
+          "amount": 2,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Взбейте яйца с сахаром и солью, влейте молоко и вмешайте муку."
+        },
+        {
+          "text": "Добавьте масло и жарьте тонкие блины по 2 минуты с каждой стороны.",
+          "timer_seconds": 240
+        },
+        {
+          "text": "На каждый блин положите ложку творожной массы и заверните конвертом."
+        },
+        {
+          "text": "Обжарьте конвертики на сливочном масле по 2 минуты с каждой стороны.",
+          "timer_seconds": 240
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_sausage_cheese_hot_sandwich",
+      "title": "Горячие бутерброды с колбасным сыром",
+      "dish_type": "snack",
+      "dish_group": "salad_snack",
+      "cuisine": "ru",
+      "total_minutes": 15,
+      "active_minutes": 10,
+      "cook_minutes": 5,
+      "servings": 4,
+      "description": "Тосты с помидором и колбасным сыром, запечённые до румяной корочки.",
+      "ingredients": [
+        {
+          "ingredient_id": "toast_bread",
+          "amount": 4,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "sausage_cheese",
+          "amount": 120,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "tomato",
+          "amount": 1,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "mayonnaise",
+          "amount": 1,
+          "unit": "tbsp"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Тостовый хлеб смажьте тонким слоем майонеза."
+        },
+        {
+          "text": "Положите кружки помидора и натрите колбасный сыр сверху."
+        },
+        {
+          "text": "Запекайте бутерброды при 200 градусах 6 минут до румяного сыра.",
+          "timer_seconds": 360
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_oat_milk_porridge",
+      "title": "Овсянка на овсяном молоке с бананом",
+      "dish_type": "breakfast",
+      "dish_group": "porridge_side",
+      "cuisine": "home",
+      "total_minutes": 15,
+      "active_minutes": 5,
+      "cook_minutes": 10,
+      "servings": 2,
+      "description": "Постная овсяная каша на растительном молоке с бананом и корицей.",
+      "ingredients": [
+        {
+          "ingredient_id": "oatmeal",
+          "amount": 80,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "oat_milk",
+          "amount": 400,
+          "unit": "ml"
+        },
+        {
+          "ingredient_id": "banana",
+          "amount": 1,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "cinnamon",
+          "amount": 0.5,
+          "unit": "tsp"
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Доведите овсяное молоко до кипения со щепоткой соли."
+        },
+        {
+          "text": "Всыпьте хлопья и варите кашу 6 минут, помешивая.",
+          "timer_seconds": 360
+        },
+        {
+          "text": "Добавьте кружки банана и корицу, перемешайте и подавайте."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_almond_milk_chia_pudding",
+      "title": "Пудинг чиа на миндальном молоке",
+      "dish_type": "dessert",
+      "dish_group": "dessert",
+      "cuisine": "us",
+      "total_minutes": 250,
+      "active_minutes": 10,
+      "cook_minutes": 0,
+      "servings": 2,
+      "description": "Пудинг из семян чиа на миндальном молоке с манго. Готовится с вечера.",
+      "ingredients": [
+        {
+          "ingredient_id": "chia",
+          "amount": 4,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "almond_milk",
+          "amount": 300,
+          "unit": "ml"
+        },
+        {
+          "ingredient_id": "honey",
+          "amount": 1,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "mango",
+          "amount": 1,
+          "unit": "pcs"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Смешайте семена чиа с миндальным молоком и мёдом."
+        },
+        {
+          "text": "Через 10 минут ещё раз перемешайте, чтобы не было комочков."
+        },
+        {
+          "text": "Уберите пудинг в холодильник на 4 часа или на ночь."
+        },
+        {
+          "text": "Сверху выложите кубики манго перед подачей."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_soy_milk_smoothie",
+      "title": "Смузи на соевом молоке с ягодами",
+      "dish_type": "drink",
+      "dish_group": "beverage",
+      "cuisine": "home",
+      "total_minutes": 5,
+      "active_minutes": 5,
+      "cook_minutes": 0,
+      "servings": 2,
+      "description": "Ягодный смузи без молочного: соевое молоко, банан и замороженные ягоды.",
+      "ingredients": [
+        {
+          "ingredient_id": "soy_milk",
+          "amount": 300,
+          "unit": "ml"
+        },
+        {
+          "ingredient_id": "banana",
+          "amount": 1,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "frozen_berries",
+          "amount": 150,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "honey",
+          "amount": 1,
+          "unit": "tsp"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Положите банан, ягоды и мёд в чашу блендера."
+        },
+        {
+          "text": "Влейте соевое молоко и взбивайте до однородности 1 минуту.",
+          "timer_seconds": 60
+        },
+        {
+          "text": "Разлейте по стаканам и выпейте сразу."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_oreshki_boiled_condensed",
+      "title": "Печенье «Орешки» с варёной сгущёнкой",
+      "dish_type": "dessert",
+      "dish_group": "dessert",
+      "cuisine": "ru",
+      "total_minutes": 90,
+      "active_minutes": 40,
+      "cook_minutes": 25,
+      "servings": 10,
+      "description": "Песочные половинки, склеенные варёной сгущёнкой. Нужна форма-орешница.",
+      "ingredients": [
+        {
+          "ingredient_id": "flour",
+          "amount": 300,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "butter",
+          "amount": 200,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "egg",
+          "amount": 2,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "sugar",
+          "amount": 80,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "boiled_condensed_milk",
+          "amount": 380,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "walnut",
+          "amount": 50,
+          "unit": "g"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Разотрите размягчённое масло с сахаром и яйцами, вмешайте муку."
+        },
+        {
+          "text": "Разогрейте форму-орешницу и смажьте маслом."
+        },
+        {
+          "text": "Запекайте половинки в орешнице на плите по 2 минуты с каждой стороны до золотистого цвета.",
+          "timer_seconds": 240
+        },
+        {
+          "text": "Смешайте варёную сгущёнку с рублеными орехами."
+        },
+        {
+          "text": "Наполните остывшие половинки начинкой и соедините их."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_meringue_egg_white",
+      "title": "Безе из яичных белков",
+      "dish_type": "dessert",
+      "dish_group": "dessert",
+      "cuisine": "fr",
+      "total_minutes": 140,
+      "active_minutes": 20,
+      "cook_minutes": 120,
+      "servings": 8,
+      "description": "Хрустящее безе: белки и сахар, сушка в духовке при низкой температуре.",
+      "ingredients": [
+        {
+          "ingredient_id": "egg_white",
+          "amount": 4,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "sugar",
+          "amount": 200,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "citric_acid",
+          "amount": 0.25,
+          "unit": "tsp"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Взбейте белки с лимонной кислотой до мягких пиков."
+        },
+        {
+          "text": "Добавляйте сахар по ложке и взбивайте до плотной глянцевой массы."
+        },
+        {
+          "text": "Отсадите безе на пергамент кондитерским мешком."
+        },
+        {
+          "text": "Запекайте безе при 100 градусах 2 часа, затем оставьте его остывать в духовке.",
+          "timer_seconds": 7200
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_egg_yolk_custard",
+      "title": "Заварной крем на желтках",
+      "dish_type": "dessert",
+      "dish_group": "dessert",
+      "cuisine": "fr",
+      "total_minutes": 30,
+      "active_minutes": 20,
+      "cook_minutes": 10,
+      "servings": 6,
+      "description": "Густой заварной крем для торта или эклеров. Варится на слабом огне.",
+      "ingredients": [
+        {
+          "ingredient_id": "egg_yolk",
+          "amount": 4,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "milk",
+          "amount": 500,
+          "unit": "ml"
+        },
+        {
+          "ingredient_id": "sugar",
+          "amount": 100,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "starch",
+          "amount": 2,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "vanilla_sugar",
+          "amount": 1,
+          "unit": "tsp"
+        },
+        {
+          "ingredient_id": "butter",
+          "amount": 30,
+          "unit": "g"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Разотрите желтки с сахаром и крахмалом."
+        },
+        {
+          "text": "Влейте горячее молоко тонкой струйкой, постоянно помешивая."
+        },
+        {
+          "text": "Варите крем на слабом огне 5 минут, пока не загустеет.",
+          "timer_seconds": 300
+        },
+        {
+          "text": "Снимите с огня, добавьте масло и ванильный сахар, накройте плёнкой и остудите."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_smoked_tofu_salad",
+      "title": "Салат с копчёным тофу и овощами",
+      "dish_type": "salad",
+      "dish_group": "salad_snack",
+      "cuisine": "cn",
+      "total_minutes": 15,
+      "active_minutes": 15,
+      "cook_minutes": 0,
+      "servings": 2,
+      "description": "Постный салат с копчёным тофу, перцем и огурцом в соевой заправке.",
+      "ingredients": [
+        {
+          "ingredient_id": "tofu_smoked",
+          "amount": 200,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "cucumber",
+          "amount": 1,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "bell_pepper",
+          "amount": 1,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "soy_sauce",
+          "amount": 1,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "sesame_oil",
+          "amount": 1,
+          "unit": "tsp"
+        },
+        {
+          "ingredient_id": "sesame",
+          "amount": 1,
+          "unit": "tsp"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Копчёный тофу нарежьте брусочками."
+        },
+        {
+          "text": "Огурец и перец нарежьте соломкой."
+        },
+        {
+          "text": "Смешайте соевый соус с кунжутным маслом."
+        },
+        {
+          "text": "Заправьте салат и посыпьте кунжутом."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_evaporated_milk_coffee",
+      "title": "Кофе со сгущённым молоком по-вьетнамски",
+      "dish_type": "drink",
+      "dish_group": "beverage",
+      "cuisine": "th",
+      "total_minutes": 10,
+      "active_minutes": 10,
+      "cook_minutes": 0,
+      "servings": 1,
+      "description": "Крепкий кофе, налитый на сгущённое молоко без сахара и лёд.",
+      "ingredients": [
+        {
+          "ingredient_id": "coffee_ground",
+          "amount": 2,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "evaporated_milk",
+          "amount": 50,
+          "unit": "ml"
+        },
+        {
+          "ingredient_id": "sugar",
+          "amount": 1,
+          "unit": "tsp"
+        },
+        {
+          "ingredient_id": "water",
+          "amount": 150,
+          "unit": "ml"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Заварите молотый кофе горячей водой и дайте настояться 4 минуты."
+        },
+        {
+          "text": "В стакан налейте сгущённое молоко с сахаром."
+        },
+        {
+          "text": "Процедите кофе в стакан и перемешайте."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_buckwheat_kernel_merchant",
+      "title": "Гречка по-купечески с курицей",
+      "dish_type": "main",
+      "dish_group": "meat",
+      "cuisine": "ru",
+      "total_minutes": 50,
+      "active_minutes": 20,
+      "cook_minutes": 30,
+      "servings": 4,
+      "description": "Рассыпчатая гречка ядрица, томлённая с курицей и овощами в одной сковороде.",
+      "ingredients": [
+        {
+          "ingredient_id": "buckwheat_kernel",
+          "amount": 250,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "chicken_fillet",
+          "amount": 400,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "onion",
+          "amount": 1,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "carrot",
+          "amount": 1,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "tomato_paste",
+          "amount": 1,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "sunflower_oil",
+          "amount": 2,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "water",
+          "amount": 500,
+          "unit": "ml"
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Куриное филе нарежьте кубиками и обжарьте на масле 8 минут.",
+          "timer_seconds": 480
+        },
+        {
+          "text": "Добавьте лук и тёртую морковь, жарьте ещё 5 минут.",
+          "timer_seconds": 300
+        },
+        {
+          "text": "Вмешайте томатную пасту, всыпьте промытую гречку и влейте горячую воду."
+        },
+        {
+          "text": "Посолите и тушите под крышкой на слабом огне 20 минут.",
+          "timer_seconds": 1200
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_green_buckwheat_salad",
+      "title": "Салат с зелёной гречкой и овощами",
+      "dish_type": "salad",
+      "dish_group": "salad_snack",
+      "cuisine": "home",
+      "total_minutes": 30,
+      "active_minutes": 15,
+      "cook_minutes": 15,
+      "servings": 4,
+      "description": "Зелёная гречка с огурцом, помидором и зеленью. Сытный постный салат.",
+      "ingredients": [
+        {
+          "ingredient_id": "buckwheat_green",
+          "amount": 150,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "cucumber",
+          "amount": 1,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "tomato",
+          "amount": 2,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "parsley",
+          "amount": 15,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "olive_oil",
+          "amount": 2,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "lemon",
+          "amount": 0.5,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Зелёную гречку отварите в подсоленной воде 13 минут и остудите.",
+          "timer_seconds": 780
+        },
+        {
+          "text": "Нарежьте кубиками огурец, затем помидоры, петрушку порубите."
+        },
+        {
+          "text": "Соедините всё с гречкой."
+        },
+        {
+          "text": "Заправьте оливковым маслом и лимонным соком."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_buckwheat_flakes_porridge",
+      "title": "Каша из гречневых хлопьев с молоком",
+      "dish_type": "breakfast",
+      "dish_group": "porridge_side",
+      "cuisine": "ru",
+      "total_minutes": 10,
+      "active_minutes": 5,
+      "cook_minutes": 5,
+      "servings": 2,
+      "description": "Быстрая гречневая каша из хлопьев. Готовится за пять минут.",
+      "ingredients": [
+        {
+          "ingredient_id": "buckwheat_flakes",
+          "amount": 80,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "milk",
+          "amount": 300,
+          "unit": "ml"
+        },
+        {
+          "ingredient_id": "butter",
+          "amount": 10,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "sugar",
+          "amount": 1,
+          "unit": "tsp"
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Доведите молоко до кипения с солью и сахаром."
+        },
+        {
+          "text": "Всыпьте гречневые хлопья и варите 3 минуты, помешивая.",
+          "timer_seconds": 180
+        },
+        {
+          "text": "Снимите кашу с огня, добавьте масло и дайте постоять 2 минуты."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_long_rice_vegetables",
+      "title": "Рис с овощами по-мексикански",
+      "dish_type": "side",
+      "dish_group": "porridge_side",
+      "cuisine": "mx",
+      "total_minutes": 35,
+      "active_minutes": 10,
+      "cook_minutes": 25,
+      "servings": 4,
+      "description": "Пропаренный рис с кукурузой, горошком и перцем. Яркий гарнир к мясу.",
+      "ingredients": [
+        {
+          "ingredient_id": "long_rice",
+          "amount": 250,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "frozen_vegetables",
+          "amount": 300,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "tomato_paste",
+          "amount": 1,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "sunflower_oil",
+          "amount": 2,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "water",
+          "amount": 500,
+          "unit": "ml"
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Обжарьте рис на масле 3 минуты, помешивая.",
+          "timer_seconds": 180
+        },
+        {
+          "text": "Вмешайте томатную пасту и замороженные овощи."
+        },
+        {
+          "text": "Влейте горячую воду, посолите и варите под крышкой 18 минут.",
+          "timer_seconds": 1080
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_jasmine_rice_mango",
+      "title": "Рис жасмин с манго на кокосовом молоке",
+      "dish_type": "dessert",
+      "dish_group": "dessert",
+      "cuisine": "th",
+      "total_minutes": 40,
+      "active_minutes": 15,
+      "cook_minutes": 25,
+      "servings": 4,
+      "description": "Тайский десерт: клейкий рис на кокосовом молоке с ломтиками манго.",
+      "ingredients": [
+        {
+          "ingredient_id": "jasmine_rice",
+          "amount": 200,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "coconut_milk",
+          "amount": 400,
+          "unit": "ml"
+        },
+        {
+          "ingredient_id": "sugar",
+          "amount": 3,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "mango",
+          "amount": 2,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Рис промойте и отварите в половине кокосового молока с водой 18 минут.",
+          "timer_seconds": 1080
+        },
+        {
+          "text": "Оставшееся кокосовое молоко прогрейте с сахаром и щепоткой соли."
+        },
+        {
+          "text": "Полейте рис сладким кокосовым соусом и дайте постоять 10 минут."
+        },
+        {
+          "text": "Подавайте с ломтиками манго."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_brown_rice_bowl",
+      "title": "Боул с бурым рисом и тунцом",
+      "dish_type": "main",
+      "dish_group": "fish_seafood",
+      "cuisine": "jp",
+      "total_minutes": 50,
+      "active_minutes": 15,
+      "cook_minutes": 35,
+      "servings": 2,
+      "description": "Бурый рис, консервированный тунец, авокадо и огурец с соевой заправкой.",
+      "ingredients": [
+        {
+          "ingredient_id": "brown_rice",
+          "amount": 150,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "tuna_canned",
+          "amount": 160,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "avocado",
+          "amount": 1,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "cucumber",
+          "amount": 1,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "soy_sauce",
+          "amount": 2,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "sesame",
+          "amount": 1,
+          "unit": "tsp"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Бурый рис отварите в подсоленной воде 35 минут.",
+          "timer_seconds": 2100
+        },
+        {
+          "text": "Нарежьте ломтиками авокадо, а затем огурец."
+        },
+        {
+          "text": "Разложите рис по мискам, сверху тунец и овощи."
+        },
+        {
+          "text": "Полейте соевым соусом и посыпьте кунжутом."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_wild_rice_mushrooms",
+      "title": "Дикий рис с грибами",
+      "dish_type": "side",
+      "dish_group": "porridge_side",
+      "cuisine": "us",
+      "total_minutes": 60,
+      "active_minutes": 15,
+      "cook_minutes": 45,
+      "servings": 4,
+      "description": "Чёрный дикий рис с обжаренными шампиньонами и луком. Необычный гарнир к птице.",
+      "ingredients": [
+        {
+          "ingredient_id": "wild_rice",
+          "amount": 200,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "champignon",
+          "amount": 300,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "onion",
+          "amount": 1,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "butter",
+          "amount": 30,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "water",
+          "amount": 700,
+          "unit": "ml"
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Дикий рис промойте и варите в подсоленной воде 45 минут.",
+          "timer_seconds": 2700
+        },
+        {
+          "text": "Обжарьте лук с шампиньонами на сливочном масле 10 минут.",
+          "timer_seconds": 600
+        },
+        {
+          "text": "Смешайте рис с грибами и посолите по вкусу."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_arborio_risotto_parmesan",
+      "title": "Ризотто с пармезаном",
+      "dish_type": "main",
+      "dish_group": "egg_dairy",
+      "cuisine": "it",
+      "total_minutes": 40,
+      "active_minutes": 30,
+      "cook_minutes": 25,
+      "servings": 4,
+      "description": "Классическое белое ризотто. Бульон подливают постепенно, помешивая.",
+      "ingredients": [
+        {
+          "ingredient_id": "arborio_rice",
+          "amount": 300,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "onion",
+          "amount": 1,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "butter",
+          "amount": 40,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "parmesan",
+          "amount": 60,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "broth_cube",
+          "amount": 1,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "water",
+          "amount": 1.2,
+          "unit": "l"
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Растворите бульонный кубик в горячей воде."
+        },
+        {
+          "text": "Обжарьте мелко нарезанный лук на половине масла 4 минуты.",
+          "timer_seconds": 240
+        },
+        {
+          "text": "Всыпьте рис арборио и прогревайте 2 минуты, помешивая.",
+          "timer_seconds": 120
+        },
+        {
+          "text": "Подливайте бульон по половнику и варите ризотто 18 минут.",
+          "timer_seconds": 1080
+        },
+        {
+          "text": "Вмешайте оставшееся масло и тёртый пармезан, накройте на 2 минуты."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_sushi_rice_rolls",
+      "title": "Домашние роллы с огурцом и сыром",
+      "dish_type": "snack",
+      "dish_group": "salad_snack",
+      "cuisine": "jp",
+      "total_minutes": 60,
+      "active_minutes": 40,
+      "cook_minutes": 20,
+      "servings": 4,
+      "description": "Простые роллы с огурцом и сливочным сыром на листах нори.",
+      "ingredients": [
+        {
+          "ingredient_id": "sushi_rice",
+          "amount": 250,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "nori",
+          "amount": 4,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "cucumber",
+          "amount": 1,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "cream_cheese",
+          "amount": 150,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "rice_vinegar",
+          "amount": 2,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "sugar",
+          "amount": 1,
+          "unit": "tsp"
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Рис для суши промойте и сварите под крышкой 15 минут, дайте постоять 10 минут.",
+          "timer_seconds": 900
+        },
+        {
+          "text": "Смешайте рисовый уксус с сахаром и солью и вмешайте в тёплый рис."
+        },
+        {
+          "text": "На лист нори распределите рис, положите полоску огурца и сливочный сыр."
+        },
+        {
+          "text": "Сверните ролл бамбуковым ковриком и нарежьте острым мокрым ножом."
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_spelt_mushroom_pilaf",
+      "title": "Полба с грибами и луком",
+      "dish_type": "side",
+      "dish_group": "porridge_side",
+      "cuisine": "ru",
+      "total_minutes": 50,
+      "active_minutes": 15,
+      "cook_minutes": 35,
+      "servings": 4,
+      "description": "Старинная крупа полба с ореховым вкусом, тушённая с грибами.",
+      "ingredients": [
+        {
+          "ingredient_id": "spelt",
+          "amount": 200,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "champignon",
+          "amount": 250,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "onion",
+          "amount": 1,
+          "unit": "pcs"
+        },
+        {
+          "ingredient_id": "sunflower_oil",
+          "amount": 2,
+          "unit": "tbsp"
+        },
+        {
+          "ingredient_id": "water",
+          "amount": 600,
+          "unit": "ml"
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Полбу промойте и залейте горячей водой на 15 минут."
+        },
+        {
+          "text": "Обжарьте лук и грибы на масле 8 минут.",
+          "timer_seconds": 480
+        },
+        {
+          "text": "Добавьте полбу, влейте воду и посолите."
+        },
+        {
+          "text": "Варите под крышкой 30 минут, пока вода не впитается.",
+          "timer_seconds": 1800
+        }
+      ],
+      "quality": "curated"
+    },
+    {
+      "id": "r10_wheat_groats_porridge",
+      "title": "Пшеничная каша с маслом",
+      "dish_type": "side",
+      "dish_group": "porridge_side",
+      "cuisine": "ru",
+      "total_minutes": 40,
+      "active_minutes": 5,
+      "cook_minutes": 35,
+      "servings": 4,
+      "description": "Рассыпчатая пшеничная каша — простой гарнир к котлетам и подливе.",
+      "ingredients": [
+        {
+          "ingredient_id": "wheat_groats",
+          "amount": 200,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "water",
+          "amount": 500,
+          "unit": "ml"
+        },
+        {
+          "ingredient_id": "butter",
+          "amount": 30,
+          "unit": "g"
+        },
+        {
+          "ingredient_id": "salt",
+          "amount": null,
+          "unit": "to_taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Пшеничную крупу промойте в нескольких водах."
+        },
+        {
+          "text": "Залейте крупу кипятком, посолите и варите на слабом огне 30 минут.",
+          "timer_seconds": 1800
+        },
+        {
+          "text": "Добавьте масло и оставьте под крышкой на 5 минут."
+        }
+      ],
+      "quality": "curated"
+    }
+  ]
+}

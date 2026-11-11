@@ -127,7 +127,13 @@ void main() {
       }
       // The catalog is large enough: the assistant is not asked at all.
       expect(filler.calls, 0);
-      expect(snapshot.groupCounts.values.fold<int>(0, (a, b) => a + b), 2039);
+      final total = await db
+          .customSelect('SELECT COUNT(*) AS c FROM recipes')
+          .getSingle();
+      expect(
+        snapshot.groupCounts.values.fold<int>(0, (a, b) => a + b),
+        total.read<int>('c'),
+      );
     });
 
     test('is deterministic for the same day', () async {

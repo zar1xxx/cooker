@@ -155,4 +155,29 @@ void main() {
       }
     },
   );
+
+  test('R10-05: new recipes are in the catalog, curated, use new products', () {
+    final added = (_json('assets/seed/recipes/r10_new.json')['recipes'] as List)
+        .cast<Map<String, dynamic>>();
+    final newProducts = (jsonDecode(
+      File('tool/seed_data/r10/new_product_ids.json').readAsStringSync(),
+    ) as List).cast<String>().toSet();
+    final catalog = {
+      for (final r
+          in (_json('assets/seed/recipes.json')['recipes'] as List)
+              .cast<Map<String, dynamic>>())
+        r['id'] as String: r,
+    };
+    for (final r in added) {
+      final inCatalog = catalog[r['id']];
+      expect(inCatalog, isNotNull, reason: '${r['id']}');
+      expect(inCatalog!['quality'], 'curated', reason: '${r['id']}');
+      expect(jsonEncode(inCatalog['steps']), jsonEncode(r['steps']));
+      final ids = {
+        for (final i in (r['ingredients'] as List).cast<Map<String, dynamic>>())
+          i['ingredient_id'] as String,
+      };
+      expect(ids.intersection(newProducts), isNotEmpty, reason: '${r['id']}');
+    }
+  });
 }
