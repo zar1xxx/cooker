@@ -21,5 +21,10 @@ class Recipes extends Table with CommonFields {
   TextColumn get source => textEnum<RecipeSource>()();
   TextColumn get fingerprint => text()();
   TextColumn get aiModel => text().nullable()();
+
+  /// Catalog text quality (R9): `template` = short generated card shown as
+  /// «Упрощённая карточка»; `curated` or null = hand-written recipe.
+  /// Nullable on purpose: old rows and hand-built [Recipe] objects stay valid.
+  TextColumn get quality => text().nullable()();
   BoolColumn get isFavorite => boolean().withDefault(const Constant(false))();
 }

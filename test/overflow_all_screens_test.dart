@@ -19,6 +19,10 @@ import 'package:chto_prigotovit/core/services/daily_notification_service.dart';
 import 'package:chto_prigotovit/core/services/notification_service.dart';
 import 'package:chto_prigotovit/features/calendar/calendar_screen.dart';
 import 'package:chto_prigotovit/features/calendar/today_screen.dart';
+import 'package:chto_prigotovit/features/feed/feed_providers.dart';
+import 'package:chto_prigotovit/features/feed/feed_screen.dart';
+import 'package:chto_prigotovit/features/feed/feed_sections_screen.dart';
+import 'package:chto_prigotovit/features/feed/feed_settings_screen.dart';
 import 'package:chto_prigotovit/features/history/history_screen.dart';
 import 'package:chto_prigotovit/features/pantry/pantry_screen.dart';
 import 'package:chto_prigotovit/features/recipe/cooking_screen.dart';
@@ -268,6 +272,7 @@ void main() {
           recipeValidatorProvider.overrideWith(
             (ref) async => const RecipeValidator(safetyMinimums: {}),
           ),
+          feedAiFillerProvider.overrideWithValue(null),
         ],
         child: AdaptiveScope(
           spec: spec,
@@ -386,6 +391,10 @@ void main() {
       '10. TastePreferencesScreen': () => const TastePreferencesScreen(),
       '11. AppearanceSettingsScreen': () => const AppearanceSettingsScreen(),
       '12. StatisticsScreen': () => const StatisticsScreen(),
+      '14. FeedScreen': () => const FeedScreen(),
+      '15. FeedSectionsScreen': () => const FeedSectionsScreen(),
+      '16. FeedSectionScreen': () => const FeedSectionScreen(groupId: 'soup'),
+      '17. FeedSettingsScreen': () => const FeedSettingsScreen(),
       '13. BottomNavBar': () => Builder(
         builder: (context) {
           final l10n = AppLocalizations.of(context)!;

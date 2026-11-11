@@ -1552,5 +1552,221 @@
   "modePromptNever": "Больше не спрашивать",
   "@modePromptNever": {
     "description": "Кнопка больше не спрашивать о смене режима"
+  },
+  "feedScreenTitle": "Лента",
+  "@feedScreenTitle": {
+    "description": "Заголовок экрана ленты R7-07"
+  },
+  "feedOpenButton": "Может понравиться",
+  "@feedOpenButton": {
+    "description": "Кнопка на экране Сегодня, открывает ленту"
+  },
+  "feedMainHeader": "Может понравиться",
+  "@feedMainHeader": {
+    "description": "Заголовок главной ленты"
+  },
+  "feedOccasionHeader": "К празднику: {name}",
+  "@feedOccasionHeader": {
+    "description": "Заголовок ленты повода",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "feedMoodHeader": "По настроению",
+  "@feedMoodHeader": {
+    "description": "Заголовок кнопок настроения"
+  },
+  "feedCuisineHeader": "Кухни мира",
+  "@feedCuisineHeader": {
+    "description": "Заголовок кнопок кухонь"
+  },
+  "feedPantryHeader": "Из того, что есть дома",
+  "@feedPantryHeader": {
+    "description": "Заголовок ленты по продуктам"
+  },
+  "feedToBuyHeader": "Что докупить",
+  "@feedToBuyHeader": {
+    "description": "Блок продуктов, которых чаще всего не хватает"
+  },
+  "feedToBuyHint": "Этих продуктов чаще всего не хватает для подходящих вам блюд",
+  "@feedToBuyHint": {
+    "description": "Пояснение к блоку Что докупить"
+  },
+  "feedToBuyItem": "{name} — для {count} блюд",
+  "@feedToBuyItem": {
+    "description": "Строка блока Что докупить",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "feedCook": "Приготовить",
+  "@feedCook": {
+    "description": "Кнопка карточки ленты: открыть рецепт"
+  },
+  "feedNotThis": "Не хочу такое",
+  "@feedNotThis": {
+    "description": "Кнопка карточки ленты: убрать блюдо"
+  },
+  "feedToCalendar": "В календарь",
+  "@feedToCalendar": {
+    "description": "Кнопка карточки ленты: поставить на дату"
+  },
+  "feedSkipped": "Убрали из ленты, предложим другое",
+  "@feedSkipped": {
+    "description": "Сообщение после Не хочу такое"
+  },
+  "feedTryNew": "Попробуйте новое",
+  "@feedTryNew": {
+    "description": "Пометка блюда вне профиля вкуса"
+  },
+  "feedEmpty": "Подходящих блюд пока нет. Отметьте продукты дома или измените настройки ленты.",
+  "@feedEmpty": {
+    "description": "Пустая лента"
+  },
+  "feedLoadError": "Не удалось собрать ленту. Потяните вниз, чтобы попробовать ещё раз.",
+  "@feedLoadError": {
+    "description": "Ошибка загрузки ленты"
+  },
+  "feedAiAdded": "Помощник добавил блюд: {count}",
+  "@feedAiAdded": {
+    "description": "Сколько блюд добавил помощник",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "feedSections": "Разделы",
+  "@feedSections": {
+    "description": "Кнопка и заголовок экрана разделов"
+  },
+  "feedSectionCount": "Блюд: {count}",
+  "@feedSectionCount": {
+    "description": "Число блюд в разделе",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "feedSectionEmpty": "В этом разделе нет блюд с такими условиями",
+  "@feedSectionEmpty": {
+    "description": "Пустой раздел"
+  },
+  "feedAllDiets": "Все",
+  "@feedAllDiets": {
+    "description": "Чип без фильтра по диете"
+  },
+  "feedSettings": "Настройки ленты",
+  "@feedSettings": {
+    "description": "Заголовок и подсказка настроек ленты"
+  },
+  "feedSettingsHolidays": "Учитывать праздники",
+  "@feedSettingsHolidays": {
+    "description": "Переключатель праздников"
+  },
+  "feedSettingsHolidaysHint": "Подсказывать блюда к ближайшему празднику",
+  "@feedSettingsHolidaysHint": {
+    "description": "Пояснение переключателя праздников"
+  },
+  "feedSettingsFasts": "Учитывать постные дни",
+  "@feedSettingsFasts": {
+    "description": "Переключатель постов"
+  },
+  "feedSettingsFastsHint": "В пост показывать только постные блюда",
+  "@feedSettingsFastsHint": {
+    "description": "Пояснение переключателя постов"
+  },
+  "feedSettingsNew": "Показывать новое",
+  "@feedSettingsNew": {
+    "description": "Переключатель исследования"
+  },
+  "feedSettingsNewHint": "Иногда предлагать блюда, которые вы ещё не пробовали",
+  "@feedSettingsNewHint": {
+    "description": "Пояснение переключателя Показывать новое"
+  },
+  "feedResetTastes": "Сбросить мои вкусы",
+  "@feedResetTastes": {
+    "description": "Кнопка очистки событий ленты"
+  },
+  "feedResetConfirmTitle": "Сбросить вкусы ленты?",
+  "@feedResetConfirmTitle": {
+    "description": "Заголовок подтверждения сброса"
+  },
+  "feedResetConfirmBody": "Лента забудет, что вы открывали, готовили и пропускали. История и календарь останутся.",
+  "@feedResetConfirmBody": {
+    "description": "Текст подтверждения сброса"
+  },
+  "feedResetCancel": "Отмена",
+  "@feedResetCancel": {
+    "description": "Отмена сброса"
+  },
+  "feedResetConfirm": "Сбросить",
+  "@feedResetConfirm": {
+    "description": "Подтверждение сброса"
+  },
+  "feedResetDone": "Вкусы ленты сброшены",
+  "@feedResetDone": {
+    "description": "Сообщение после сброса"
+  },
+  "feedPrivacyTitle": "Где хранятся данные",
+  "@feedPrivacyTitle": {
+    "description": "Заголовок блока приватности"
+  },
+  "feedPrivacyBody": "Всё, что вы отмечаете в ленте, хранится только на этом телефоне. Компьютеру и GigaChat отправляется только список продуктов и тема подбора: праздник, кухня или настроение. Без вашего имени и истории.",
+  "@feedPrivacyBody": {
+    "description": "Текст о приватности ленты"
+  },
+  "planPickDateHelp": "На какой день поставить блюдо?",
+  "@planPickDateHelp": {
+    "description": "Подсказка выбора даты"
+  },
+  "planDayLocked": "Этот день закреплён, блюдо не заменено",
+  "@planDayLocked": {
+    "description": "День закреплён в календаре"
+  },
+  "missingButton": "Чего не хватает",
+  "@missingButton": {
+    "description": "Кнопка на рецепте"
+  },
+  "missingNone": "Всё есть дома",
+  "@missingNone": {
+    "description": "Нет недостающих продуктов"
+  },
+  "missingShare": "Поделиться списком",
+  "@missingShare": {
+    "description": "Отправить список через системное меню"
+  },
+  "missingKuper": "Искать в Купере",
+  "@missingKuper": {
+    "description": "Открыть поиск Купера в браузере"
+  },
+  "missingKuperHint": "Поиск откроется в браузере. Передаётся только название продукта.",
+  "@missingKuperHint": {
+    "description": "Пояснение про Купер"
+  },
+  "missingSamokatHint": "Для Самоката или магазина отправьте список кнопкой «Поделиться списком».",
+  "@missingSamokatHint": {
+    "description": "Пояснение про Самокат"
+  },
+  "missingShareTitle": "Купить для «{title}»:",
+  "@missingShareTitle": {
+    "description": "Первая строка списка покупок",
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "missingOpenFailed": "Не удалось открыть браузер",
+  "@missingOpenFailed": {
+    "description": "Ошибка открытия ссылки"
   }
 }

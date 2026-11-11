@@ -5,6 +5,9 @@ import '../core/ai/ai_service.dart';
 
 import '../features/calendar/calendar_screen.dart';
 import '../features/calendar/today_screen.dart';
+import '../features/feed/feed_screen.dart';
+import '../features/feed/feed_sections_screen.dart';
+import '../features/feed/feed_settings_screen.dart';
 import '../features/history/history_screen.dart';
 import '../features/pantry/pantry_screen.dart';
 import '../features/recipe/cooking_screen.dart';
@@ -32,6 +35,27 @@ final GoRouter appRouter = GoRouter(
       path: '/suggestions',
       parentNavigatorKey: rootNavigatorKey,
       builder: (context, state) => const SuggestionsScreen(),
+    ),
+    GoRoute(
+      path: '/feed',
+      parentNavigatorKey: rootNavigatorKey,
+      builder: (context, state) => const FeedScreen(),
+    ),
+    GoRoute(
+      path: '/feed/sections',
+      parentNavigatorKey: rootNavigatorKey,
+      builder: (context, state) => const FeedSectionsScreen(),
+    ),
+    GoRoute(
+      path: '/feed/section/:group',
+      parentNavigatorKey: rootNavigatorKey,
+      builder: (context, state) =>
+          FeedSectionScreen(groupId: state.pathParameters['group'] ?? ''),
+    ),
+    GoRoute(
+      path: '/settings/feed',
+      parentNavigatorKey: rootNavigatorKey,
+      builder: (context, state) => const FeedSettingsScreen(),
     ),
     GoRoute(
       path: '/statistics',

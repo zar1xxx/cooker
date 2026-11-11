@@ -84,6 +84,35 @@ class HistoryDao {
     );
 
     await _db.into(_db.feedbackEvents).insert(feedback);
+
+    // R7-08: cooking also teaches the feed (feed_events references recipes,
+    // so a recipe that is not in the catalog is skipped).
+    final inCatalog = await (_db.select(
+      _db.recipes,
+    )..where((tbl) => tbl.id.equals(recipeId))).getSingleOrNull();
+    if (inCatalog != null) {
+      await _db
+          .into(_db.feedEvents)
+          .insert(
+            FeedEventsCompanion.insert(
+              recipeId: recipeId,
+              event: 'cooked',
+              at: Value(nowMs),
+            ),
+          );
+      if (rating != null) {
+        await _db
+            .into(_db.feedEvents)
+            .insert(
+              FeedEventsCompanion.insert(
+                recipeId: recipeId,
+                event: 'rated',
+                rating: Value(rating),
+                at: Value(nowMs),
+              ),
+            );
+      }
+    }
     await preferenceService?.recalculateProfile();
 
     return entry;

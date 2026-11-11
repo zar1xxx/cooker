@@ -1146,4 +1146,164 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get modePromptNever => 'Больше не спрашивать';
+
+  @override
+  String get feedScreenTitle => 'Лента';
+
+  @override
+  String get feedOpenButton => 'Может понравиться';
+
+  @override
+  String get feedMainHeader => 'Может понравиться';
+
+  @override
+  String feedOccasionHeader(String name) {
+    return 'К празднику: $name';
+  }
+
+  @override
+  String get feedMoodHeader => 'По настроению';
+
+  @override
+  String get feedCuisineHeader => 'Кухни мира';
+
+  @override
+  String get feedPantryHeader => 'Из того, что есть дома';
+
+  @override
+  String get feedToBuyHeader => 'Что докупить';
+
+  @override
+  String get feedToBuyHint =>
+      'Этих продуктов чаще всего не хватает для подходящих вам блюд';
+
+  @override
+  String feedToBuyItem(String name, int count) {
+    return '$name — для $count блюд';
+  }
+
+  @override
+  String get feedCook => 'Приготовить';
+
+  @override
+  String get feedNotThis => 'Не хочу такое';
+
+  @override
+  String get feedToCalendar => 'В календарь';
+
+  @override
+  String get feedSkipped => 'Убрали из ленты, предложим другое';
+
+  @override
+  String get feedTryNew => 'Попробуйте новое';
+
+  @override
+  String get feedEmpty =>
+      'Подходящих блюд пока нет. Отметьте продукты дома или измените настройки ленты.';
+
+  @override
+  String get feedLoadError =>
+      'Не удалось собрать ленту. Потяните вниз, чтобы попробовать ещё раз.';
+
+  @override
+  String feedAiAdded(int count) {
+    return 'Помощник добавил блюд: $count';
+  }
+
+  @override
+  String get feedSections => 'Разделы';
+
+  @override
+  String feedSectionCount(int count) {
+    return 'Блюд: $count';
+  }
+
+  @override
+  String get feedSectionEmpty => 'В этом разделе нет блюд с такими условиями';
+
+  @override
+  String get feedAllDiets => 'Все';
+
+  @override
+  String get feedSettings => 'Настройки ленты';
+
+  @override
+  String get feedSettingsHolidays => 'Учитывать праздники';
+
+  @override
+  String get feedSettingsHolidaysHint =>
+      'Подсказывать блюда к ближайшему празднику';
+
+  @override
+  String get feedSettingsFasts => 'Учитывать постные дни';
+
+  @override
+  String get feedSettingsFastsHint => 'В пост показывать только постные блюда';
+
+  @override
+  String get feedSettingsNew => 'Показывать новое';
+
+  @override
+  String get feedSettingsNewHint =>
+      'Иногда предлагать блюда, которые вы ещё не пробовали';
+
+  @override
+  String get feedResetTastes => 'Сбросить мои вкусы';
+
+  @override
+  String get feedResetConfirmTitle => 'Сбросить вкусы ленты?';
+
+  @override
+  String get feedResetConfirmBody =>
+      'Лента забудет, что вы открывали, готовили и пропускали. История и календарь останутся.';
+
+  @override
+  String get feedResetCancel => 'Отмена';
+
+  @override
+  String get feedResetConfirm => 'Сбросить';
+
+  @override
+  String get feedResetDone => 'Вкусы ленты сброшены';
+
+  @override
+  String get feedPrivacyTitle => 'Где хранятся данные';
+
+  @override
+  String get feedPrivacyBody =>
+      'Всё, что вы отмечаете в ленте, хранится только на этом телефоне. Компьютеру и GigaChat отправляется только список продуктов и тема подбора: праздник, кухня или настроение. Без вашего имени и истории.';
+
+  @override
+  String get planPickDateHelp => 'На какой день поставить блюдо?';
+
+  @override
+  String get planDayLocked => 'Этот день закреплён, блюдо не заменено';
+
+  @override
+  String get missingButton => 'Чего не хватает';
+
+  @override
+  String get missingNone => 'Всё есть дома';
+
+  @override
+  String get missingShare => 'Поделиться списком';
+
+  @override
+  String get missingKuper => 'Искать в Купере';
+
+  @override
+  String get missingKuperHint =>
+      'Поиск откроется в браузере. Передаётся только название продукта.';
+
+  @override
+  String get missingSamokatHint =>
+      'Для Самоката или магазина отправьте список кнопкой «Поделиться списком».';
+
+  @override
+  String missingShareTitle(String title) {
+    return 'Купить для «$title»:';
+  }
+
+  @override
+  String get missingOpenFailed => 'Не удалось открыть браузер';
 }

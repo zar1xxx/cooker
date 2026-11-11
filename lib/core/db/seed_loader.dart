@@ -133,6 +133,7 @@ class SeedLoader {
       final kcalPerServing = raw['kcal_per_serving'] as int?;
       final servings = raw['servings'] as int? ?? 2;
       final description = raw['description'] as String? ?? '';
+      final quality = raw['quality'] == 'template' ? 'template' : 'curated';
 
       final rawIngredients = (raw['ingredients'] as List?) ?? const [];
       final rawSteps = (raw['steps'] as List?) ?? const [];
@@ -169,6 +170,7 @@ class SeedLoader {
                 kcalPerServing: Value(kcalPerServing),
                 servings: Value(servings),
                 description: Value(description),
+                quality: Value(quality),
                 source: const Value(RecipeSource.seed),
                 fingerprint: Value(fingerprint),
                 createdAt: Value(nowMs),
@@ -191,6 +193,7 @@ class SeedLoader {
             kcalPerServing: Value(kcalPerServing),
             servings: Value(servings),
             description: Value(description),
+            quality: Value(quality),
             fingerprint: Value(fingerprint),
             updatedAt: Value(nowMs),
           ),

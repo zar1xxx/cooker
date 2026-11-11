@@ -47,7 +47,7 @@ void main() {
     });
 
     test('schema version is 3', () {
-      expect(db.schemaVersion, 3);
+      expect(db.schemaVersion, 4);
     });
 
     test(

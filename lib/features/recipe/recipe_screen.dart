@@ -14,7 +14,11 @@ import '../../core/services/feedback_service.dart';
 import '../../core/widgets/assistant_badge.dart';
 import '../../core/widgets/chip_explanation_sheet.dart';
 import '../../core/widgets/product_details_sheet.dart';
+import '../../core/widgets/simplified_card_badge.dart';
+import '../../core/shopping/missing_products.dart';
 import '../../l10n/app_localizations.dart';
+import '../feed/plan_recipe.dart';
+import 'missing_products_sheet.dart';
 
 class RecipeScreen extends ConsumerStatefulWidget {
   const RecipeScreen({
@@ -127,15 +131,33 @@ class _RecipeScreenState extends ConsumerState<RecipeScreen> {
     );
   }
 
-  void _addToCalendar(Recipe recipe, AppLocalizations l10n) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-          l10n.recipeAddedToCalendar,
-          style: Theme.of(context).textTheme.bodyLarge
-              ?.copyWith(color: Theme.of(context).colorScheme.onInverseSurface),
-        ),
-        duration: const Duration(seconds: 2),
+  Future<void> _addToCalendar(Recipe recipe, AppLocalizations l10n) async {
+    await planRecipeOnDate(context: context, ref: ref, recipeId: recipe.id);
+  }
+
+  Future<void> _showMissing(
+    RecipeDetail detail,
+    Set<String> pantryIds,
+    Map<String, List<String>> hierarchy,
+    int currentServings,
+    AppLocalizations l10n,
+  ) async {
+    final base = detail.recipe.servings <= 0 ? 1 : detail.recipe.servings;
+    final products = missingProducts(
+      lines: missingInputsOf(detail.ingredients),
+      pantryIds: pantryIds,
+      hierarchy: hierarchy,
+      scale: currentServings / base,
+    );
+    await showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      useSafeArea: true,
+      showDragHandle: true,
+      builder: (_) => MissingProductsSheet(
+        recipeTitle: detail.recipe.title,
+        products: products,
+        unitLabel: (unit) => _formatUnit(l10n, unit),
       ),
     );
   }
@@ -331,6 +353,25 @@ class _RecipeScreenState extends ConsumerState<RecipeScreen> {
                     );
                   },
                 ),
+                const SizedBox(height: 8),
+                ConstrainedBox(
+                  constraints: const BoxConstraints(minHeight: 56),
+                  child: OutlinedButton.icon(
+                    key: const Key('recipe_missing_button'),
+                    icon: const Icon(Icons.shopping_basket_outlined, size: 24),
+                    label: Text(
+                      l10n.missingButton,
+                      style: theme.textTheme.bodyLarge,
+                    ),
+                    onPressed: () => _showMissing(
+                      detail,
+                      pantryIds,
+                      hierarchy,
+                      currentServings,
+                      l10n,
+                    ),
+                  ),
+                ),
                 const SizedBox(height: 32),
               ],
             ),
@@ -372,6 +413,8 @@ class _RecipeScreenState extends ConsumerState<RecipeScreen> {
                   children: [
                     if (recipe.source == RecipeSource.ai)
                       const AssistantBadge(),
+                    if (SimplifiedCardBadge.appliesTo(recipe.quality))
+                      const SimplifiedCardBadge(),
                     InkWell(
                       borderRadius: BorderRadius.circular(8),
                       onTap: () => ChipExplanationSheet.show(

@@ -204,6 +204,16 @@ class _TodayScreenState extends ConsumerState<TodayScreen> {
               ),
               error: (_, _) => _buildEmptyState(context),
             ),
+            const SizedBox(height: 16),
+            ConstrainedBox(
+              constraints: const BoxConstraints(minHeight: 56),
+              child: FilledButton.tonalIcon(
+                key: const Key('btn_open_feed'),
+                icon: const Icon(Icons.auto_awesome),
+                label: Text(l10n.feedOpenButton),
+                onPressed: () => context.push('/feed'),
+              ),
+            ),
           ],
         ),
       ),

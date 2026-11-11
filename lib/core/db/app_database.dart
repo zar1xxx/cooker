@@ -47,7 +47,7 @@ class AppDatabase extends _$AppDatabase {
   final bool seed;
 
   @override
-  int get schemaVersion => 3;
+  int get schemaVersion => 4;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -86,6 +86,10 @@ class AppDatabase extends _$AppDatabase {
         // The v2 backfill wrote snake_case ids ('salad_snack'), but drift's
         // textEnum stores the Dart enum name ('saladSnack'). Repair them.
         await repairDishGroupValues();
+      }
+      if (from < 4) {
+        // R9: catalog text quality marker ('curated' | 'template').
+        await m.addColumn(recipes, recipes.quality);
       }
     },
     beforeOpen: (details) async {

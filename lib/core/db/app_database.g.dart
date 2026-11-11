@@ -1512,6 +1512,17 @@ class $RecipesTable extends Recipes with TableInfo<$RecipesTable, Recipe> {
     type: DriftSqlType.string,
     requiredDuringInsert: false,
   );
+  static const VerificationMeta _qualityMeta = const VerificationMeta(
+    'quality',
+  );
+  @override
+  late final GeneratedColumn<String> quality = GeneratedColumn<String>(
+    'quality',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
   static const VerificationMeta _isFavoriteMeta = const VerificationMeta(
     'isFavorite',
   );
@@ -1548,6 +1559,7 @@ class $RecipesTable extends Recipes with TableInfo<$RecipesTable, Recipe> {
     source,
     fingerprint,
     aiModel,
+    quality,
     isFavorite,
   ];
   @override
@@ -1684,6 +1696,12 @@ class $RecipesTable extends Recipes with TableInfo<$RecipesTable, Recipe> {
         aiModel.isAcceptableOrUnknown(data['ai_model']!, _aiModelMeta),
       );
     }
+    if (data.containsKey('quality')) {
+      context.handle(
+        _qualityMeta,
+        quality.isAcceptableOrUnknown(data['quality']!, _qualityMeta),
+      );
+    }
     if (data.containsKey('is_favorite')) {
       context.handle(
         _isFavoriteMeta,
@@ -1783,6 +1801,10 @@ class $RecipesTable extends Recipes with TableInfo<$RecipesTable, Recipe> {
         DriftSqlType.string,
         data['${effectivePrefix}ai_model'],
       ),
+      quality: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}quality'],
+      ),
       isFavorite: attachedDatabase.typeMapping.read(
         DriftSqlType.bool,
         data['${effectivePrefix}is_favorite'],
@@ -1825,6 +1847,11 @@ class Recipe extends DataClass implements Insertable<Recipe> {
   final RecipeSource source;
   final String fingerprint;
   final String? aiModel;
+
+  /// Catalog text quality (R9): `template` = short generated card shown as
+  /// «Упрощённая карточка»; `curated` or null = hand-written recipe.
+  /// Nullable on purpose: old rows and hand-built [Recipe] objects stay valid.
+  final String? quality;
   final bool isFavorite;
   const Recipe({
     required this.id,
@@ -1846,6 +1873,7 @@ class Recipe extends DataClass implements Insertable<Recipe> {
     required this.source,
     required this.fingerprint,
     this.aiModel,
+    this.quality,
     required this.isFavorite,
   });
   @override
@@ -1894,6 +1922,9 @@ class Recipe extends DataClass implements Insertable<Recipe> {
     if (!nullToAbsent || aiModel != null) {
       map['ai_model'] = Variable<String>(aiModel);
     }
+    if (!nullToAbsent || quality != null) {
+      map['quality'] = Variable<String>(quality);
+    }
     map['is_favorite'] = Variable<bool>(isFavorite);
     return map;
   }
@@ -1927,6 +1958,9 @@ class Recipe extends DataClass implements Insertable<Recipe> {
       aiModel: aiModel == null && nullToAbsent
           ? const Value.absent()
           : Value(aiModel),
+      quality: quality == null && nullToAbsent
+          ? const Value.absent()
+          : Value(quality),
       isFavorite: Value(isFavorite),
     );
   }
@@ -1964,6 +1998,7 @@ class Recipe extends DataClass implements Insertable<Recipe> {
       ),
       fingerprint: serializer.fromJson<String>(json['fingerprint']),
       aiModel: serializer.fromJson<String?>(json['aiModel']),
+      quality: serializer.fromJson<String?>(json['quality']),
       isFavorite: serializer.fromJson<bool>(json['isFavorite']),
     );
   }
@@ -1998,6 +2033,7 @@ class Recipe extends DataClass implements Insertable<Recipe> {
       ),
       'fingerprint': serializer.toJson<String>(fingerprint),
       'aiModel': serializer.toJson<String?>(aiModel),
+      'quality': serializer.toJson<String?>(quality),
       'isFavorite': serializer.toJson<bool>(isFavorite),
     };
   }
@@ -2022,6 +2058,7 @@ class Recipe extends DataClass implements Insertable<Recipe> {
     RecipeSource? source,
     String? fingerprint,
     Value<String?> aiModel = const Value.absent(),
+    Value<String?> quality = const Value.absent(),
     bool? isFavorite,
   }) => Recipe(
     id: id ?? this.id,
@@ -2045,6 +2082,7 @@ class Recipe extends DataClass implements Insertable<Recipe> {
     source: source ?? this.source,
     fingerprint: fingerprint ?? this.fingerprint,
     aiModel: aiModel.present ? aiModel.value : this.aiModel,
+    quality: quality.present ? quality.value : this.quality,
     isFavorite: isFavorite ?? this.isFavorite,
   );
   Recipe copyWithCompanion(RecipesCompanion data) {
@@ -2084,6 +2122,7 @@ class Recipe extends DataClass implements Insertable<Recipe> {
           ? data.fingerprint.value
           : this.fingerprint,
       aiModel: data.aiModel.present ? data.aiModel.value : this.aiModel,
+      quality: data.quality.present ? data.quality.value : this.quality,
       isFavorite: data.isFavorite.present
           ? data.isFavorite.value
           : this.isFavorite,
@@ -2112,13 +2151,14 @@ class Recipe extends DataClass implements Insertable<Recipe> {
           ..write('source: $source, ')
           ..write('fingerprint: $fingerprint, ')
           ..write('aiModel: $aiModel, ')
+          ..write('quality: $quality, ')
           ..write('isFavorite: $isFavorite')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(
+  int get hashCode => Object.hashAll([
     id,
     createdAt,
     updatedAt,
@@ -2138,8 +2178,9 @@ class Recipe extends DataClass implements Insertable<Recipe> {
     source,
     fingerprint,
     aiModel,
+    quality,
     isFavorite,
-  );
+  ]);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -2163,6 +2204,7 @@ class Recipe extends DataClass implements Insertable<Recipe> {
           other.source == this.source &&
           other.fingerprint == this.fingerprint &&
           other.aiModel == this.aiModel &&
+          other.quality == this.quality &&
           other.isFavorite == this.isFavorite);
 }
 
@@ -2186,6 +2228,7 @@ class RecipesCompanion extends UpdateCompanion<Recipe> {
   final Value<RecipeSource> source;
   final Value<String> fingerprint;
   final Value<String?> aiModel;
+  final Value<String?> quality;
   final Value<bool> isFavorite;
   final Value<int> rowid;
   const RecipesCompanion({
@@ -2208,6 +2251,7 @@ class RecipesCompanion extends UpdateCompanion<Recipe> {
     this.source = const Value.absent(),
     this.fingerprint = const Value.absent(),
     this.aiModel = const Value.absent(),
+    this.quality = const Value.absent(),
     this.isFavorite = const Value.absent(),
     this.rowid = const Value.absent(),
   });
@@ -2231,6 +2275,7 @@ class RecipesCompanion extends UpdateCompanion<Recipe> {
     required RecipeSource source,
     required String fingerprint,
     this.aiModel = const Value.absent(),
+    this.quality = const Value.absent(),
     this.isFavorite = const Value.absent(),
     this.rowid = const Value.absent(),
   }) : title = Value(title),
@@ -2263,6 +2308,7 @@ class RecipesCompanion extends UpdateCompanion<Recipe> {
     Expression<String>? source,
     Expression<String>? fingerprint,
     Expression<String>? aiModel,
+    Expression<String>? quality,
     Expression<bool>? isFavorite,
     Expression<int>? rowid,
   }) {
@@ -2286,6 +2332,7 @@ class RecipesCompanion extends UpdateCompanion<Recipe> {
       if (source != null) 'source': source,
       if (fingerprint != null) 'fingerprint': fingerprint,
       if (aiModel != null) 'ai_model': aiModel,
+      if (quality != null) 'quality': quality,
       if (isFavorite != null) 'is_favorite': isFavorite,
       if (rowid != null) 'rowid': rowid,
     });
@@ -2311,6 +2358,7 @@ class RecipesCompanion extends UpdateCompanion<Recipe> {
     Value<RecipeSource>? source,
     Value<String>? fingerprint,
     Value<String?>? aiModel,
+    Value<String?>? quality,
     Value<bool>? isFavorite,
     Value<int>? rowid,
   }) {
@@ -2334,6 +2382,7 @@ class RecipesCompanion extends UpdateCompanion<Recipe> {
       source: source ?? this.source,
       fingerprint: fingerprint ?? this.fingerprint,
       aiModel: aiModel ?? this.aiModel,
+      quality: quality ?? this.quality,
       isFavorite: isFavorite ?? this.isFavorite,
       rowid: rowid ?? this.rowid,
     );
@@ -2407,6 +2456,9 @@ class RecipesCompanion extends UpdateCompanion<Recipe> {
     if (aiModel.present) {
       map['ai_model'] = Variable<String>(aiModel.value);
     }
+    if (quality.present) {
+      map['quality'] = Variable<String>(quality.value);
+    }
     if (isFavorite.present) {
       map['is_favorite'] = Variable<bool>(isFavorite.value);
     }
@@ -2438,6 +2490,7 @@ class RecipesCompanion extends UpdateCompanion<Recipe> {
           ..write('source: $source, ')
           ..write('fingerprint: $fingerprint, ')
           ..write('aiModel: $aiModel, ')
+          ..write('quality: $quality, ')
           ..write('isFavorite: $isFavorite, ')
           ..write('rowid: $rowid')
           ..write(')'))
@@ -8367,6 +8420,7 @@ typedef $$RecipesTableCreateCompanionBuilder = RecipesCompanion Function({
   required RecipeSource source,
   required String fingerprint,
   Value<String?> aiModel,
+  Value<String?> quality,
   Value<bool> isFavorite,
   Value<int> rowid,
 });
@@ -8390,6 +8444,7 @@ typedef $$RecipesTableUpdateCompanionBuilder = RecipesCompanion Function({
   Value<RecipeSource> source,
   Value<String> fingerprint,
   Value<String?> aiModel,
+  Value<String?> quality,
   Value<bool> isFavorite,
   Value<int> rowid,
 });
@@ -8540,6 +8595,11 @@ class $$RecipesTableFilterComposer
 
   ColumnFilters<String> get aiModel => $composableBuilder(
     column: $table.aiModel,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get quality => $composableBuilder(
+    column: $table.quality,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -8703,6 +8763,11 @@ class $$RecipesTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<String> get quality => $composableBuilder(
+    column: $table.quality,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   ColumnOrderings<bool> get isFavorite => $composableBuilder(
     column: $table.isFavorite,
     builder: (column) => ColumnOrderings(column),
@@ -8791,6 +8856,9 @@ class $$RecipesTableAnnotationComposer
 
   GeneratedColumn<String> get aiModel =>
       $composableBuilder(column: $table.aiModel, builder: (column) => column);
+
+  GeneratedColumn<String> get quality =>
+      $composableBuilder(column: $table.quality, builder: (column) => column);
 
   GeneratedColumn<bool> get isFavorite => $composableBuilder(
     column: $table.isFavorite,
@@ -8895,6 +8963,7 @@ class $$RecipesTableTableManager
                 Value<RecipeSource> source = const Value.absent(),
                 Value<String> fingerprint = const Value.absent(),
                 Value<String?> aiModel = const Value.absent(),
+                Value<String?> quality = const Value.absent(),
                 Value<bool> isFavorite = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => RecipesCompanion(
@@ -8917,6 +8986,7 @@ class $$RecipesTableTableManager
                 source: source,
                 fingerprint: fingerprint,
                 aiModel: aiModel,
+                quality: quality,
                 isFavorite: isFavorite,
                 rowid: rowid,
               ),
@@ -8941,6 +9011,7 @@ class $$RecipesTableTableManager
                 required RecipeSource source,
                 required String fingerprint,
                 Value<String?> aiModel = const Value.absent(),
+                Value<String?> quality = const Value.absent(),
                 Value<bool> isFavorite = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => RecipesCompanion.insert(
@@ -8963,6 +9034,7 @@ class $$RecipesTableTableManager
                 source: source,
                 fingerprint: fingerprint,
                 aiModel: aiModel,
+                quality: quality,
                 isFavorite: isFavorite,
                 rowid: rowid,
               ),

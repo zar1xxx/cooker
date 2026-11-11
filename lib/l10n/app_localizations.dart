@@ -2163,6 +2163,288 @@ abstract class AppLocalizations {
   /// In ru, this message translates to:
   /// **'Больше не спрашивать'**
   String get modePromptNever;
+
+  /// Заголовок экрана ленты R7-07
+  ///
+  /// In ru, this message translates to:
+  /// **'Лента'**
+  String get feedScreenTitle;
+
+  /// Кнопка на экране Сегодня, открывает ленту
+  ///
+  /// In ru, this message translates to:
+  /// **'Может понравиться'**
+  String get feedOpenButton;
+
+  /// Заголовок главной ленты
+  ///
+  /// In ru, this message translates to:
+  /// **'Может понравиться'**
+  String get feedMainHeader;
+
+  /// Заголовок ленты повода
+  ///
+  /// In ru, this message translates to:
+  /// **'К празднику: {name}'**
+  String feedOccasionHeader(String name);
+
+  /// Заголовок кнопок настроения
+  ///
+  /// In ru, this message translates to:
+  /// **'По настроению'**
+  String get feedMoodHeader;
+
+  /// Заголовок кнопок кухонь
+  ///
+  /// In ru, this message translates to:
+  /// **'Кухни мира'**
+  String get feedCuisineHeader;
+
+  /// Заголовок ленты по продуктам
+  ///
+  /// In ru, this message translates to:
+  /// **'Из того, что есть дома'**
+  String get feedPantryHeader;
+
+  /// Блок продуктов, которых чаще всего не хватает
+  ///
+  /// In ru, this message translates to:
+  /// **'Что докупить'**
+  String get feedToBuyHeader;
+
+  /// Пояснение к блоку Что докупить
+  ///
+  /// In ru, this message translates to:
+  /// **'Этих продуктов чаще всего не хватает для подходящих вам блюд'**
+  String get feedToBuyHint;
+
+  /// Строка блока Что докупить
+  ///
+  /// In ru, this message translates to:
+  /// **'{name} — для {count} блюд'**
+  String feedToBuyItem(String name, int count);
+
+  /// Кнопка карточки ленты: открыть рецепт
+  ///
+  /// In ru, this message translates to:
+  /// **'Приготовить'**
+  String get feedCook;
+
+  /// Кнопка карточки ленты: убрать блюдо
+  ///
+  /// In ru, this message translates to:
+  /// **'Не хочу такое'**
+  String get feedNotThis;
+
+  /// Кнопка карточки ленты: поставить на дату
+  ///
+  /// In ru, this message translates to:
+  /// **'В календарь'**
+  String get feedToCalendar;
+
+  /// Сообщение после Не хочу такое
+  ///
+  /// In ru, this message translates to:
+  /// **'Убрали из ленты, предложим другое'**
+  String get feedSkipped;
+
+  /// Пометка блюда вне профиля вкуса
+  ///
+  /// In ru, this message translates to:
+  /// **'Попробуйте новое'**
+  String get feedTryNew;
+
+  /// Пустая лента
+  ///
+  /// In ru, this message translates to:
+  /// **'Подходящих блюд пока нет. Отметьте продукты дома или измените настройки ленты.'**
+  String get feedEmpty;
+
+  /// Ошибка загрузки ленты
+  ///
+  /// In ru, this message translates to:
+  /// **'Не удалось собрать ленту. Потяните вниз, чтобы попробовать ещё раз.'**
+  String get feedLoadError;
+
+  /// Сколько блюд добавил помощник
+  ///
+  /// In ru, this message translates to:
+  /// **'Помощник добавил блюд: {count}'**
+  String feedAiAdded(int count);
+
+  /// Кнопка и заголовок экрана разделов
+  ///
+  /// In ru, this message translates to:
+  /// **'Разделы'**
+  String get feedSections;
+
+  /// Число блюд в разделе
+  ///
+  /// In ru, this message translates to:
+  /// **'Блюд: {count}'**
+  String feedSectionCount(int count);
+
+  /// Пустой раздел
+  ///
+  /// In ru, this message translates to:
+  /// **'В этом разделе нет блюд с такими условиями'**
+  String get feedSectionEmpty;
+
+  /// Чип без фильтра по диете
+  ///
+  /// In ru, this message translates to:
+  /// **'Все'**
+  String get feedAllDiets;
+
+  /// Заголовок и подсказка настроек ленты
+  ///
+  /// In ru, this message translates to:
+  /// **'Настройки ленты'**
+  String get feedSettings;
+
+  /// Переключатель праздников
+  ///
+  /// In ru, this message translates to:
+  /// **'Учитывать праздники'**
+  String get feedSettingsHolidays;
+
+  /// Пояснение переключателя праздников
+  ///
+  /// In ru, this message translates to:
+  /// **'Подсказывать блюда к ближайшему празднику'**
+  String get feedSettingsHolidaysHint;
+
+  /// Переключатель постов
+  ///
+  /// In ru, this message translates to:
+  /// **'Учитывать постные дни'**
+  String get feedSettingsFasts;
+
+  /// Пояснение переключателя постов
+  ///
+  /// In ru, this message translates to:
+  /// **'В пост показывать только постные блюда'**
+  String get feedSettingsFastsHint;
+
+  /// Переключатель исследования
+  ///
+  /// In ru, this message translates to:
+  /// **'Показывать новое'**
+  String get feedSettingsNew;
+
+  /// Пояснение переключателя Показывать новое
+  ///
+  /// In ru, this message translates to:
+  /// **'Иногда предлагать блюда, которые вы ещё не пробовали'**
+  String get feedSettingsNewHint;
+
+  /// Кнопка очистки событий ленты
+  ///
+  /// In ru, this message translates to:
+  /// **'Сбросить мои вкусы'**
+  String get feedResetTastes;
+
+  /// Заголовок подтверждения сброса
+  ///
+  /// In ru, this message translates to:
+  /// **'Сбросить вкусы ленты?'**
+  String get feedResetConfirmTitle;
+
+  /// Текст подтверждения сброса
+  ///
+  /// In ru, this message translates to:
+  /// **'Лента забудет, что вы открывали, готовили и пропускали. История и календарь останутся.'**
+  String get feedResetConfirmBody;
+
+  /// Отмена сброса
+  ///
+  /// In ru, this message translates to:
+  /// **'Отмена'**
+  String get feedResetCancel;
+
+  /// Подтверждение сброса
+  ///
+  /// In ru, this message translates to:
+  /// **'Сбросить'**
+  String get feedResetConfirm;
+
+  /// Сообщение после сброса
+  ///
+  /// In ru, this message translates to:
+  /// **'Вкусы ленты сброшены'**
+  String get feedResetDone;
+
+  /// Заголовок блока приватности
+  ///
+  /// In ru, this message translates to:
+  /// **'Где хранятся данные'**
+  String get feedPrivacyTitle;
+
+  /// Текст о приватности ленты
+  ///
+  /// In ru, this message translates to:
+  /// **'Всё, что вы отмечаете в ленте, хранится только на этом телефоне. Компьютеру и GigaChat отправляется только список продуктов и тема подбора: праздник, кухня или настроение. Без вашего имени и истории.'**
+  String get feedPrivacyBody;
+
+  /// Подсказка выбора даты
+  ///
+  /// In ru, this message translates to:
+  /// **'На какой день поставить блюдо?'**
+  String get planPickDateHelp;
+
+  /// День закреплён в календаре
+  ///
+  /// In ru, this message translates to:
+  /// **'Этот день закреплён, блюдо не заменено'**
+  String get planDayLocked;
+
+  /// Кнопка на рецепте
+  ///
+  /// In ru, this message translates to:
+  /// **'Чего не хватает'**
+  String get missingButton;
+
+  /// Нет недостающих продуктов
+  ///
+  /// In ru, this message translates to:
+  /// **'Всё есть дома'**
+  String get missingNone;
+
+  /// Отправить список через системное меню
+  ///
+  /// In ru, this message translates to:
+  /// **'Поделиться списком'**
+  String get missingShare;
+
+  /// Открыть поиск Купера в браузере
+  ///
+  /// In ru, this message translates to:
+  /// **'Искать в Купере'**
+  String get missingKuper;
+
+  /// Пояснение про Купер
+  ///
+  /// In ru, this message translates to:
+  /// **'Поиск откроется в браузере. Передаётся только название продукта.'**
+  String get missingKuperHint;
+
+  /// Пояснение про Самокат
+  ///
+  /// In ru, this message translates to:
+  /// **'Для Самоката или магазина отправьте список кнопкой «Поделиться списком».'**
+  String get missingSamokatHint;
+
+  /// Первая строка списка покупок
+  ///
+  /// In ru, this message translates to:
+  /// **'Купить для «{title}»:'**
+  String missingShareTitle(String title);
+
+  /// Ошибка открытия ссылки
+  ///
+  /// In ru, this message translates to:
+  /// **'Не удалось открыть браузер'**
+  String get missingOpenFailed;
 }
 
 class _AppLocalizationsDelegate

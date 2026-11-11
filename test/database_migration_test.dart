@@ -60,7 +60,7 @@ void main() {
       final versionResult = await db
           .customSelect('PRAGMA user_version;')
           .getSingle();
-      expect(versionResult.read<int>('user_version'), equals(3));
+      expect(versionResult.read<int>('user_version'), equals(4));
 
       // 3. Verify recipes table has new columns and backfilled dish_group
       final rows = await db.select(db.recipes).get();

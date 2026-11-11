@@ -16,6 +16,7 @@ import '../../core/db/enums.dart';
 import '../../core/matching/recipe_scorer.dart';
 import '../../core/providers.dart';
 import '../../core/widgets/assistant_badge.dart';
+import '../../core/widgets/simplified_card_badge.dart';
 import '../../l10n/app_localizations.dart';
 
 String _dishTypeName(AppLocalizations l10n, DishType type) {
@@ -1089,6 +1090,8 @@ class _RecipeCard extends StatelessWidget {
                       ),
                     ),
                     if (isNewAi) const AssistantBadge(isCompact: true),
+                    if (SimplifiedCardBadge.appliesTo(recipe.quality))
+                      const SimplifiedCardBadge(isCompact: true),
                   ],
                 ),
                 const SizedBox(height: 12),

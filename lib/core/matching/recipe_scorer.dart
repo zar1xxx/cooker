@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:clock/clock.dart';
 
 import '../db/app_database.dart';
@@ -14,6 +16,7 @@ class ScoringWeights {
     this.novelty = 0.20,
     this.fit = 0.10,
     this.explore = 0.05,
+    this.templatePenalty = 0.08,
   });
 
   final double coverage;
@@ -21,6 +24,10 @@ class ScoringWeights {
   final double novelty;
   final double fit;
   final double explore;
+
+  /// Subtracted from the score of «Упрощённая карточка» recipes (R9-04), so
+  /// hand-written recipes rise but template ones are never hidden.
+  final double templatePenalty;
 
   double get total => coverage + taste + novelty + fit + explore;
 }
@@ -153,12 +160,18 @@ class RecipeScorer {
     final fit = _fit(recipe, profile);
     final explore = _explore(recipe.id, now);
 
-    final total =
-        weights.coverage * coverage +
-        weights.taste * taste +
-        weights.novelty * novelty +
-        weights.fit * fit +
-        weights.explore * explore;
+    final quality = recipe.quality == 'template'
+        ? weights.templatePenalty
+        : 0.0;
+    final total = math.max(
+      0.0,
+      weights.coverage * coverage +
+          weights.taste * taste +
+          weights.novelty * novelty +
+          weights.fit * fit +
+          weights.explore * explore -
+          quality,
+    );
 
     return ScoredRecipe(
       match: match,
