@@ -65,6 +65,47 @@ void main() async {
     'Processed $batchFilesCount batch files. Total unique recipes: ${existingMap.length}',
   );
 
+  // 3b. Overlay hand-rewritten recipes (R9): tool/seed_data/rewrite/batch_*.json,
+  // only for ids listed in applied_ids.txt. Keeps rewrites durable across recompiles.
+  final rewriteDir = Directory('tool/seed_data/rewrite');
+  final appliedFile = File('tool/seed_data/rewrite/applied_ids.txt');
+  if (rewriteDir.existsSync() && appliedFile.existsSync()) {
+    final applied = appliedFile
+        .readAsLinesSync()
+        .map((l) => l.trim())
+        .where((l) => l.isNotEmpty)
+        .toSet();
+    final batchFiles =
+        rewriteDir
+            .listSync()
+            .whereType<File>()
+            .where((f) => RegExp(r'batch_\d+\.json$').hasMatch(f.path))
+            .toList()
+          ..sort((a, b) => a.path.compareTo(b.path));
+    var overlaid = 0;
+    for (final f in batchFiles) {
+      final data = jsonDecode(f.readAsStringSync()) as Map<String, dynamic>;
+      for (final r in (data['recipes'] as List).cast<Map<String, dynamic>>()) {
+        final id = r['id'] as String;
+        final target = existingMap[id];
+        if (!applied.contains(id) || target == null) continue;
+        for (final key in const [
+          'description',
+          'steps',
+          'total_minutes',
+          'active_minutes',
+          'cook_minutes',
+          'kcal_per_serving',
+        ]) {
+          if (r.containsKey(key)) target[key] = r[key];
+        }
+        target['quality'] = 'curated';
+        overlaid++;
+      }
+    }
+    stdout.writeln('Overlaid $overlaid rewritten recipes (quality=curated).');
+  }
+
   final allRecipes = existingMap.values.toList();
 
   // 4. Enrich every recipe with DifficultyCalculator, NutritionReference, and Taxonomy

@@ -1,0 +1,278 @@
+# R9: рецепты, пропущенные при ручной переписи
+
+Всего пропусков: 262. Причина в каждом случае — состав рецепта не соответствует названию или блюду. Эти рецепты остаются `quality: template` и ждут расширения списка продуктов (R10) или правки состава.
+
+
+## Прочее (32)
+
+- `fish_seafood_noodles_wok` — нет соевого соуса (назван в заголовке)
+- `fish_shrimp_noodles_wok_ginger` — нет кунжута (назван в заголовке)
+- `fish_fish_meatballs_tomato` — нет сметаны (в заголовке томатно-сметанный соус)
+- `bake_carrot_walnut_cream_cheese_cake` — нет сахара, масла и разрыхлителя
+- `fish_tuna_spinach_cream_mac` — нет макарон (названы в заголовке)
+- `fish_squid_zucchini_pasta` — нет чеснока (назван в заголовке)
+- `soup_okroshka_beef` — нет кваса или кефира и огурцов для окрошки
+- `soup_pea_smoked_ribs` — нет хлеба для гренок, вместо копчёностей ветчина
+- `soup_fish_pikeperch_rice` — нет судака (в составе щука)
+- `bake_muffins_blueberry_yogurt_crumb` — нет черники (в составе голубика), нет масла для крошки
+- `des_sweet_curd_rolls_jam_lavash` — нет лаваша или теста для рулетов
+- `bev_mors_blackberry_blueberry` — нет черники (в составе голубика)
+- `bev_compote_blueberry_lemon_thyme` — нет черники (в составе голубика)
+- `ed_lazy_vareniki_blueberry_yogurt` — нет черники (в составе голубика) и йогурта (в id)
+- `ed_tvorog_bowl_kiwi_blueberry_seeds` — нет черники (в составе голубика)
+- `ed_lazy_vareniki_strawberry_cream` — нет муки или манки для теста вареников
+- `bake_buns_lemon_curd_sweet` — нет сахара для сладких булочек и лимонного крема
+- `bake_pizza_four_cheeses_quattro` — в составе три сыра вместо четырёх, нет дрожжей
+- `meat_beef_blueberry_sauce` — нет черники (в составе голубика)
+- `pres_pickles_cabbage_sour_apple` — нет тмина (в составе зира)
+- `porridge_rice_dates_pistachio_cardamom` — нет кардамона (назван в заголовке)
+- `soup_pork_ribs_sauerkraut_barley` — рассольный: нет огурцов/рассола в ингредиентах
+- `soup_cottage_cheese_dumpling_soup` — клецки из творога без муки/яйца в ингредиентах
+- `soup_mozzarella_basil_soup` — томатный суп без томатов, моцарелла 300 г
+- `soup_tarator_bulgarian` — холодный суп с картофелем и морковью в составе — не соответствует рецепту
+- `soup_tomato_celery_gazpacho` — холодный суп, состав с картофелем и морковью не соответствует
+- `soup_tomato_pepper_chilled` — холодный суп, состав с картофелем и морковью не соответствует
+- `salad_oyster_mushroom_julienne_toast` — жульен без масла/муки в составе, сливки и сыр без указанных долей
+- `salad_lavash_chips_paprika_garlic` — нужна проверка: хруст без масла в духовке, ждёт ревизии
+- `porridge_quinoa_apple_pecan_cinnamon` — название: яблоко и пекан, в составе груша и фундук
+- `bake_orehki_condensed_milk_cookies` — нужна специальная форма для орешков, не определена в продуктах
+- `pres_sauce_tomatillo_salsa_verde` — зелёная сальса: нет томатильо/зелёных томатов в составе
+
+## Название называет продукт, которого нет в составе (220)
+
+- `bake_muffins_apple_oatmeal_streusel` — нет разрыхлителя, масла и сахара для штрейзеля (в названии)
+- `bake_blinchiki_apple_cinnamon_rolled` — нет сахара для карамельных яблок (в названии)
+- `bake_bread_carrot_rye_healthy` — нет льна (в названии)
+- `meat_lasagna_bolognese_beef` — нет молока, масла и муки для соуса бешамель (в названии)
+- `soup_shchi_beef_parsley_root` — нет капусты (щи из капусты в названии)
+- `soup_shchi_champignon_barley` — нет перловки (в названии)
+- `soup_kharcho_lamb` — нет кислой сливы и кинзы (в названии)
+- `soup_chicken_corn_egg` — нет яиц для яичных хлопьев (в названии)
+- `soup_svekolnik_cold` — нет огурцов (в названии)
+- `soup_cauliflower_cheese_soup` — нет хлеба для сухариков (в названии)
+- `soup_champignon_cheese` — нет хлеба для сухариков (в названии)
+- `soup_solyanka_georgian` — нет кинзы (в названии)
+- `soup_rassolnik_kidneys` — нет почек (в названии)
+- `fish_fish_baked_pesto_tomato` — нет чеснока (в названии)
+- `fish_squid_stuffed_cottage_herb` — нет укропа и чеснока (в названии)
+- `veg_mushrooms_beans_georgian` — нет кинзы (в названии)
+- `fish_squid_bell_pepper_teriyaki` — нет соевого соуса для терияки (в названии)
+- `fish_shrimp_avocado_mango_tacos` — нет болгарского перца и манго (в названии и id)
+- `des_cherry_dumplings_vareniki_sweet` — нет мёда (в названии) и яиц для теста
+- `fish_mussels_baked_cheese_garlic` — нет чеснока (в названии)
+- `fish_mussels_creamy_garlic_wine` — нет петрушки (в названии) и вина (в id)
+- `fish_fish_turmeric_ginger_pan` — нет чеснока (в названии) и имбиря (в id)
+- `fish_cod_ginger_soy_steamed` — нет кунжута (в названии)
+- `ed_syrniki_classic_vanilla_flour` — нет сметаны (в названии)
+- `ed_kefir_oladi_fluffy_apples` — нет корицы (в названии)
+- `ed_lazy_vareniki_savory_dill_cheese` — нет сметаны (в названии) и муки для теста
+- `bake_ponchiki_cottage_cheese_fried` — нет сахарной пудры (в названии), масла мало для фритюра
+- `meat_turkey_basmati_pistachio` — нет кардамона (в названии)
+- `meat_minced_meat_stuffed_eggplant` — нет молока, масла и муки для соуса бешамель (в названии)
+- `meat_stuffed_bell_peppers` — нет томатов или томатной пасты (в названии)
+- `fish_squid_garlic_olive_herbs` — нет чеснока (в названии)
+- `fish_shrimp_chili_honey_soy` — нет соевого соуса (в названии)
+- `fish_shrimp_curry_coconut_rice` — нет риса басмати (в названии)
+- `veg_squash_garlic_rosemary_savory` — нет чеснока (в названии)
+- `fish_tuna_potato_patty_fried` — нет зелени (в названии)
+- `meat_chicken_kiev_cutlets` — нет сливочного масла для начинки (в названии)
+- `pres_pickles_cucumbers_sour_barrel` — нет дубового листа (в названии)
+- `ed_zapekanka_carrot_semolina_children` — нет манки (в названии)
+- `porridge_rice_cottage_baked_casserole` — нет изюма (в названии)
+- `ed_kefir_oladi_zucchini_herbs` — нет укропа (в названии)
+- `porridge_pasta_broccoli_garlic_oil` — нет чеснока (в названии)
+- `porridge_bulgur_chickpeas_coriander` — нет тмина (в названии)
+- `porridge_noodles_daikon_carrot_korean` — нет моркови (в названии)
+- `porridge_rice_veg_pilaf_uzbek` — нет зиры (в названии)
+- `porridge_pasta_artichokes_olives_lemon` — нет оливкового масла (в названии)
+- `porridge_lasagna_veg_spinach_ricotta` — нет томатов (в названии)
+- `meat_pork_stew_mushrooms` — нет лесных грибов (в названии; есть только шампиньоны)
+- `fish_mackerel_sour_cream_herbs` — нет укропа (в названии; есть петрушка)
+- `fish_mackerel_green_onion_sesame` — нет кунжута (в названии; есть только кунжутное масло)
+- `meat_beef_bourguignon` — нет лесных грибов и вина (в названии; есть шампиньоны)
+- `pres_jam_pear_chocolate_spiced` — нет гвоздики (в названии)
+- `soup_solyanka_mushroom` — нет маслят (в названии)
+- `soup_noodle_chicken` — нет ингредиентов для домашней яичной лапши (в названии)
+- `soup_semolina_chicken_soup` — нет зелени (в названии)
+- `soup_goulash_beef` — нет копчёной паприки (в названии)
+- `soup_feta_tomato_soup` — нет орегано (в названии)
+- `soup_meatball_cheese_vermicelli` — нет вермишели и фрикаделек из фарша нужного вида (в названии)
+- `soup_cream_broccoli` — нет сыра (в названии)
+- `soup_cream_cauliflower` — нет пармезана (в названии)
+- `soup_rassolnik_pike` — нет судака (в названии; есть щука)
+- `soup_ukha_rostov` — нет судака (в названии; есть щука)
+- `soup_chickpea_lamb` — нет зиры (в названии)
+- `soup_cream_celery_apple` — нет яблок (в названии)
+- `soup_cream_champignon` — нет тимьяна (в названии)
+- `bev_lemonade_ginger_lemon_honey` — нет лайма (в названии)
+- `fish_tuna_corn_quesadilla` — нет сыра (в названии)
+- `fish_shrimp_garlic_butter_lemon` — нет лимона (в названии)
+- `fish_shrimp_quinoa_lemon_herb` — нет укропа (в названии)
+- `meat_minced_turkey_oat_burgers` — в названии фарш индейки, в составе фарш куриный
+- `salad_deviled_ham_egg_mousse` — в названии крекеры, в составе их нет
+- `meat_beef_celery_root_braise` — в названии вино, в составе его нет
+- `veg_zucchini_pancakes_dill` — в названии укроп и чеснок, в составе их нет
+- `fish_shrimp_spaghetti_tomato` — в названии чеснок, в составе его нет
+- `fish_shrimp_risotto_parmesan` — в названии тимьян, в составе его нет
+- `fish_seafood_couscous_lemon` — в названии мята, в составе её нет
+- `porridge_semolina_poppy_seeds_honey` — в названии орехи, в составе их нет
+- `ed_zapekanka_raspberry_starch` — в названии ваниль, в составе её нет
+- `porridge_rice_strawberry_jam_cream` — в названии сливочное масло, в составе его нет
+- `salad_potato_pickles_green_peas_rustic` — в названии укроп, в составе его нет
+- `soup_shchi_green_nettle` — в названии яйцо, в составе его нет
+- `soup_kefir_beet_walnut` — в названии кефир, в составе его нет
+- `soup_ukha_tsar` — в названии судак, в составе его нет
+- `soup_lamb_prunes_soup` — в названии кинза, в составе её нет
+- `soup_cream_pumpkin` — в названии имбирь, в составе его нет
+- `soup_squid_rice_lemon` — в названии рис, в составе его нет
+- `soup_rassolnik_veal` — в названии шпинат, в составе его нет
+- `soup_beet_apple_soup` — в названии имбирь, в составе его нет
+- `soup_hake_bell_pepper` — в названии томаты, в составе их нет
+- `soup_shchi_rabbit_roots` — в названии белые коренья, в составе их нет
+- `meat_chicken_curry_indian` — в названии рис басмати, в составе его нет
+- `veg_cabbage_cutlets_semolina` — в названии зелень, в составе её нет
+- `veg_carrot_cutlets_semolina_sweet` — в названии сметана, в составе её нет
+- `veg_beans_mexican_chili_corn` — в названии паприка, в составе её нет
+- `ed_sour_cream_jelly_cocoa` — в названии ваниль, в составе её нет
+- `des_cottage_milk_custard_berry` — в названии сахарная пудра, в составе её нет
+- `des_paskha_tsarskaya_cottage_raisins` — в названии миндаль, в составе его нет
+- `porridge_noodles_coconut_curry_broccoli` — в названии брокколи, в составе её нет
+- `porridge_noodles_cucumber_sesame_chili` — в названии масло чили, в составе его нет
+- `porridge_noodles_garlic_butter_parmesan` — в названии чесночное масло, чеснока нет в составе
+- `porridge_noodles_poppy_honey_polish` — в названии изюм, в составе его нет
+- `porridge_pasta_beet_feta_pink` — в названии орехи, в составе их нет
+- `porridge_potato_mash_garlic_cream` — в названии печёный чеснок, в составе его нет
+- `porridge_pasta_canned_tomato_oregano` — в названии чеснок, в составе его нет
+- `porridge_noodles_wok_vegetables_soy` — в названии морковь, в составе её нет
+- `porridge_pasta_cherry_mozzarella` — в названии базилик, в составе его нет
+- `porridge_pasta_four_cheese_quattro` — в названии четыре сыра, в составе два
+- `porridge_pasta_green_peas_cream` — в названии чеснок, в составе его нет
+- `porridge_pasta_oyster_mushroom_thyme` — в названии чеснок, в составе его нет
+- `pres_jam_cherry_cocoa_liqueur` — в названии кофейный аромат, кофе в составе нет
+- `pres_sauce_adjika_walnuts_georgian` — в названии голубой пажитник, в составе его нет
+- `pres_jam_cherry_apple_confit` — в названии анис, в составе его нет
+- `pres_jam_gooseberry_emerald` — в названии вишнёвый лист, в составе его нет
+- `fish_salmon_spinach_cream_pasta` — в названии лимон, в составе его нет
+- `veg_zucchini_ratatouille_provence` — в названии перец, в составе его нет
+- `veg_chickpeas_roasted_paprika_crunchy` — в названии чеснок, в составе его нет
+- `meat_beef_kohlrabi_caraway` — в названии тмин, в составе его нет (есть зира)
+- `soup_cream_carrot` — в названии имбирь, в составе его нет
+- `soup_fish_mackerel` — в названии лимон, в составе его нет
+- `soup_bean_lobio` — в названии кинза, в составе её нет
+- `soup_cream_tomato` — в названии базилик, в составе его нет
+- `soup_beans_white_pesto` — в названии чеснок, в составе его нет
+- `soup_oyster_mushroom_noodle` — в названии петрушка, в составе её нет
+- `soup_duck_green_beans` — в названии чеснок, в составе его нет
+- `soup_pho_bo_beef` — в названии лапша, в составе спагетти
+- `soup_pork_bulgur` — в названии томаты, в составе их нет
+- `soup_pork_sweet_potato` — в названии розмарин, в составе его нет
+- `soup_red_beans_walnut_soup` — в названии орех, в составе его нет
+- `soup_turkey_wings_soup` — в названии индейка, в составе куриные крылья
+- `soup_turkey_couscous` — в названии мята, в составе её нет
+- `meat_beef_medallions_pepper` — в названии зелёный перец, в составе только чёрный молотый
+- `veg_zucchini_soy_sesame_wok` — в названии чеснок, в составе его нет
+- `veg_chickpeas_squash_turmeric` — в названии имбирь, в составе его нет
+- `veg_cauliflower_tahini_lemon` — в названии зира, в составе её нет
+- `veg_potato_accordion_butter_garlic` — в названии чесночное масло, чеснока нет в составе
+- `porridge_oatmeal_baked_raisins_egg` — в названии яблоки, нет в составе
+- `porridge_oatmeal_gooseberry_curd` — в названии кефир, нет в составе
+- `ed_eggs_cocotte_ham_mushroom` — в названии сыр, нет в составе
+- `ed_eggs_poached_yogurt_cilbir` — в названии чеснок, нет в составе
+- `veg_shiitake_noodles_spinach` — в названии чеснок, нет в составе
+- `veg_potato_sour_cream_dill_young` — в названии укроп, нет в составе
+- `meat_beef_tofu_wok` — в названии устричный соус, нет в составе
+- `pres_sauce_wild_mushroom_sour_cream` — в названии сметана, нет в составе
+- `pres_jam_quince_spice_amber` — в названии айва, нет в составе (груша)
+- `pres_pickles_tomatoes_horseradish_brine` — в названии листовая горчица, нет в составе
+- `pres_jam_plum_spiced_hungarian` — в названии анис, нет в составе
+- `pres_jam_rhubarb_strawberry_confit` — в названии пектин, нет в составе
+- `pres_jam_strawberry_basil_confit` — в названии бадьян и базилик, нет в составе
+- `bake_pork_ribs_sauerkraut_pie_rye` — курник (с курицей) в названии, в составе свинина
+- `bake_cupcakes_vanilla_condensed_frost` — в названии крем из вареной сгущёнки, нет безопасной технологии варки в составе
+- `meat_liver_beef_fried_garlic` — в названии чеснок, нет в составе
+- `veg_shiitake_tofu_soy_braise` — в названии зелёный лук, нет в составе
+- `salad_beef_eggplant_tomato_warm` — в названии перец, нет в составе
+- `salad_bacon_caesar_egg_croutons` — в названии сухарики, нет в составе
+- `salad_crab_cucumber_cabbage` — в названии пекинская капуста, в составе белокочанная
+- `salad_cucumber_feta_dill_greek` — в названии редис, нет в составе
+- `fish_carp_garlic_rosemary_foil` — в названии лимон, нет в составе
+- `fish_cod_asparagus_lemon_butter` — в названии сливочный соус, нет сливочных продуктов в составе
+- `fish_crab_sticks_cheese_rolls` — в названии кляр, нет муки в составе
+- `fish_perch_polish_egg_sauce` — в названии судак, в составе окунь
+- `fish_pollock_coconut_curry` — в названии куркума, нет в составе
+- `fish_sardines_spaghetti_garlic` — в названии петрушка, нет в составе
+- `fish_seafood_paella_saffron` — в названии перец, нет в составе
+- `meat_duck_cranberry_thyme` — в названии брусника, нет в составе
+- `meat_heart_beef_braised_carrots` — в названии зелень, нет в составе
+- `meat_pork_belly_roasted` — в названии свиная грудинка, в составе бекон
+- `meat_pork_sausage_baked` — в названии тмин, нет в составе
+- `meat_rabbit_olives_rosemary` — в названии чеснок, нет в составе
+- `veg_artichokes_baked_garlic_lemon` — в названии чеснок, нет в составе
+- `veg_asparagus_roasted_parmesan` — в названии чеснок, нет в составе
+- `veg_bell_pepper_baked_feta_oil` — в названии чеснок, нет в составе
+- `veg_broccoli_garlic_soy_oyster` — в названии чеснок, нет в составе
+- `veg_carrot_glazed_honey_thyme` — в названии тимьян, нет в составе
+- `veg_champignon_garlic_butter_pan` — в названии укроп, нет в составе
+- `veg_cherry_tomato_feta_baked_pasta` — в названии чеснок, нет в составе
+- `veg_lentils_green_spinach_lemon` — в названии чеснок, нет в составе
+- `veg_mung_beans_carrot_turmeric` — в названии зира, нет в составе
+- `veg_mushrooms_rice_garlic_pan` — в названии морковь, нет в составе
+- `soup_cornmeal_beef_soup` — в названии чеснок, его нет в ингредиентах
+- `soup_cabbage_potato_caraway` — в названии тмин, его нет в ингредиентах
+- `soup_cream_spinach` — в названии кедровые орешки, их нет в ингредиентах
+- `soup_lentil_cumin` — в названии томат, его нет в ингредиентах
+- `soup_porcini_potato_soup` — в названии укроп, его нет в ингредиентах
+- `soup_gazpacho_andalusian` — в названии томаты, их нет в ингредиентах
+- `soup_radish_cucumber_soup` — в названии огурцы, их нет в ингредиентах
+- `soup_veal_quinoa` — в названии шпинат, его нет в ингредиентах
+- `soup_cod_spinach_lemon` — в названии лимон, его нет в ингредиентах
+- `soup_couscous_zucchini` — в названии цукини, его нет в ингредиентах
+- `soup_duck_apple_soup` — в названии корица, её нет в ингредиентах
+- `soup_salmon_broccoli_soup` — в названии сливки, их нет в ингредиентах
+- `soup_trout_zucchini` — в названии укроп, его нет в ингредиентах
+- `soup_veal_leek_barley` — в названии лук-порей, его нет в ингредиентах
+- `soup_sweet_potato_carrot_soup` — в названии паприка, её нет в ингредиентах
+- `soup_shurpa_chickpea` — в названии паприка, её нет в ингредиентах
+- `soup_pumpkin_curry` — в названии тыква, её нет в ингредиентах
+- `soup_radish_cucumber_yogurt` — холодный суп, редиса нет в ингредиентах
+- `soup_sorrel_cucumber_soup` — холодный суп, яйца нет в ингредиентах
+- `soup_mussels_spinach_cream` — в названии шпинат, его нет в ингредиентах
+- `salad_fried_mozzarella_sticks` — жарка во фритюре, масла нет в ингредиентах
+- `salad_sausage_cheese_lavash_triangles` — жареные конверты, масла нет в ингредиентах
+- `salad_bruschetta_champignon_cream_cheese` — жареные шампиньоны, масла нет в ингредиентах
+- `porridge_bulgur_mushroom_carrot` — в названии лук, его нет в ингредиентах
+- `porridge_buckwheat_carrot_garlic_herb` — в названии чеснок, его нет в ингредиентах
+- `porridge_rice_shiitake_soy_sesame` — в названии кунжут, его нет в ингредиентах
+- `porridge_rice_risotto_spinach_butter` — в названии чеснок, его нет в ингредиентах
+- `porridge_pasta_aglio_olio_garlic` — в названии петрушка, её нет в ингредиентах
+- `porridge_pasta_zucchini_lemon_mint` — в названии мята, её нет в ингредиентах
+- `porridge_couscous_green_peas_mint` — в названии лимон, его нет в ингредиентах
+- `porridge_bulgur_cherry_cardamom` — в названии кардамон, его нет в ингредиентах
+- `porridge_buckwheat_cabbage_carrot_pot` — в названии морковь, её нет в ингредиентах
+- `porridge_rice_basmati_garlic_cilantro` — в названии чеснок, его нет в ингредиентах
+- `porridge_rice_mango_coconut_thai` — в названии манго, его нет в ингредиентах
+- `porridge_pasta_asparagus_butter_egg` — в названии сливочный соус, масла/сливок нет в ингредиентах
+- `des_syrok_glazed_cottage_coconut` — в названии молочная глазурь, есть только шоколад
+- `bev_kvass_beet_garlic_savory` — в названии чеснок, его нет в ингредиентах; свекольный квас требует недель брожения
+- `salad_cucumber_rolls_cream_cheese_dill` — в названии красная рыба, в составе только крабовые палочки
+- `salad_corn_fritters_snack_yogurt` — оладьи жарятся, масла нет в ингредиентах
+- `bake_quiche_champignon_leek_thyme` — жареные шампиньоны, масла нет в ингредиентах
+- `ed_cheese_baked_georgian_cornmeal` — кеци (глиняная сковорода) и кукурузной муки нет в составе
+- `ed_paskha_curd_raisins_candied` — в названии цукаты, их нет в ингредиентах
+- `pres_sauce_sea_buckthorn_orange` — в названии облепиха, в составе клюква
+
+## Нужен загуститель (желатин/агар/пектин) (6)
+
+- `des_milk_jelly_kefir_blackberry` — нет желатина для желе (в составе только крахмал)
+- `des_ptichye_moloko_chocolate_glaze` — суфле без желатина/агара в составе, не застынет
+- `des_pannacotta_vanilla_berry_coulis` — панна-котта без желатина в составе
+- `des_pannacotta_coconut_pineapple` — панна-котта без желатина/агара в составе
+- `des_marmalade_plum_lemon_homemade` — мармелад: нет пектина/желатина, только крахмал
+- `ed_milk_panna_cotta_raspberry` — панна-котта без желатина в составе
+
+## Долгая варка/брожение (4)
+
+- `salad_tongue_pickles_mushroom_salad` — язык требует отдельной длительной варки, в составе нет масла для грибов
+- `salad_rabbit_apple_celery_salad` — кролик требует отдельной варки 50+ минут, не соответствует «быстрому» формату
+- `salad_heart_pickles_carrot_salad` — сердце требует варки 1,5–2 часа, формат салата не подходит
+- `salad_tongue_cheese_walnut_garlic` — язык требует варки 2+ часа, формат салата не подходит

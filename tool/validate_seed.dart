@@ -169,6 +169,14 @@ void main(List<String> args) {
       errors.add('$id: invalid or missing dish_group "$group"');
     }
 
+    // 7b. R9 text quality marker.
+    final quality = r['quality'];
+    if (quality != 'template' && quality != 'curated') {
+      errors.add(
+        '$id: quality must be "template" or "curated", got "$quality"',
+      );
+    }
+
     final cuisine = r['cuisine'] as String?;
     if (cuisine == null || !Cuisine.isKnown(cuisine)) {
       errors.add('$id: invalid or missing cuisine "$cuisine"');

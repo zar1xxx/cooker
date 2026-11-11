@@ -1,0 +1,1541 @@
+position,id,title,dish_type,priority
+1,soup_shchi_fresh_beef,Богатые русские щи со свежей капустой и говядиной,soup,2
+2,soup_shchi_green_nettle,Зелёные майские щи с крапивой и яйцом,soup,2
+3,soup_solyanka_meat,Сборная мясная солянка по-московски,soup,3
+4,soup_solyanka_mushroom,Грибная солянка с белыми грибами и маслятами,soup,3
+5,soup_rassolnik_meatballs,Рассольник с мясными фрикадельками и пшеном,soup,4
+6,soup_rassolnik_moscow,Московский рассольник с курицей и рисом,soup,4
+7,soup_ukha_carp,Астраханская уха из волжского сазана с перцем,soup,7
+8,soup_ukha_karelian,Карельская уха лохикейтто со сливками,soup,7
+9,soup_noodle_chicken,Куриный суп с домашней яичной лапшой,soup,9
+10,soup_semolina_chicken_soup,Куриный суп с манной крупой и зеленью,soup,9
+11,porridge_noodles_coconut_curry_broccoli,Тайская лапша в кокосовом соусе карри с брокколи,side,12
+12,porridge_noodles_cucumber_sesame_chili,"Китайская лапша с огурцом, кунжутом и маслом чили",side,12
+13,meat_cutlets_home_style,Домашние котлеты из говядины и свинины,main,17
+14,meat_minced_chicken_spinach_cutlets,Куриные котлеты с сочным рубленым шпинатом,main,17
+15,soup_turkey_zucchini,Суп с тефтельками из индейки и молодым кабачком,soup,18
+16,meat_pork_brussels_sprouts,Жаркое из свинины с брюссельской капустой,main,21
+17,meat_pork_stew_mushrooms,Домашнее жаркое из свинины с лесными грибами,main,21
+18,soup_goulash_beef,Венгерский суп-гуляш с копченой паприкой,soup,22
+19,porridge_bulgur_tomato_bell_pepper,Турецкий плов из булгура с томатами и сладким перцем,side,26
+20,porridge_rice_cabbage_lazy_pilaf,Сытный постный плов с рисом и молодой капустой,side,26
+21,meat_lamb_stew_chickpea,Рагу из баранины с турецким нутом и томатом,main,28
+22,meat_pork_kohlrabi_stew,Рагу из свинины с нежной капустой кольраби,main,28
+23,fish_herring_tomato_stew,"Свежая сельдь, тушенная в томатном соусе с чесноком",main,29
+24,fish_mackerel_sour_cream_herbs,Тушеная скумбрия в сметане с зеленью укропа,main,29
+25,bake_cookies_kurabye_jam_butter,Песочное печенье Курабье с капелькой яблочного повидла,baking,30
+26,bake_cookies_lemon_crinkle_powdered,Мягкое лимонное мраморное печенье с сахарной пудрой,baking,30
+27,porridge_pasta_baked_cheese_egg,Запеченная бабка из макарон с яйцом и золотистой корочкой,side,31
+28,porridge_pasta_broccoli_garlic_oil,Макароны с брокколи в чесночном соусе под сыром,side,31
+29,porridge_pasta_alfredo_cream_parmesan,Шелковистая паста альфредо со сливками и пармезаном,side,32
+30,porridge_pasta_arrabbiata_chili,Острая итальянская паста арраббьята с перчиком чили,side,32
+31,porridge_lasagna_mushroom_cream_cheese,Нежная грибная лазанья с шампиньонами под моцареллой,side,33
+32,porridge_lasagna_pumpkin_walnut_sauce,Осенняя лазанья с тыквенным пюре и грецким орехом,side,33
+33,porridge_buckwheat_champignon_onion,Рассыпчатая гречка с жареными шампиньонами и луком,side,36
+34,porridge_buckwheat_dates_coconut,Полезная зеленая гречка на кокосовом молоке с финиками,breakfast,36
+35,porridge_millet_apricots_butter,Золотистая пшенная каша с курагой и сливочным маслом,breakfast,38
+36,porridge_millet_baked_pot_apple,Томленая пшенная каша в горшочке с печеными яблоками,breakfast,38
+37,bev_smoothie_peanut_banana_cocoa,Сытный овсяно-финиковый коктейль с арахисом и бананом,drink,39
+38,bev_smoothie_raspberry_kefir_oats,Сытный утренний малиновый смузи на кефире с овсянкой,drink,39
+39,ed_kefir_mannik_quick_skillet,Быстрый манник на кефире с изюмом на сковороде,breakfast,40
+40,porridge_semolina_banana_coconut,Быстрая манная каша на кокосовом молоке с бананом,breakfast,40
+41,porridge_rice_beans_caribbean,Рисовый гарнир с красной фасолью и кокосовым молоком,side,41
+42,porridge_rice_cottage_baked_casserole,Запеченная рисовая каша с творогом и изюмом,breakfast,41
+43,porridge_pearl_barley_carrot_leek,Ароматный гарнир из перловки с пореем и морковью,side,42
+44,porridge_pearl_barley_pumpkin_garlic,Перловая каша в горшочке с печеной тыквой и чесноком,side,42
+45,porridge_barley_savory_butter_dill,Рассыпчатая ячневая каша на воде со свежим укропом,side,43
+46,porridge_barley_tomato_garlic_skillet,Пряная ячневая каша в сковороде с томатной пастой,side,43
+47,fish_salmon_sweet_potato_mash,Жареное филе лосося с нежным пюре из батата,main,44
+48,fish_sardines_mashed_potato_bake,Сытная запеканка с пюре и консервированными сардинами,main,44
+49,ed_egg_baked_potato_nests,"Хрустящие картофельные гнезда, запеченные с яйцом и сыром",breakfast,45
+50,ed_frittata_potato_onion_spanish,Испанская картофельная тортилья с репчатым луком,breakfast,45
+51,ed_zapekanka_banana_condensed_milk,Банановая творожная запеканка со сгущенкой без муки,breakfast,47
+52,ed_zapekanka_carrot_semolina_children,Детская творожно-морковная запеканка с манкой и изюмом,breakfast,47
+53,ed_cheese_processed_omelet_roll,Сырные рулеты из омлета с плавленым сыром и чесноком,snack,48
+54,ed_egg_squash_omelet_cheese,Яркий омлет с тертой тыквой и сливочным сыром,breakfast,48
+55,ed_scrambled_frankfurters_peas,Утренняя яичница с сосисками и зеленым горошком,breakfast,49
+56,ed_scrambled_menemen_turkish,Турецкая яичница менемен со сладким перцем и сыром,breakfast,49
+57,ed_syrniki_poppy_seeds_honey,Пышные сырники с кондитерским маком и жидким медом,breakfast,50
+58,ed_syrniki_pumpkin_cinnamon,Яркие осенние сырники со сладкой тыквой и корицей,breakfast,50
+59,bake_sochniki_cottage_cheese_soft,Мягкие песочные сочники с творожной начинкой из школьной столовой,baking,51
+60,bake_waffles_cottage_cheese_raspberry,Мягкие творожные вафли к завтраку со свежей малиной,baking,51
+61,ed_kefir_oladi_zucchini_herbs,Нежные несладкие оладьи на кефире с кабачком и укропом,breakfast,52
+62,meat_minced_chicken_zucchini_fritters,Нежные оладьи из куриного фарша и тертого кабачка,main,52
+63,bake_bliny_yeast_milk_classic,Кружевные русские дрожжевые блины на молоке со сметаной,baking,53
+64,bake_crepes_cocoa_chocolate_banana,Шоколадные тонкие блинчики с бананом и сгущенным молоком,baking,53
+65,salad_mimosa_saury_classic,Слоеный салат Мимоза с консервированной сайрой и сыром,salad,58
+66,salad_mimosa_tuna_carrot_egg,"Нежный салат Мимоза с тунцом, морковью и яйцом",salad,58
+67,salad_shrimp_caesar_classic,Королевский салат Цезарь с тигровыми креветками,salad,59
+68,salad_greek_classic_feta,Классический греческий салат с фетой и оливками,salad,60
+69,soup_feta_tomato_soup,Греческий томатный суп с сыром фета и орегано,soup,60
+70,pres_jam_carrot_lemon_ginger,Яркий морковный мармелад с лимоном и свежим имбирем,preserve,62
+71,bake_chicken_broccoli_pie_cream,"Нежный закрытый пирог с куриной грудкой, брокколи и сыром",baking,64
+72,bake_cottage_terty_pie_jam,Тертый песочный пирог из детства с ягодным вареньем,baking,64
+73,bake_muffins_savory_zucchini_feta,"Соленые маффины с кабачком, сыром фета и петрушкой",baking,67
+74,ed_egg_muffins_ham_spinach,"Запеченные яичные маффины с ветчиной, шпинатом и перцем",breakfast,67
+75,bake_cinnabon_cinnamon_cream_rolls,Воздушные булочки синнабон с корицей и сливочным сыром,baking,68
+76,bake_pizza_mushroom_ham_olives,"Домашняя пицца с ветчиной, шампиньонами и маслинами",baking,72
+77,bake_pizza_zucchini_eggplant_feta,"Овощная пицца с кабачком, баклажаном и раскрошенной фетой",baking,72
+78,bev_compote_cherry_mint,Домашний рубиновый компот из спелой вишни с листиком мяты,drink,76
+79,bev_compote_currant_black_raspberry,Летний ягодный компот из черной смородины с малиной,drink,76
+80,bev_mors_currant_black_mint,Ароматный морс из черной смородины с веточкой мяты,drink,77
+81,bev_mors_currant_red_raspberry,Яркий двойной ягодный морс из красной смородины и малины,drink,77
+82,bev_kissel_rhubarb_apple_honey,"Освежающий весенний кисель с ревенем, яблоком и медом",drink,78
+83,bev_kissel_strawberry_milk_sweet,Нежный молочно-клубничный кисель для семейного полдника,drink,78
+84,bev_cocoa_peanut_caramel_warm,Сладкий согревающий напиток какао с арахисом и карамелью,drink,79
+85,des_chocolate_truffles_dark_cream,Изысканные шоколадные трюфели на жирных сливках с какао,dessert,79
+86,bev_lemonade_ginger_lemon_honey,"Пряный тонизирующий имбирный лимонад с лаймом, апельсином и мятой",drink,81
+87,bev_lemonade_grapefruit_rosemary,Бодрящий цитрусовый лимонад из грейпфрута с розмарином,drink,81
+88,bev_smoothie_avocado_cucumber_yogurt,"Кремовый детокс-смузи с авокадо, огурцом и лимоном",drink,82
+89,bev_smoothie_avocado_kiwi_lime,"Зеленый шелковистый смузи со спелым авокадо, зеленым киви и соком лайма",drink,82
+90,pres_jam_apricot_almond_vanilla,Деликатесное абрикосовое варенье с миндалем и ванилью,preserve,84
+91,pres_jam_apricot_kernel_classic,Классическое янтарное абрикосовое варенье дольками,preserve,84
+92,pres_jam_pear_chocolate_spiced,Пряный грушево-шоколадный джем с корицей и гвоздикой,preserve,85
+93,pres_jam_pumpkin_orange_cinnamon,Солнечный тыквенный джем с апельсином и корицей,preserve,85
+94,pres_pickles_beet_spiced_classic,Маринованная свекла с гвоздикой и лавровым листом,preserve,87
+95,pres_pickles_bell_pepper_stuffed_cabbage,Маринованные фаршированные перцы с капустой и морковью,preserve,87
+96,pres_pickles_cabbage_sour_classic,Классическая домашняя квашеная капуста с морковью,preserve,88
+97,pres_pickles_cabbage_sour_cranberry,Квашеная капуста с клюквой и морковью — к рыбе и мясу,preserve,88
+98,pres_adjika_apple_sweet_spicy,"Яблочная аджика с помидорами, перцем и пряными специями",preserve,89
+99,pres_adjika_eggplant_spicy,Баклажанная аджика с чесноком и острым перцем чили,preserve,89
+100,fish_herring_oat_fried,Хрустящая сельдь в панировке из ржаной муки,main,94
+101,fish_fish_walnut_herbs_georgian,Жареная рыба по-грузински в ореховой подливке с кинзой,main,95
+102,fish_salmon_cranberry_thyme,Красная рыба под пряным клюквенным соусом с тимьяном,main,95
+103,fish_salmon_broccoli_cauliflower,Лосось с соцветиями брокколи в нежном соусе,main,96
+104,fish_salmon_capers_lemon_butter,Нежное филе лосося под соусом с каперсами,main,96
+105,fish_cod_mediterranean_olives,Треска по-средиземноморски с оливками и каперсами,main,97
+106,fish_cod_sweet_potato_paprika,Запеченная треска с дольками батата и паприкой,main,97
+107,fish_hake_green_beans_soy,Хек со стручковой фасолью в легком соевом соусе,main,99
+108,fish_hake_kefir_herb_baked,Диетический хек в кефирно-укропном соусе в духовке,main,99
+109,fish_mackerel_green_onion_sesame,Скумбрия в сковороде с зеленым луком и кунжутом,main,100
+110,fish_mackerel_honey_vinegar_glaze,Румяная скумбрия в сладковато-пряной глазури,main,100
+111,meat_chicken_buttermilk_crispy,Хрустящая курица на пахте в ароматной панировке,main,101
+112,meat_chicken_cashew_stirfry,Китайская курица гунбао с жареным кешью,main,101
+113,meat_turkey_couscous_raisins,Марокканская индейка с кускусом и сладким изюмом,main,102
+114,meat_turkey_currant_red_sauce,Медальоны из индейки под соусом из красной смородины,main,102
+115,meat_beef_bourguignon,Говядина по-бургундски с лесными грибами,main,103
+116,meat_beef_broccoli_stir_fry,Стир-фрай из говядины с хрустящей брокколи,main,103
+117,meat_pork_cornmeal_polenta,Свинина по-молдавски на горячей кукурузной мамалыге,main,104
+118,meat_pork_cranberry_mustard,Буженина из свинины в клюквенно-горчичной корочке,main,104
+119,meat_lamb_kebab_lula_onion,Люля-кебаб из баранины на углях с луком,main,105
+120,meat_lamb_quince_spices,"Баранина с яблоком и медом, томленная в горшочке",main,105
+121,porridge_couscous_roasted_zucchini,Марокканский кускус с печеными кабачками и куркумой,side,108
+122,pres_caviar_zucchini_classic,Классическая домашняя кабачковая икра как в магазине,preserve,108
+123,porridge_bulgur_eggplant_mint,Рассыпчатый булгур с жареным баклажаном и мятой,side,109
+124,pres_caviar_eggplant_classic,Классическая баклажанная икра с луком и томатами,preserve,109
+125,salad_stuffed_eggs_avocado_lime,Нежные фаршированные яйца с зеленым кремом из авокадо,snack,111
+126,salad_stuffed_eggs_cod_saury,Фаршированные яйца с консервированной сайрой и укропом,snack,111
+127,fish_tuna_corn_quesadilla,"Горячая лепешка тортилья с тунцом, кукурузой и сыром",main,112
+128,des_ice_cream_halva_sesame_creamy,"Восточное мороженое со вкусом халвы, сливок и кунжута",dessert,118
+129,des_ice_cream_pistachio_cream_honey,Сливочное фисташковое мороженое в домашней морозилке,dessert,118
+130,des_pudding_chocolate_starch_silky,Шелковистый шоколадный пудинг на молоке и кукурузном крахмале,dessert,119
+131,des_pudding_vanilla_caramel_starch,Нежный ванильный пудинг под густым карамельным соусом,dessert,119
+132,des_mousse_cranberry_semolina_russian,Традиционный русский клюквенный мусс на манке со взбитой пенкой,dessert,120
+133,des_mousse_peach_yogurt_cardamom,Бархатный персиковый мусс на йогурте с щепоткой кардамона,dessert,120
+134,pres_jam_currant_red_raspberry_mint,Пикантное ягодное желе с красной смородиной и мятой,preserve,121
+135,pres_jam_greengage_plum_spice,Прозрачное сливовое желе с кориандром и лимонной цедрой,preserve,121
+136,pres_pickles_mushrooms_forest_dill,Традиционные соленые лесные грибы с укропом и чесноком,preserve,122
+137,ed_cheese_mozzarella_in_carrozza,Жареные гренки моцарелла ин карроцца в яйце и сухарях,snack,125
+138,fish_sardines_tomato_toast_hot,Горячие гренки из белого хлеба с сардинами и томатом,main,125
+139,salad_hot_sandwiches_ham_tomato,Горячие бутерброды в духовке с ветчиной и томатами,snack,126
+140,salad_tuna_melt_toast_corn,Хрустящий сэндвич туна мелт с расплавленным сыром,snack,127
+141,soup_meatball_cheese_vermicelli,Сырный суп с мясными фрикадельками и вермишелью,soup,130
+142,soup_cream_broccoli,Крем-суп из брокколи со сливками и сыром,soup,131
+143,soup_cream_cauliflower,Крем-суп из цветной капусты с пармезаном,soup,131
+144,bev_pumpkin_spice_milk_latte,Осенний согревающий тыквенный напиток на молоке со специями,drink,132
+145,meat_pork_pumpkin_seeds_pesto,Свиные медальоны с соусом из тыквенных семечек,main,132
+146,salad_beans_corn_bell_pepper_mex,"Яркий мексиканский салат с фасолью, кукурузой и перцем",salad,134
+147,salad_beans_pickles_fried_onion,Деревенский сытный салат с красной фасолью и огурчиками,salad,134
+148,porridge_bulgur_chickpeas_coriander,"Сытный булгур с нутом, тмином и свежим кориандром",side,135
+149,salad_baked_chickpeas_snack_chili,Пряный жареный нут к фильму с перцем чили и зирой,snack,135
+150,salad_pumpkin_hummus_paprika,"Осенний хумус с печеной тыквой, зирой и паприкой",snack,136
+151,pres_pickles_cabbage_kimchi_style,Острая капуста по-корейски кимчи с чесноком и перцем,preserve,138
+152,pres_pickles_cabbage_provencal_spice,"Капуста Провансаль с морковью, клюквой и пряным маслом",preserve,138
+153,salad_squid_corn_apple_sour_cream,"Легкий салат с кальмаром, кукурузой и зеленым яблоком",salad,140
+154,salad_squid_egg_cucumber_classic,"Нежный салат с отварными кальмарами, огурцом и яйцом",salad,140
+155,fish_shrimp_garlic_butter_lemon,Королевские креветки в чесночно-сливочном масле с лимоном,main,141
+156,fish_shrimp_quinoa_lemon_herb,"Теплый гарнир с киноа, креветками и свежим укропом",main,141
+157,salad_mussels_baked_toast_herb,Мидии с лимоном и петрушкой на хрустящем поджаренном хлебе,snack,142
+158,des_apple_chips_crispy_cinnamon,"Хрустящие яблочные чипсы с корицей, лимоном и кардамоном",dessert,144
+159,des_baked_alaska_apple_souffle_egg,Воздушное яблочно-белковое суфле в формочках из духовки,dessert,144
+160,bev_milkshake_chocolate_banana_ice,Густой шоколадный молочный коктейль с бананом и мороженым,drink,145
+161,des_baked_banana_chocolate_boat,"Запеченные банановые лодочки с шоколадом, зефиром и орехом",dessert,145
+162,des_blueberry_cobbler_biscuit_top,Ароматный ягодный коблер с голубикой под нежной корочкой,dessert,146
+163,des_fruit_salad_berry_yogurt_poppy,"Ягодный салат с клубникой, голубикой, йогуртом и маком",dessert,146
+164,des_lavash_cherry_cottage_sweet_roll,Быстрый запеченный рулет из лаваша с вишней и творогом,dessert,147
+165,des_melon_prosciutto_sweet_honey_yogurt,Летний легкий десерт из дыни со взбитым творогом и миндалем,dessert,147
+166,bev_beet_kefir_dill_cold_tonic,Полезный прохладный кефирно-свекольный напиток с укропом,drink,148
+167,bev_tan_kefir_greens_garlic,Кавказский освежающий тан на кефире с зеленью и укропом,drink,148
+168,des_baked_apricots_almond_sour_cream,Запеченные половинки абрикосов с миндальной посыпкой и сметаной,dessert,149
+169,des_gooseberry_custard_baked_pot,"Запеченный крыжовник с медом, яйцом и нежной сметанной шапкой",dessert,149
+170,soup_shchi_lamb_cabbage,Кавказские щи с бараниной и капустой,soup,2
+171,soup_shchi_monastic_forest,Монастырские щи со свежими лесными грибами,soup,2
+172,soup_solyanka_pike_salmon,Волжская солянка с щукой и лососем,soup,3
+173,soup_solyanka_poultry,Птичья солянка с курицей и индейкой,soup,3
+174,soup_rassolnik_pike,Рыбный рассольник с судаком и перловкой,soup,4
+175,soup_rassolnik_porcini,Монастырский рассольник с белыми грибами,soup,4
+176,soup_ukha_perch_cod,Рыбацкая уха на костре из окуня и трески,soup,7
+177,soup_ukha_rostov,Ростовская уха с судаком и помидорами,soup,7
+178,porridge_noodles_daikon_carrot_korean,"Корейская жареная лапша с морковью, шпинатом и кунжутом",side,12
+179,porridge_noodles_eggplant_ginger_soy,Азиатская лапша с обжаренными баклажанами и имбирем,side,12
+180,meat_minced_turkey_oat_burgers,Котлеты из фарша индейки с овсяными хлопьями,main,17
+181,meat_pozharsky_cutlets,Пожарские котлеты в сухарной панировке из курицы,main,17
+182,meat_pork_stew_potatoes_village,Деревенское жаркое со свининой и картофелем,main,21
+183,meat_rabbit_oyster_cream,Жаркое из кролика с вешенками в нежных сливках,main,21
+184,porridge_rice_veg_pilaf_uzbek,"Овощной плов с нутом, морковью и пряной зирой",side,26
+185,meat_pork_lentils_red_stew,Свиное рагу с красной чечевицей и куркумой,main,28
+186,meat_turkey_chickpeas_stew,Пряное рагу из индейки с турецким горохом нутом,main,28
+187,fish_pike_tomato_celery_stew,"Щука, тушенная с корнем сельдерея в томатном соусе",main,29
+188,fish_pollock_sauerkraut_stew,Минтай по-деревенски с тушеной квашеной капустой,main,29
+189,bake_cookies_oatmeal_raisins_honey,"Домашнее овсяное печенье с изюмом, корицей и медом",baking,30
+190,bake_cookies_peanut_butter_crispy,Рассыпчатое арахисовое печенье с орешками и медом,baking,30
+191,porridge_pasta_brussels_pancetta_veg,Макароны с обжаренной брюссельской капустой и орехом,side,31
+192,porridge_pasta_champignon_sour_cream,Макароны с жареными шампиньонами в сметанном соусе,side,31
+193,porridge_pasta_artichokes_olives_lemon,"Паста с артишоками, маслинами и оливковым маслом",side,32
+194,porridge_pasta_avocado_green_sauce,Зеленая паста с кремовым соусом из спелого авокадо,side,32
+195,porridge_lasagna_veg_spinach_ricotta,"Овощная лазанья со шпинатом, томатами и творогом",side,33
+196,porridge_buckwheat_spinach_feta,Теплая гречка со свежим шпинатом и раскрошенной фетой,side,36
+197,porridge_buckwheat_tomato_paste_egg,"Гречка в томатном соусе, запеченная с яйцом",side,36
+198,porridge_millet_currant_condensed,Пшенная каша на молоке со сгущенкой и черной смородиной,breakfast,38
+199,porridge_millet_mushroom_fried_onion,Рассыпчатое пшено с жареными шампиньонами и маслом,side,38
+200,des_baked_apples_berries_oat_crunch,Печеные яблоки под хрустящей овсяной посыпкой с клюквой,dessert,39
+201,des_crumble_cherry_chocolate_oats,Шоколадно-вишневый крамбл с овсяной крошкой и пломбиром,dessert,39
+202,porridge_semolina_blackberry_vanilla,Нежная манная каша со свежей ежевикой и ванилью,breakfast,40
+203,porridge_semolina_cherry_compote_sauce,Манная каша на молоке с теплым вишневым соусом,breakfast,40
+204,porridge_rice_dates_pistachio_cardamom,"Восточная рисовая каша с финиками, фисташками и кардамоном",breakfast,41
+205,porridge_rice_milk_pumpkin_honey,Нежная рисовая каша с тыквой и медом в кастрюле,breakfast,41
+206,soup_barley_forest_kulesh,Деревенский кулеш с перловкой и грибами,soup,42
+207,soup_goose_pearl_barley,Рождественский суп из гуся с перловой крупой,soup,42
+208,meat_frankfurters_mashed_potatoes,Запеканка с сосисками и нежным картофельным пюре,main,44
+209,porridge_potato_mash_celery_root,Нежное пюре из картофеля и корня сельдерея,side,44
+210,fish_carp_potato_onion_tray,"Домашний карп, запеченный на картофельной подушке со сметаной",main,45
+211,fish_hake_potato_layer_pie,Сытная картофельная запеканка с кусочками хека,main,45
+212,ed_zapekanka_currant_black_cream,Ароматная запеканка из творога с черной смородиной,breakfast,47
+213,ed_zapekanka_dried_apricots_yogurt,Творожная запеканка в духовке с курагой и йогуртом,breakfast,47
+214,ed_egg_tortilla_breakfast_beans,"Сытный буррито с омлетом, фасолью и авокадо в тортилье",breakfast,48
+215,ed_omelet_broccoli_cheddar,Питательный омлет с соцветиями брокколи и твердым сыром,breakfast,48
+216,ed_syrniki_savory_dill_garlic,Пикантные соленые сырники с укропом и твердым сыром,breakfast,50
+217,ed_syrniki_semolina_raisins,Нежные творожные сырники на манке с золотистым изюмом,breakfast,50
+218,bev_smoothie_cottage_peach_milk,Белковый творожный коктейль со спелым персиком и медом,drink,51
+219,des_cheesecake_no_bake_cottage_peach,Нежный творожный чизкейк с персиками на песочной крошке,dessert,51
+220,salad_beet_pancakes_feta_dill,Яркие свекольные оладьи с раскрошенной фетой и укропом,snack,52
+221,veg_kohlrabi_carrot_fritters,Хрустящие оладьи из тертой кольраби и сочной моркови,main,52
+222,bake_crepes_spinach_feta_green,"Яркие зеленые блинчики со шпинатом, фетой и укропом",baking,53
+223,bake_crepes_suzette_orange_butter,Французские блинчики креп сюзетт в апельсиновой карамели,baking,53
+224,soup_spinach_feta_soup,Греческий суп со шпинатом и раскрошенной фетой,soup,60
+225,bake_currant_red_meringue_pie,Нежный пирог с красной смородиной под воздушным безе,baking,64
+226,bake_dates_caramel_sticky_pudding,Английский финиковый пирог с густым карамельным соусом,baking,64
+227,bev_compote_currant_red_orange,Освежающий компот из красной смородины и апельсиновых долек,drink,76
+228,bev_compote_gooseberry_lime,Изумрудный дачный компот из крыжовника с лаймом и мятой,drink,76
+229,bev_mors_gooseberry_mint_honey,Кисло-сладкий морс из спелого крыжовника с медом,drink,77
+230,bev_mors_raspberry_lime_basil,Летний малиновый морс с соком лайма и базиликом,drink,77
+231,des_kissel_thick_cherry_sliceable,"Густой десертный вишневый кисель, который можно резать ложкой",dessert,78
+232,des_kissel_thick_milk_chocolate_sauce,Густой домашний молочный кисель с ванилью и шоколадной стружкой,dessert,78
+233,des_energy_balls_dates_cashew_cocoa,"Полезные шоколадные конфеты из фиников, кешью и ароматного какао",dessert,79
+234,ed_ice_cream_affogato_cocoa,Домашнее мороженое пломбир с горячим какао и тертым шоколадом,dessert,79
+235,bev_lemonade_mandarin_rosemary_fizzy,Зимний мандариновый лимонад с розмарином и капелькой меда,drink,81
+236,bev_lemonade_orange_cranberry_mint,Яркий апельсиново-клюквенный лимонад для праздничного стола,drink,81
+237,bev_smoothie_banana_dates_almond,Сладкий смузи без сахара из банана с финиками и миндалем,drink,82
+238,bev_smoothie_beet_apple_ginger,Тонизирующий свекольно-яблочный смузи с лимоном и имбирем,drink,82
+239,pres_jam_beet_citrus_spice,Редкое свекольное варенье с апельсином и гвоздикой,preserve,84
+240,pres_jam_blackberry_apple_rum,Зимнее ежевично-яблочное варенье с гвоздикой и кардамоном,preserve,84
+241,pres_pickles_carrot_spicy_fingers,Маринованная морковь с чесноком и зирой по-узбекски,preserve,87
+242,pres_pickles_cauliflower_beet_color,Розовая маринованная цветная капуста со свеклой,preserve,87
+243,pres_pickles_tomatoes_sour_cold,Квашеные помидоры холодным способом с чесноком и укропом,preserve,88
+244,salad_sauerkraut_cranberry_onion_oil,Старорусский салат из квашеной капусты с клюквой,salad,88
+245,pres_adjika_green_herb_georgian,Грузинская зеленая аджика из острого перца с кинзой,preserve,89
+246,pres_adjika_tomato_pepper_classic,Классическая домашняя аджика из томатов и острого перца,preserve,89
+247,fish_salmon_coconut_lime_curry,Тайский лосось в кокосовом молоке с соком лайма,main,96
+248,fish_salmon_couscous_tomato,Жареный стейк лосося с кускусом и черри,main,96
+249,fish_hake_pickles_olives_tartar,Филе хека в сметанном соусе с солеными огурцами,main,99
+250,fish_hake_rice_baked_pot,Хек с рассыпчатым рисом и овощами в горшочке,main,99
+251,fish_mackerel_mustard_soy_bake,Сочная скумбрия в горчично-соевом соусе в духовке,main,100
+252,fish_mackerel_olive_capers_sicilian,Скумбрия по-сицилийски с маслинами и каперсами,main,100
+253,meat_chicken_chakhokhbili,Грузинское чахохбили из курицы с томатами,main,101
+254,meat_chicken_cream_cheese_roll,Рулетики из куриного филе со сливочным сыром и укропом,main,101
+255,meat_turkey_dates_cinnamon,"Филе индейки, томленное с финиками и корицей",main,102
+256,meat_turkey_eggplant_parmigiana,Индейка с баклажанами и сыром пармезан,main,102
+257,meat_beef_cauliflower_gratin,Гратен из говядины с цветной капустой под сыром,main,103
+258,meat_beef_celery_root_braise,Томленая говядина с корнем сельдерея в вине,main,103
+259,meat_pork_dates_bacon_roll,Запеченные рулетики из свинины со сладкими финиками,main,104
+260,meat_pork_escalope_paprika,Эскалопы из свинины с паприкой и розмарином,main,104
+261,meat_lamb_stew_prunes_almonds,Марокканский тажин из баранины с черносливом,main,105
+262,soup_chickpea_lamb,Восточный суп из нута с бараниной и зирой,soup,105
+263,pres_caviar_zucchini_spicy_pepper,Острая кабачковая икра с болгарским перцем и томатами,preserve,108
+264,pres_pickles_zucchini_korean,Пикантная закуска из кабачков по-корейски с кориандром,preserve,108
+265,pres_caviar_eggplant_pepper_georgian,Грузинская пряная баклажанная закуска с перцем,preserve,109
+266,pres_pickles_eggplant_grilled_olive,Вяленые баклажаны на оливковом масле с чесноком и розмарином,preserve,109
+267,salad_stuffed_tomatoes_tuna_capers,Фаршированные тунцом и каперсами сочные помидоры,snack,111
+268,veg_bell_pepper_stuffed_rice_veg,Постные фаршированные перцы с рисом и морковью,main,111
+269,des_ice_cream_strawberry_condensed_cream,Домашнее клубничное мороженое из сливок и сгущенного молока,dessert,118
+270,des_nice_cream_blueberry_banana_oats,Полезное бананово-черничное мороженое за 5 минут,dessert,118
+271,des_sweet_cornmeal_berry_polenta,Теплый сладкий пудинг из кукурузной крупы с малиной и медом,dessert,119
+272,ed_milk_pudding_vanilla_starch,Нежный французский молочный пудинг бланманже с ванилью,dessert,119
+273,des_mousse_raspberry_white_cream,Нежный малиново-сливочный мусс с лимонной кислинкой,dessert,120
+274,salad_deviled_ham_egg_mousse,Воздушный мусс из ветчины и сливочного сыра на крекерах,snack,120
+275,salad_fig_cream_cheese_toast,"Изысканные гренки со спелым инжиром, орехами и сыром",snack,125
+276,salad_hot_sandwiches_sausage_pickles,Пикантные горячие гренки с колбасой и соленым огурцом,snack,125
+277,soup_cream_celery_apple,Очищающий крем-суп из сельдерея и яблок,soup,131
+278,soup_cream_champignon,Крем-суп из шампиньонов с тимьяном,soup,131
+279,porridge_oatmeal_pumpkin_seeds_cranberry,Полезная утренняя каша с тыквенными семечками и клюквой,breakfast,132
+280,pres_caviar_pumpkin_onion,Нежная тыквенная икра с луком и томатной пастой,preserve,132
+281,salad_green_beans_tomato_olives,Французский салат со стручковой фасолью и маслинами,salad,134
+282,salad_nicoise_tuna_green_beans,"Французский салат нисуаз с тунцом, фасолью и оливками",salad,134
+283,salad_beet_hummus_chickpea,Яркий розовый хумус из нута со свеклой и чесноком,snack,135
+284,salad_couscous_tomato_mint_chickpea,"Сытный салат с кускусом, нутом и свежими томатами",salad,135
+285,pres_pickles_cabbage_spicy_korean_carrot,Острая капуста с морковью по-корейски с кориандром,preserve,138
+286,salad_cranberry_cabbage_snack_honey,Пряная хрустящая капуста провансаль с клюквой и чесноком,snack,138
+287,salad_squid_korean_carrot_garlic,"Острый салат с кольцами кальмара, морковью и чесноком",salad,140
+288,soup_fish_squid_corn,Азиатский суп с кальмарами и кукурузой,soup,140
+289,fish_shrimp_risotto_parmesan,"Итальянское ризотто с креветками, тимьяном и пармезаном",main,141
+290,fish_shrimp_spaghetti_tomato,"Спагетти с креветками, томатами черри и чесноком",main,141
+291,des_crumble_apple_pear_hazelnut,Хрустящий яблочно-грушевый крамбл с жареным фундуком,dessert,144
+292,des_pastila_apple_baked_honey,Домашняя мягкая яблочная пастила из печеных яблок с медом,dessert,144
+293,des_banana_chocolate_sushi_rolls,Веселые сладкие роллы из банана с шоколадом и кокосом,dessert,145
+294,des_caramelized_banana_butter_cream,Карамелизированные на сковороде бананы с пломбиром и орехами,dessert,145
+295,ed_tvorog_baked_pears_walnuts,"Половинки груш, запеченные с творогом, медом и орехами",breakfast,147
+296,ed_tvorog_baked_quince_apples,"Сочные яблоки, запеченные с творогом, клюквой и корицей",breakfast,147
+297,ed_kefir_green_herbs_bowl,Летняя заправка-боул на кефире со свежей зеленью и огурцом,snack,148
+298,soup_kefir_beet_walnut,Свекольный холодник на кефире с дробленым орехом,soup,148
+299,des_kartoshka_rusks_sour_cream,Классическое пирожное Картошка из сухарей со сметаной,dessert,149
+300,des_pannacotta_sour_cream_cherry,Нежное сметанное бланманже с кисло-сладким вишневым соусом,dessert,149
+301,soup_shchi_pike_cabbage,Рыбацкие щи со щукой и свежей капустой,soup,2
+302,soup_shchi_rabbit_roots,Диетические щи из кролика с белыми кореньями,soup,2
+303,soup_solyanka_ribs_bacon,Охотничья солянка с копчёными рёбрышками и беконом,soup,3
+304,soup_solyanka_salmon_cod,Царская рыбная солянка с сёмгой и треской,soup,3
+305,soup_rassolnik_pork_ribs,Деревенский рассольник со свиными рёбрышками,soup,4
+306,soup_rassolnik_rabbit,Нежный рассольник из кролика с перловой крупой,soup,4
+307,soup_ukha_tsar,Царская тройная уха с семгой и судаком,soup,7
+308,porridge_noodles_garlic_butter_parmesan,Быстрая яичная лапша с чесночным маслом и пармезаном,side,12
+309,porridge_noodles_poppy_honey_polish,"Рождественская лапша с маком, изюмом и медом",side,12
+310,meat_turkey_oatmeal_cutlets,Диетические котлеты из индейки с овсяными хлопьями,main,17
+311,veg_beet_cutlets_walnut_prunes,Постные свекольные котлеты с черносливом и орехом,main,17
+312,meat_rabbit_roast_thyme,Жаркое из кролика с тимьяном и пастернаком,main,21
+313,meat_turkey_bulgur_tomato,Жаркое из филе индейки с булгуром и томатами,main,21
+314,meat_turkey_stew_vegetables,Рагу из филе индейки с цукини и сладким перцем,main,28
+315,meat_veal_stew_zucchini,Рагу из телятины с молодыми кабачками,main,28
+316,fish_pollock_sour_cream_carrot,"Минтай, тушенный с морковью в нежном сметанном соусе",main,29
+317,fish_salmon_red_cabbage_apple,Теплое блюдо из лосося с тушеной красной капустой,main,29
+318,bake_cookies_pear_chocolate_chunks,Нежное бисквитное печенье с кубиками груши и шоколадом,baking,30
+319,bake_cookies_pistachio_cranberry_bark,Праздничное тонкое печенье с фисташками и сушеной клюквой,baking,30
+320,porridge_pasta_mac_and_cheese,Американские макароны с сыром мак энд чиз,side,31
+321,porridge_pasta_beans_fagioli_thick,Сытная итальянская паста с белой фасолью и розмарином,side,32
+322,porridge_pasta_beet_feta_pink,Яркая свекольная паста с нежной фетой и орехами,side,32
+323,porridge_buckwheat_zucchini_tomato,Гречка по-деревенски с кабачками и сладким перцем,side,36
+324,porridge_millet_peach_almond,Пшенная молочная каша со сладкими персиками и миндалем,breakfast,38
+325,porridge_millet_pumpkin_classic,Классическая пшенная каша с тыквой на топленом молоке,breakfast,38
+326,des_oatmeal_dessert_apple_caramel_pecan,Теплая десертная овсянка с карамельными яблоками и корицей,dessert,39
+327,des_yogurt_granola_plum_cinnamon,"Печеные сливы с йогуртом, орехами и овсяными хлопьями",dessert,39
+328,porridge_semolina_cocoa_chocolate,Шоколадная манная каша для сладкоежек с какао,breakfast,40
+329,porridge_semolina_guriev_classic,Старинная гурьевская манная каша с орехами и пенками,breakfast,40
+330,porridge_rice_milk_raisins_vanilla,Сливочная рисовая каша с изюмом и щепоткой ванили,breakfast,41
+331,porridge_rice_strawberry_jam_cream,Молочная рисовая каша со сливочным маслом и клубникой,breakfast,41
+332,porridge_potato_mash_garlic_cream,Сливочное пюре с печеным чесноком и укропом,side,44
+333,porridge_potato_mash_green_peas_wasabi,Изумрудное картофельное пюре с зеленым горошком,side,44
+334,fish_saury_potato_pie_baked,Быстрый картофельный пирог с консервированной сайрой,main,45
+335,fish_seafood_potato_gratin,Картофельный гратен с морепродуктами и сливками,main,45
+336,ed_zapekanka_peach_semolina,Нежная творожная запеканка с дольками сочных персиков,breakfast,47
+337,ed_zapekanka_pear_almond_cinnamon,"Творожная запеканка с грушей, корицей и миндалем",breakfast,47
+338,ed_omelet_cauliflower_sour_cream,Запеченный омлет с цветной капустой и сметаной в духовке,breakfast,48
+339,ed_omelet_champignon_dill,Сытный омлет с обжаренными шампиньонами и укропом,breakfast,48
+340,ed_syrniki_wholegrain_apple,Диетические сырники с яблоком на цельнозерновой муке,breakfast,50
+341,des_cottage_baked_banana_cocoa,Шоколадно-творожный мусс-пудинг из духовки со спелым бананом,dessert,51
+342,des_cottage_baked_currant_red_semolina,Пышный творожно-ягодный десерт с красной смородиной из духовки,dessert,51
+343,veg_zucchini_pancakes_dill,Пышные кабачковые оладьи со свежим укропом и чесноком,main,52
+344,bake_dutch_baby_oven_berry_pancake,Пышный голландский блин в духовке с клубникой и пудрой,baking,53
+345,ed_curdled_milk_pancakes_classic,Кружевные блины на кислой простокваше со сливочным маслом,breakfast,53
+346,bake_gooseberry_honey_pie,"Летний домашний пирог с крыжовником, медом и сметаной",baking,64
+347,bake_grape_schiacciata_rosemary,Итальянский осенний пирог с виноградом и розмарином,baking,64
+348,bev_compote_grape_rosemary,Душистый осенний компот из темного винограда с розмарином,drink,76
+349,bev_compote_grapefruit_honey_ginger,Тонизирующий грейпфрутовый компот с медом и имбирем,drink,76
+350,fish_seafood_couscous_lemon,"Морской коктейль с кускусом, лимоном и мятой",main,77
+351,fish_seafood_risotto_cream,Сливочное ризотто с морским коктейлем и пармезаном,main,77
+352,ed_powdered_milk_truffles_cocoa,Домашние сливочные трюфели из сухого молока и какао,dessert,79
+353,pres_jam_cherry_cocoa_liqueur,Оригинальное вишневое варенье с какао и кофейным ароматом,preserve,79
+354,bev_lemonade_peach_lemon_mint,Нежный летний персиковый лимонад с лимонным соком,drink,81
+355,bev_lemonade_strawberry_basil_lime,Ароматный летний лимонад из клубники с зеленым базиликом,drink,81
+356,bev_smoothie_blackberry_currant_buttermilk,Ягодный смузи на пахте с ежевикой и черной смородиной,drink,82
+357,bev_smoothie_blueberry_spinach_banana,"Яркий витаминный смузи со шпинатом, голубикой и бананом",drink,82
+358,pres_jam_blackberry_plum_spiced,Терпкое варенье из ежевики и сливы с душистыми специями,preserve,84
+359,pres_jam_blueberry_cardamom,Черничное варенье с кардамоном и лимонной цедрой,preserve,84
+360,pres_pickles_cauliflower_turmeric,Яркая маринованная цветная капуста с куркумой и чесноком,preserve,87
+361,pres_pickles_celery_lemon_olive,Итальянская маринованная черешковая сельдерей с оливками,preserve,87
+362,salad_sauerkraut_potato_bean_salad,Постный сытный салат с квашеной капустой и фасолью,salad,88
+363,veg_sauerkraut_apples_cranberry,"Квашеная капуста, томленная с яблоками и клюквой",main,88
+364,pres_sauce_adjika_walnuts_georgian,Грузинская ореховая аджика с кинзой и голубым пажитником,preserve,89
+365,fish_salmon_honey_mustard_glaze,Запеченный лосось под медово-горчичной глазурью,main,96
+366,fish_salmon_orange_rosemary,Праздничный лосось в духовке с апельсином и розмарином,main,96
+367,fish_hake_squash_dill_stew,"Нежный хек, томленный с кубиками сладкой тыквы",main,99
+368,fish_hake_tomato_bell_pepper,Хек по-домашнему с болгарским перцем в томате,main,99
+369,fish_mackerel_orange_thyme_roast,Запеченная скумбрия с апельсином и веточкой тимьяна,main,100
+370,fish_mackerel_potato_garlic_tray,"Скумбрия, запеченная на противне с картошкой",main,100
+371,meat_chicken_curry_indian,Индийское куриное карри с рисом басмати,main,101
+372,meat_chicken_dates_almond,Восточная курица с вялеными финиками и миндалем,main,101
+373,meat_turkey_hazelnut_spinach,Индейка со свежим шпинатом и дробленым фундуком,main,102
+374,meat_turkey_lavash_quesadilla,Горячий рулет в лаваше с индейкой и томатами,main,102
+375,meat_beef_chashushuli_georgian,Грузинское чашушули из говядины с кинзой,main,103
+376,meat_beef_curry_coconut,Индийское карри из говядины с кокосовым молоком,main,103
+377,meat_pork_feta_olives_greek,"Свинина по-гречески, запеченная с фетой и оливками",main,104
+378,meat_pork_french_baked,Мясо по-французски из свинины с сыром и помидорами,main,104
+379,soup_lamb_eggplant,Кавказский суп из баранины с баклажанами,soup,105
+380,soup_lamb_prunes_soup,Кавказский суп из баранины с черносливом и кинзой,soup,105
+381,salad_zucchini_chips_parmesan_oven,Тонкие запеченные чипсы из кабачков с сыром пармезан,snack,108
+382,salad_zucchini_feta_lemon_grilled,Теплый салат из кабачков гриль с сыром фета и орегано,salad,108
+383,pres_pickles_eggplant_pepper_relish,Пикантная заготовка из баклажанов с перцем и луком,preserve,109
+384,salad_eggplant_pancakes_tomato_garlic,Баклажаны по-грузински кружочками с помидором и сыром,snack,109
+385,veg_champignon_stuffed_cheese_herbs,"Шляпки шампиньонов, фаршированные сливочным сыром",main,111
+386,salad_rye_croutons_garlic_cheese,Хрустящие чесночные гренки из черного хлеба с сыром,snack,125
+387,soup_french_onion,Французский луковый суп с гренками и сыром,soup,125
+388,soup_cream_pumpkin,Пряный крем-суп из тыквы с имбирем,soup,131
+389,soup_parsnip_apple_puree,Крем-суп из пастернака с печеным яблоком,soup,131
+390,salad_quinoa_pumpkin_feta_seeds,"Теплый салат с киноа, печеной тыквой и тыквенными семечками",salad,132
+391,veg_squash_coconut_curry_lentils,Тыквенное карри с красной чечевицей и кокосом,main,132
+392,salad_pkhali_green_beans_walnut,Пхали из стручковой фасоли с чесноком и зернами граната,snack,134
+393,salad_sausage_beans_carrot_hearty,"Быстрый сытный салат с колбасой, фасолью и сухариками",salad,134
+394,salad_pita_pocket_falafel_hummus,"Пита по-восточному с пряным нутом, томатом и мятой",snack,135
+395,soup_chickpea_spinach,Средиземноморский суп из нута со шпинатом,soup,135
+396,veg_brussels_cream_nutmeg_braise,Нежная брюссельская капуста в сливках с мускатным орехом,main,138
+397,veg_brussels_garlic_breadcrumbs,Хрустящая брюссельская капуста с чесночными сухариками,main,138
+398,soup_squid_rice_lemon,Средиземноморский суп с кальмарами и рисом,soup,140
+399,fish_shrimp_spinach_cream_cheese,Нежные креветки в соусе со шпинатом и сливочным сыром,main,141
+400,salad_shrimp_avocado_mango_lime,"Экзотический салат с креветками, авокадо и сочным грейпфрутом",salad,141
+401,pres_jam_apple_cinnamon_cloves,Ароматное яблочное повидло с корицей и гвоздикой,preserve,144
+402,pres_jam_apple_quince_honey,Яблочно-медовое повидло с изюмом и корицей на зиму,preserve,144
+403,des_fondue_chocolate_banana_strawberry,"Домашнее шоколадное фондю со сливками, клубникой и бананом",dessert,145
+404,des_fried_banana_peanut_croutons,Сладкие жареные тосты с карамельным бананом и арахисом,dessert,145
+405,ed_tvorog_blackberry_sunflower_honey,"Белковый завтрак с творогом, ежевикой и семечками",breakfast,147
+406,ed_tvorog_bowl_cucumber_radish_kefir,"Освежающий соленый творог с огурцом, редисом и кефиром",breakfast,147
+407,des_prunes_walnut_sour_cream_classic,"Классический чернослив, начиненный орехами под сметанным кремом",dessert,149
+408,ed_sour_cream_blackberry_honey,Густая сметана со свежей ежевикой и цветочным медом,breakfast,149
+409,soup_shchi_smoked_ribs,Щи из кислой капусты с копчёными рёбрышками,soup,2
+410,soup_shchi_sour_pork,Суточные щи из квашеной капусты со свининой,soup,2
+411,soup_solyanka_seafood,Морская солянка с креветками и кальмарами,soup,3
+412,soup_solyanka_veal,Барская солянка с нежной телятиной и окороком,soup,3
+413,soup_rassolnik_turkey,Домашний рассольник с филе индейки и рисом,soup,4
+414,soup_rassolnik_veal,Весенний рассольник с телятиной и шпинатом,soup,4
+415,porridge_noodles_sesame_peanut_sauce,Холодная или теплая лапша в пряном арахисовом соусе,side,12
+416,porridge_noodles_shiitake_cabbage_yakisoba,Японская лапша якисоба с капустой и грибами шиитаке,side,12
+417,veg_cabbage_cutlets_semolina,Нежные капустные котлеты с манкой и зеленью,main,17
+418,veg_carrot_cutlets_semolina_sweet,Сладковатые морковные котлеты с манкой со сметаной,main,17
+419,veg_beans_mushrooms_carrot_pot,"Постное жаркое с фасолью, шампиньонами и морковью",main,21
+420,veg_oyster_mushroom_potato_roast,Жаркое из вешенок с молодым картофелем и чесноком,main,21
+421,veg_beans_mexican_chili_corn,"Мексиканское рагу с фасолью, кукурузой и паприкой",main,28
+422,veg_chickpeas_eggplant_tomato,Ближневосточное рагу из нута с баклажанами и томатом,main,28
+423,fish_squid_green_peas_cream,Тушеные кальмары с зеленым горошком в нежных сливках,main,29
+424,fish_squid_rings_sour_cream,"Кальмары, тушенные в густом сметанном соусе с луком",main,29
+425,bake_cookies_pumpkin_spice_soft,Мягкое тыквенное печенье с мускатным орехом и корицей,baking,30
+426,bake_cookies_rye_honey_ginger,Полезное ржаное печенье на меду со специями и орешками,baking,30
+427,porridge_pasta_canned_tomato_oregano,Домашняя паста в томатном соусе с душистым орегано и зубчиками чеснока,side,32
+428,porridge_pasta_cauliflower_breadcrumbs,Паста с цветной капустой и хрустящими сухарями,side,32
+429,porridge_millet_raisins_honey,Рассыпчатая пшенная каша с изюмом и цветочным медом,breakfast,38
+430,porridge_rice_friendship_millet,Каша Дружба из риса и пшена на домашнем молоке,breakfast,38
+431,ed_buttermilk_oatmeal_berries,Утренняя овсянка на пахте со свежей клубникой и медом,breakfast,39
+432,ed_condensed_milk_halva_oat_bar,"Быстрые сладкие батончики из сгущенки, овсянки и арахиса",dessert,39
+433,porridge_semolina_poppy_seeds_honey,"Густая манная каша с маком, медом и орехами",breakfast,40
+434,porridge_semolina_strawberry_jam,Воздушная манная каша без комочков с ягодным вареньем,breakfast,40
+435,porridge_potato_mash_nutmeg_cheese,Нежное картофельное пюре с мускатным орехом и сыром,side,44
+436,soup_beet_apple_soup,Свекольный суп-пюре с кислым яблоком и имбирем,soup,44
+437,meat_minced_beef_cheese_casserole,Картофельная запеканка с фаршем под сырной корочкой,main,45
+438,salad_potato_boats_bacon_cheese,Запеченный картофель с беконом и зеленым луком под сыром,snack,45
+439,ed_zapekanka_raspberry_starch,Пышная творожная запеканка с малиной и ванилью,breakfast,47
+440,ed_zapekanka_savory_spinach_feta,"Греческая запеканка со шпинатом, творогом и брынзой",breakfast,47
+441,ed_omelet_chinese_tomato_stir,Китайский жареный омлет с сочными томатами и луком,breakfast,48
+442,ed_omelet_cottage_cheese_herbs,Белковый омлет с нежным творогом и зеленым луком,breakfast,48
+443,des_cottage_kiwi_banana_cocoa,Полосатый творожно-шоколадный десерт с бананом и киви,dessert,51
+444,des_cottage_melon_honey_mint,"Свежий творожный крем со спелой дыней, медом и мятой",dessert,51
+445,ed_whey_bliny_thin_milk,Тончайшие блинчики с дырочками на домашней сыворотке,breakfast,53
+446,pres_jam_plum_walnut_chocolate,Шоколадно-сливовое варенье с грецким орехом к блинам,preserve,53
+447,bake_grapefruit_olive_oil_cake,Средиземноморский пирог на оливковом масле с грейпфрутом,baking,64
+448,bake_halva_shortcrust_tea_pie,Восточный рассыпчатый пирог к чаю с подсолнечной халвой,baking,64
+449,bev_compote_kiwi_apple_lemon,Легкий зеленый компот из киви с яблоком и лимонной цедрой,drink,76
+450,bev_compote_mandarin_cloves_cinnamon,Зимний новогодний компот из мандаринов со специями,drink,76
+451,salad_cucumber_seaweed_sesame,Японский салат чука или из морской капусты с огурцом,salad,77
+452,soup_seaweed_tofu_soup,Японский суп с морской капустой и сыром тофу,soup,77
+453,bev_lemonade_tarragon_lime_classic,Домашний изумрудный лимонад Тархун с эстрагоном и лаймом,drink,81
+454,bev_lemonade_watermelon_basil_lemon,Летний прохладный арбузный лимонад с лимоном и базиликом,drink,81
+455,bev_smoothie_carrot_apple_turmeric,Золотой утренний смузи из моркови и яблок с куркумой,drink,82
+456,bev_smoothie_carrot_orange_ginger,"Оранжевый витаминный смузи с морковью, апельсином и имбирем",drink,82
+457,pres_jam_cherry_pitted_dark,Насыщенное домашнее варенье из темной вишни без косточек,preserve,84
+458,pres_jam_cranberry_walnut_honey,Пряное клюквенное варенье с грецким орехом и медом,preserve,84
+459,pres_pickles_cherry_tomatoes_spicy,Острые маринованные томаты черри с базиликом и перцем,preserve,87
+460,pres_pickles_corn_mexican_pickled,Маринованная кукуруза с чили и лаймом по-мексикански,preserve,87
+461,fish_salmon_pomegranate_walnut,Лосось по-кавказски с гранатом и грецким орехом,main,96
+462,fish_salmon_pumpkin_seeds_crust,Лосось под хрустящей посыпкой из тыквенных семечек,main,96
+463,soup_fish_hake_dill,Домашний рыбный суп из хека с укропом,soup,99
+464,soup_hake_bell_pepper,Суп из хека со сладким перцем и томатами,soup,99
+465,fish_mackerel_tomato_bell_pepper,Скумбрия по-болгарски со сладким перцем и томатами,main,100
+466,fish_mackerel_zucchini_eggplant,Скумбрия на овощной подушке из кабачков и баклажанов,main,100
+467,meat_chicken_fricassee_cream,Французское куриное фрикасе со сливками и грибами,main,101
+468,meat_chicken_gooseberry_sauce,Запеченная курица с соусом из зеленого крыжовника,main,101
+469,meat_turkey_medallions_cranberry,Медальоны из индейки с клюквенным соусом,main,102
+470,meat_turkey_olives_capers,Филе индейки с оливками и каперсами по-сицилийски,main,102
+471,meat_beef_daikon_wok,Говядина в воке с дайконом и кунжутным маслом,main,103
+472,meat_beef_dates_tagine,Марокканская говядина со сладкими финиками и корицей,main,103
+473,meat_pork_peach_ginger,Сочная свинина в глазури со сладкими персиками,main,104
+474,meat_pork_roll_garlic_herbs,Мясной рулет из свинины с чесноком и травами,main,104
+475,soup_pitie_lamb,Азербайджанский суп пити с бараниной,soup,105
+476,soup_shurpa_uzbek,Узбекская шурпа из баранины с овощами,soup,105
+477,salad_zucchini_rolls_cream_cheese_tomato,Закусочные рулетики из жареных кабачков с сыром и томатом,snack,108
+478,soup_pollock_zucchini_soup,Диетический суп из минтая с молодыми кабачками,soup,108
+479,salad_eggplant_rolls_cheese_carrot,Рулетики из печеных баклажанов с сыром и морковью,snack,109
+480,salad_eggplant_tomato_cilantro_warm,Теплый салат с хрустящими жареными баклажанами и кинзой,salad,109
+481,soup_red_onion_soup,Суп из красного карамельного лука с гренками,soup,125
+482,soup_peas_green_mint,Крем-суп из зеленого горошка со свежей мятой,soup,131
+483,soup_sweet_potato_soup,Крем-суп из батата на кокосовом молоке,soup,131
+484,salad_tortilla_quesadilla_cheese_beans,Хрустящая мексиканская кесадилья с фасолью и сыром,snack,134
+485,salad_tuna_white_beans_red_onion,Тосканский салат с консервированным тунцом и белой фасолью,salad,134
+486,soup_chickpea_tomato,Постный суп из нута в густом томатном соусе,soup,135
+487,soup_chickpeas_pumpkin_soup,Кремовый суп с нутом и запеченной тыквой,soup,135
+488,veg_brussels_honey_mustard_roast,Брюссельская капуста в духовке с горчично-медовой глазурью,main,138
+489,veg_brussels_walnut_balsamic,Печеная брюссельская капуста с уксусом и грецким орехом,main,138
+490,salad_shrimp_cocktail_tomato_lemon,"Классический коктейль с креветками, лимоном и соусом",snack,141
+491,salad_shrimp_garlic_toast_tapa,Испанские тапас с чесночными креветками на багете,snack,141
+492,pres_jam_cherry_apple_confit,Пикантный вишнево-яблочный конфитюр с анисовыми нотками,preserve,144
+493,pres_ketchup_apple_cranberry,Кисло-сладкий яблочно-клюквенный соус с пряностями,preserve,144
+494,des_fruit_salad_tropical_mango_coconut,"Экзотический салат с ананасом, бананом, киви и стружкой кокоса",dessert,145
+495,des_trifle_chocolate_banana_caramel,Слоеный шоколадный трайфл в стакане с бананом и карамелью,dessert,145
+496,ed_tvorog_bowl_persimmon_orange,Витаминный творог со сладкой хурмой и дольками апельсина,breakfast,147
+497,ed_tvorog_cream_cranberry_sugar,Взбитый нежный творог с протертой клюквой и сливками,breakfast,147
+498,ed_sour_cream_jelly_cocoa,Шоколадно-сметанный сливочный десерт с ванилью и орехами,dessert,149
+499,ed_sour_cream_strawberry_sugar,"Свежая садовая клубника, взбитая со сметаной и сахаром",dessert,149
+500,soup_shchi_turkey_sauerkraut,Помещичьи щи из квашеной капусты с индейкой,soup,2
+501,soup_shchi_veal_leek,Боярские щи с телятиной и луком-пореем,soup,2
+502,porridge_noodles_tofu_green_beans_wok,Питательная лапша с сыром тофу и стручковой фасолью,side,12
+503,porridge_noodles_wok_vegetables_soy,"Овощная лапша вок со сладким перцем, морковью и соусом",side,12
+504,veg_lentils_red_cutlets_oatmeal,Постные котлеты из красной чечевицы с овсяными хлопьями,main,17
+505,veg_mushroom_cutlets_potato,Постные котлеты из шампиньонов с картофельным пюре,main,17
+506,veg_eggplant_chickpeas_coriander,Рагу из баклажанов с турецким нутом и кориандром,main,28
+507,veg_lentils_red_tomato_carrot,Густое рагу из красной чечевицы с томатом и морковью,main,28
+508,fish_squid_tomato_olives_stew,Тушеные кальмары в томатном соусе с маслинами,main,29
+509,fish_trout_eggplant_tomato,"Форель, тушенная по-кавказски с баклажаном и томатом",main,29
+510,bake_cookies_sesame_tahini_crunchy,Восточное рассыпчатое кунжутное печенье на меду,baking,30
+511,bake_cookies_sunflower_halva_oat,Домашнее печенье из овсяных хлопьев с семечками подсолнуха,baking,30
+512,porridge_pasta_cherry_mozzarella,"Летняя паста с томатами черри, базиликом и моцареллой",side,32
+513,porridge_pasta_corn_basil_butter,Сливочная паста со сладкой кукурузой и базиликом,side,32
+514,soup_millet_lard_kulesh,Полевой кулеш с золотистым пшеном и салом,soup,38
+515,veg_squash_millet_baked_pot,Томленая в горшочке тыква с пшеном и сливочным маслом,main,38
+516,ed_kefir_overnight_oats_prunes,Вечерняя или утренняя овсянка на кефире с черносливом,breakfast,39
+517,ed_syrniki_oatmeal_berries,Утренние сырники с овсянкой и свежей лесной черникой,breakfast,39
+518,soup_broccoli_almond_soup,Суп-пюре из брокколи с лепестками миндаля,soup,44
+519,soup_cream_carrot,Морковный суп-пюре с имбирем и кокосом,soup,44
+520,salad_potato_croquettes_herbs_snack,Закусочные картофельные шарики с укропом и паприкой,snack,45
+521,salad_potato_egg_mayo_classic,Американский картофельный салат с сельдереем и яйцом,salad,45
+522,ed_zapekanka_savory_zucchini_herbs,"Несладкая запеканка с творогом, кабачками и укропом",breakfast,47
+523,ed_zapekanka_squash_orange_zest,Двухслойная тыквенно-творожная запеканка с апельсином,breakfast,47
+524,ed_omelet_ham_bell_pepper,Быстрый утренний омлет с ветчиной и сладким перцем,breakfast,48
+525,ed_omelet_japanese_tamagoyaki,Японский сладковатый рулет-омлет тамагояки с соусом,breakfast,48
+526,des_cottage_milk_custard_berry,Заварной творожно-яичный крем с малиной и сахарной пудрой,dessert,51
+527,des_cottage_terrine_currant_black,Слоеный творожный террин с протертой черной смородиной,dessert,51
+528,salad_carrot_pancakes_garlic_mayo,Острые морковные блинчики с чесночным соусом,snack,53
+529,bake_kubdari_georgian_beef_spice,Грузинский мясной пирог кубдари с говядиной и кориандром,baking,64
+530,bake_mandarin_almond_flourless_pie,Ароматный мандариновый пирог с миндальной крошкой,baking,64
+531,bev_compote_melon_lemon_cardamom,Ароматный медовый компот из дыни с кардамоном и лимоном,drink,76
+532,bev_compote_peach_vanilla,Нежный компот из спелых персиков с ноткой ванили,drink,76
+533,bev_smoothie_cherry_chocolate_coconut,Десертный вишнево-шоколадный смузи на кокосовом молоке,drink,82
+534,bev_smoothie_cucumber_dill_kefir,"Легкий зеленый смузи на кефире с огурцом, укропом и чесноком",drink,82
+535,pres_jam_currant_black_classic,Классическое ароматное варенье из черной смородины,preserve,84
+536,pres_jam_currant_red_gel,Яркое желе-варенье из красной смородины без варки ягод,preserve,84
+537,pres_pickles_cucumbers_dill_garlic,Хрустящие маринованные огурцы с укропом и чесноком,preserve,87
+538,pres_pickles_daikon_korean_spicy,Пикантный маринованный дайкон по-корейски с кориандром,preserve,87
+539,fish_salmon_shiitake_bokchoy,Лосось с грибами шиитаке и соевым соусом,main,96
+540,fish_salmon_spinach_cream_pasta,Сливочный лосось со свежим шпинатом и лимоном,main,96
+541,soup_hake_leek_cream,Балтийский суп из хека с луком-пореем и сливками,soup,99
+542,soup_fish_mackerel,Пряный суп из скумбрии с лимоном,soup,100
+543,meat_chicken_grapefruit_honey,Филе курицы в пряной грейпфрутово-медовой глазури,main,101
+544,meat_chicken_grapes_rosemary,"Куриные бедрышки, запеченные с белым виноградом",main,101
+545,meat_turkey_peaches_tarragon,Индейка с консервированными персиками и эстрагоном,main,102
+546,meat_turkey_pita_shawarma,Домашняя шаурма в пите с запеченной индейкой,main,102
+547,meat_beef_dimlama_uzbek,Узбекская димлама с говядиной и капустой,main,103
+548,meat_beef_eggplant_rolls,Мясные рулетики из говядины с баклажанами,main,103
+549,meat_pork_sesame_teriyaki,Кусочки свинины в кунжутной панировке на сковороде,main,104
+550,meat_pork_stir_fry_sweet_sour,Свинина в кисло-сладком соусе с ананасами,main,104
+551,veg_zucchini_cake_tomato_mayo,Праздничный кабачковый торт со сметаной и томатами,main,108
+552,veg_zucchini_ratatouille_provence,Классический прованский рататуй с кабачками и перцем,main,108
+553,veg_eggplant_ajapsandali_georgian,Грузинский аджапсандали с баклажанами и свежей кинзой,main,109
+554,veg_eggplant_caponata_olives,Сицилийская капоната из баклажанов с оливками и каперсами,main,109
+555,soup_bean_bacon,Тосканский суп с белой фасолью и беконом,soup,134
+556,soup_bean_lobio,Грузинский фасолевый суп лобио с кинзой,soup,134
+557,veg_chickpeas_chana_masala,Индийская чана масала из нута с томатами и карри,main,135
+558,veg_chickpeas_roasted_paprika_crunchy,"Хрустящий печеный нут с паприкой, зирой и чесноком",main,135
+559,veg_cauliflower_fried_breadcrumbs,Жареная цветная капуста в золотистых сухарях со специями,main,138
+560,veg_cauliflower_gratin_cream,Цветная капуста под сливочно-сырной корочкой в духовке,main,138
+561,salad_shrimp_pineapple_egg_festive,"Нежный праздничный салат с креветками, яйцом и ананасом",salad,141
+562,salad_shrimp_quinoa_cucumber_salad,"Полезный салат с киноа, креветками, огурцом и лаймом",salad,141
+563,pres_sauce_apple_horseradish_cream,Нежный яблочно-хреновый соус к рыбе и холодному мясу,preserve,144
+564,pres_tkemali_apple_green_mint,Яблочный кисло-пряный соус в духе ткемали с мятой,preserve,144
+565,ed_ice_cream_fried_banana_caramel,Карамелизованный жареный банан со сливочным мороженым,dessert,145
+566,ed_milk_chocolate_ganache_cream,Горячий шоколадный крем со сливками и кусочками банана,dessert,145
+567,ed_tvorog_currant_red_honey,Творог с кислинкой красной смородины и цветочным медом,breakfast,147
+568,porridge_cornmeal_raisins_cottage,Кукурузная каша с изюмом и нежным творогом,breakfast,147
+569,fish_carp_baked_sour_cream_herbs,Зеркальный карп в духовке со сметаной и петрушкой,main,149
+570,fish_pike_baked_sour_cream,"Щука, запеченная кусочками в густой сметане",main,149
+571,soup_shchi_veal_turnip,Старинные щи с телятиной и сладкой репой,soup,2
+572,porridge_pasta_sweet_cottage_milk,Сладкая молочная лапша или запеканка с творогом,side,12
+573,soup_kespe_kazakh,Казахский суп кеспе с домашней лапшой,soup,12
+574,veg_zucchini_feta_mint_fritters,Греческие котлетки из цукини с сыром фета и мятой,main,17
+575,veg_pattypan_stew_carrot_pepper,Летнее овощное рагу из патиссонов со сладким перцем,main,28
+576,veg_potato_leek_soup_stew,Нежное рагу из молодого картофеля с луком-пореем,main,28
+577,meat_beef_green_beans_garlic,"Говядина, тушенная со стручковой фасолью",main,29
+578,meat_beef_kohlrabi_caraway,Тушеная говядина с хрустящей кольраби и тмином,main,29
+579,bake_cookies_wholegrain_cranberry_oats,Фитнес-печенье из цельнозерновой муки с овсянкой и клюквой,baking,30
+580,bake_madeleine_lemon_honey_shells,Французское бисквитное печенье Мадлен с медом и лимоном,baking,30
+581,porridge_pasta_four_cheese_quattro,Паста четыре сыра в бархатистом сливочном соусе,side,32
+582,porridge_pasta_green_peas_cream,"Паста с зеленым горошком, чесноком и сливками",side,32
+583,ed_tvorog_oat_cookies_pan,Творожные лепешки с овсяными хлопьями и изюмом,breakfast,39
+584,ed_yogurt_chia_oats_overnight,Ленивая ночная овсянка в баночке на йогурте с малиной,breakfast,39
+585,soup_cream_tomato,Тосканский томатный суп-пюре с базиликом,soup,44
+586,soup_cream_zucchini,Нежный суп-пюре из кабачков со сметаной,soup,44
+587,salad_potato_pickles_green_peas_rustic,Картофельный салат по-немецки с корнишонами и укропом,salad,45
+588,salad_sardines_potato_pickles_salad,"Картофельный салат с сардинами, корнишонами и зеленым луком",salad,45
+589,ed_zapekanka_zebra_cocoa_cream,Полосатая творожная запеканка Зебра с какао и сметаной,breakfast,47
+590,fish_cod_corn_chowder_bake,Сытная запеканка из трески со сладкой кукурузой,main,47
+591,ed_omelet_oyster_mushroom_leek,"Ароматный омлет с вешенками, луком-пореем и сливками",breakfast,48
+592,ed_omelet_poularde_fluffy,Пышный французский омлет Пуляр со сливочным маслом,breakfast,48
+593,des_paskha_chocolate_hazelnut,Шоколадная творожная пасха с тертым шоколадом и фундуком,dessert,51
+594,des_paskha_tsarskaya_cottage_raisins,"Сливочная творожная пасха с изюмом, курагой и миндалем",dessert,51
+595,bake_ossetian_pie_beet_leaves_cheese,"Традиционный пирог с зеленью, щавелем и рассольным сыром",baking,64
+596,bake_ossetian_pie_potato_cheese,Тонкий осетинский пирог картофджин с картофелем и сыром,baking,64
+597,bev_compote_pear_ginger_cloves,Пряный грушевый компот со свежим имбирем и гвоздикой,drink,76
+598,bev_compote_persimmon_orange_cinnamon,Золотистый зимний компот из хурмы с апельсином и корицей,drink,76
+599,bev_smoothie_currant_red_banana_milk,Яркий кисло-сладкий смузи из красной смородины и банана,drink,82
+600,bev_smoothie_fig_banana_cinnamon,"Питательный смузи из спелого инжира, банана и корицы",drink,82
+601,pres_jam_fig_lemon_vanilla,Изысканное инжирное варенье с лимоном и натуральной ванилью,preserve,84
+602,pres_jam_gooseberry_emerald,Изумрудное варенье из крыжовника с вишневым листом,preserve,84
+603,pres_pickles_eggplant_stuffed_garlic,"Маринованные баклажаны, фаршированные чесноком и зеленью",preserve,87
+604,pres_pickles_garlic_whole_brine,Маринованные головки чеснока в пряном уксусном рассоле,preserve,87
+605,fish_salmon_teriyaki_sesame,Стейк лосося в глянцевом соусе терияки с кунжутом,main,96
+606,soup_fish_tomkha,Тайский кокосовый суп том кха с лососем,soup,96
+607,meat_chicken_green_peas_risotto,Куриное филе с зеленым горошком и рисом,main,101
+608,meat_chicken_hazelnut_sauce,Курица в соусе сациви из жареного фундука,main,101
+609,meat_turkey_pumpkin_bake,"Индейка, запеченная кусочками со сладкой тыквой",main,102
+610,meat_turkey_pumpkin_seeds_roast,Запеченная индейка с корочкой из тыквенных семечек,main,102
+611,meat_beef_fajitas_mexican,Мексиканские фахитас из говядины с перцем,main,103
+612,meat_beef_medallions_pepper,Медальоны из говядины с зеленым перцем,main,103
+613,meat_pork_sunflower_seeds_crust,"Свинина, запеченная под семечками подсолнуха и сыром",main,104
+614,meat_pork_turnip_bake,"Свинина по-старорусски, запеченная со сладкой репой",main,104
+615,veg_zucchini_rice_stuffed_tomato,Фаршированные рисом и зеленью молодые кабачки,main,108
+616,veg_zucchini_soy_sesame_wok,Пряные кабачки вок с кунжутным маслом и чесноком,main,108
+617,veg_eggplant_chinese_sweet_spicy,Хрустящие баклажаны по-китайски в кисло-сладком соусе,main,109
+618,veg_eggplant_imam_bayildi_tomato,Турецкое блюдо имам баялды из печеных баклажанов,main,109
+619,soup_beans_canned_hunting,Охотничий суп с красной фасолью и колбасками,soup,134
+620,soup_beans_white_pesto,Суп из белой фасоли с базиликом и чесноком,soup,134
+621,veg_chickpeas_spinach_coconut,Пряный нут со свежим шпинатом в кокосовом молоке,main,135
+622,veg_chickpeas_squash_turmeric,"Ароматный нут со сладкой тыквой, имбирем и куркумой",main,135
+623,veg_cauliflower_tahini_lemon,"Печеная цветная капуста с кунжутом, лимоном и зирой",main,138
+624,veg_kohlrabi_cheese_gratin,Запеченная капуста кольраби с картофелем под сыром,main,138
+625,soup_fish_chowder_shrimp,Американский чаудер с креветками и кукурузой,soup,141
+626,soup_fish_tomyum,Тайский суп том ям с креветками,soup,141
+627,veg_champignon_balsamic_thyme_roast,Запеченные шампиньоны с яблочным уксусом и тимьяном,main,144
+628,ed_tvorog_bowl_banana_honey_cinnamon,"Полезный завтрак: творог со спелым бананом, медом и орехами",breakfast,145
+629,salad_lavash_roll_cottage_spinach_baked,Хрустящий горячий рулет в лаваше со шпинатом и творогом,snack,147
+630,salad_radish_cottage_cheese_dill,"Весенняя намазка с тертым редисом, творогом и укропом",snack,147
+631,fish_trout_tarragon_sour_cream,"Форель, томленная в сметане с ароматным эстрагоном",main,149
+632,pres_sauce_wild_mushroom_sour_cream,Насыщенный соус из лесных грибов со сметаной к картофелю,preserve,149
+633,soup_lagman_noodles,Уйгурский лагман с домашней тянутой лапшой,soup,12
+634,soup_oyster_mushroom_noodle,"Суп с вешенками, домашней лапшой и петрушкой",soup,12
+635,veg_soybeans_tomato_vegetable_stew,Питательное рагу из отварной сои со сладким перцем,main,28
+636,veg_sweet_potato_chickpea_curry,Пряное рагу из сладкого батата с нутом и кокосом,main,28
+637,meat_beef_shiitake_cream,Тушеная говядина с грибами шиитаке в сливках,main,29
+638,meat_beef_stew_buckwheat_merchant,Гречка по-купечески с тушеной говядиной,main,29
+639,des_baked_marshmallow_fruit_dip,Запеченный зефир с шоколадом под соусом и печеньем,dessert,30
+640,des_chocolate_sausage_cookies_walnut,Любимая шоколадная колбаса из печенья с какао и орехами,dessert,30
+641,porridge_pasta_leek_cream_cheese,Изысканная паста с томленым луком-пореем и сливками,side,32
+642,porridge_pasta_norma_eggplant,Сицилийская паста алла норма с баклажанами и томатом,side,32
+643,ed_yogurt_granola_oats_honey,Полезный греческий йогурт с хрустящей овсянкой и черникой,breakfast,39
+644,porridge_oatmeal_apple_cinnamon,Овсяная каша на молоке с печеным яблоком и корицей,breakfast,39
+645,veg_cauliflower_puree_butter_garlic,Нежное кремовое пюре из цветной капусты с чесноком,main,44
+646,veg_celery_root_mash_butter,Шелковистое пюре из корня сельдерея со сливками,main,44
+647,veg_potato_accordion_butter_garlic,Картофель гармошка с чесночным маслом и петрушкой,main,45
+648,veg_potato_bake_hard_cheese,Сливочная картофельная запеканка под тертым сыром,main,45
+649,fish_crab_sticks_rice_casserole,Быстрая запеканка с крабовыми палочками и рисом,main,47
+650,fish_fish_casserole_broccoli,Рыбная запеканка с брокколи в сырном соусе,main,47
+651,ed_omelet_spinach_cherry_tomato,Яркий омлет с листьями шпината и томатами черри,breakfast,48
+652,ed_omelet_zucchini_mozzarella,Нежный омлет в духовке с тертым кабачком и моцареллой,breakfast,48
+653,des_raffaello_cottage_coconut_almond,Домашние творожные конфеты с миндалем в кокосовой стружке,dessert,51
+654,des_syrok_glazed_cottage_coconut,Творожные сырки в молочной глазури с кокосовой стружкой,dessert,51
+655,bake_peach_coconut_tart,Нежный летний пирог с персиками и кокосовой стружкой,baking,64
+656,bake_persimmon_ginger_spice_cake,"Пряный зимний пирог с хурмой, имбирем и корицей",baking,64
+657,bev_compote_pineapple_orange_mint,Тропический праздничный компот из ананаса и апельсина,drink,76
+658,bev_compote_plum_cinnamon,Ароматный осенний компот из сладкой сливы с корицей и гвоздикой,drink,76
+659,bev_smoothie_kefir_prunes_walnut,"Полезный смузи на кефире с черносливом, хлопьями и орехом",drink,82
+660,bev_smoothie_kiwi_grape_spinach,Освежающий фруктовый смузи из спелого киви со сладким виноградом и шпинатом,drink,82
+661,pres_jam_grape_dark_lemon,Густое виноградное варенье из темного сорта с лимоном,preserve,84
+662,pres_jam_peach_ginger_lemon,Летнее персиковое варенье с имбирем и лимонной цедрой,preserve,84
+663,pres_pickles_ginger_sweet_rice,Розовый маринованный имбирь как в суши-ресторане,preserve,87
+664,pres_pickles_green_beans_garlic,Маринованная стручковая фасоль с чесноком и укропом,preserve,87
+665,soup_salmon_green_peas,Норвежский суп с лососем и зеленым горошком,soup,96
+666,meat_chicken_kefir_marinated,Нежная курица в кефирном маринаде с карри в духовке,main,101
+667,meat_chicken_mandarin_soy,Праздничная курица с мандаринами в соевом соусе,main,101
+668,meat_turkey_quinoa_avocado,Теплое блюдо из индейки с крупой киноа и спелым авокадо,main,102
+669,meat_turkey_schnitzel_parmesan,Шницель из индейки с тертым пармезаном,main,102
+670,meat_beef_mung_beans_asian,Говядина в воке с проростками маша и соевым соусом,main,103
+671,meat_beef_oyster_mushrooms,"Говядина, обжаренная с вешенками в соевом соусе",main,103
+672,salad_pork_carrot_beans_warm,"Сытный салат с обжаренной свининой, фасолью и перцем",salad,104
+673,soup_kohlrabi_pork_soup,Суп с капустой кольраби и нежной свининой,soup,104
+674,veg_zucchini_squash_ikra,Домашняя овощная икра из кабачков с морковью и пастой,main,108
+675,veg_zucchini_stuffed_mushrooms_cheese,"Лодочки из кабачков, запеченные с грибами под сыром",main,108
+676,veg_eggplant_miso_honey_glaze,Глазированные дольки баклажана с медом и соевым соусом,main,109
+677,veg_eggplant_parmigiana_mozzarella,Итальянская пармиджана из баклажанов с моцареллой,main,109
+678,soup_chili_con_carne,Мексиканский суп чили кон карне с фасолью,soup,134
+679,soup_duck_green_beans,Суп из утки со стручковой фасолью и чесноком,soup,134
+680,veg_spinach_chickpeas_tomato_spanish,Испанский шпинат с турецким нутом и паприкой,main,135
+681,veg_red_cabbage_orange_cloves,Праздничная красная капуста с апельсином и гвоздикой,main,138
+682,veg_red_cabbage_walnut_honey,"Красная капуста, томленная с медом и грецким орехом",main,138
+683,soup_shrimp_avocado,Холодный суп из авокадо с тигровыми креветками,soup,141
+684,soup_shrimp_ginger_soup,Китайский прозрачный суп с креветками и имбирем,soup,141
+685,salad_peas_carrot_pickles_cream,"Витаминный салат с зеленым горошком, редисом и сметаной",salad,149
+686,salad_radish_cucumber_egg_spring,"Весенний салат с хрустящим редисом, яйцом и сметаной",salad,149
+687,soup_pho_bo_beef,Вьетнамский фо бо с говядиной и лапшой,soup,12
+688,soup_ramen_pork,Японский рамэн со свининой и лапшой,soup,12
+689,veg_sweet_potato_spinach_hash,Теплое рагу из батата со шпинатом и чесноком,main,28
+690,veg_veg_ragout_classic_autumn,"Осеннее овощное рагу с кабачком, картофелем и перцем",main,28
+691,meat_beef_stew_canned_potato,Армейская тушенка с жареной картошкой,main,29
+692,meat_beef_stew_pasta_flot,Макароны по-флотски с тушеной говядиной,main,29
+693,des_cookie_house_cottage_cheese_banana,"Домик из печенья с творожным кремом, бананом и глазурью",dessert,30
+694,des_fruit_salad_sweet_cherry_cream_cheese,Легкий десерт из черешни со сливочным сыром и печеньем,dessert,30
+695,porridge_pasta_oyster_mushroom_thyme,Паста в сметанно-чесночном соусе с вешенками,side,32
+696,porridge_pasta_pesto_basil_pine,Паста с домашним базиликовым песто и кедровыми орешками,side,32
+697,porridge_oatmeal_apricots_almond,Овсяная каша с курагой и миндальными лепестками,breakfast,39
+698,porridge_oatmeal_baked_raisins_egg,Запеченная овсянка с изюмом и яблоками в духовке,breakfast,39
+699,veg_peas_dry_puree_onion,Традиционное густое гороховое пюре с жареным луком,main,44
+700,veg_potato_turnip_butter_mash,Нежное деревенское пюре из картофеля со сладкой репой,main,44
+701,veg_potato_baked_rosemary_garlic,Запеченный картофель по-деревенски с розмарином,main,45
+702,veg_potato_black_bread_garlic_bake,Картофельная запеканка с хрустящими сухариками и луком,main,45
+703,fish_herring_beet_sour_cream_bake,Горячая запеканка со свежей сельдью и свеклой,main,47
+704,fish_pollock_broccoli_cream_bake,Запеканка из филе минтая с брокколи под сливками,main,47
+705,des_syrok_glazed_cottage_vanilla,Домашние глазированные творожные сырки в темном шоколаде,dessert,51
+706,ed_paskha_curd_raisins_candied,"Творожная праздничная масса с изюмом, цукатами и орехом",dessert,51
+707,bake_pineapple_upside_down_cake,Перевернутый карамельный пирог с кольцами ананаса,baking,64
+708,bake_plum_pie_butter_cinnamon,Нежный сливовый пирог с корицей из песочного теста,baking,64
+709,bev_compote_pomegranate_apple_mint,"Терпкий рубиновый компот с гранатом, яблоками и мятой",drink,76
+710,bev_compote_pumpkin_orange_ginger,"Витаминный домашний компот с тыквой, апельсином и имбирем",drink,76
+711,bev_smoothie_melon_kiwi_mint,Ароматный зеленый смузи из дыни и киви с мятой,drink,82
+712,bev_smoothie_melon_peach_yogurt,Солнечный летний смузи из спелой дыни и персика,drink,82
+713,pres_jam_peach_vanilla_saffron,Утонченное персиковое варенье с ванилью и кардамоном,preserve,84
+714,pres_jam_pear_vanilla_cardamom,Нежное грушевое варенье дольками с ванилью и кардамоном,preserve,84
+715,pres_pickles_leek_mustard_dill,Маринованный порей с зернистой горчицей и укропом,preserve,87
+716,pres_pickles_mushrooms_champignon_garlic,Пикантные маринованные шампиньоны с чесноком и укропом,preserve,87
+717,meat_chicken_melon_curry,Нежное карри из курицы со сладкой дыней,main,101
+718,meat_chicken_oregano_greek,Греческая запеченная курица с орегано и фетой,main,101
+719,meat_turkey_thigh_rosemary,Стейк из бедра индейки с чесноком и розмарином,main,102
+720,salad_tortilla_roll_turkey_spinach,"Легкие роллы в тортилье с индейкой, шпинатом и сыром",snack,102
+721,meat_beef_red_onion_balsamic,Стейк из говядины с карамельным красным луком,main,103
+722,meat_beef_roast_rosemary,Запеченная говядина с розмарином и чесноком,main,103
+723,soup_pork_bulgur,"Сытный суп со свининой, булгуром и томатами",soup,104
+724,soup_pork_sweet_potato,"Суп со свининой, бататом и розмарином",soup,104
+725,veg_eggplant_peanut_ginger_stew,Пряные баклажаны с дробленым арахисом и имбирем,main,109
+726,veg_eggplant_sour_cream_dill,Жареные баклажаны в нежной сметанной подливке,main,109
+727,soup_minestrone_genovese,Итальянский суп минестроне с фасолью,soup,134
+728,soup_red_beans_walnut_soup,Кавказский шекинский суп с консервированной фасолью и орехом,soup,134
+729,salad_stuffed_prunes_walnut_cream,Праздничная закуска: чернослив с орехами в нежной сметане,snack,149
+730,veg_pattypan_baked_sour_cream,Запеченные молодые патиссоны под сметанным соусом,main,149
+731,soup_turkey_wings_soup,Наваристый суп из крыльев индейки с лапшой,soup,12
+732,veg_shiitake_noodles_spinach,"Лапша с обжаренными шиитаке, свежим шпинатом и чесноком",main,12
+733,meat_duck_cabbage_stew,"Утиные ножки, тушенные со свежей капустой",main,29
+734,meat_duck_red_cabbage_stew,Утка по-немецки с тушеной красной капустой и яблоками,main,29
+735,des_kartoshka_russian_cake_rum_cocoa,Домашнее пирожное Картошка из печенья на сгущенке с какао,dessert,30
+736,des_kissel_thick_currant_black_berry,Ягодный десерт из черной смородины со сливками и печеньем,dessert,30
+737,porridge_pasta_processed_cheese_garlic,Быстрая студенческая паста с плавленым сыром и чесноком,side,32
+738,porridge_pasta_pumpkin_sage_cream,Осенняя паста в нежном тыквенно-сливочном соусе,side,32
+739,porridge_oatmeal_banana_walnut,"Овсяная каша с бананом, медом и грецким орехом",breakfast,39
+740,porridge_oatmeal_blueberry_honey,Утренняя овсянка со свежей черникой и майским медом,breakfast,39
+741,veg_potato_corn_cheese_gratin,Картофельный гратен со сладкой кукурузой в духовке,main,45
+742,veg_potato_croquettes_mozzarella,Хрустящие картофельные крокеты с сыром моцарелла,main,45
+743,fish_saury_noodle_casserole,Вермишелевая запеканка с рыбными консервами и яйцом,main,47
+744,fish_tuna_rice_baked_cheese,"Быстрая запеканка с тунцом, рисом и тертым сыром",main,47
+745,ed_tvorog_bowl_fig_pistachio_honey,Изысканный творожный завтрак со свежим инжиром и фисташками,breakfast,51
+746,ed_tvorog_cream_halva_sour_cream,Сладкий взбитый творожный крем с халвой и сметаной,dessert,51
+747,bake_pork_ribs_sauerkraut_pie_rye,Старорусский закрытый курник-пирог на ржаной муке с капустой,baking,64
+748,bake_pumpkin_cream_cheese_swirl,Осенний тыквенный пирог с прослойкой из сливочного сыра,baking,64
+749,bev_compote_rhubarb_strawberry,Весенний кисло-сладкий компот с ревенем и клубникой,drink,76
+750,bev_compote_strawberry_basil,Ароматный летний компот из клубники со свежим базиликом,drink,76
+751,bev_smoothie_pear_oatmeal_cinnamon,"Питательный грушевый смузи с хлопьями, корицей и медом",drink,82
+752,bev_smoothie_persimmon_orange_yogurt,Бархатный зимний смузи из хурмы и апельсина на йогурте,drink,82
+753,pres_jam_quince_spice_amber,Янтарное айвовое варенье с корицей и анисовыми нотками,preserve,84
+754,pres_jam_raspberry_whole_berry,Нежное малиновое варенье пятиминутка с целыми ягодами,preserve,84
+755,pres_pickles_mushrooms_chanterelle_cream,Маринованные лисички с луком и пряным рассолом,preserve,87
+756,pres_pickles_mushrooms_oyster_spicy,Острые маринованные вешенки с луком и морковью,preserve,87
+757,meat_chicken_pear_gorgonzola,Куриная грудка со сладкой грушей и грецким орехом,main,101
+758,meat_chicken_persimmon_ginger,Экзотическая курица со спелой хурмой и имбирем,main,101
+759,salad_turkey_mandarin_almond,"Новогодний салат с филе индейки, мандаринами и миндалем",salad,102
+760,salad_turkey_pomegranate_walnut,"Нарядный салат с индейкой, гранатом и грецким орехом",salad,102
+761,meat_beef_shiitake_ginger,Стир-фрай из говядины с шиитаке и свежим имбирем,main,103
+762,meat_beef_sorrel_green_sauce,Отварная говядина под пикантным щавелевым соусом,main,103
+763,veg_eggplant_walnut_rolls_garlic,Рулетики из жареных баклажанов с грецким орехом,main,109
+764,veg_mushrooms_eggplant_tomato_stew,"Овощное соте из шампиньонов, баклажанов и помидоров",main,109
+765,soup_squid_green_beans,Средиземноморский суп с кальмарами и фасолью,soup,134
+766,soup_white_beans_rosemary,Тосканский суп из готовой фасоли с розмарином,soup,134
+767,meat_pork_lecho_braise,"Свинина, тушенная с домашним болгарским лечо",main,29
+768,meat_pork_ribs_sauerkraut,Тушеные свиные ребрышки с кислой капустой,main,29
+769,des_orange_curd_parfait_cookies,Ароматный апельсиновый мусс с крошкой печенья и сливками,dessert,30
+770,des_parfait_kefir_berry_jam_biscuit,Быстрый десерт из ряженки с вареньем и рассыпчатым печеньем,dessert,30
+771,porridge_pasta_puttanesca_olives_capers,Неаполитанская паста путанеска с маслинами и каперсами,side,32
+772,porridge_pasta_sorrel_garlic_cream,Весенняя паста в сливочном соусе со свежим щавелем,side,32
+773,porridge_oatmeal_cherry_vanilla,"Нежная овсянка с вишней, ванильным сахаром и сливками",breakfast,39
+774,porridge_oatmeal_cranberry_orange,"Овсянка с клюквой, апельсиновой цедрой и сиропом",breakfast,39
+775,veg_potato_sour_cream_dill_young,Молодой отварной картофель со сметаной и свежим укропом,main,45
+776,veg_potato_spanish_bravas,Испанский картофель пататас бравас в остром соусе,main,45
+777,meat_chicken_corn_casserole,Запеканка из курицы со сладкой кукурузой,main,47
+778,meat_minced_chicken_broccoli_bake,Запеканка из куриного фарша с соцветиями брокколи,main,47
+779,ed_tvorog_dates_cocoa_balls,Творожные пирожные картошка без выпечки с финиками и какао,dessert,51
+780,ed_tvorog_melon_mint_dessert,Летний творожный десерт с кусочками дыни и свежей мятой,dessert,51
+781,bake_quiche_salmon_broccoli_cream,Открытый заливной пирог с лососем и брокколи в сливках,baking,64
+782,bake_quiche_spinach_feta_pine,"Средиземноморский открытый пирог со шпинатом, фетой и орешком",baking,64
+783,bev_compote_sweet_cherry_lemon,Сладкий летний компот из черешни с ломтиком лимона,drink,76
+784,bev_compote_watermelon_lime_mint,Необычный летний компот из мякоти арбуза с лаймом,drink,76
+785,bev_smoothie_pineapple_coconut_lime,Тропический пина-колада смузи с ананасом и кокосом,drink,82
+786,bev_smoothie_plum_apple_cinnamon,"Осенний бархатный смузи из спелых слив, яблок и йогурта",drink,82
+787,pres_jam_strawberry_lemon_classic,Классическое ароматное клубничное варенье с лимоном,preserve,84
+788,pres_jam_sweet_cherry_vanilla,Нежное черешневое варенье с ванилью и апельсиновой кислинкой,preserve,84
+789,pres_pickles_pumpkin_spicy_rings,Острые маринованные кусочки тыквы с имбирем и чесноком,preserve,87
+790,pres_pickles_tomatoes_horseradish_brine,Маринованные помидоры с хреном и листовой горчицей,preserve,87
+791,meat_chicken_pine_nuts_pesto,Куриное филе с кедровыми орешками и базиликом,main,101
+792,meat_chicken_pineapple_curry,Курица в сладком соусе с ананасом и куркумой,main,101
+793,soup_buckwheat_turkey,Гречневый суп с фрикадельками из индейки,soup,102
+794,soup_turkey_asparagus,Весенний суп из филе индейки со спаржей,soup,102
+795,meat_beef_stew_prunes,Томленая говядина с черносливом и морковью,main,103
+796,meat_beef_sweet_potato_bake,"Говядина, запеченная с бататом и розмарином",main,103
+797,veg_veg_saute_eggplant_carrot,"Ароматное соте из баклажанов, моркови и помидоров",main,109
+798,veg_beans_spinach_olives_med,Испанская фасоль со шпинатом и маслинами в масле,main,134
+799,veg_cabbage_beans_bigus_fasting,"Постный овощной бигус с капустой, фасолью и черносливом",main,134
+800,meat_pork_stew_sauerkraut,"Свинина, тушенная с квашеной капустой по-баварски",main,29
+801,meat_rabbit_green_beans,"Кролик, тушенный со стручковой фасолью и чесноком",main,29
+802,des_sweet_currant_ice_cream_pie,Быстрый торт-мороженое с черной смородиной и печеньем,dessert,30
+803,des_tiramisu_cookies_cream_cheese_cocoa,Домашний десерт Тирамису из печенья со сливочным сыром и какао,dessert,30
+804,porridge_pasta_spinach_cream_cheese,Нежная паста со шпинатом в сливочно-сырном соусе,side,32
+805,porridge_pasta_zucchini_lemon_mint,"Легкая паста с молодым кабачком, цедрой лимона и мятой",side,32
+806,porridge_oatmeal_gooseberry_curd,Овсяная каша с вареньем из крыжовника и кефиром,breakfast,39
+807,porridge_oatmeal_peanut_butter_banana,Питательная овсянка с измельченным арахисом и бананом,breakfast,39
+808,veg_potato_turmeric_cumin_indian,Индийский жареный картофель бомбей с зирой и куркумой,main,45
+809,veg_potato_zrazy_champignon,Картофельные зразы с начинкой из жареных шампиньонов,main,45
+810,meat_minced_pork_squash_bake,Запеканка из свиного фарша со сладкой тыквой,main,47
+811,porridge_vermicelli_cottage_baked_pie,"Запеканка из вермишели с творогом, яйцом и сметаной",side,47
+812,ed_tvorog_plum_strudel_lavash,Творожный быстрый рулет со сливами и медом в лаваше,breakfast,51
+813,ed_tvorog_sweet_cherry_cream,Летний творожный крем со спелой черешней и сливками,breakfast,51
+814,bake_raspberry_curd_tart_cream,Летний малиновый пирог с нежным сливочным кремом,baking,64
+815,bake_strawberry_rhubarb_pie,Кисло-сладкий английский пирог с клубникой и ревенем,baking,64
+816,bev_smoothie_pumpkin_banana_cinnamon,Нежный тыквенно-банановый смузи на молоке с корицей,drink,82
+817,bev_smoothie_strawberry_banana_yogurt,Классический клубнично-банановый смузи на питьевом йогурте,drink,82
+818,pres_jam_watermelon_rind_classic,Редкое прозрачное варенье из арбузных корок с лимоном,preserve,84
+819,pres_pickles_tomatoes_sweet_pepper,Маринованные помидоры со сладким перцем и пряностями,preserve,87
+820,pres_pickles_watermelon_whole_brine,Малосольный маринованный арбуз в пряном рассоле,preserve,87
+821,meat_chicken_pistachio_crust,Куриное филе в фисташковой хрустящей панировке,main,101
+822,meat_chicken_plum_cilantro,Кавказские куриные голени со сливами и кинзой,main,101
+823,soup_turkey_couscous,Суп из индейки с кускусом и свежей мятой,soup,102
+824,meat_beef_tofu_wok,Говядина с соевым тофу и зеленым луком в устричном соусе,main,103
+825,pres_sauce_prune_spiced_sweet,Терпкий черносливовый соус с пряностями к дичи и говядине,preserve,103
+826,veg_green_beans_carrot_walnut,Лобио из стручковой фасоли с грецким орехом и кинзой,main,134
+827,veg_green_beans_garlic_almond,Стручковая фасоль с чесноком и миндальными лепестками,main,134
+828,meat_rabbit_sour_cream_stew,"Кролик, тушенный в сметане с грибами и чесноком",main,29
+829,meat_turkey_lentils_spinach,"Индейка, тушенная с зеленой чечевицей и шпинатом",main,29
+830,des_waffle_cake_condensed_milk_peanut,Хрустящий десертный торт из печенья с вареной сгущенкой и арахисом,dessert,30
+831,meat_beef_liver_sour_cream,Говяжья печень по-строгановски в сметане,main,30
+832,pres_sauce_harissa_chili_spice,Североафриканская острая паста харисса со специями,preserve,32
+833,salad_baba_ganoush_eggplant,Восточная паста бабагануш из печеного баклажана,snack,32
+834,porridge_oatmeal_pear_cardamom,Душистая овсяная каша с медовой грушей и кардамоном,breakfast,39
+835,porridge_oatmeal_prunes_hazelnut,Питательная овсянка на воде с черносливом и фундуком,breakfast,39
+836,veg_broccoli_omelet_bake_frittata,Пышная овощная запеканка с брокколи и сметаной,main,47
+837,veg_cabbage_casserole_sour_cream,Запеканка из молодой капусты с сыром и сметаной,main,47
+838,fish_salmon_cream_cheese_dill,Запеченный лосось с творожным сыром и свежим укропом,main,51
+839,salad_cottage_cheese_dill_spread,Легкая творожная намазка с зеленью укропа и огурцом,snack,51
+840,bake_tsvetayevsky_apple_pie_cream,Легендарный цветаевский яблочный пирог в сметанной заливке,baking,64
+841,bake_zalivnoy_cabbage_egg_kefir,Быстрый заливной пирог на кефире с капустой и зеленым луком,baking,64
+842,bev_smoothie_tomato_celery_basil,"Овощной пикантный смузи из томатов, сельдерея и базилика",drink,82
+843,bev_smoothie_watermelon_strawberry_mint,"Охлажденный летний смузи из арбуза, клубники и мяты",drink,82
+844,pres_pickles_zucchini_spicy_rings,Острые маринованные кружочки кабачка с чесноком,preserve,87
+845,pres_pickles_zucchini_sweet_sour_balkan,Маринованные кабачки по-балкански с болгарским перцем,preserve,87
+846,meat_chicken_pomegranate_glaze,Кавказская курица в пряной гранатовой глазури,main,101
+847,meat_chicken_processed_cheese_pot,Курица с плавленым сыром и брокколи в сотейнике,main,101
+848,salad_beef_eggplant_tomato_warm,"Кавказский теплый салат с говядиной, баклажаном и перцем",salad,103
+849,salad_beef_pickles_radish_onion,"Мужской салат с отварной говядиной, редисом и огурцами",salad,103
+850,veg_green_beans_sesame_soy,Хрустящая стручковая фасоль вок с кунжутом и соусом,main,134
+851,veg_green_beans_tomato_eggs,Грузинская стручковая фасоль с томатами и яйцом,main,134
+852,meat_turkey_rhubarb_ginger,Тушеная индейка с черешками ревеня и имбирем,main,29
+853,porridge_millet_cabbage_carrot_pilaf,Деревенский гарнир из пшена с тушеной капустой,side,29
+854,meat_chicken_liver_pate_onion,Теплый салат с жареной куриной печенью и луком,main,30
+855,meat_liver_beef_fried_garlic,"Говяжья печень, жаренная с чесноком и яблоками",main,30
+856,salad_lobio_pate_walnut_spread,Грузинская острая паста из красной фасоли с орехом,snack,32
+857,salad_pasta_salad_olives_feta,Холодный итальянский паста-салат с маслинами и фетой,salad,32
+858,porridge_oatmeal_raspberry_coconut,Кокосовая овсяная каша с малиной и стружкой,breakfast,39
+859,porridge_oatmeal_savory_cheese_egg,Несладкая овсянка по-домашнему с тертым сыром и яйцом,side,39
+860,veg_mushrooms_canned_potato_pie,Запеканка из консервированных грибов с картофелем,main,47
+861,salad_cucumber_rolls_cream_cheese_dill,Свежие огуречные роллы с творожным сыром и красной рыбой,snack,51
+862,soup_cottage_cheese_dumpling_soup,Суп с творожными клецками и куриным бульоном,soup,51
+863,bake_zalivnoy_green_onion_egg_classic,Любимый быстрый пирог с зеленым луком и вареным яйцом,baking,64
+864,bake_zalivnoy_saury_green_onion,Заливной рыбный пирог с консервированной сайрой и укропом,baking,64
+865,salad_artichokes_arugula_parmesan,"Салат с маринованными артишоками, рукколой и пармезаном",salad,87
+866,salad_champignon_korean_spicy_salad,Маринованные быстрые шампиньоны по-корейски с перцем,salad,87
+867,meat_chicken_raspberry_glaze,Куриные крылышки в пикантной малиновой глазури,main,101
+868,meat_chicken_rhubarb_compote,Куриная грудка с кисло-сладким соусом из ревеня,main,101
+869,salad_beef_tbilisi_beans_pepper,"Знаменитый салат Тбилиси с говядиной, фасолью и кинзой",salad,103
+870,salad_beef_thai_cucumber_chili,"Тайский теплый салат с говядиной, огурцом и мятой",salad,103
+871,veg_lobio_georgian_walnut,Грузинское лобио из красной фасоли с грецким орехом,main,134
+872,porridge_pasta_lecho_quick_dinner,Быстрые макароны на скорую руку с тушеным лечо,side,29
+873,porridge_pearl_barley_sauerkraut_onion,Сытная перловка с тушеной квашеной капустой,side,29
+874,meat_liver_chicken_sour_cream_mash,Куриная печень в сметанном соусе с пюре,main,30
+875,salad_chicken_liver_orange_arugula,"Теплый салат с куриной печенью, апельсином и рукколой",salad,30
+876,porridge_oatmeal_savory_mushroom_thyme,Пикантная овсяная каша с шампиньонами и тимьяном,side,39
+877,porridge_oatmeal_squash_nutmeg,Солнечная овсяная каша с тертой тыквой и мускатным орехом,breakfast,39
+878,bake_zalivnoy_tuna_potato_rice,Быстрый пирог на сметане с консервированным тунцом и рисом,baking,64
+879,bake_zebra_marble_kefir_pie,Мраморный домашний пирог Зебра с какао на кефире,baking,64
+880,salad_olives_marinated_orange_rosemary,"Теплые маслины, маринованные с цедрой апельсина и розмарином",snack,87
+881,meat_chicken_roast_potatoes,"Домашняя курица, запеченная с картофелем целиком",main,101
+882,meat_chicken_roll_cheese_spinach,Куриный рулет с нежной моцареллой и свежим шпинатом,main,101
+883,soup_beef_cauliflower,Прозрачный суп из говядины с цветной капустой,soup,103
+884,soup_beef_stew_soup,Походный суп с тушёной говядиной и картофелем,soup,103
+885,porridge_rice_eggplant_soy_side,Теплый рис с тушеным баклажаном в соевом соусе,side,29
+886,porridge_vermicelli_tomato_carrot_side,Гарнир из тушеной вермишели с морковью и томатной пастой,side,29
+887,salad_chicken_liver_pear_cranberry,"Праздничный теплый салат с печенью, грушей и клюквой",salad,30
+888,soup_buckwheat_liver,Суп с куриной печенью и рассыпчатой гречкой,soup,30
+889,porridge_oatmeal_strawberry_chocolate,Шоколадная овсянка на молоке с какао и клубникой,breakfast,39
+890,porridge_oatmeal_sunflower_halva_honey,Сытная овсянка со сладкой халвой и семечками подсолнуха,breakfast,39
+891,fish_fish_pie_rice_egg,Рыбный пирог с рассыпчатым рисом и вареным яйцом,main,64
+892,meat_minced_beef_sweet_potato_mash,Мясной пирог с говяжьим фаршем и бататом,main,64
+893,meat_chicken_skewers_zucchini,Куриные шашлычки на шпажках с молодым кабачком,main,101
+894,meat_chicken_strawberry_balsamic,Куриное филе с клубничным соусом и базиликом,main,101
+895,soup_bulgur_beef_tomato,Анатолийский суп с булгуром и говядиной,soup,103
+896,soup_cornmeal_beef_soup,Полента-суп с говядиной и чесноком,soup,103
+897,salad_beef_stew_potato_pickle,Быстрый походный теплый салат с тушенкой и картофелем,salad,29
+898,veg_beans_tomato_garlic_stew,Тушеная фасоль по-домашнему в томатном соусе с чесноком,main,29
+899,soup_chicken_liver_apple,Бархатистый суп с куриной печенью и печеным яблоком,soup,30
+900,salad_banana_oats_energy_bites,Полезные орехово-банановые шарики с овсянкой и какао,snack,39
+901,soup_oatmeal_vegetable_soup,Овсяный суп с луком-пореем и морковью,soup,39
+902,meat_chicken_strips_cornflakes,Хрустящие куриные стрипсы в панировке,main,101
+903,meat_chicken_sweet_potato_curry,Карри из курицы со сладким бататом,main,101
+904,soup_lentil_beef,Сытный суп из зелёной чечевицы с говядиной,soup,103
+905,soup_mastava_uzbek,Узбекская мастава с говядиной и рисом,soup,103
+906,veg_beet_braised_sour_cream,Тушеная свекла в сметане с чесноком и укропом,main,29
+907,veg_cabbage_braised_champignon,Тушеная белокочанная капуста с шампиньонами,main,29
+908,veg_mushroom_casserole_oatmeal,Диетическая грибная запеканка с овсянкой и сыром,main,39
+909,meat_chicken_tarragon_cream,Нежная курица по-французски с эстрагоном в сливках,main,101
+910,meat_chicken_thighs_teriyaki,Куриные бедрышки в японском соусе терияки,main,101
+911,soup_mung_mashkhurda,Узбекская машхурда с машем и говядиной,soup,103
+912,soup_shurpa_chickpea,Шурпа из говядины с нутом и паприкой,soup,103
+913,veg_champignon_sour_cream_buckwheat,Тушеные шампиньоны в густом сметанном соусе с луком,main,29
+914,veg_daikon_soy_braised_radish,Японский тушеный дайкон в сладком соевом бульоне,main,29
+915,meat_chicken_wings_buffalo,Острые куриные крылышки баффало с соусом,main,101
+916,meat_chicken_wings_honey_mustard,Куриные крылышки с горчицей в медовом соусе,main,101
+917,veg_jerusalem_artichoke_cream_stew,"Топинамбур, тушенный в нежных сливках с укропом",main,29
+918,veg_kohlrabi_cream_dill_stew,"Молодая кольраби, тушенная в сметане с зеленью укропа",main,29
+919,meat_chicken_yogurt_tandoori,Курица тандури в йогуртовом маринаде со специями,main,101
+920,salad_chicken_avocado_tomato_corn,"Калифорнийский салат кобб с курицей, авокадо и черри",salad,101
+921,veg_mushrooms_canned_sour_cream,"Маринованные грибочки, тушенные со сметаной и луком",main,29
+922,veg_oyster_mushroom_cabbage,"Вешенки, тушенные с белокочанной капустой и томатом",main,29
+923,salad_chicken_beet_walnut_garnet,Праздничный салат Гранатовый браслет с курицей и свеклой,salad,101
+924,salad_chicken_bell_pepper_korean_carrot,"Пикантный салат с курицей, морковью и сладким перцем",salad,101
+925,veg_oyster_mushroom_sour_cream,"Вешенки, тушенные в сметане с ароматным укропом",main,29
+926,veg_potato_beans_canned_tomato,Сытная тушеная картошка с красной фасолью и томатом,main,29
+927,salad_chicken_broccoli_sesame_yogurt,"Полезный фитнес-салат с курицей, брокколи и жареным кунжутом",salad,101
+928,salad_chicken_celery_apple_yogurt,"Диетический салат с отварной курицей, сельдереем и яблоком",salad,101
+929,veg_potato_cabbage_stew_village,Деревенская тушеная картошка со свежей капустой,main,29
+930,veg_potato_sesame_soy_braised,Корейский тушеный картофель камджа джорим с кунжутом,main,29
+931,salad_chicken_champignon_corn_egg,"Сытный салат с куриным филе, жареными грибами и кукурузой",salad,101
+932,salad_chicken_pineapple_cheese_corn,"Нежный салат с курицей, кукурузой, сыром и ананасом",salad,101
+933,veg_potato_stew_oyster_mushrooms,Тушеный картофель с вешенками и ароматным укропом,main,29
+934,veg_red_cabbage_apple_braise,Тушеная красная капуста по-немецки с кислыми яблоками,main,29
+935,salad_chicken_prunes_egg_walnut,"Слоеный салат с отварной курицей, черносливом и орехами",salad,101
+936,salad_chicken_walnut_grapes_tiffany,"Праздничный салат Тиффани с курицей, виноградом и орехом",salad,101
+937,veg_sauerkraut_mushrooms_buckwheat,Тушеная кислая капуста с шампиньонами и тмином,main,29
+938,veg_shiitake_tofu_soy_braise,Тушеные грибы шиитаке с соевым тофу и зеленым луком,main,29
+939,salad_liver_pate_butter_carrot,Шелковистый домашний паштет из куриной печени с морковью,snack,101
+940,salad_pita_pocket_chicken_veg,Сытная пита с обжаренным куриным филе и огурцами,snack,101
+941,veg_spinach_garlic_cream_saute,Быстрый тушеный шпинат со сливками и чесноком,main,29
+942,veg_squash_apple_cinnamon_stew,Душистая тушеная тыква со сладким яблоком и корицей,main,29
+943,soup_daikon_chicken_soup,Азиатский прозрачный суп с курицей и дайконом,soup,101
+944,soup_rhubarb_chicken_soup,Весенний суп из курицы с ревенем и морковью,soup,101
+945,veg_zucchini_cream_garlic_stew,"Нежные кабачки, тушенные в чесночных сливках",main,29
+946,ed_cheese_fried_pan_breadcrumbs,Жареный сыр по-чешски смажены сыр в хрустящей панировке,main,
+947,fish_carp_garlic_rosemary_foil,"Запеченный в фольге карп с чесноком, лимоном и розмарином",main,
+948,fish_carp_stuffed_buckwheat_mushrooms,Карп с начинкой из гречневой каши и грибов,main,
+949,fish_carp_sweet_sour_asian,Хрустящий карп по-китайски в кисло-сладком соусе,main,
+950,fish_catfish_cream_baked,"Нежное филе сома, запеченное под сливками и сыром",main,
+951,fish_catfish_fried_cornmeal,Хрустящие кусочки сома в кукурузной панировке,main,
+952,fish_catfish_lemon_herb_foil,"Стейки сома на овощах, запеченные в фольге с лимоном",main,
+953,fish_catfish_soy_ginger_wok,Карамелизованный сом с имбирем и соевым соусом,main,
+954,fish_cod_asparagus_lemon_butter,Стейк трески со спаржей в лимонно-сливочном соусе,main,
+955,fish_cod_bacon_wrapped_rosemary,Филе трески в хрустящем беконе с веточкой розмарина,main,
+956,fish_cod_cherry_tomato_thyme,"Филе трески, запеченное с томатами черри и тимьяном",main,
+957,fish_cod_leek_butter_braise,"Филе трески, томленное с луком-пореем в масле",main,
+958,fish_cod_mashed_potato_brandade,Брандада из трески с картофелем и оливковым маслом,main,
+959,fish_cod_parmesan_crust_bake,Хрустящее филе трески под сырной шубкой из пармезана,main,
+960,fish_crab_sticks_cheese_rolls,Горячие рулетики из крабовых палочек в кляре с сыром,main,
+961,fish_fish_coconut_curry_mango,Нежное рыбное карри в пряном кокосовом молоке,main,
+962,fish_fish_milk_poached_butter,"Филе рыбы, припущенное в молоке со сливочным маслом",main,
+963,fish_herring_baked_tomato_olives,Филе сельди в духовке с помидорами и маслинами,main,
+964,fish_herring_fried_red_onion_apple,Жареное филе свежей сельди с яблоками и луком,main,
+965,fish_mussels_pasta_chili_oil,"Спагетти с мидиями, острым перчиком чили и оливковым маслом",main,
+966,fish_perch_baked_mushrooms_cheese,"Филе окуня, запеченное с грибами под сыром",main,
+967,fish_perch_polish_egg_sauce,Судак по-польски с рубленым вареным яйцом в масле,main,
+968,fish_perch_spinach_gratin,Гратен из окуня и шпината под нежным сыром,main,
+969,fish_perch_tomato_basil_pan,Жареный речной окунь со спелыми томатами и базиликом,main,
+970,fish_perch_white_cream_lemon,Нежное филе судака или окуня в сливочно-лимонном соусе,main,
+971,fish_pike_garlic_butter_fried,Хрустящие стейки из щуки с чесночным маслом,main,
+972,fish_pollock_cauliflower_gratin,Рыбный гратен из минтая с цветной капустой,main,
+973,fish_pollock_coconut_curry,Карри из филе минтая с кокосовым молоком и куркумой,main,
+974,fish_pollock_garlic_breadcrumbs,Хрустящие палочки из минтая в чесночной панировке,main,
+975,fish_pollock_tomato_marinade,Филе минтая под густым пряным томатным маринадом,main,
+976,fish_salmon_pistachio_crust,Филе красной рыбы в хрустящей фисташковой корочке,main,
+977,fish_sardines_spaghetti_garlic,"Спагетти с сардинами, лимонной цедрой и петрушкой",main,
+978,fish_saury_buckwheat_onion,Сытная гречневая каша с консервированной сайрой и луком,main,
+979,fish_seafood_julienne_cheese,Нежный жульен с морепродуктами в сливочной заливке,main,
+980,fish_seafood_paella_saffron,"Испанская паэлья с морепродуктами, перцем и куркумой",main,
+981,fish_seafood_shiitake_teriyaki,Морепродукты с грибами шиитаке в соусе терияки,main,
+982,fish_trout_almond_butter_amandine,Форель по-французски амандин с миндалем и маслом,main,
+983,fish_trout_artichoke_olives,Филе форели с консервированными артишоками и маслинами,main,
+984,fish_trout_bell_pepper_rice,Стейки форели с болгарским перцем и рисом,main,
+985,fish_trout_bulgur_cilantro,Форель с рассыпчатым булгуром и свежей кинзой,main,
+986,fish_trout_carrot_celery_steamed,Диетическая паровая форель с морковью и сельдереем,main,
+987,fish_trout_champignon_wine_cream,Стейки форели в сливочном соусе с шампиньонами,main,
+988,fish_trout_ginger_honey_soy,Глазированная форель с медом и тертым имбирем,main,
+989,fish_trout_grapefruit_mint,Праздничная форель с дольками грейпфрута и мятой,main,
+990,fish_trout_leek_parsley,Запеченная в пергаменте форель с пореем и петрушкой,main,
+991,fish_trout_lemon_garlic_foil,"Радужная форель, запеченная целиком с лимоном",main,
+992,fish_trout_spinach_feta_bake,Запеченное филе форели со шпинатом и сыром фета,main,
+993,meat_bacon_wrapped_asparagus_snack,"Зеленая спаржа, запеченная в ломтиках бекона",main,
+994,meat_beef_capers_lemon,Телятина по-средиземноморски с каперсами и лимоном,main,
+995,meat_beef_horseradish_sauce,Нежная телятина с домашним сливочным соусом из хрена,main,
+996,meat_beef_radish_salad_warm,Теплое мясо с редисом и хрустящим зеленым луком,main,
+997,meat_beef_ribs_baked_mustard,"Говяжьи ребрышки, запеченные с горчицей",main,
+998,meat_beef_tongue_baked_cheese,"Говяжий язык, запеченный под сырной корочкой",main,
+999,meat_bifteks_fried_egg,Рубленый бифштекс с глазуньей и жареным луком,main,
+1000,meat_cannelloni_meat_spinach,Каннеллони с мясным фаршем и шпинатом,main,
+1001,meat_chicken_tabaka_georgian,Цыпленок табака с хрустящей чесночной корочкой,main,
+1002,meat_chicken_wings_sesame_soy,Азиатские хрустящие крылышки в соусе с кунжутом,main,
+1003,meat_duck_black_currant,Утиная грудка под соусом из черной смородины,main,
+1004,meat_duck_breast_orange_sauce,Утиная грудка магре под апельсиновым соусом,main,
+1005,meat_duck_cherries_rosemary,Томленая утка с вишней и свежим розмарином,main,
+1006,meat_duck_cranberry_glaze,Утиная грудка в клюквенно-медовой глазури,main,
+1007,meat_duck_cranberry_thyme,Ножки утки с бруснично-клюквенным соусом и тимьяном,main,
+1008,meat_duck_figs_port,Утиная грудка со спелым инжиром и медом,main,
+1009,meat_duck_grapes_thyme,Томленая утка с сочным виноградом и тимьяном,main,
+1010,meat_duck_pear_cinnamon,"Утиные ножки, запеченные с ароматными грушами",main,
+1011,meat_duck_plums_ginger,Утиная грудка в ароматном сливовом соусе с имбирем,main,
+1012,meat_duck_roasted_apples,"Праздничная утка, запеченная с кислыми яблоками",main,
+1013,meat_ham_cheese_tomato_bake,Горячая запеченная ветчина с сыром и помидорами,main,
+1014,meat_heart_beef_braised_carrots,Томленое говяжье сердце с морковью и зеленью,main,
+1015,meat_lamb_dates_coriander,Тажин из барашка со сладкими финиками и кориандром,main,
+1016,meat_lamb_roast_rosemary,"Баранья корейка, запеченная с чесноком и розмарином",main,
+1017,meat_meatloaf_baked_egg,Мясной хлеб фальшивый заяц с яйцом внутри,main,
+1018,meat_minced_beef_green_peas_rice,Ежики из говяжьего фарша с рисом и горошком,main,
+1019,meat_minced_meat_cauliflower_gratin,Мясной гратен с цветной капустой в соусе,main,
+1020,meat_minced_pork_lavash_roll,Рулет из лаваша с мясным фаршем и зеленью,main,
+1021,meat_pork_apricot_glaze,Свиная корейка с курагой и ароматным тимьяном,main,
+1022,meat_pork_bacon_wrapped_prunes,Горячие рулетики из бекона с черносливом,main,
+1023,meat_pork_belly_roasted,"Хрустящая свиная грудинка, запеченная с горчицей",main,
+1024,meat_pork_blackberry_balsamic,Свиная вырезка с ежевичным соусом и розмарином,main,
+1025,meat_pork_chops_mushroom_sauce,Свиная корейка под сливочно-грибным соусом,main,
+1026,meat_pork_figs_rosemary,"Свиная вырезка, запеченная с инжиром и розмарином",main,
+1027,meat_pork_ham_baked_cloves,"Праздничный окорок, запеченный с гвоздикой",main,
+1028,meat_pork_hazelnut_crust,Свиные эскалопы в хрустящей панировке из фундука,main,
+1029,meat_pork_leek_cream,Свиная вырезка с луком-пореем и сливками,main,
+1030,meat_pork_medallions_apple,Медальоны из свиной вырезки с карамельными яблоками,main,
+1031,meat_pork_ribs_bbq_honey,"Свиные ребрышки, запеченные в медовой глазури",main,
+1032,meat_pork_ribs_pineapple,"Свиные ребрышки, томленные с сочным ананасом",main,
+1033,meat_pork_ribs_potato_bake,"Свиные ребрышки, запеченные с картошкой в рукаве",main,
+1034,meat_pork_sausage_baked,Домашняя жареная колбаса с чесноком и тмином,main,
+1035,meat_pork_schnitzel_crispy,Хрустящий свиной шницель в сухарной панировке,main,
+1036,meat_pork_squash_honey_roast,"Свиная шейка, запеченная с медовой тыквой",main,
+1037,meat_rabbit_baked_mustard,"Кролик, запеченный в духовке с горчицей и луком",main,
+1038,meat_rabbit_champignon_cream,Филе кролика со свежими шампиньонами в сливках,main,
+1039,meat_rabbit_dates_almond,Кролик по-андалузски с финиками и миндалем,main,
+1040,meat_rabbit_mustard_cream_tarte,Филе кролика под нежным горчично-сливочным соусом,main,
+1041,meat_rabbit_olives_rosemary,Кролик по-провански с оливками и белым чесноком,main,
+1042,meat_sausage_fried_cabbage_pot,Бигус с охотничьими колбасками и капустой,main,
+1043,meat_tongue_beef_sour_cream_horseradish,Отварной говяжий язык под соусом с хреном,main,
+1044,meat_veal_asparagus_butter,Медальоны из телятины со спаржей в сливочном масле,main,
+1045,meat_veal_cutlets_creamy,Нежные телячьи эскалопы в сливочном соусе,main,
+1046,meat_veal_ossobuco_milanese,Оссобуко по-милански из нежной телятины,main,
+1047,meat_veal_schnitzel_vienna,Венский шницель из телятины с лимоном,main,
+1048,meat_zrazy_meat_mushrooms,Мясные зразы с начинкой из жареных грибов,main,
+1049,veg_artichokes_baked_garlic_lemon,"Запеченные артишоки с чесноком, лимоном и петрушкой",main,
+1050,veg_asparagus_lemon_butter_pan,Молодая спаржа на сковороде с лимонным маслом,main,
+1051,veg_asparagus_roasted_parmesan,Запеченная зеленая спаржа с чесноком и пармезаном,main,
+1052,veg_azuki_sweet_rice_stew,Японские красные бобы адзуки в соево-медовой глазури,main,
+1053,veg_beet_baked_feta_thyme,Запеченная свекла дольками с сыром фета и тимьяном,main,
+1054,veg_bell_pepper_baked_feta_oil,"Печеный сладкий перец, заправленный чесноком и фетой",main,
+1055,veg_broccoli_almond_butter_saute,Хрустящая брокколи с обжаренным миндалем в масле,main,
+1056,veg_broccoli_cheese_baked_crust,Запеченная брокколи под сыром моцарелла и сливками,main,
+1057,veg_broccoli_garlic_soy_oyster,Брокколи в китайском стиле с чесноком и соевым соусом,main,
+1058,veg_broccoli_lemon_parmesan_roast,Запеченная брокколи с цедрой лимона и пармезаном,main,
+1059,veg_cabbage_steaks_garlic_paprika,Румяные стейки из молодой капусты с паприкой в духовке,main,
+1060,veg_carrot_glazed_honey_thyme,"Карамелизованная морковь с медом, маслом и тимьяном",main,
+1061,veg_cauliflower_buffalo_baked,Острые запеченные соцветия цветной капусты со специями,main,
+1062,veg_cauliflower_gobi_curry,Индийское блюдо алу гоби из цветной капусты с куркумой,main,
+1063,veg_cauliflower_rice_green_peas,Овощной рис из цветной капусты с зеленым горошком,main,
+1064,veg_celery_root_schnitzel_crispy,Овощной шницель из корня сельдерея в сухарях,main,
+1065,veg_champignon_fried_potato_dill,Золотистая сковородка с шампиньонами и зеленым луком,main,
+1066,veg_champignon_garlic_butter_pan,Быстрые жареные шампиньоны с чесночным маслом и укропом,main,
+1067,veg_champignon_spinach_feta_bake,Шампиньоны со шпинатом и раскрошенной фетой в духовке,main,
+1068,veg_cherry_tomato_feta_baked_pasta,"Запеченные черри с сыром фета, чесноком и базиликом",main,
+1069,veg_corn_feta_lime_mexican,Мексиканская кукуруза элоте с сыром фета и соком лайма,main,
+1070,veg_corn_grilled_butter_paprika,Запеченная кукуруза в початках со сливочным маслом,main,
+1071,veg_jerusalem_artichoke_roasted,Печеный топинамбур дольками с розмарином и солью,main,
+1072,veg_kohlrabi_butter_parsley_glazed,Глазированная кольраби в сливочном масле с петрушкой,main,
+1073,veg_leek_gratin_cream_cheese,Запеченный лук-порей под сливочно-сырным соусом,main,
+1074,veg_lentils_green_celery_carrot,Французская зеленая чечевица с сельдереем и морковью,main,
+1075,veg_lentils_green_mushrooms_thyme,Зеленая чечевица с жареными шампиньонами и тимьяном,main,
+1076,veg_lentils_green_spinach_lemon,"Теплая чечевица со свежим шпинатом, чесноком и лимоном",main,
+1077,veg_lentils_green_tomato_rice,Муджадара из зеленой чечевицы с рисом и жареным луком,main,
+1078,veg_lentils_red_dahl_coconut,Индийский дал из красной чечевицы с кокосовым молоком,main,
+1079,veg_lentils_red_squash_ginger,Пряная красная чечевица с тыквой и свежим имбирем,main,
+1080,veg_mung_beans_carrot_turmeric,"Рассыпчатый маш с морковью, зирой и куркумой",main,
+1081,veg_mushroom_julienne_classic,Классический грибной жульен с шампиньонами под сыром,main,
+1082,veg_mushroom_teriyaki_skewers,Запеченные шампиньоны на шпажках в соусе терияки,main,
+1083,veg_mushrooms_rice_garlic_pan,"Рассыпчатый рис с грибами, морковью и зеленым горошком",main,
+1084,veg_oyster_mushroom_bell_pepper,Вешенки со сладким болгарским перцем и паприкой,main,
+1085,veg_oyster_mushroom_breadcrumbs_cutlets,Хрустящие обжаренные вешенки в золотистой панировке,main,
+1086,veg_oyster_mushroom_soy_ginger,Жареные вешенки в соевом соусе с имбирем и кунжутом,main,
+1087,veg_parsnip_roasted_maple_herbs,Карамелизированный корень пастернака с медом и розмарином,main,
+1088,veg_pattypan_fried_garlic_flour,Хрустящие обжаренные кружочки патиссона с чесноком,main,
+1089,veg_potato_curry_green_peas,Индийский алу матар с картофелем и зеленым горошком,main,
+1090,veg_potato_gratin_dauphinois,Французский гратен дофинуа со сливками и мускатным орехом,main,
+1091,veg_potato_pumpkin_baked_herbs,Запеченное ассорти из картофеля и кусочков тыквы,main,
+1092,veg_potato_sweet_potato_wedges,Запеченные дольки батата со сладкой паприкой и тимьяном,main,
+1093,veg_rhubarb_ginger_chutney_side,Пряное овощное чатни из ревеня с имбирем и яблоком,main,
+1094,veg_sweet_potato_cinnamon_honey,Карамелизированный батат с медом и щепоткой корицы,main,
+1095,veg_sweet_potato_feta_walnut,Печеный батат с раскрошенной фетой и грецким орехом,main,
+1096,veg_tofu_broccoli_ginger_wok,"Вок с сыром тофу, свежей брокколи и имбирем",main,
+1097,veg_tofu_crispy_soy_sesame,Хрустящий жареный тофу в соевом соусе с кунжутом,main,
+1098,veg_tofu_curry_coconut_pepper,Вегетарианское карри с тофу и сладким болгарским перцем,main,
+1099,veg_tofu_scramble_turmeric_tomato,Постный скрембл из тофу с помидорами и куркумой,main,
+1100,veg_tomato_stuffed_rice_herbs,"Запеченные помидоры, начиненные рисом и базиликом",main,
+1101,veg_turnip_baked_potato_cheese,Запеченная репа с картофелем под сырной корочкой,main,
+1102,veg_turnip_honey_butter_stew,Пареная русская репа с медом и сливочным маслом,main,
+1103,veg_zucchini_baked_parmesan_sticks,Хрустящие палочки из цукини в духовке с пармезаном,main,
+1104,veg_zucchini_corn_basil_saute,"Быстрое соте из цукини, кукурузы и листьев базилика",main,
+1105,soup_artichoke_cod_soup,Прованский рыбный суп с артишоками и треской,soup,
+1106,soup_beetroot_ginger_soup,Пряный рубиновый суп из свёклы со свежим имбирем,soup,
+1107,soup_bozbash_meatball,Армянский бозбаш с мясными кюфтами,soup,
+1108,soup_cabbage_potato_caraway,Деревенский суп из свежей капусты с тмином,soup,
+1109,soup_catfish_garlic,Астраханский суп из сома с чесночным взваром,soup,
+1110,soup_celery_carrot_soup,Детокс-суп из сельдерея и моркови с куркумой,soup,
+1111,soup_chanterelle_potato,Суп с золотистыми лисичками и молодым картофелем,soup,
+1112,soup_cod_spinach_lemon,Рыбный суп из трески со шпинатом и лимоном,soup,
+1113,soup_couscous_zucchini,Марокканский легкий суп с кускусом и цукини,soup,
+1114,soup_crab_sticks_corn_soup,Легкий домашний суп с крабовыми палочками и кукурузой,soup,
+1115,soup_cream_spinach,Суп-велюте из шпината с кедровыми орешками,soup,
+1116,soup_duck_apple_soup,Осенний суп из утки с кислыми яблоками и корицей,soup,
+1117,soup_fish_bouillabaisse,Марсельский буйабес с морепродуктами,soup,
+1118,soup_fish_cod_leek,Норвежский рыбный суп с треской и пореем,soup,
+1119,soup_fish_herring,Балтийский суп из сельди со сливками,soup,
+1120,soup_fish_mediterranean,Средиземноморский рыбный суп с томатами,soup,
+1121,soup_fish_mussels_tomato,Итальянский суп с мидиями в томатном соусе,soup,
+1122,soup_fish_pollock_rice,Диетический суп из минтая с круглым рисом,soup,
+1123,soup_fish_trout_spinach,Сливочный суп с форелью и шпинатом,soup,
+1124,soup_gazpacho_andalusian,Андалусский холодный гаспачо из томатов,soup,
+1125,soup_green_peas_thyme_soup,Легкий суп из зеленого горошка с тимьяном,soup,
+1126,soup_lentil_cumin,Восточный суп из зелёной чечевицы с зирой и томатом,soup,
+1127,soup_lentil_squash_cozy,Согревающий суп из красной чечевицы с тыквой,soup,
+1128,soup_lentil_turkish,Турецкий суп мерджимек чорбасы из чечевицы,soup,
+1129,soup_lentils_carrot_lemon,Арабский суп из чечевицы с лимоном и кинзой,soup,
+1130,soup_mozzarella_basil_soup,Итальянский томатный суп с моцареллой и базиликом,soup,
+1131,soup_mussels_leek,Бельгийский суп с мидиями и луком-пореем,soup,
+1132,soup_mussels_spinach_cream,Сливочный суп с мидиями и свежим шпинатом,soup,
+1133,soup_peas_green_bacon,Суп из сладкого горошка с копченым беконом,soup,
+1134,soup_pollock_corn_chowder,Чаудер из минтая со сладкой кукурузой,soup,
+1135,soup_porcini_buckwheat,Лесной суп с белыми грибами и гречневой крупой,soup,
+1136,soup_porcini_potato_soup,Старорусская похлебка с белыми грибами и укропом,soup,
+1137,soup_pork_corn,Суп с мясными фрикадельками и сладкой кукурузой,soup,
+1138,soup_pork_ribs_sauerkraut_barley,Уральский рассольный суп со свиными ребрышками,soup,
+1139,soup_pumpkin_curry,Пряный суп из сладкой тыквы с карри на кокосовом молоке,soup,
+1140,soup_rabbit_parsnip,Суп из кролика со сладким пастернаком,soup,
+1141,soup_radish_cucumber_soup,Холодник из редиса со свежими огурцами и мятой,soup,
+1142,soup_radish_cucumber_yogurt,Холодник на натуральном йогурте с огурцом и редисом,soup,
+1143,soup_rice_meatball,Суп с мясными фрикадельками и круглым рисом,soup,
+1144,soup_salmon_broccoli_soup,"Финский суп с семгой, брокколи и сливками",soup,
+1145,soup_shiitake_tofu,Восточный японский суп с шиитаке и кубиками тофу,soup,
+1146,soup_sorrel_cucumber_soup,Холодный щавелевый суп со свежим огурцом и яйцом,soup,
+1147,soup_soybeans_vegetable_soup,Сытный суп с соевыми бобами и сладким перцем,soup,
+1148,soup_squash_potato_soup,Деревенский суп из тыквы с картофелем,soup,
+1149,soup_sweet_potato_carrot_soup,Согревающий суп из батата и моркови с паприкой,soup,
+1150,soup_tarator_bulgarian,Болгарский суп таратор с грецкими орехами,soup,
+1151,soup_tofu_champignon_soup,Легкий суп с сыром тофу и свежими шампиньонами,soup,
+1152,soup_tomato_celery_gazpacho,Освежающий гаспачо с томатами и черешковым сельдереем,soup,
+1153,soup_tomato_pepper_chilled,Холодный томатный суп с запеченным перцем,soup,
+1154,soup_tongue_horseradish,Праздничный суп с отварным говяжьим языком,soup,
+1155,soup_trout_zucchini,Суп из радужной форели с цукини и укропом,soup,
+1156,soup_veal_heart_soup,Старинная похлебка с телячьим сердцем и кореньями,soup,
+1157,soup_veal_leek_barley,Суп из телятины с луком-пореем и ячменем,soup,
+1158,soup_veal_quinoa,Диетический суп из телятины с крупой киноа и свежим шпинатом,soup,
+1159,soup_vermicelli_chicken_mince,Быстрый суп с вермишелью и фрикадельками,soup,
+1160,soup_zucchini_parmesan,Суп-крем из цукини с сыром пармезан,soup,
+1161,ed_buttermilk_pancakes_classic,Американские толстые панкейки на пахте со сливочным маслом,breakfast,
+1162,ed_curdled_milk_berries_honey,Домашняя густая простокваша со спелой малиной и медом,breakfast,
+1163,ed_egg_baked_avocado_halves,"Половинки спелого авокадо, запеченные с яйцом и зеленью",breakfast,
+1164,ed_egg_lavash_envelope_cheese,Горячий хрустящий конвертик из лаваша с яйцом и зеленью,breakfast,
+1165,ed_egg_pita_breakfast_tomato,"Быстрый завтрак в пите с жареным яйцом, сыром и томатом",breakfast,
+1166,ed_eggs_cocotte_cream_spinach,"Французские яйца кокот, запеченные в сливках со шпинатом",breakfast,
+1167,ed_eggs_cocotte_ham_mushroom,"Яйца кокот в формочках с ветчиной, сыром и шампиньонами",breakfast,
+1168,ed_eggs_orsini_cloud_cheese,Воздушные яйца Орсини в белковых облаках с тертым сыром,breakfast,
+1169,ed_eggs_poached_avocado_rye,Полезные яйца пашот на черном хлебе с кремом из авокадо,breakfast,
+1170,ed_eggs_poached_yogurt_cilbir,Турецкие яйца пашот чилбир на йогурте с чесноком и паприкой,breakfast,
+1171,ed_frittata_asparagus_parmesan,Итальянская фриттата с зеленой спаржей и пармезаном,breakfast,
+1172,ed_frittata_corn_sausage_bake,Сытная фриттата со сладкой кукурузой и колбасой,breakfast,
+1173,ed_frittata_green_peas_mint,"Весенняя фриттата с зеленым горошком, мятой и сыром",breakfast,
+1174,ed_frittata_sweet_potato_rosemary,Золотистая фриттата со сладким бататом и розмарином,breakfast,
+1175,ed_shakshuka_classic_tomato,Шакшука из яиц в пряном соусе из помидоров и паприки,breakfast,
+1176,ed_shakshuka_green_spinach_feta,"Зеленая шакшука со шпинатом, щавелем и сыром фета",breakfast,
+1177,ed_whey_oladi_fluffy_sugar,Экономичные пышные оладушки на молочной сыворотке,breakfast,
+1178,ed_yogurt_apple_walnut_cinnamon,"Свежий йогурт с кусочками яблока, орехами и корицей",breakfast,
+1179,porridge_buckwheat_milk_sugar_childhood,Молочная гречневая каша с маслом по рецепту детства,breakfast,
+1180,porridge_buckwheat_prunes_walnut,Утренняя гречневая каша с распаренным черносливом и орехом,breakfast,
+1181,porridge_bulgur_cherry_cardamom,"Молочный булгур с вишней, корицей и кардамоном",breakfast,
+1182,porridge_bulgur_milk_apricots_pistachio,Пряная каша из булгура на молоке с курагой и фисташками,breakfast,
+1183,porridge_cornmeal_berries_yogurt,Теплая кукурузная каша с малиной и греческим йогуртом,breakfast,
+1184,porridge_cornmeal_pumpkin_orange,Золотая кукурузная каша с тыквой и апельсином,breakfast,
+1185,porridge_cornmeal_sweet_milk_butter,Кукурузная каша на молоке со сливочным маслом и медом,breakfast,
+1186,porridge_couscous_dried_fruits_sweet,Быстрый утренний кускус на молоке с сухофруктами,breakfast,
+1187,porridge_couscous_persimmon_honey,Сладкий кускус на воде со спелой хурмой и медом,breakfast,
+1188,porridge_quinoa_apple_pecan_cinnamon,"Теплый завтрак с киноа, грушей и жареным фундуком",breakfast,
+1189,porridge_quinoa_coconut_blackberry,Сладкая каша из киноа с ежевикой и кокосовым молоком,breakfast,
+1190,porridge_rice_mango_coconut_thai,Сладкий тайский рис в кокосовом молоке с грушей,breakfast,
+1191,porridge_vermicelli_milk_sweet_butter,Молочный суп-каша с тонкой вермишелью и сливочным маслом,breakfast,
+1192,salad_apple_cabbage_walnut_salad,Освежающий салат из капусты с яблоком и грецким орехом,salad,
+1193,salad_arugula_pear_parmesan_pine,"Изысканный салат с рукколой, сладкой грушей и пармезаном",salad,
+1194,salad_arugula_persimmon_pomegranate,"Зимний салат с хурмой, рукколой и зернами граната",salad,
+1195,salad_asparagus_cherry_parmesan,"Весенний теплый салат со спаржей, черри и пармезаном",salad,
+1196,salad_avocado_cherry_tomato_arugula,"Свежий зеленый салат с авокадо, рукколой и черри",salad,
+1197,salad_avocado_cucumber_corn_cilantro,"Мексиканский салат с авокадо, кукурузой и кинзой",salad,
+1198,salad_avocado_grapefruit_spinach,"Цитрусовый салат с грейпфрутом, авокадо и свежим шпинатом",salad,
+1199,salad_bacon_caesar_egg_croutons,"Сытный салат с хрустящим беконом, яйцом и сухариками",salad,
+1200,salad_bacon_spinach_mushroom_warm,Французский салат из шпината с беконом и шампиньонами,salad,
+1201,salad_beet_feta_arugula_walnut,"Салат с печеной свеклой, нежной фетой и рукколой",salad,
+1202,salad_beet_prunes_apple_sour,Полезный салат из отварной свеклы с черносливом и яблоком,salad,
+1203,salad_blackberry_spinach_walnut,"Изысканный салат со свежей ежевикой, шпинатом и орехом",salad,
+1204,salad_blueberry_arugula_goat,"Яркий салат с лесной черникой, рукколой и сливочным сыром",salad,
+1205,salad_broccoli_cauliflower_cranberry,"Хрустящий салат с брокколи, клюквой и семечками",salad,
+1206,salad_caprese_mozzarella_basil,Итальянский салат капрезе со спелыми томатами и моцареллой,salad,
+1207,salad_carrot_raisins_garlic_cheese,Пикантный салат из сырой моркови с сыром и чесноком,salad,
+1208,salad_celery_apple_walnut_waldorf,"Знаменитый салат вальдорф с сельдереем, яблоком и виноградом",salad,
+1209,salad_coleslaw_apple_yogurt,"Хрустящий салат коулслоу с капустой, яблоком и морковью",salad,
+1210,salad_corn_cucumber_egg_dill,"Легкий праздничный салат с кукурузой, огурцом и яйцом",salad,
+1211,salad_crab_avocado_orange_egg,"Праздничный салат с крабовыми палочками, авокадо и яйцом",salad,
+1212,salad_crab_classic_corn_rice,"Классический крабовый салат с кукурузой, рисом и яйцом",salad,
+1213,salad_crab_cucumber_cabbage,Легкий крабовый салат с пекинской капустой и огурцом,salad,
+1214,salad_crab_sticks_pear_pistachio,"Необычный салат с крабовыми палочками, грушей и фисташками",salad,
+1215,salad_crab_sticks_tomato_cheese,Яркий салат Красное море с крабовыми палочками и сыром,salad,
+1216,salad_cucumber_avocado_dill_yogurt,Освежающий зеленый салат из огурцов с йогуртом и укропом,salad,
+1217,salad_cucumber_feta_dill_greek,Огуречный салат по-деревенски с фетой и редисом,salad,
+1218,salad_currant_tomato_green_salad,"Дачный салат с томатами, рукколой и красной смородиной",salad,
+1219,salad_daikon_carrot_apple_honey,Свежий хрустящий салат из дайкона с яблоком и морковью,salad,
+1220,salad_duck_orange_walnut_salad,"Изысканный салат с запеченной уткой, апельсином и рукколой",salad,
+1221,salad_egg_cheese_garlic_mimosa,Простой яичный салат с тертым сыром и чесночной заправкой,salad,
+1222,salad_egg_green_onion_sour_cream,Деревенский весенний салат из зеленого лука с яйцом,salad,
+1223,salad_ham_cabbage_croutons_salad,"Хрустящий салат с ветчиной, капустой и сухариками",salad,
+1224,salad_ham_cheese_bell_pepper_salad,"Быстрый салат с ветчиной, болгарским перцем и сыром",salad,
+1225,salad_ham_peas_cucumber_fresh,"Салат с ветчиной, свежим огурцом и зеленым горошком",salad,
+1226,salad_ham_pineapple_corn_salad,"Сладковато-соленый салат с ветчиной, кукурузой и ананасом",salad,
+1227,salad_heart_pickles_carrot_salad,Сытный салат из говяжьего сердца с морковью и луком,salad,
+1228,salad_kohlrabi_apple_sour_cream,Легкий салат из хрустящей кольраби со сладким яблоком,salad,
+1229,salad_korean_beet_cilantro,Пряная сырая свекла по-корейски с кинзой и чесноком,salad,
+1230,salad_korean_carrot_spicy_garlic,Пикантная морковь по-корейски с чесноком и кориандром,salad,
+1231,salad_lentils_green_tomato_herbs,"Постный салат с зеленой чечевицей, черри и базиликом",salad,
+1232,salad_lettuce_avocado_egg_mustard,"Полезный завтрак-салат с листьями салата, авокадо и яйцом",salad,
+1233,salad_lettuce_radish_green_onion,"Быстрый дачный салат с листьями салата, редисом и луком",salad,
+1234,salad_melon_mozzarella_basil,Легкая итальянская закуска-салат с дыней и моцареллой,salad,
+1235,salad_microgreens_avocado_pine_nuts,"Салат-детокс с микрозеленью, авокадо и кедровым орехом",salad,
+1236,salad_mussels_bell_pepper_olives,"Средиземноморский салат с мидиями, оливками и перцем",salad,
+1237,salad_nettle_egg_cucumber_spring,Майский витаминный салат с молодой крапивой и яйцом,salad,
+1238,salad_orange_fennel_olives_salad,"Сицилийский салат с апельсинами, маслинами и красным луком",salad,
+1239,salad_panzanella_tomato_bread_salad,Итальянский салат панцанелла с черствым хлебом и базиликом,salad,
+1240,salad_peach_arugula_feta_almond,"Летний салат с сочными персиками, рукколой и миндалем",salad,
+1241,salad_persimmon_bell_pepper_feta,"Яркий салат с хурмой, болгарским перцем и сыром фета",salad,
+1242,salad_plum_spinach_hazelnut_salad,"Осенний салат со спелыми сливами, шпинатом и фундуком",salad,
+1243,salad_pomegranate_cucumber_onion,"Кавказский сочный салат с гранатом, огурцом и кинзой",salad,
+1244,salad_quinoa_cucumber_bell_pepper,"Питательный салат с киноа, сладким перцем и петрушкой",salad,
+1245,salad_rabbit_apple_celery_salad,"Диетический салат с отварным кроликом, яблоком и сельдереем",salad,
+1246,salad_red_cabbage_walnut_orange,Витаминный салат из красной капусты с апельсином и орехом,salad,
+1247,salad_sausage_corn_cheese_salad,"Домашний салат с копченой колбасой, кукурузой и сыром",salad,
+1248,salad_seafood_arugula_cherry_lemon,Ресторанный теплый салат с морепродуктами и рукколой,salad,
+1249,salad_shopska_bulgarian_feta,"Шопский салат с печеным перцем, томатами и брынзой",salad,
+1250,salad_sorrel_tomato_cheese_salad,"Свежий весенний салат со щавелем, брынзой и томатами",salad,
+1251,salad_spinach_strawberry_almond,Летний салат из молодого шпината с клубникой и миндалем,salad,
+1252,salad_tabouleh_bulgur_parsley,Ближневосточный салат табуле с булгуром и петрушкой,salad,
+1253,salad_tofu_cucumber_sesame_asian,"Легкий салат с кубиками тофу, огурцом и кунжутным маслом",salad,
+1254,salad_tomato_plum_tarragon_salad,"Ароматный летний салат из помидоров, слив и эстрагона",salad,
+1255,salad_tomato_red_onion_basil_georgian,Грузинский салат из томатов с ореховой заправкой и кинзой,salad,
+1256,salad_tongue_cheese_walnut_garlic,"Праздничный салат с языком, сыром и грецким орехом",salad,
+1257,salad_tongue_pickles_mushroom_salad,Деликатесный салат из говяжьего языка с грибами и огурцами,salad,
+1258,salad_tuna_avocado_corn_salad,"Сытный салат с тунцом, спелым авокадо и кукурузой",salad,
+1259,salad_tuna_pasta_corn_mayo,"Холодный салат с пастой, тунцом, кукурузой и зеленью",salad,
+1260,salad_turnip_honey_carrot_vit,Деревенский хрустящий салат из репы с морковью и медом,salad,
+1261,salad_watermelon_feta_mint_summer,"Освежающий летний салат с арбузом, фетой и мятой",salad,
+1262,porridge_buckwheat_cabbage_carrot_pot,Рассыпчатая гречневая каша с капустой в горшочке,side,
+1263,porridge_buckwheat_carrot_garlic_herb,"Гречневый гарнир с тертой морковью, чесноком и укропом",side,
+1264,porridge_bulgur_broccoli_lemon,Полезный булгур с соцветиями брокколи и соком лимона,side,
+1265,porridge_bulgur_mushroom_carrot,"Гарнир из булгура с вешенками, луком и морковью",side,
+1266,porridge_bulgur_pumpkin_sage_side,Ароматный булгур со сладкой тыквой и розмарином,side,
+1267,porridge_couscous_beets_cilantro,Пестрый кускус с запеченной свеклой и кинзой,side,
+1268,porridge_couscous_green_peas_mint,"Легкий кускус с зеленым горошком, лимоном и мятой",side,
+1269,porridge_couscous_olives_cherry_tomato,Средиземноморский кускус с маслинами и помидорами черри,side,
+1270,porridge_couscous_raisins_almond,Праздничный восточный кускус с изюмом и жареным миндалем,side,
+1271,porridge_couscous_spinach_feta_garlic,Быстрый кускус с раскрошенной фетой и шпинатом,side,
+1272,porridge_mamalyga_feta_butter,Молдавская мамалыга со сливочным маслом и брынзой,side,
+1273,porridge_pasta_aglio_olio_garlic,Классические спагетти альо э олио с чесноком и петрушкой,side,
+1274,porridge_pasta_asparagus_butter_egg,Спагетти со спаржей и сливочным яичным соусом,side,
+1275,porridge_pasta_bell_pepper_walnut,Спагетти со сладким печеным перцем и грецким орехом,side,
+1276,porridge_pearl_barley_orsotto_mushrooms,Кремовое перлотто с вешенками и твердым сыром,side,
+1277,porridge_polenta_classic_parmesan,Итальянская кремовая полента с сыром пармезан,side,
+1278,porridge_polenta_grilled_mushrooms,Запеченная кукурузная полента с грибами и тимьяном,side,
+1279,porridge_polenta_tomato_herb_ragu,Мягкая кукурузная каша с томатным соусом и базиликом,side,
+1280,porridge_quinoa_asparagus_parmesan,Киноа с хрустящей зеленой спаржей и пармезаном,side,
+1281,porridge_quinoa_beet_walnut,Теплое киноа с печеной свеклой и грецким орехом,side,
+1282,porridge_quinoa_bell_pepper_corn,Гарнир из киноа со сладкой кукурузой и паприкой,side,
+1283,porridge_quinoa_mushrooms_thyme,Рассыпчатая киноа с жареными шампиньонами и тимьяном,side,
+1284,porridge_quinoa_soy_edamame_ginger,"Азиатский боул с киноа, бобами и свежим имбирем",side,
+1285,porridge_rice_basmati_garlic_cilantro,"Рассыпчатый рис с лаймом, чесноком и свежей кинзой",side,
+1286,porridge_rice_carrot_bell_pepper_oven,Запеченный в духовке рис со сладким перцем и морковью,side,
+1287,porridge_rice_fried_egg_green_onion,Жареный рис по-китайски с яйцом и зеленым луком,side,
+1288,porridge_rice_indian_jeera_peas,Индийский рис джира пулао с зирой и зеленым горошком,side,
+1289,porridge_rice_lentils_green_kitchari,Аюрведическое кичари из риса басмати и маша,side,
+1290,porridge_rice_risotto_mushrooms_parmesan,Итальянское ризотто с шампиньонами и сыром пармезан,side,
+1291,porridge_rice_risotto_pumpkin_sage,Кремовое ризотто с печеной тыквой и розмарином,side,
+1292,porridge_rice_risotto_spinach_butter,"Зеленое ризотто со шпинатом, чесноком и сливочным маслом",side,
+1293,porridge_rice_shiitake_soy_sesame,Жареный рис по-японски с грибами шиитаке и ароматным кунжутом,side,
+1294,porridge_rice_turmeric_corn_peas,"Золотистый рис с кукурузой, зеленым горошком и куркумой",side,
+1295,porridge_spaghetti_sunflower_pesto,Спагетти с домашним соусом из петрушки и семечек,side,
+1296,porridge_vermicelli_fried_pan_golden,Жареная на сухой сковороде вермишель с чесноком и маслом,side,
+1297,porridge_vermicelli_rice_turkish_pilaf,Турецкий пилав из рассыпчатого риса с жареной вермишелью,side,
+1298,bake_bell_pepper_corn_cornbread,Техасский кукурузный хлеб со сладким перцем и кукурузой,baking,
+1299,bake_blondie_caramel_cashew_butter,Карамельный блонди с белым орехом кешью и душистой ванилью,baking,
+1300,bake_blueberry_galette_cornmeal,Хрустящая галета с черникой и добавлением кукурузной крупы,baking,
+1301,bake_bread_bagels_sesame_boiled,"Упругие бейглы с маком и кунжутом, сваренные в медовой воде",baking,
+1302,bake_bread_brioche_butter_eggs,Сдобная французская бриошь на яйцах с маслом и цедрой апельсина,baking,
+1303,bake_bread_challah_sesame_braided,Праздничная плетеная хала с кунжутом и медом,baking,
+1304,bake_bread_chebureki_cheese_herbs,"Хрустящие янтыки с сыром, томатами и кинзой на сухой сковороде",baking,
+1305,bake_bread_garlic_cheese_pull_apart,Отрывной чесночный хлеб обезьяний с моцареллой и петрушкой,baking,
+1306,bake_bread_naan_garlic_butter_pan,Мягкие индийские лепешки наан с чесноком и кинзой на сковороде,baking,
+1307,bake_bread_olive_herb_skillet,"Ароматная лепешка в сковороде с оливками, орегано и ароматным чесноком",baking,
+1308,bake_bread_onion_walnut_artisan,Хрустящий деревенский хлеб с жареным луком и грецким орехом,baking,
+1309,bake_bread_pretzels_crispy_salt,Немецкие хрустящие брецели с крупной солью и тмином,baking,
+1310,bake_bread_rye_borodinsky_coriander,Домашний ароматный ржаной хлеб с кориандром и тмином,baking,
+1311,bake_bread_shoti_georgian_crispy,Хрустящий грузинский хлеб шоти с золотистой корочкой,baking,
+1312,bake_brownie_classic_walnut_dark,Влажный шоколадный брауни с грецким орехом и корочкой,baking,
+1313,bake_buns_apricot_jam_croissants,Домашние круассаны или рогалики с густым повидлом,baking,
+1314,bake_buns_cherry_puff_envelopes,Слоеные хрустящие конвертики с вишней и ванильным сахаром,baking,
+1315,bake_chak_chak_honey_tatar,Традиционный татарский чак-чак в тягучем медовом сиропе,baking,
+1316,bake_chocolate_lava_fondant_cake,Шоколадный фондан с жидкой серединкой и сливочным маслом,baking,
+1317,bake_cookies_gingerbread_spiced,Ароматные рождественские имбирные пряники с корицей и гвоздикой,baking,
+1318,bake_cookies_hazelnut_shortbread_balls,Рассыпчатые ореховые шарики из песочного теста с фундуком,baking,
+1319,bake_cupcakes_vanilla_condensed_frost,Нежные ванильные капкейки с кремом из вареной сгущенки,baking,
+1320,bake_eclairs_custard_vanilla_cream,Домашние заварные профитроли со сливочным ванильным кремом,baking,
+1321,bake_fig_honey_hazelnut_tart,Изысканный осенний тарт со свежим инжиром и фундуком,baking,
+1322,bake_focaccia_cherry_rosemary_olives,"Итальянская фокачча с томатами черри, маслинами и розмарином",baking,
+1323,bake_lemon_tart_curd_classic,Французский лимонный тарт на хрустящем песочном тесте,baking,
+1324,bake_melon_yogurt_sponge_cake,Нежный летний бисквит с кусочками дыни и йогуртом,baking,
+1325,bake_meringue_kisses_almond_sugar,Хрустящие безе с рубленым миндалем к ароматному чаю,baking,
+1326,bake_orehki_condensed_milk_cookies,Любимые хрустящие орешки из детства со сгущенкой и орехом,baking,
+1327,bake_pear_almond_frangipane_tart,Французский грушевый тарт с миндальным кремом франжипан,baking,
+1328,bake_poppy_seed_roll_raisins,"Рулет с сочной маковой начинкой, изюмом и медом",baking,
+1329,bake_poppy_sugar_buns_sverdlovsky,Пышные сдобные плюшки-сердечки с сахаром и маком,baking,
+1330,bake_pumpkin_savory_feta_galette,"Осенняя несладкая галета с печеной тыквой, фетой и розмарином",baking,
+1331,bake_quiche_champignon_leek_thyme,"Киш с жареными шампиньонами, пореем и тимьяном",baking,
+1332,bake_quiche_lorraine_bacon_cream,Французский киш лорен с хрустящим беконом и сливками,baking,
+1333,bake_rasstegai_cod_onion_broth,Традиционные открытые расстегаи с филе трески и укропом,baking,
+1334,bake_samsa_crispy_minced_cumin,Хрустящая слоеная самса с рубленым мясом и зирой,baking,
+1335,bake_sausage_rolls_puff_mustard,Домашние сосиски в слоеном или дрожжевом тесте с горчицей,baking,
+1336,bake_scones_cream_currant_black,Английские сливочные сконы к чаю с черной смородиной,baking,
+1337,bake_scones_savory_cheddar_green_onion,Сырные сконы с зеленым луком и сливочным маслом на завтрак,baking,
+1338,bake_spanakopita_lavash_greek,Хрустящая греческая спанакопита из лаваша со шпинатом,baking,
+1339,bake_sweet_cherry_clafoutis_french,Французский клафути со спелой черешней в молочной заливке,baking,
+1340,bake_tomato_mustard_french_tart,Прованский горчично-томатный тарт с моцареллой и тимьяном,baking,
+1341,bake_waffles_belgian_crispy_vanilla,Хрустящие венские или бельгийские вафли на сливочном масле,baking,
+1342,bake_waffles_chocolate_peanut_cream,Шоколадные вафли с арахисом и карамельным сиропом,baking,
+1343,ed_buttermilk_scones_lemon_zest,Воздушные лепешки сконы на пахте с лимонной цедрой,baking,
+1344,ed_cheese_cornmeal_bake_khachapuri,"Сытная кукурузная лепешка мчади, запеченная с сыром",baking,
+1345,des_almond_cream_apricots_chilled,Охлажденный миндальный крем со спелыми абрикосами,dessert,
+1346,des_baked_apples_ice_cream_caramel,Горячие карамельные яблоки с шариком холодного пломбира,dessert,
+1347,des_baked_apples_prunes_walnut_honey,"Запеченные яблоки с черносливом, орехами и душистым медом",dessert,
+1348,des_baked_figs_cheese_thyme_honey,Праздничный десерт из печеного инжира со сливочным сыром,dessert,
+1349,des_baked_grapefruit_honey_mint,Карамелизованный грейпфрут в духовке с медом и корицей,dessert,
+1350,des_baked_grapes_lemon_rosemary,Томленый сладкий виноград в духовке с лимонным кремом и сыром,dessert,
+1351,des_baked_peaches_hazelnut_honey,Сочные персики на гриле или в духовке с фундуком и медом,dessert,
+1352,des_baked_pears_chocolate_almond,Ароматные груши в духовке с миндалем и темным шоколадом,dessert,
+1353,des_baked_pears_ricotta_cranberry,Половинки печеных груш со сливочным сыром и клюквенным сиропом,dessert,
+1354,des_baked_persimmon_walnut_yogurt,Теплая печеная хурма с грецким орехом и густым йогуртом,dessert,
+1355,des_blackberry_apple_crisp_warm,"Теплый десерт с ежевикой, яблоками и хрустящей крошкой",dessert,
+1356,des_candied_almonds_cinnamon_sugar,Пряный карамельный миндаль с корицей к праздничному столу,dessert,
+1357,des_candied_orange_peels_chocolate,Домашние апельсиновые цукаты в темной шоколадной глазури,dessert,
+1358,des_caramelized_pineapple_coconut_lime,Жареный ананас в карамельном масле с лаймом и кокосом,dessert,
+1359,des_carrot_apple_honey_raisins_vitamin,"Сладкий тертый десерт из моркови с яблоком, изюмом и медом",dessert,
+1360,des_catalan_cream_orange_cinnamon,Испанский каталонский крем с корицей и цедрой апельсина,dessert,
+1361,des_cherry_meringue_egg_custard,Французский вишневый десерт флогнард с ванилью в духовке,dessert,
+1362,des_chocolate_bark_pistachio_cranberry,"Праздничная плитка шоколада с фисташками, сушеной клюквой и миндалем",dessert,
+1363,des_chocolate_truffles_orange_hazelnut,Ароматные трюфели с апельсиновой цедрой и фундуком,dessert,
+1364,des_coconut_bounty_bars_homemade,Домашние шоколадные батончики с сочной кокосовой начинкой,dessert,
+1365,des_coconut_kiwi_tapioca_pear_salad,"Фруктовый салат с грушей, киви и сладким кокосовым кремом",dessert,
+1366,des_couscous_sweet_dates_orange_milk,Восточный сладкий кускус на молоке с финиками и апельсином,dessert,
+1367,des_creme_brulee_baked_custard_vanilla,Классический запеченный крем-брюле со сливками и ванилью,dessert,
+1368,des_crumble_peach_raspberry_coconut,"Ароматный летний крамбл с персиком, малиной и кокосом",dessert,
+1369,des_crumble_rhubarb_strawberry_almond,"Теплый английский крамбл с ревенем, клубникой и миндалем",dessert,
+1370,des_dates_cream_cheese_pistachio,"Сладкие финики со сливочным сыром, медом и фисташкой",dessert,
+1371,des_energy_balls_dried_apricots_almond,"Витаминные конфеты из кураги, изюма, миндаля и меда",dessert,
+1372,des_energy_balls_prunes_pumpkin_seeds,Полезные конфеты без сахара с черносливом и семечками тыквы,dessert,
+1373,des_flan_baked_condensed_milk_caramel,Латиноамериканский запеченный флан на сгущенке и молоке,dessert,
+1374,des_fried_apples_honey_pancake_rings,Румяные дольки яблок на сковороде с корицей и мороженым,dessert,
+1375,des_fruit_salad_citrus_pomegranate,"Зимний цитрусовый салат с апельсином, грейпфрутом и гранатом",dessert,
+1376,des_fruit_salad_peach_apricot_pistachio,Летний нежный салат из персиков и абрикосов с фисташками,dessert,
+1377,des_fruit_salad_pear_grape_walnut,"Осенний фруктовый салат с грушей, виноградом и орехами",dessert,
+1378,des_fruit_salad_persimmon_mandarin_nuts,Новогодний десертный салат из хурмы с мандаринами и орехом,dessert,
+1379,des_fruit_salad_watermelon_melon_mint,Освежающий летний салат из арбуза и дыни с лаймом и мятой,dessert,
+1380,des_fudge_milk_sugar_soviet_sherbet,Сливочный домашний щербет с арахисом на сгущенном молоке,dessert,
+1381,des_gajar_halwa_carrot_milk_cardamom,Восточный сладкий десерт из моркови в молоке с кардамоном,dessert,
+1382,des_halva_chocolate_fudge_walnut,Домашняя шоколадная халва со сливочным маслом и орехами,dessert,
+1383,des_halva_flour_honey_butter_uzbek,Узбекская домашняя мучная халва с медом и орехами,dessert,
+1384,des_ice_cream_cherry_yogurt_frozen,Освежающий вишневый замороженный йогурт с кусочками шоколада,dessert,
+1385,des_kozinaki_peanut_sesame_caramel,Восточный грильяж с жареным арахисом и кунжутом на меду,dessert,
+1386,des_kozinaki_sunflower_honey_crunchy,Домашние хрустящие козинаки из семечек подсолнуха на меду,dessert,
+1387,des_kozinaki_walnut_trad_georgian,Грузинский праздничный гозинаки с грецким орехом и медом,dessert,
+1388,des_marmalade_plum_lemon_homemade,Домашний ароматный сливовый мармелад в сахарной обсыпке,dessert,
+1389,des_pannacotta_coconut_pineapple,Экзотическая панна-котта на кокосовом молоке с ананасом,dessert,
+1390,des_pannacotta_vanilla_berry_coulis,Итальянская сливочная панна-котта с малиновым соусом,dessert,
+1391,des_parfait_yogurt_blackberry_cashew,"Воздушный йогуртовый парфе с ежевикой, медом и кешью",dessert,
+1392,des_plum_hazelnut_parfait_cream,Сливовый парфе с карамельным кремом и дробленым фундуком,dessert,
+1393,des_poached_apricots_cinnamon_yogurt,Пряные томленые абрикосы в сиропе с густым йогуртом,dessert,
+1394,des_poached_pears_spiced_plum_syrup,Пряные томленые груши в сливово-пряном сиропе с гвоздикой,dessert,
+1395,des_pomegranate_yogurt_pistachio_bowl,"Десертная пиала из йогурта с гранатом, фисташками и медом",dessert,
+1396,des_ptichye_moloko_chocolate_glaze,Домашнее суфле Птичье молоко под глянцевой шоколадной глазурью,dessert,
+1397,des_pumpkin_dates_sweet_creamy,Нежный сладкий крем из печеной тыквы с финиками и корицей,dessert,
+1398,des_raffaello_condensed_butter_wafers,Сливочные кокосовые шарики со сгущенкой и целым миндалем,dessert,
+1399,des_rice_sweet_coconut_mango_thai,Тайский сладкий рис на кокосовом молоке со спелым персиком,dessert,
+1400,des_sabayon_berry_cooked_cream,Теплый французский крем сабайон с ежевикой и свежей мятой,dessert,
+1401,des_snickers_date_peanut_caramel_bars,"Полезные батончики с финиками, жареным арахисом и шоколадом",dessert,
+1402,des_sorbet_kiwi_pineapple_lime,Тропический зеленый сорбет из киви со спелым ананасом и лаймом,dessert,
+1403,des_sorbet_melon_orange_ginger,Ароматный дынный сорбет с апельсиновым соком и мятой,dessert,
+1404,des_sorbet_raspberry_lemon_mint,Яркий кисло-сладкий малиновый сорбет с лимоном без молока,dessert,
+1405,des_sorbet_watermelon_lime_mint,Освежающий летний арбузный сорбет с соком лайма и мятой,dessert,
+1406,des_strawberry_chocolate_dipped_nuts,Спелая клубника в растопленном шоколаде с крошкой фисташек,dessert,
+1407,des_strawberry_ice_cream_balsamic_chocolate,Клубника со сливочным пломбиром и шоколадной стружкой,dessert,
+1408,des_trifle_strawberry_yogurt_granola,"Легкий трайфл со свежей клубникой, йогуртом и хрустящими хлопьями",dessert,
+1409,ed_condensed_milk_coconut_candy,Домашние конфеты из сгущенного молока с кокосовой стружкой,dessert,
+1410,ed_cream_whipped_peach_almond,Взбитые сливки со сладкими персиками и миндальными хлопьями,dessert,
+1411,ed_ice_cream_baked_apple_cinnamon,Горячие печеные яблоки с корицей и шариком пломбира,dessert,
+1412,ed_milk_cream_caramel_flan,Испанский молочный десерт флан с карамелью и яйцами,dessert,
+1413,ed_milk_panna_cotta_raspberry,Итальянская панна котта из сливок с малиновым соусом,dessert,
+1414,ed_powdered_milk_burfi_indian,Индийские молочные конфеты бурфи с кардамоном и фисташками,dessert,
+1415,ed_yogurt_peach_pistachio_parfait,Слоеное парфе из густого йогурта с персиком и фисташками,dessert,
+1416,ed_cheese_baked_feta_tomato_honey,"Запеченная в духовке фета с медом, кунжутом и черри",snack,
+1417,ed_cheese_baked_georgian_cornmeal,"Горячий сыр, запеченный с помидорами и мятой в кеци",snack,
+1418,ed_cheese_cream_herb_dip_radish,Праздничный дип из сливочного сыра с зеленью и редисом,snack,
+1419,ed_cheese_fondue_bread_garlic,Швейцарское сырное фондю с чесноком и хрустящим хлебом,snack,
+1420,ed_cheese_parmesan_chips_thyme,Хрустящие сырные чипсы из пармезана с веточкой тимьяна,snack,
+1421,ed_curdled_milk_garlic_dill_spread,Простая холодная простокваша по-деревенски с укропом,snack,
+1422,ed_milk_mascarpone_homemade_cream,Домашний нежный сливочный крем из жирных сливок и лимона,snack,
+1423,ed_yogurt_carrot_cucumber_raita,Индийский освежающий соус-закуска райта с огурцом и тмином,snack,
+1424,salad_apple_peanut_butter_snack,Быстрый перекус: дольки яблока с арахисом и корицей,snack,
+1425,salad_avocado_tuna_cucumber_boats,"Лодочки из свежих огурцов с тунцом, авокадо и свежим лимоном",snack,
+1426,salad_bell_pepper_boats_feta_olives,Лодочки из сладкого перца с сыром фета и маслинами,snack,
+1427,salad_bruschetta_avocado_feta_cherry,"Хрустящие тосты с кремом из авокадо, черри и фетой",snack,
+1428,salad_bruschetta_champignon_cream_cheese,Горячая брускетта с жареными шампиньонами и сыром,snack,
+1429,salad_bruschetta_tomato_basil_garlic,Итальянская брускетта со спелыми томатами и базиликом,snack,
+1430,salad_cabbage_pate_carrot_mushroom,Сытная закусочная грибная икра с морковью и пастой,snack,
+1431,salad_carrot_dip_tahini_cumin,Пряная закуска-дип из запеченной моркови с кунжутом,snack,
+1432,salad_cauliflower_popcorn_paprika,Запеченные кусочки цветной капусты со сладкой паприкой,snack,
+1433,salad_cheese_balls_crab_garlic,Праздничные сырные шарики Рафаэлло с крабовой стружкой,snack,
+1434,salad_cheese_balls_walnut_grapes,Закуска на шпажках: виноград в нежном сыре и фисташках,snack,
+1435,salad_cheese_carrot_garlic_spread,"Острая сырная закуска с морковью, яйцом и майонезом",snack,
+1436,salad_cheese_sticks_puff_baked,Хрустящие запеченные сырные палочки с кунжутом,snack,
+1437,salad_corn_fritters_snack_yogurt,Хрустящие кукурузные оладушки с йогуртом и зеленым луком,snack,
+1438,salad_cucumber_canape_ham_cheese,"Праздничные канапе с огурцом, ветчиной и сливочным сыром",snack,
+1439,salad_dates_almond_coconut_snack,Восточная закуска к чаю: сладкие финики с миндалем и кокосом,snack,
+1440,salad_dried_apricots_walnut_honey,"Витаминная смесь из кураги с изюмом, лимоном и медом",snack,
+1441,salad_forshmak_apple_bread_tuna,Нежный закусочный паштет из сардин с яблоком и маслом,snack,
+1442,salad_frankfurters_in_lavash_crispy,Быстрые хрустящие сосиски в лаваше с кетчупом и сыром,snack,
+1443,salad_fried_mozzarella_sticks,Горячие хрустящие сырные палочки в панировке с яйцом,snack,
+1444,salad_garlic_cheese_tomato_rings,Кружочки спелых томатов с тертым сыром и чесноком,snack,
+1445,salad_green_peas_mint_dip,Свежая намазка из зеленого горошка с мятой и фетой,snack,
+1446,salad_guacamole_avocado_lime,Мексиканский соус гуакамоле из авокадо с лаймом и кинзой,snack,
+1447,salad_lavash_chips_paprika_garlic,Домашние хрустящие чипсы из лаваша с чесноком и паприкой,snack,
+1448,salad_lavash_roll_crab_egg_dill,Рулет из тонкого лаваша с крабовыми палочками и яйцом,snack,
+1449,salad_lavash_roll_korean_carrot_ham,Яркий рулет из лаваша с ветчиной и тертой морковью,snack,
+1450,salad_lavash_roll_tuna_cheese_cucumber,"Закусочный рулет в лаваше с тунцом, сыром и огурцом",snack,
+1451,salad_oyster_mushroom_julienne_toast,Горячие тарталетки или тосты с грибным жульеном из вешенок,snack,
+1452,salad_pear_walnut_cheese_crostini,"Хрустящие кростини со сладкой грушей, сыром и медом",snack,
+1453,salad_pickles_honey_cheese_platter,"Необычная пикантная закуска: огурчики, твердый сыр и мед",snack,
+1454,salad_pineapple_cheese_garlic_canape,"Яркие канапе с колечками ананаса, сыром и чесноком",snack,
+1455,salad_pkhali_beet_walnut_georgian,Грузинское пхали из свеклы с грецким орехом и кинзой,snack,
+1456,salad_pkhali_spinach_walnut_georgian,Изумрудное грузинское пхали из шпината с пряностями,snack,
+1457,salad_radish_butter_bread_french,"Французские тартинки со свежим редисом, маслом и солью",snack,
+1458,salad_sausage_cheese_lavash_triangles,"Жареные конвертики из лаваша с колбасой, томатом и сыром",snack,
+1459,salad_squash_ikra_garlic_bread,Домашняя теплая икра из запеченной тыквы на тостах,snack,
+1460,salad_stuffed_champignons_bacon_cheese,Запеченные шляпки грибов с хрустящим беконом и сыром,snack,
+1461,salad_stuffed_eggs_mushroom_onion,Праздничные яйца с начинкой из жареных шампиньонов,snack,
+1462,salad_stuffed_tomatoes_cheese_garlic,"Помидоры, начиненные тертым сыром с чесночной заправкой",snack,
+1463,salad_tomato_cheese_canape_basil,Закуска на шпажках: томаты черри с сыром моцарелла и оливками,snack,
+1464,salad_tzatziki_yogurt_cucumber,Греческая холодная закуска дзадзики из йогурта с огурцом,snack,
+1465,bev_ayran_cucumber_dill_mint,"Турецкий соленый айран со свежим огурцом, укропом и мятой",drink,
+1466,bev_bedtime_milk_butter_honey,Теплое домашнее молоко на ночь со сливочным маслом и медом,drink,
+1467,bev_bedtime_milk_fig_honey,"Полезное теплое молоко, томленое с инжиром и медом",drink,
+1468,bev_bedtime_milk_garlic_honey,"Согревающее народное молоко с чесноком, медом и маслом",drink,
+1469,bev_caramel_warm_milk_vanilla,Теплое карамельное молоко с ванилью и мускатным орехом,drink,
+1470,bev_cocoa_spiced_chili_mexican,Мексиканский пряный шоколадный напиток с щепоткой острого перца,drink,
+1471,bev_condensed_milk_cocoa_nut,Сладкий домашний шоколадный напиток со сгущенкой и миндалем,drink,
+1472,bev_golden_milk_coconut_cardamom,Веганское золотое кокосовое молоко с куркумой и кардамоном,drink,
+1473,bev_golden_milk_turmeric_ginger,"Золотое пряное молоко с куркумой, имбирем и медом",drink,
+1474,bev_hot_chocolate_halva_sesame,Необычный горячий шоколад с халвой и ванилью,drink,
+1475,bev_hot_chocolate_italian_thick,Густой итальянский горячий шоколад на сливках с крахмалом,drink,
+1476,bev_jam_warm_lemon_water_tea,Уютный согревающий напиток из малинового варенья с лимоном,drink,
+1477,bev_juice_pomegranate_grape_lemon,"Витаминный микс соков из граната, винограда и лимона",drink,
+1478,bev_kvass_beet_garlic_savory,Традиционный свекольный напиток на закваске из черного хлеба,drink,
+1479,bev_kvass_mint_apple_rye,Летний бодрящий хлебный напиток с мятой и яблоками,drink,
+1480,bev_kvass_rye_bread_raisins,Освежающий домашний напиток из черного хлеба с изюмом,drink,
+1481,bev_lassi_apricot_cardamom_yogurt,"Индийский прохладный ласси с абрикосом, йогуртом и кардамоном",drink,
+1482,bev_lassi_strawberry_mint_yogurt,Освежающий клубничный ласси на натуральном йогурте с мятой,drink,
+1483,bev_masala_milk_spiced_indian,Индийское пряное молоко со специями кардамоном и гвоздикой,drink,
+1484,bev_milkshake_caramel_halva_ice,Сладкий восточный молочный коктейль с халвой и пломбиром,drink,
+1485,bev_milkshake_cherry_cocoa_ice,Вишневый молочный коктейль с шоколадной ноткой и мороженым,drink,
+1486,bev_milkshake_melon_vanilla_ice,Ароматный дынный молочный коктейль со сливочным мороженым,drink,
+1487,bev_milkshake_pistachio_ice_cream,Изысканный фисташковый молочный коктейль с пломбиром,drink,
+1488,bev_milkshake_strawberry_ice_cream,Нежный клубничный молочный коктейль как в детстве,drink,
+1489,bev_milkshake_vanilla_ice_cream_classic,Классический сливочный молочный коктейль с пломбиром и ванилью,drink,
+1490,bev_sbiten_cherry_mint_coriander,Вишневый русский сбитень с мятой и пряным кориандром,drink,
+1491,bev_sbiten_classic_honey_spices,Старорусский пряный медовый сбитень с имбирем и гвоздикой,drink,
+1492,bev_sbiten_cranberry_thyme,Согревающий клюквенный сбитень с чабрецом и медом,drink,
+1493,bev_sbiten_orange_bay_leaf,"Ароматный цитрусовый сбитень с апельсином, лавром и медом",drink,
+1494,bev_tea_blackberry_tarragon_lime,"Необычный душистый настой с ежевикой, тархуном и лаймом",drink,
+1495,bev_tea_cranberry_orange_ginger,"Яркий витаминный напиток с клюквой, апельсином и имбирем",drink,
+1496,bev_tea_grapefruit_rosemary_honey,Тонизирующий теплый напиток из грейпфрута с розмарином,drink,
+1497,bev_tea_nettle_lemon_honey,Весенний витаминный травяной отвар из крапивы с лимоном,drink,
+1498,bev_tea_orange_cinnamon_cloves,"Пряный зимний напиток с апельсином, корицей и гвоздикой",drink,
+1499,bev_tea_pomegranate_mint_lemon,"Рубиновый согревающий настой с гранатом, лимоном и мятой",drink,
+1500,bev_tea_raspberry_lemon_mint,"Домашний малиновый настой с лимоном, медом и мятой",drink,
+1501,bev_tea_thyme_mint_oregano,"Уютный душистый травяной сбор из чабреца, мяты и орегано",drink,
+1502,bev_tomato_celery_horseradish_mocktail,"Острый томатный напиток с хреном, сельдереем и лимоном",drink,
+1503,bev_uzvar_cranberry_dried_fruits,Насыщенный узвар из сухофруктов с кислой клюквой и корицей,drink,
+1504,bev_uzvar_dates_orange_ginger,"Пряный зимний узвар с финиками, апельсином и имбирем",drink,
+1505,bev_uzvar_fig_plum_cardamom,"Восточный сладкий узвар с инжиром, сливой и кардамоном",drink,
+1506,bev_uzvar_prunes_dried_apricots,"Украинский традиционный узвар с черносливом, курагой и медом",drink,
+1507,bev_uzvar_raisins_pear_dried_fruits,Праздничный рождественский узвар с изюмом и грушей,drink,
+1508,bev_whey_mint_cucumber_cooler,Летний тонизирующий напиток на сыворотке с огурцом и мятой,drink,
+1509,ed_milk_ginger_turmeric_golden,"Пряное золотое теплое молоко с куркумой, имбирем и медом",drink,
+1510,pres_caviar_beet_onion_lemon,"Свекольная икра с луком, лимоном и грецким орехом",preserve,
+1511,pres_horseradish_beet_simple,Традиционный тертый хрен со свеклой и уксусом,preserve,
+1512,pres_hrenovaya_zakuska_horseradish,"Острая хреновина из помидоров, хрена и чеснока",preserve,
+1513,pres_jam_blueberry_lemon_thyme,Черничный конфитюр с лимоном и веточкой свежего чабреца,preserve,
+1514,pres_jam_cranberry_orange_confit,Клюквенный конфитюр с апельсиновой цедрой и корицей,preserve,
+1515,pres_jam_onion_caramel_balsamic,Карамелизованный луковый конфитюр с уксусом и розмарином,preserve,
+1516,pres_jam_peach_raspberry_confit,Нежный летний конфитюр из персиков и малины с лимоном,preserve,
+1517,pres_jam_plum_spiced_hungarian,Густое сливовое повидло с гвоздикой и анисом по-венгерски,preserve,
+1518,pres_jam_rhubarb_strawberry_confit,Кисло-сладкий конфитюр с ревенем и клубникой на пектине,preserve,
+1519,pres_jam_strawberry_basil_confit,Итальянский клубничный конфитюр с бадьяном и апельсином,preserve,
+1520,pres_ketchup_homemade_spicy,Острый домашний томатный кетчуп с луком и чесноком,preserve,
+1521,pres_ketchup_plum_sour,Пикантный сливовый кетчуп с томатами и острым перцем,preserve,
+1522,pres_pickles_apple_whole_sour,Моченые яблоки с клюквой и листочком смородины,preserve,
+1523,pres_pickles_beet_cranberry_horseradish,Пряный закусочный соус из свеклы с клюквой и хреном,preserve,
+1524,pres_pickles_beet_horseradish_relish,Свекольно-хреновый соус с чесноком — острый хреновик,preserve,
+1525,pres_pickles_bell_pepper_olive_oil,Запеченный сладкий перец в оливковом масле с чесноком,preserve,
+1526,pres_pickles_cherry_tomato_basil_brine,Малосольные томаты черри с базиликом и лимонным рассолом,preserve,
+1527,pres_pickles_cherry_tomatoes_sweet,Сладкие консервированные помидорки черри в сладком рассоле,preserve,
+1528,pres_pickles_watermelon_spicy_brine,Острый малосольный арбуз с чесноком и перцем,preserve,
+1529,pres_sauce_beet_orange_vinaigrette,Пикантная свекольная заправка с апельсином и хреном,preserve,
+1530,pres_sauce_cherry_plum_sweet_sour,Кисло-сладкий вишнево-сливовый соус к мясу и птице,preserve,
+1531,pres_sauce_cranberry_orange_holiday,Праздничный клюквенный соус с апельсином и корицей,preserve,
+1532,pres_sauce_dried_apricot_spice,Пряный кисло-сладкий соус из кураги с имбирем к мясу,preserve,
+1533,pres_sauce_muhammara_pepper_walnut,Сирийский соус мухаммара из жареного перца с орехами,preserve,
+1534,pres_sauce_mushroom_champignon_cream,Густой грибной соус из шампиньонов с чесноком и укропом,preserve,
+1535,pres_sauce_pesto_garlic_basil,"Домашнее зеленое песто с базиликом, кедровым орехом и оливкой",preserve,
+1536,pres_sauce_sea_buckthorn_orange,Яркий облепиховый соус с апельсином и медом к рыбе,preserve,
+1537,pres_sauce_tomatillo_salsa_verde,Мексиканская зеленая сальса с острым перцем и кинзой,preserve,
+1538,pres_sauce_tomato_basil_italian,Классический итальянский томатный соус с базиликом,preserve,
+1539,pres_tkemali_plum_sour_georgian,Грузинский классический соус ткемали из кислой сливы,preserve,
+1540,pres_tkemali_red_spiced,Красный грузинский ткемали из красной сливы и помидор,preserve,

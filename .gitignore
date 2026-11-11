@@ -21,3 +21,9 @@ android/app/*.jks
 
 # Reports output
 docs/reports/last_check.txt
+
+# Local helper output
+.tmp_*
+__pycache__/
+docs/reports/last_git.txt
+docs/reports/last_feed_test.txt
