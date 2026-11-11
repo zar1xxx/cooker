@@ -47,7 +47,7 @@ class AppDatabase extends _$AppDatabase {
   final bool seed;
 
   @override
-  int get schemaVersion => 4;
+  int get schemaVersion => 5;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -90,6 +90,11 @@ class AppDatabase extends _$AppDatabase {
       if (from < 4) {
         // R9: catalog text quality marker ('curated' | 'template').
         await m.addColumn(recipes, recipes.quality);
+      }
+      if (from < 5) {
+        // R10: the product list grew to 700+ items. No table changes:
+        // beforeOpen reloads the bundled seed after any upgrade, which adds
+        // new products and keeps pantry, favourites and history.
       }
     },
     beforeOpen: (details) async {

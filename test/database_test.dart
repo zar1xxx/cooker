@@ -46,8 +46,8 @@ void main() {
       expect(row.dishGroup, DishGroup.saladSnack);
     });
 
-    test('schema version is 3', () {
-      expect(db.schemaVersion, 4);
+    test('schema version is 5', () {
+      expect(db.schemaVersion, 5);
     });
 
     test(

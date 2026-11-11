@@ -64,8 +64,8 @@ void main() {
     });
 
     test('reports unknown products separately', () {
-      expect(normalizer.resolve('папайя'), isNull);
-      expect(normalizer.unresolved('картошка, папайя'), ['папайя']);
+      expect(normalizer.resolve('дуриан'), isNull);
+      expect(normalizer.unresolved('картошка, дуриан'), ['дуриан']);
     });
 
     test('walks the hierarchy in both directions', () {

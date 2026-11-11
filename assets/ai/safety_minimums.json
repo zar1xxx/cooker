@@ -11,7 +11,9 @@
         "duck",
         "goose",
         "turkey",
-        "turkey_fillet"
+        "turkey_fillet",
+        "quail",
+        "guinea_fowl"
       ],
       "keywords": [
         "вар",
@@ -38,7 +40,9 @@
         "утк",
         "гус",
         "птиц",
-        "котлет"
+        "котлет",
+        "перепел",
+        "цесарк"
       ]
     },
     {
@@ -228,6 +232,74 @@
       "mention_words": [
         "гриб"
       ]
+    },
+    {
+      "category": "lamb_game",
+      "ingredient_ids": [
+        "lamb_leg",
+        "lamb_ribs",
+        "lamb_shoulder",
+        "goat",
+        "horse_meat",
+        "venison",
+        "beef_kidney"
+      ],
+      "keywords": [
+        "вар",
+        "жар",
+        "запек",
+        "туш",
+        "томит",
+        "пассер",
+        "гриль",
+        "духовк",
+        "выпек"
+      ],
+      "min_minutes": 12,
+      "note": "Баранина, козлятина, конина, оленина, почки — R10: правило только для новых продуктов",
+      "mention_words": [
+        "баран",
+        "ягн",
+        "козл",
+        "конин",
+        "олен",
+        "почк",
+        "мяс"
+      ]
+    },
+    {
+      "category": "seafood",
+      "ingredient_ids": [
+        "octopus",
+        "scallops",
+        "crayfish",
+        "king_prawns",
+        "seafood_mix",
+        "cuttlefish"
+      ],
+      "keywords": [
+        "вар",
+        "жар",
+        "запек",
+        "туш",
+        "томит",
+        "пассер",
+        "гриль",
+        "духовк",
+        "выпек",
+        "бланш"
+      ],
+      "min_minutes": 3,
+      "note": "Морепродукты R10: до непрозрачности",
+      "mention_words": [
+        "осьмин",
+        "гребеш",
+        "рак",
+        "кревет",
+        "морепродукт",
+        "коктейл",
+        "каракатиц"
+      ]
     }
   ],
   "ready_to_eat_ids": [
@@ -235,7 +307,32 @@
     "beef_stew",
     "tuna_canned",
     "saury_canned",
-    "sardines_canned"
+    "sardines_canned",
+    "smoked_sausage",
+    "salami",
+    "boiled_sausage",
+    "small_sausages",
+    "prosciutto",
+    "smoked_pork_belly",
+    "smoked_ribs",
+    "smoked_chicken",
+    "eel_smoked",
+    "smoked_mackerel",
+    "herring_salted",
+    "salted_salmon",
+    "salted_trout",
+    "red_caviar",
+    "capelin_caviar",
+    "cod_liver",
+    "salmon_canned",
+    "sprats_canned",
+    "mackerel_canned",
+    "crab_meat",
+    "stewed_pork",
+    "chicken_canned",
+    "pate_liver",
+    "tofu_smoked",
+    "sausage_cheese"
   ],
   "per_serving_limits": {
     "salt_g": 10,
