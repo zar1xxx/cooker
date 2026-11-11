@@ -77,6 +77,13 @@ class AppLocalizationsRu extends AppLocalizations {
   String get pantryClearSearch => 'Очистить поиск';
 
   @override
+  String get pantryCategoryFilterHint => 'Найти в разделе';
+
+  @override
+  String get pantryCategoryNothingFound =>
+      'В этом разделе такого нет. Попробуйте общий поиск.';
+
+  @override
   String get pantryClose => 'Закрыть';
 
   @override

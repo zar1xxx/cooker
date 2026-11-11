@@ -95,6 +95,14 @@
   "@pantryClearSearch": {
     "description": "Кнопка очистки поиска"
   },
+  "pantryCategoryFilterHint": "Найти в разделе",
+  "@pantryCategoryFilterHint": {
+    "description": "R10-06: поле фильтра внутри длинного раздела продуктов"
+  },
+  "pantryCategoryNothingFound": "В этом разделе такого нет. Попробуйте общий поиск.",
+  "@pantryCategoryNothingFound": {
+    "description": "R10-06: фильтр раздела ничего не нашёл"
+  },
   "pantryClose": "Закрыть",
   "@pantryClose": {
     "description": "Кнопка закрытия"

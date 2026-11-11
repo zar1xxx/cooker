@@ -153,5 +153,35 @@ void main() {
         );
       },
     );
+    testWidgets(
+      'R10-06 long category has a filter field that narrows the list',
+      (tester) async {
+        tester.view.physicalSize = const Size(800, 2600);
+        tester.view.devicePixelRatio = 1.0;
+        addTearDown(tester.view.resetPhysicalSize);
+        addTearDown(tester.view.resetDevicePixelRatio);
+
+        await tester.pumpWidget(_createTestWidget(db));
+        await tester.pumpAndSettle();
+
+        final spices = find.text('Специи и соусы');
+        await tester.tap(spices);
+        await tester.pumpAndSettle();
+
+        final filter = find.byKey(const Key('pantry_category_filter'));
+        expect(filter, findsOneWidget);
+
+        await tester.enterText(filter, 'терияки');
+        await tester.pumpAndSettle();
+        expect(find.textContaining('терияки'), findsWidgets);
+
+        await tester.enterText(filter, 'несуществующее');
+        await tester.pumpAndSettle();
+        expect(
+          find.textContaining('В этом разделе такого нет'),
+          findsOneWidget,
+        );
+      },
+    );
   });
 }

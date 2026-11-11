@@ -621,7 +621,7 @@ class _IngredientCard extends StatelessWidget {
   }
 }
 
-class _CategoryIngredientsSheet extends ConsumerWidget {
+class _CategoryIngredientsSheet extends ConsumerStatefulWidget {
   const _CategoryIngredientsSheet({
     required this.category,
     required this.availableIds,
@@ -631,11 +631,39 @@ class _CategoryIngredientsSheet extends ConsumerWidget {
   final Set<String> availableIds;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<_CategoryIngredientsSheet> createState() =>
+      _CategoryIngredientsSheetState();
+}
+
+class _CategoryIngredientsSheetState
+    extends ConsumerState<_CategoryIngredientsSheet> {
+  /// R10-06: long sections (spices, vegetables) get a filter field.
+  static const int _filterThreshold = 20;
+
+  final TextEditingController _filterController = TextEditingController();
+  String _filter = '';
+
+  @override
+  void dispose() {
+    _filterController.dispose();
+    super.dispose();
+  }
+
+  static String _norm(String text) =>
+      text.toLowerCase().replaceAll('ё', 'е').trim();
+
+  bool _matches(Ingredient item, String query) {
+    if (_norm(item.name).contains(query)) return true;
+    return item.synonyms.any((s) => _norm(s).contains(query));
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final l10n = AppLocalizations.of(context)!;
+    final category = widget.category;
     final pantryAsync = ref.watch(pantryProvider);
-    final currentAvailable = pantryAsync.value ?? availableIds;
+    final currentAvailable = pantryAsync.value ?? widget.availableIds;
     final ingredientsAsync = ref.watch(
       ingredientsByCategoryProvider(category.id),
     );
@@ -675,6 +703,31 @@ class _CategoryIngredientsSheet extends ConsumerWidget {
                 ],
               ),
             ),
+            if ((ingredientsAsync.value?.length ?? 0) > _filterThreshold)
+              Padding(
+                padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
+                child: TextField(
+                  key: const Key('pantry_category_filter'),
+                  controller: _filterController,
+                  style: theme.textTheme.bodyLarge,
+                  decoration: InputDecoration(
+                    hintText: l10n.pantryCategoryFilterHint,
+                    prefixIcon: const Icon(Icons.search, size: 28),
+                    suffixIcon: _filter.isEmpty
+                        ? null
+                        : IconButton(
+                            icon: const Icon(Icons.clear, size: 28),
+                            tooltip: l10n.pantryClearSearch,
+                            onPressed: () {
+                              _filterController.clear();
+                              setState(() => _filter = '');
+                            },
+                          ),
+                    border: const OutlineInputBorder(),
+                  ),
+                  onChanged: (value) => setState(() => _filter = value),
+                ),
+              ),
             const Divider(),
 
             // Ingredients list
@@ -684,7 +737,26 @@ class _CategoryIngredientsSheet extends ConsumerWidget {
                 error: (e, _) => Center(
                   child: Text(e.toString(), style: theme.textTheme.bodyLarge),
                 ),
-                data: (items) {
+                data: (allItems) {
+                  final query = _norm(_filter);
+                  final items = query.isEmpty
+                      ? allItems
+                      : [
+                          for (final item in allItems)
+                            if (_matches(item, query)) item,
+                        ];
+                  if (items.isEmpty) {
+                    return Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(24),
+                        child: Text(
+                          l10n.pantryCategoryNothingFound,
+                          style: theme.textTheme.bodyLarge,
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    );
+                  }
                   return ListView.separated(
                     controller: scrollController,
                     padding: const EdgeInsets.symmetric(

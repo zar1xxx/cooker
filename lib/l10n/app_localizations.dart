@@ -214,6 +214,18 @@ abstract class AppLocalizations {
   /// **'Очистить поиск'**
   String get pantryClearSearch;
 
+  /// R10-06: поле фильтра внутри длинного раздела продуктов
+  ///
+  /// In ru, this message translates to:
+  /// **'Найти в разделе'**
+  String get pantryCategoryFilterHint;
+
+  /// R10-06: фильтр раздела ничего не нашёл
+  ///
+  /// In ru, this message translates to:
+  /// **'В этом разделе такого нет. Попробуйте общий поиск.'**
+  String get pantryCategoryNothingFound;
+
   /// Кнопка закрытия
   ///
   /// In ru, this message translates to:
